@@ -1,6 +1,6 @@
 # Family Organiser
 
-This web application is design to keep users in touch with their family and allow them to book events, share shopping lists, work together getting chores done as well as write status and message one another.
+This web application is designed to keep users in touch with their family and allow them to book events, share shopping lists, work together getting chores done, as well as write status and message one another.
 
 ## Technologies Used
 
