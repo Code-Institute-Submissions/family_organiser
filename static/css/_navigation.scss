@@ -1,0 +1,36 @@
+nav {
+    background: $navigation-colour;
+}
+
+.burger-container {
+    margin-right: 5px;
+    div {
+        height: 4px;
+        width: 30px;
+        background-color: black;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border-radius: 3px;
+    }
+}
+
+.mobile-navigation-links {
+    height: 100vh;
+    width: 50vw;
+    position: fixed;
+    top: 0;
+    right: -50vw;
+    border: solid grey 1px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+        padding: 0;
+        a {
+            padding: 10px 5px;
+            display: block;
+            width: 100%;
+            color: black;
+        }
+    }
+}

@@ -1,3 +1,44 @@
+nav {
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#FAFAFA));
+  background: linear-gradient(#ffffff, #FAFAFA);
+}
+
+.burger-container {
+  margin-right: 5px;
+}
+
+.burger-container div {
+  height: 4px;
+  width: 30px;
+  background-color: black;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+}
+
+.mobile-navigation-links {
+  height: 100vh;
+  width: 50vw;
+  position: fixed;
+  top: 0;
+  right: -50vw;
+  border: solid grey 1px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-navigation-links li {
+  padding: 0;
+}
+
+.mobile-navigation-links li a {
+  padding: 10px 5px;
+  display: block;
+  width: 100%;
+  color: black;
+}
+
 .add-button {
   position: fixed;
   bottom: 20px;
@@ -17,5 +58,9 @@
   position: relative;
   bottom: 16px;
   color: white;
+}
+
+.page-container {
+  min-height: 100vh;
 }
 /*# sourceMappingURL=style.css.map */
