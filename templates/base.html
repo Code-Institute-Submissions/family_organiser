@@ -6,15 +6,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@300&display=swap"
+        rel="stylesheet">
+
     <!-- js -->
     {% block extra_js %}{% endblock %}
-    <!-- gsap -->
+    <!-- gsap (js) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
 
     <!-- css -->
     {% block extra_css %}{% endblock %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!-- bootstrap -->
+    <!-- bootstrap (css) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -27,15 +31,18 @@
         <!-- Navigation -->
         <nav class="border">
             <div class="container-fluid d-flex justify-content-between p-1 px-2 align-items-center">
-                <img src="https://img.icons8.com/cotton/40/000000/family.png" />
+                <a href="/">
+                    <img src="https://img.icons8.com/cotton/40/000000/family.png" />
+                </a>
+                {% if user.is_authenticated %}
                 <div class="burger-container closed">
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
+                {% endif %}
             </div>
             <ul class="mobile-navigation-links">
-                {% if user.is_authenticated %}
                 <h6>{{ user.username }}</h6>
                 <li>
                     <a href="/user/profile/">
@@ -72,7 +79,6 @@
                         <img src="https://img.icons8.com/carbon-copy/32/000000/exit.png" class="mr-2" />Logout
                     </a>
                 </li>
-                {% endif %}
             </ul>
         </nav>
         <!-- Page content -->

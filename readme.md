@@ -63,3 +63,5 @@ This web application is designed to keep users in touch with their family and al
 
 [The Basics for sass](https://www.youtube.com/watch?v=Zz6eOVaaelI&t=651s)
 
+[Google login](https://www.youtube.com/watch?v=ZTBexYIIOP8&t=333s)
+

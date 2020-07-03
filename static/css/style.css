@@ -5,6 +5,7 @@ nav {
 
 .burger-container {
   margin-right: 5px;
+  cursor: pointer;
 }
 
 .burger-container div {
@@ -22,7 +23,6 @@ nav {
   position: fixed;
   top: 0;
   right: -50vw;
-  border: solid grey 1px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -58,6 +58,14 @@ nav {
   position: relative;
   bottom: 16px;
   color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Merriweather', serif;
+}
+
+p, a, b {
+  font-family: 'Roboto', sans-serif;
 }
 
 .page-container {

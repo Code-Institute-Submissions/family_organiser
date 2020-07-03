@@ -4,6 +4,7 @@ nav {
 
 .burger-container {
     margin-right: 5px;
+    cursor: pointer;
     div {
         height: 4px;
         width: 30px;
@@ -20,7 +21,6 @@ nav {
     position: fixed;
     top: 0;
     right: -50vw;
-    border: solid grey 1px;
     list-style: none;
     padding: 0;
     margin: 0;
