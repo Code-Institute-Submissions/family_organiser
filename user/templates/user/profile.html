@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <img src="/media/svg/add_data_background.svg" class="profile-background-image"></img>
 <img src="/media/svg/add_data_background_light.svg" class="profile-background-image-light"></img>
@@ -72,9 +72,13 @@
 
 
 
-    <button id="add-button">
+    <button id="add-button" class="closed">
         <span>+</span>
     </button>
 
 
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/profile.js' %}"></script>
 {% endblock %}

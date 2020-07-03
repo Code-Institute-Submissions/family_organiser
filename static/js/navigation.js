@@ -1,6 +1,6 @@
 var tl = gsap.timeline()
 
-$('.burger-container').on('click', function() {
+$(document).on('click','.burger-container', function() {
     if ($(this).hasClass('closed')) {
         // open the navigation bar
         tl.to('.mobile-navigation-links', 0.4, {transform: "translate(0vw, 0)"});
