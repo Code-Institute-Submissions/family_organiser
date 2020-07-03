@@ -1,5 +1,10 @@
 nav {
     background: $navigation-colour;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 555;
 }
 
 .burger-container {
@@ -16,6 +21,7 @@ nav {
 }
 
 .mobile-navigation-links {
+    z-index:55;
     height: 100vh;
     width: 50vw;
     position: fixed;

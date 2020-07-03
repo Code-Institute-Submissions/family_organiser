@@ -1,15 +1,80 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<img src="/media/svg/add_data_background.svg" class="profile-background-image"></img>
+<img src="/media/svg/add_data_background_light.svg" class="profile-background-image-light"></img>
 
-    <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+    <!-- profile and notifications section -->
+    <div class="row m-0 p-2">
+        <div class="col-4 m-0 p-0 d-flex justify-content-between">
+            <img src="https://img.icons8.com/carbon-copy/20/000000/chat-message.png" />
+            <img src="https://img.icons8.com/carbon-copy/20/000000/groups.png" />
+            <img src="https://img.icons8.com/carbon-copy/20/000000/shopping-basket.png" />
+        </div>
+        <div class="col-8 m-0 p-0">
+            <p class="m-0 p-0 text-right">Profile</p>
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col-4 m-0 p-0 d-flex justify-content-center">
+            <img src="" class="profile-image">
+        </div>
+        <div class="col-5 m-0 p-0">
+            <h5>{{ user.first_name }}</h5>
+            <h5>{{ user.last_name }}</h5>
+            <p>Add some information about your profile on the settings page.</p>
+        </div>
+        <div class="col-3 m-0 p-0 d-flex justify-content-center align-items-end">
+            <div>
+                <h3 class="text-center text-white">3</h3>
+                <h6 class="text-white">Family</h6>
+            </div>
+        </div>
+    </div>
 
-    <h5>Shopping</h5>
+    <!-- Add data icons -->
+    <div class="add-data-container">
+        <a href="#">
+            <img src="https://img.icons8.com/carbon-copy/30/000000/commercial.png" />
+            <label>Status</label>
+        </a>
+        <a href="#">
+            <img src="https://img.icons8.com/carbon-copy/30/000000/image.png" />
+            <label>Photo</label>
+        </a>
+        <a href="#">
+            <img src="https://img.icons8.com/carbon-copy/30/000000/ingredients.png" />
+            <label>Item</label>
+        </a>
+        <a href="#">
+            <img src="https://img.icons8.com/carbon-copy/30/000000/food.png" />
+            <label>Dinner</label>
+        </a>
+        <a href="#">
+            <img src="https://img.icons8.com/carbon-copy/30/000000/to-do.png" />
+            <label>To Do</label>
+        </a>
+    </div>
 
-    <h5>Status</h5>
+    <!-- Add data forms container -->
+    <div id="add-data-form-container"></div>
 
-    <button class="add-button">
+
+    <!-- users shopping list and status -->
+    <div class="profile-page-container">
+        <div class="p-3">
+            <h5>Shopping</h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem harum neque eius nihil reprehenderit repellendus debitis voluptatum, soluta quo laboriosam quaerat, eaque error. Quam id veniam nam consequatur in, placeat exercitationem, quidem odit molestias atque vitae. Similique nemo, sequi earum accusamus consectetur, veritatis quaerat nihil aliquam aperiam hic alias doloremque!</p>
+            <h5>Status</h5>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta omnis officiis repudiandae accusamus molestiae, asperiores eaque consequuntur voluptatem fugiat cumque iste iure cum repellat eligendi. Voluptate at qui voluptates nulla quia, quas a tempore incidunt labore quo, ad autem amet consectetur velit cupiditate ipsam quisquam dolorum laudantium ut obcaecati. Sunt?</p>
+        </div>
+    </div>
+
+
+
+    <button id="add-button">
         <span>+</span>
     </button>
-    
+
+
 {% endblock %}

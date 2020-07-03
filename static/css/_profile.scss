@@ -1,4 +1,66 @@
-.add-button {
+// svg background image
+.profile-background-image {
+    width: 100%;
+    position: absolute;
+    top: 140px;
+    z-index: -5;
+}
+
+.profile-background-image-light {
+    width: 100%;
+    position: absolute;
+    top: 170px;
+    z-index: -4;
+}
+
+// profile and notifications section
+.profile-image {
+    height: 90px;
+    width: 90px;
+    border-radius: 15px;
+    border: solid grey 1px;
+}
+
+
+// add data section
+.add-data-container {
+    overflow: auto;
+    white-space: nowrap;
+    a {
+        display: inline-block;
+        color: black;
+        margin-left: 25px;
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
+
+// user shopping list and status
+.profile-page-container {
+    width: 100vw;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 5px 29px 2px rgba(0,0,0,0.3);
+    border-radius: 23px 23px 0px 0px;
+    padding: 0px;
+    transform: translate(0, -64px);
+    &:after {
+        display: inline-block;
+        position: relative;
+        top: 64px;
+        content:"";
+        height: 64px;
+        width: 100vw;
+        background-color: white;
+    }
+}
+
+
+#add-button {
+    z-index: 555;
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -14,5 +76,14 @@
         position: relative;
         bottom: 16px;
         color: white;
+    }
+}
+
+@media (min-width: 321px) {
+    .profile-background-image {
+        top: 80px;
+    }
+    .profile-background-image-light {
+        top: 110px;
     }
 }
