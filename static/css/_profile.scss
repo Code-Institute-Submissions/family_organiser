@@ -42,26 +42,24 @@
 
 // user shopping list and status
 .profile-page-container {
-    width: 100vw;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 5px 29px 2px rgba(0,0,0,0.3);
     border-radius: 23px 23px 0px 0px;
     padding: 0px;
     transform: translate(0, -64px);
     &:after {
-        display: inline-block;
+        display: block;
         position: relative;
-        top: 64px;
+        top: 60px;
         content:"";
-        height: 64px;
-        width: 100vw;
+        height: 70px;
         background-color: white;
     }
 }
 
 
 #add-button {
-    z-index: 555;
+    z-index: 100;
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -77,6 +75,9 @@
         position: relative;
         bottom: 16px;
         color: white;
+    }
+    &:focus {
+        outline:none;
     }
 }
 

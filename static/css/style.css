@@ -23,7 +23,8 @@ nav {
 }
 
 .mobile-navigation-links {
-  z-index: 55;
+  background-color: #fafafa;
+  z-index: 555;
   height: 100vh;
   width: 50vw;
   position: fixed;
@@ -31,15 +32,27 @@ nav {
   right: -50vw;
   list-style: none;
   padding: 0;
+  padding-top: 15px;
   margin: 0;
+  -webkit-box-shadow: 0px 3px 15px 1px rgba(0, 0, 0, 0.14);
+          box-shadow: 0px 3px 15px 1px rgba(0, 0, 0, 0.14);
+  -webkit-transform: translate(10vw, 0);
+          transform: translate(10vw, 0);
+}
+
+.mobile-navigation-links h6 {
+  margin-left: 15px;
+  margin-bottom: 13px;
 }
 
 .mobile-navigation-links li {
   padding: 0;
+  margin: 0;
+  background-color: #fafafa;
 }
 
 .mobile-navigation-links li a {
-  padding: 10px 5px;
+  padding: 10px 10px;
   display: block;
   width: 100%;
   color: black;
@@ -93,7 +106,6 @@ nav {
 }
 
 .profile-page-container {
-  width: 100vw;
   background-color: white;
   -webkit-box-shadow: 0px 5px 29px 2px rgba(0, 0, 0, 0.3);
           box-shadow: 0px 5px 29px 2px rgba(0, 0, 0, 0.3);
@@ -104,17 +116,16 @@ nav {
 }
 
 .profile-page-container:after {
-  display: inline-block;
+  display: block;
   position: relative;
-  top: 64px;
+  top: 60px;
   content: "";
-  height: 64px;
-  width: 100vw;
+  height: 70px;
   background-color: white;
 }
 
 #add-button {
-  z-index: 555;
+  z-index: 100;
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -135,6 +146,10 @@ nav {
   color: white;
 }
 
+#add-button:focus {
+  outline: none;
+}
+
 @media (min-width: 321px) {
   .profile-background-image {
     top: 80px;
@@ -142,6 +157,11 @@ nav {
   .profile-background-image-light {
     top: 110px;
   }
+}
+
+body {
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {

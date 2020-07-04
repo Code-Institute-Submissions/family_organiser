@@ -21,7 +21,8 @@ nav {
 }
 
 .mobile-navigation-links {
-    z-index:55;
+    background-color: #fafafa;
+    z-index:555;
     height: 100vh;
     width: 50vw;
     position: fixed;
@@ -29,11 +30,20 @@ nav {
     right: -50vw;
     list-style: none;
     padding: 0;
+    padding-top: 15px;
     margin: 0;
+    box-shadow: 0px 3px 15px 1px rgba(0,0,0,0.14);
+    transform: translate(10vw, 0);
+    h6 {
+        margin-left: 15px;
+        margin-bottom: 13px;
+    }
     li {
         padding: 0;
+        margin:0;
+        background-color: #fafafa;
         a {
-            padding: 10px 5px;
+            padding: 10px 10px;
             display: block;
             width: 100%;
             color: black;
