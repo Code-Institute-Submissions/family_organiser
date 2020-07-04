@@ -7,7 +7,15 @@ def profile(request):
     """
     Display the users profile
     """
-    return render(request, 'user/profile.html')
+    friends = Friend.objects.get(current_user=request.user)
+    all_friends = friends.users.all()
+
+    context = {
+        'friend_count': len(all_friends),
+    }
+
+
+    return render(request, 'user/profile.html', context)
 
 
 def find_users(request):
@@ -23,8 +31,12 @@ def find_users(request):
         except:
             all_users = User.objects.all()
 
+    friends = Friend.objects.get(current_user=request.user)
+    all_friends = friends.users.all()
+
     context = {
         'all_users': all_users,
+        'friends': all_friends,
     }
 
     return render(request, 'user/find_users.html', context)
@@ -34,16 +46,33 @@ def create_friend_request(request, pk):
     Takes the request from the user and saves the requests to the database
     """
     requested_user = User.objects.get(pk=pk)
-    FriendRequests.objects.create(from_user=request.user, to_user=requested_user)
+    
+    try:
+        FriendRequests.objects.get(from_user=request.user, to_user=requested_user)
+    except:
+        FriendRequests.objects.create(from_user=request.user, to_user=requested_user)
 
     return redirect('find_users')
 
+def family(request):
+    """
+    View the list of friends that the users has
+    """
+    friends = Friend.objects.get(current_user=request.user)
+    all_friends = friends.users.all()
+
+    context = {
+        'friends': all_friends,
+    }
+
+
+    return render(request, 'user/family.html', context)
 
 def requests(request):
     """
     Shows the users sent friend requests for shopping and todo list
     """
-    friend_requests = FriendRequests.objects.filter(to_user=request.user.pk)
+    friend_requests = FriendRequests.objects.filter(to_user=request.user)
 
     context = {
         'friend_requests': friend_requests,
@@ -71,4 +100,4 @@ def update_friends(request, operation, pk):
         Friend.remove_friend(request.user, new_friend)
         Friend.remove_friend(new_friend, request.user)
         
-    return redirect('requests')
+    return redirect('profile')

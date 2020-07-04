@@ -7,4 +7,5 @@ urlpatterns = [
     path('create_request/<pk>', views.create_friend_request, name='friends'),
     path('update_friends/<operation>/<pk>', views.update_friends, name='update_friends'),
     path('requests/', views.requests, name='requests'),
+    path('family/', views.family, name='family'),
 ]

@@ -8,11 +8,14 @@
 </div>
 
 
-<form action="/user/find_users/" method="GET">
+<form action="/user/find_users/" method="GET" class="px-3">
     {% csrf_token %}
     <h3>Search</h3>
-    <input type="text" name="q" class="form-control d-inline" placeholder="Name / Username">
-    <button class="btn btn-success">Find</button>
+    <div class="container-fluid d-flex justify-content-between m-0 p-0">
+        <input type="text" name="q" class="form-control d-inline" placeholder="Name / Username">
+        <button class="btn btn-success ml-3">Find</button>
+    </div>
+   
 </form>
 <hr>
 <div class="row m-0 p-0">
@@ -42,7 +45,7 @@
                 </div>
                 <hr>
             </div>
-        {% endif %}
+            {% endif %}
     {% endfor %}
 </div>
 
