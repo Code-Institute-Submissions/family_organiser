@@ -29,13 +29,17 @@
     </div>
 </div>
 <div class="row m-0 p-0 pt-3 profile-info-height">
-    <div class="col-4 m-0 p-0 d-flex justify-content-center">
-        <img src="/media/user-image.png" class="profile-image">
-    </div>
-    <div class="col-5 m-0 p-0">
+    <div class="col-9 m-0 p-0 pl-3 profile-details-container">
+        {% if user_profile.profile_image %}
+            <img src="/media/{{user_profile.profile_image}}" class="profile-image">
+        {% else %}
+            <img src="/media/user-image.png" class="profile-image">
+        {% endif %}
+
         <h5>{{ user.first_name }}</h5>
         <h5>{{ user.last_name }}</h5>
-        <p>Add some information...</p>
+        <p>{{ user_profile.bio }}</p>
+        <a href="/user/settings">+</a>
     </div>
     <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center align-items-end">
         <div>

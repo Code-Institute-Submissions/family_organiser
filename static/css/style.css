@@ -98,6 +98,25 @@ nav {
   text-align: center;
 }
 
+.profile-details-container {
+  position: relative;
+}
+
+.profile-details-container a {
+  position: absolute;
+  left: 87px;
+  top: 72px;
+  background-color: #b2f8b6;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.profile-details-container a:focus {
+  text-decoration: none;
+}
+
 .profile-background-image {
   width: 100%;
   position: absolute;
@@ -120,6 +139,8 @@ nav {
   height: 90px;
   width: 90px;
   border-radius: 15px;
+  float: left;
+  margin-right: 15px;
   -webkit-box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.13);
           box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.13);
 }

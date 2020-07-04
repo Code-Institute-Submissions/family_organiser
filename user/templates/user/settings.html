@@ -10,6 +10,10 @@
 <hr>
 
 <div class="row m-0 p-0">
+    <div class="col-12 px-2 mb-1">
+        <label class="d-block">Profile Image</label>
+        <input type="file">
+    </div>
     <div class="col-6 m-0 p-0 px-2">
         <label>First Name</label>
         <input class="form-control" value="{{user.first_name}}">
@@ -18,15 +22,22 @@
         <label>Last Name</label>
         <input class="form-control" value="{{user.last_name}}">
     </div>
-    <div class="col-12 m-0 p-0 px-2 mt-1">
+    <div class="col-9 m-0 p-0 px-2 mt-1">
         <label>Username</label>
         <input class="form-control" value="{{user.username}}">
     </div>
+    <div class="col-3 m-0 p-0 px-2 mt-1">
+        <label>Age</label>
+        <input class="form-control" value="{{user_profile.age}}">
+    </div>
     <div class="col-12 m-0 p-0 px-2 mt-1">
         <label>Bio</label>
-        <input class="form-control">
+        <textarea class="form-control"></textarea>
+        <p class="m-1">Characters Remains: 150</p>
     </div>
 </div>
+
+<button class="btn btn-success text-light mr-3 float-right">Save</button>
 
 
 {% endblock %}

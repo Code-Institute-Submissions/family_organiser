@@ -44,6 +44,7 @@ This web application is designed to keep users in touch with their family and al
     - dj_database_url
     - psycopg2-binary
     - [Stripe]()
+    - pillow
 
 ## How to run locally:
 

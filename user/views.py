@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .models import FriendRequests, Friend
+from .models import FriendRequests, Friend, UserProfile
 from django.db.models import Q
 
 def profile(request):
@@ -15,9 +15,12 @@ def profile(request):
 
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
 
+    user_profile = UserProfile.objects.get(user=request.user)
+
     context = {
         'friend_count': len(all_friends),
-        'friend_requests': len(friend_requests)
+        'friend_requests': len(friend_requests),
+        'user_profile': user_profile,
     }
 
 
@@ -115,5 +118,10 @@ def settings(request):
     """
     Edit account details
     """
+    user_profile = UserProfile.objects.get(user=request.user)
 
-    return render(request, 'user/settings.html')
+    context = {
+        'user_profile': user_profile,
+    }
+
+    return render(request, 'user/settings.html', context)

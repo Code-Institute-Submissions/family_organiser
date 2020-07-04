@@ -25,3 +25,10 @@ class Friend(models.Model):
 
     def __str__(self):
         return self.current_user.username
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    age = models.IntegerField(null=True)
+    profile_image = models.ImageField(null=True, blank=True)
+    bio = models.CharField(null=True, max_length=150, default="", blank=True)
+    premium = models.BooleanField(default=False)
