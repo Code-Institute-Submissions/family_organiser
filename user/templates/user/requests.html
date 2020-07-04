@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="row m-0 p-2">
     <div class="col-12 m-0 p-0">
         <p class="m-0 p-0 text-right">Requests</p>
@@ -19,10 +20,10 @@
                     <h5>{{ request.from_user.last_name }}</h5>
                 </div>
                 <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-                    <a class="icon-button icon-danger mr-3">
-                        <img src="https://img.icons8.com/carbon-copy/28/000000/filled-trash.png"/>
+                    <a class="icon-button icon-danger mr-3" href="/user/update_friends/remove/{{request.from_user.id}}">
+                        <img src="https://img.icons8.com/carbon-copy/28/000000/filled-trash.png" />
                     </a>
-                    <a class="icon-button icon-success">
+                    <a class="icon-button icon-success" href="/user/update_friends/add/{{request.from_user.id}}">
                         <img src="https://img.icons8.com/carbon-copy/32/000000/add-user-male.png"/>
                     </a>
                 </div>
@@ -30,9 +31,6 @@
             <hr>
         </div>
     {% endfor %}
-    
 </div>
-
-
 
 {% endblock %}
