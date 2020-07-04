@@ -66,6 +66,38 @@ nav {
   height: 48px;
 }
 
+.notification-container {
+  background: linear-gradient(120deg, #80f886, #39E86D);
+  border-radius: 0px 5px 50% 0;
+}
+
+.notification-container div {
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.notification-container img {
+  position: absolute;
+  top: 0px;
+}
+
+.notification-container p {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+  position: absolute;
+  top: 14px;
+  right: 0px;
+  text-align: center;
+}
+
 .profile-background-image {
   width: 100%;
   position: absolute;
@@ -185,6 +217,10 @@ h1, h2, h3, h4, h5, h6 {
 
 p, a, b {
   font-family: 'Roboto', sans-serif;
+}
+
+.bg-theme {
+  background-color: #6CF273;
 }
 
 .icon-button {

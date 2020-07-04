@@ -7,11 +7,17 @@ def profile(request):
     """
     Display the users profile
     """
-    friends = Friend.objects.get(current_user=request.user)
-    all_friends = friends.users.all()
+    try:
+        friends = Friend.objects.get(current_user=request.user)
+        all_friends = friends.users.all()
+    except:
+        all_friends = []
+
+    friend_requests = FriendRequests.objects.filter(to_user=request.user)
 
     context = {
         'friend_count': len(all_friends),
+        'friend_requests': len(friend_requests)
     }
 
 

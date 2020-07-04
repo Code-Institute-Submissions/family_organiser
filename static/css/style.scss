@@ -17,6 +17,10 @@ p,a,b {
     font-family: 'Roboto', sans-serif; 
 }
 
+.bg-theme {
+    background-color: $theme-colour;
+}
+
 .icon-button {
     border-radius: 8px;
     background-color: #FAFAFA;
