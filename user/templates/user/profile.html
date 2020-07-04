@@ -16,6 +16,8 @@
                     <p>{{ friend_requests }}</p>
                 </a>
             </div>
+            {% else %}
+            <b class="m-0 text-small">No notifications</b>
             {% endif %}
 
             <!-- <img src="https://img.icons8.com/carbon-copy/20/000000/shopping-basket.png" /> -->
@@ -26,16 +28,16 @@
         <p class="m-0 p-0 text-right">Profile</p>
     </div>
 </div>
-<div class="row m-0 p-0">
+<div class="row m-0 p-0 pt-3 profile-info-height">
     <div class="col-4 m-0 p-0 d-flex justify-content-center">
-        <img src="" class="profile-image">
+        <img src="/media/user-image.png" class="profile-image">
     </div>
     <div class="col-5 m-0 p-0">
         <h5>{{ user.first_name }}</h5>
         <h5>{{ user.last_name }}</h5>
-        <p>Add some information about your profile on the settings page.</p>
+        <p>Add some information...</p>
     </div>
-    <div class="col-3 m-0 p-0 d-flex justify-content-center align-items-end">
+    <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center align-items-end">
         <div>
             <h3 class="text-center text-white">{{ friend_count }}</h3>
             <h6 class="text-white">Family</h6>
@@ -46,27 +48,27 @@
 <!-- Add data icons -->
 <div class="add-data-container">
     <a href="/user/find_users">
-        <img src="https://img.icons8.com/carbon-copy/30/000000/family.png" />
+        <img src="https://img.icons8.com/carbon-copy/35/000000/family.png" />
         <label>Users</label>
     </a>
     <a href="#">
-        <img src="https://img.icons8.com/carbon-copy/30/000000/commercial.png" />
+        <img src="https://img.icons8.com/carbon-copy/35/000000/commercial.png" />
         <label>Status</label>
     </a>
     <a href="#">
-        <img src="https://img.icons8.com/carbon-copy/30/000000/image.png" />
+        <img src="https://img.icons8.com/carbon-copy/35/000000/image.png" />
         <label>Photo</label>
     </a>
     <a href="#">
-        <img src="https://img.icons8.com/carbon-copy/30/000000/ingredients.png" />
+        <img src="https://img.icons8.com/carbon-copy/35/000000/ingredients.png" />
         <label>Item</label>
     </a>
     <a href="#">
-        <img src="https://img.icons8.com/carbon-copy/30/000000/food.png" />
+        <img src="https://img.icons8.com/carbon-copy/35/000000/food.png" />
         <label>Dinner</label>
     </a>
     <a href="#">
-        <img src="https://img.icons8.com/carbon-copy/30/000000/to-do.png" />
+        <img src="https://img.icons8.com/carbon-copy/35/000000/to-do.png" />
         <label>To Do</label>
     </a>
 </div>

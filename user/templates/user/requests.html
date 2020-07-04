@@ -20,10 +20,10 @@
                     <h5>{{ request.from_user.last_name }}</h5>
                 </div>
                 <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-                    <a class="icon-button icon-danger mr-3" href="/user/update_friends/remove/{{request.from_user.id}}">
+                    <a class="icon-button icon-danger mr-3" href="/user/update_friends/remove/{{request.from_user.id}}/{{request.id}}">
                         <img src="https://img.icons8.com/carbon-copy/28/000000/filled-trash.png" />
                     </a>
-                    <a class="icon-button icon-success" href="/user/update_friends/add/{{request.from_user.id}}">
+                    <a class="icon-button icon-success" href="/user/update_friends/add/{{request.from_user.id}}/{{request.id}}">
                         <img src="https://img.icons8.com/carbon-copy/32/000000/add-user-male.png"/>
                     </a>
                 </div>

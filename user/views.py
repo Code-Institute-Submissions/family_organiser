@@ -86,7 +86,7 @@ def requests(request):
     return render(request, 'user/requests.html', context)
 
 
-def update_friends(request, operation, pk):
+def update_friends(request, operation, pk, request_id):
     """
     Add or remove the chosen user from or too their friends list
     """
@@ -94,10 +94,12 @@ def update_friends(request, operation, pk):
     new_friend = User.objects.get(pk=pk)
 
     try:
-        friend_request = FriendRequests.objects.get(from_user=pk)
+        friend_request = FriendRequests.objects.get(pk=request_id)
         friend_request.delete()
     except:
         friend_request = None
+
+    
     
     if operation == 'add':
         Friend.make_friend(request.user, new_friend)
@@ -105,5 +107,6 @@ def update_friends(request, operation, pk):
     elif operation == 'remove':
         Friend.remove_friend(request.user, new_friend)
         Friend.remove_friend(new_friend, request.user)
+        
         
     return redirect('profile')
