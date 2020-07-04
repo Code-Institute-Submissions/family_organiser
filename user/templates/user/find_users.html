@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row m-0 p-2">
+    <div class="col-12 m-0 p-0">
+        <p class="m-0 p-0 text-right">Friends</p>
+    </div>
+</div>
+
+
+<form action="/user/find_users/" method="GET">
+    {% csrf_token %}
+    <h3>Name</h3>
+    <input type="text" name="q" class="form-control d-inline" placeholder="John Smith">
+    <button class="btn btn-success">Search</button>
+</form>
+<hr>
+<div class="row m-0 p-0">
+    {% for aUser in all_users %}
+    <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-3 m-0 p-0 pl-3">
+                <img src="" class="user-image">
+            </div>
+            <div class="col-6 m-0 p-0">
+                <h5>{{ aUser.first_name }}</h5>
+                <h5>{{ aUser.last_name }}</h5>
+            </div>
+            <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+                <a class="icon-button">
+                    <img src="https://img.icons8.com/carbon-copy/32/000000/add-user-male.png"/>
+                </a>
+            </div>
+        </div>
+      
+   
+        
+        <hr>
+    </div>
+    
+    {% endfor %}
+</div>
+
+
+{% endblock %}
