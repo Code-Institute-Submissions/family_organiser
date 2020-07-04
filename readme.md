@@ -66,3 +66,5 @@ This web application is designed to keep users in touch with their family and al
 [Google login](https://www.youtube.com/watch?v=ZTBexYIIOP8&t=333s)
 
 [Custom User Registration](https://www.youtube.com/watch?v=66l9b2QrBR8)
+
+[Adding Friends](https://www.youtube.com/watch?v=_DqmVMlJzqA&t=538s)
