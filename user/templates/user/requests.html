@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row m-0 p-2">
+    <div class="col-12 m-0 p-0">
+        <p class="m-0 p-0 text-right">Requests</p>
+    </div>
+</div>
+<hr>
+<div class="row m-0 p-0">
+    {% for request in friend_requests %}
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-3 m-0 p-0 pl-3">
+                    <img src="" class="user-image">
+                </div>
+                <div class="col-6 m-0 p-0">
+                    <h5>{{ request.from_user.first_name }}</h5>
+                    <h5>{{ request.from_user.last_name }}</h5>
+                </div>
+                <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+                    <a class="icon-button icon-danger mr-3">
+                        <img src="https://img.icons8.com/carbon-copy/28/000000/filled-trash.png"/>
+                    </a>
+                    <a class="icon-button icon-success">
+                        <img src="https://img.icons8.com/carbon-copy/32/000000/add-user-male.png"/>
+                    </a>
+                </div>
+            </div>
+            <hr>
+        </div>
+    {% endfor %}
+    
+</div>
+
+
+
+{% endblock %}

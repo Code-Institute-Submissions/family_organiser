@@ -10,9 +10,9 @@
 
 <form action="/user/find_users/" method="GET">
     {% csrf_token %}
-    <h3>Name</h3>
-    <input type="text" name="q" class="form-control d-inline" placeholder="John Smith">
-    <button class="btn btn-success">Search</button>
+    <h3>Search</h3>
+    <input type="text" name="q" class="form-control d-inline" placeholder="Name / Username">
+    <button class="btn btn-success">Find</button>
 </form>
 <hr>
 <div class="row m-0 p-0">
@@ -28,8 +28,15 @@
                         <h5>{{ aUser.last_name }}</h5>
                     </div>
                     <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-                        <a class="icon-button">
+                        
+                        <a class="icon-button" href="/user/create_request/{{aUser.id}}">
                             <img src="https://img.icons8.com/carbon-copy/32/000000/add-user-male.png"/>
+                        </a>
+                        <a class="icon-button icon-warning">
+                            <img src="https://img.icons8.com/cotton/19/000000/sent.png" class="px-2"/>
+                        </a>
+                        <a class="icon-button icon-success">
+                            <img src="https://img.icons8.com/carbon-copy/32/000000/family.png" />
                         </a>
                     </div>
                 </div>
