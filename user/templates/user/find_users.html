@@ -15,19 +15,18 @@
         <input type="text" name="q" class="form-control d-inline" placeholder="Name / Username">
         <button class="btn btn-success ml-3">Find</button>
     </div>
-   
 </form>
 <hr>
 <div class="row m-0 p-0">
     {% for aUser in all_users %}
-        {% if aUser.username != user.username %}
+        
             <div class="col-12 m-0 p-0">
                 <div class="row m-0 p-0">
                     <div class="col-3 m-0 p-0 pl-3">
-                        <img src="" class="user-image">
+                        <img src="/media/user-image.png" class="user-image">
                     </div>
                     <div class="col-6 m-0 p-0">
-                        <h5>{{ aUser.first_name }}</h5>
+                        <h5>{{ aUser.first_name }}{% if aUser.username == user.username %} <span class="text-secondary">(You!)</span>{% endif %}</h5>
                         <h5>{{ aUser.last_name }}</h5>
                     </div>
                     <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
@@ -44,9 +43,11 @@
                 </div>
                 <hr>
             </div>
-            {% endif %}
+            
     {% endfor %}
 </div>
+<p class="m-0 mt-2 text-right mr-3">Search Result: {{ all_users | length }}</p>
+
 
 
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row m-0 p-2">
+    <div class="col-12 m-0 p-0">
+        <p class="m-0 p-0 text-right">Settings</p>
+    </div>
+</div>
+<hr>
+
+<div class="row m-0 p-0">
+    <div class="col-6 m-0 p-0 px-2">
+        <label>First Name</label>
+        <input class="form-control" value="{{user.first_name}}">
+    </div>
+    <div class="col-6 m-0 p-0 px-2">
+        <label>Last Name</label>
+        <input class="form-control" value="{{user.last_name}}">
+    </div>
+    <div class="col-12 m-0 p-0 px-2 mt-1">
+        <label>Username</label>
+        <input class="form-control" value="{{user.username}}">
+    </div>
+    <div class="col-12 m-0 p-0 px-2 mt-1">
+        <label>Bio</label>
+        <input class="form-control">
+    </div>
+</div>
+
+
+{% endblock %}

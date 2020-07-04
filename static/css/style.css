@@ -139,6 +139,10 @@ nav {
   margin-left: 25px;
 }
 
+.add-data-container a:active {
+  text-decoration: none;
+}
+
 .add-data-container a img {
   display: block;
   margin-left: auto;
@@ -209,13 +213,6 @@ nav {
   }
 }
 
-.user-image {
-  height: 65px;
-  width: 65px;
-  border-radius: 15px;
-  border: solid grey 1px;
-}
-
 body {
   width: 100vw;
   overflow-x: hidden;
@@ -261,5 +258,11 @@ p, a, b {
 
 .icon-danger {
   background-color: #f52525;
+}
+
+.user-image {
+  height: 65px;
+  width: 65px;
+  border-radius: 15px;
 }
 /*# sourceMappingURL=style.css.map */

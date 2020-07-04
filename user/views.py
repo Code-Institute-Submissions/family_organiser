@@ -35,7 +35,7 @@ def find_users(request):
             all_users = User.objects.filter(queries)
             print('search')
         except:
-            all_users = User.objects.all()
+            all_users = []
 
     friends = Friend.objects.get(current_user=request.user)
     all_friends = friends.users.all()
@@ -110,3 +110,10 @@ def update_friends(request, operation, pk, request_id):
         
         
     return redirect('profile')
+
+def settings(request):
+    """
+    Edit account details
+    """
+
+    return render(request, 'user/settings.html')

@@ -2,7 +2,6 @@
 @import 'navigation';
 @import 'base';
 @import 'profile';
-@import 'find_users';
 
 body {
     width: 100vw;
@@ -21,6 +20,7 @@ p,a,b {
     font-size: 12px;
 }
 
+// icons
 .icon-button {
     border-radius: 8px;
     background-color: #FAFAFA;
@@ -43,3 +43,12 @@ p,a,b {
 .icon-danger {
     background-color: #f52525;
 }
+
+// images
+
+.user-image {
+    height: 65px;
+    width: 65px;
+    border-radius: 15px;
+}
+

@@ -8,4 +8,5 @@ urlpatterns = [
     path('update_friends/<operation>/<pk>/<request_id>', views.update_friends, name='update_friends'),
     path('requests/', views.requests, name='requests'),
     path('family/', views.family, name='family'),
+    path('settings/', views.settings, name='settings'),
 ]

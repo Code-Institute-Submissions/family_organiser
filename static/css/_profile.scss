@@ -69,7 +69,9 @@
         color: black;
         width: 45px;
         margin-left: 25px;
-        
+        &:active {
+            text-decoration: none;
+        }
         img {
             display: block;
             margin-left: auto;
