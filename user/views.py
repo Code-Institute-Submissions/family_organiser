@@ -27,7 +27,6 @@ def profile(request):
         )
         user_profile.save()
 
-
     context = {
         'friend_count': len(all_friends),
         'friend_requests': len(friend_requests),
@@ -45,7 +44,7 @@ def find_users(request):
     if request.method == 'GET':
         try:
             query = request.GET['q']
-            queries = Q(username=query) | Q(first_name=query) | Q(last_name=query)
+            queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query)
             all_users = User.objects.filter(queries)
         except:
             all_users = []

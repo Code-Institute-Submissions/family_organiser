@@ -19,9 +19,10 @@
                 <div class="col-12 m-0 p-0 pl-3">
                 <img src="/media/user-image.png" class="user-image-status float-left mr-3">
                     <h5>{{ news.user.first_name }} {{ news.user.last_name }}</h5>
-                    <p class="m-0">{{ news.created_date }}</p>
+                    <h6 class="text-secondary">{{ news.title }}</h6>
                 </div>
                 <div class="col-12 my-3">
+                  
                     <p class="m-0">{{ news.content }}</p>
                 </div>  
                 {% if news.image %}
@@ -30,7 +31,10 @@
                     </div>
                 {% endif %}
                 <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
-                    <p class="m-0 text-small">{{ news.likes }} Likes 0 Comments</p>
+                    <div>
+                        <p class="m-0 text-small">{{ news.likes }} Likes 0 Comments</p>
+                        <p class="m-0 text-small">{{ news.created_date }}</p>
+                    </div>
                 </div>
                 <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                     <a class="icon-button mr-3">
