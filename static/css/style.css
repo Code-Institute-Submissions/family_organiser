@@ -58,6 +58,10 @@ nav {
   color: black;
 }
 
+.mobile-navigation-links li a:focus, .mobile-navigation-links li a:hover {
+  text-decoration: none;
+}
+
 .page-container {
   min-height: 100vh;
 }
@@ -234,6 +238,20 @@ nav {
   .profile-background-image-light {
     top: 110px;
   }
+}
+
+.user-image-status {
+  height: 55px;
+  width: 55px;
+  border-radius: 15px;
+}
+
+.status-image {
+  height: 300px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 4px;
 }
 
 body {

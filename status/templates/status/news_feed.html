@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row m-0 p-2">
+    <div class="col-12 m-0 p-0">
+        <p class="m-0 p-0 text-right">News Feed</p>
+    </div>
+</div>
+<div class="px-3">
+    <a class="btn btn-success text-light container-fluid" href="add_status">Add Status</a>
+</div>
+
+<hr>
+<div class="row m-0 p-0">
+    {% for news in news_feed %}
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0 pl-3">
+                <img src="/media/user-image.png" class="user-image-status float-left mr-3">
+                    <h5>{{ news.user.first_name }} {{ news.user.last_name }}</h5>
+                    <p class="m-0">{{ news.created_date }}</p>
+                </div>
+                <div class="col-12 my-3">
+                    <p class="m-0">{{ news.content }}</p>
+                </div>  
+                {% if news.image %}
+                    <div class="col-12 mb-3">     
+                            <img src="/media/{{news.image}}" class="status-image">
+                    </div>
+                {% endif %}
+                <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
+                    <p class="m-0 text-small">{{ news.likes }} Likes 0 Comments</p>
+                </div>
+                <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+                    <a class="icon-button mr-3">
+                        <img src="https://img.icons8.com/carbon-copy/30/000000/add-to-chat.png"/>
+                    </a>
+                    <a class="icon-button">
+                        <img src="https://img.icons8.com/carbon-copy/29/000000/like--v1.png"/>
+                    </a>
+                </div>
+            </div>
+            <hr>
+        </div>
+    {% endfor %}
+</div>
+<p class="m-0 mt-2 mb-4 text-right mr-3">Search Result: {{ news_feed | length }}</p>
+{% endblock %}

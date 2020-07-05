@@ -47,6 +47,9 @@ nav {
             display: block;
             width: 100%;
             color: black;
+            &:focus,&:hover {
+                text-decoration: none;
+            }
         }
     }
 }

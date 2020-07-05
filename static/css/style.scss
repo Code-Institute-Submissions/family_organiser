@@ -2,6 +2,7 @@
 @import 'navigation';
 @import 'base';
 @import 'profile';
+@import 'news_feed';
 
 body {
     width: 100vw;
@@ -51,4 +52,3 @@ p,a,b {
     width: 65px;
     border-radius: 15px;
 }
-
