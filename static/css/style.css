@@ -143,6 +143,8 @@ nav {
   margin-right: 15px;
   -webkit-box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.13);
           box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.13);
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .add-data-container {
@@ -160,7 +162,7 @@ nav {
   margin-left: 25px;
 }
 
-.add-data-container a:active {
+.add-data-container a:active, .add-data-container a:focus {
   text-decoration: none;
 }
 

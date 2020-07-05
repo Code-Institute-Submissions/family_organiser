@@ -11,20 +11,20 @@
 
 
 
-    <div class="row m-0 p-0">
+    <div class="row m-0 p-0 px-1">
         <div class="col-12 px-2 mb-1" id="image-form-container">
             <form action="/user/change_image/" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
             <label class="d-block">Profile Image</label>
             <input type="file" name="profile_image">
-            <button type="submit" class="btn btn-success text-light mr-2 float-right">Save</button>
+            <button type="submit" class="btn btn-success text-light mr-1 float-right">Save</button>
             </form>
         </div>
     </div>
     <hr>
     <form action="/user/change_details/" method="POST">
         {% csrf_token %}
-    <div class="row m-0 p-0">  
+    <div class="row m-0 p-0 px-1">  
         <div class="col-6 m-0 p-0 px-2">
             <label>First Name</label>
             <input class="form-control" value="{{user.first_name}}" name="first_name">

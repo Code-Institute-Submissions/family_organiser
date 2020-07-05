@@ -36,7 +36,6 @@ def find_users(request):
             query = request.GET['q']
             queries = Q(username=query) | Q(first_name=query) | Q(last_name=query)
             all_users = User.objects.filter(queries)
-            print('search')
         except:
             all_users = []
 
