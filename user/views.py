@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from status.models import Status
 from .models import FriendRequests, Friend, UserProfile
 from django.db.models import Q
 
@@ -27,10 +28,13 @@ def profile(request):
         )
         user_profile.save()
 
+    news_feed = Status.objects.filter(user=request.user).order_by('created_date').reverse()
+
     context = {
         'friend_count': len(all_friends),
         'friend_requests': len(friend_requests),
         'user_profile': user_profile,
+        'news_feed': news_feed,
     }
 
 

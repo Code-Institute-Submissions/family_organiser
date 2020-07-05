@@ -43,4 +43,4 @@ def add_status(request):
     )
     status.save()
 
-    return redirect('news_feed')
+    return redirect('profile')

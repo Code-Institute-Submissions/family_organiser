@@ -87,14 +87,49 @@
         <h5>Shopping</h5>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem harum neque eius nihil reprehenderit
             repellendus debitis voluptatum, soluta quo laboriosam quaerat, eaque error. Quam id veniam nam consequatur
-            in, placeat exercitationem, quidem odit molestias atque vitae. Similique nemo, sequi earum accusamus
-            consectetur, veritatis quaerat nihil aliquam aperiam hic alias doloremque!</p>
-        <h5>Status</h5>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta omnis officiis repudiandae accusamus
-            molestiae, asperiores eaque consequuntur voluptatem fugiat cumque iste iure cum repellat eligendi. Voluptate
-            at qui voluptates nulla quia, quas a tempore incidunt labore quo, ad autem amet consectetur velit cupiditate
-            ipsam quisquam dolorum laudantium ut obcaecati. Sunt?</p>
+            in, placeat exercitationem, quidem odit</p>
+    
     </div>
+    <h4 class="ml-3">Status</h4>
+    <hr>
+    <div class="row m-0 p-0">
+        {% for news in news_feed %}
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0 pl-3">
+                <img src="/media/user-image.png" class="user-image-status float-left mr-3">
+                    <h5>{{ news.user.first_name }} {{ news.user.last_name }}</h5>
+                    <h6 class="text-secondary">{{ news.title }}</h6>
+                </div>
+                <div class="col-12 my-3">
+                    
+                    <p class="m-0">{{ news.content }}</p>
+                </div>  
+                {% if news.image %}
+                    <div class="col-12 mb-3">     
+                            <img src="/media/{{news.image}}" class="status-image">
+                    </div>
+                {% endif %}
+                <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
+                    <div>
+                        <p class="m-0 text-small">{{ news.likes }} Likes 0 Comments</p>
+                        <p class="m-0 text-small">{{ news.created_date }}</p>
+                    </div>
+                </div>
+                <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+                    <a class="icon-button mr-3">
+                        <img src="https://img.icons8.com/carbon-copy/30/000000/add-to-chat.png"/>
+                    </a>
+                    <a class="icon-button">
+                        <img src="https://img.icons8.com/carbon-copy/29/000000/like--v1.png"/>
+                    </a>
+                </div>
+            </div>
+            <hr>
+        </div>
+    {% endfor %}
+    </div>
+   
 </div>
 
 
