@@ -15,7 +15,18 @@ def profile(request):
 
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
 
-    user_profile = UserProfile.objects.get(user=request.user)
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+    except:
+        user_profile = UserProfile(
+            user = request.user,
+            age = 18,
+            profile_image = '',
+            bio = "Click add on your profile image to finish set up!",
+            premium = False,
+        )
+        user_profile.save()
+
 
     context = {
         'friend_count': len(all_friends),
