@@ -28,6 +28,11 @@ def profile(request):
         )
         user_profile.save()
 
+        friends_list = Friend(
+            current_user = request.user,
+        )
+        friends_list.save()
+
     news_feed = Status.objects.filter(user=request.user).order_by('created_date').reverse()
 
     context = {
