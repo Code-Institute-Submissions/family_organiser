@@ -126,14 +126,6 @@
     border-radius: 23px 23px 0px 0px;
     padding: 0px;
     overflow-x: scroll;
-    &:after {
-        display: block;
-        position: relative;
-        top: 60px;
-        content:"";
-        height: 70px;
-        background-color: white;
-    }
 }
 
 #add-button {

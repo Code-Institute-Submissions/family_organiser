@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 from django.utils import timezone
 
 # Create your models here.
@@ -10,4 +11,5 @@ class Status(models.Model):
     created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
     likes = models.IntegerField(null=True, blank=True)
     liked_by = models.ManyToManyField(User, related_name="liked_users")
+    liked_by_usernames = models.ArrayField()
     image = models.ImageField(null=True, blank=True)

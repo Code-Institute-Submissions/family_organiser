@@ -203,15 +203,6 @@ nav {
   overflow-x: scroll;
 }
 
-.profile-page-container:after {
-  display: block;
-  position: relative;
-  top: 60px;
-  content: "";
-  height: 70px;
-  background-color: white;
-}
-
 #add-button {
   cursor: pointer;
   z-index: 100;

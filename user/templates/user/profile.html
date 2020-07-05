@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block title %}
+{% if friend_requests %}({{friend_requests}}){% endif %} {{user.first_name}} {{user.last_name}} | Family Organiser
+{% endblock %}
+
 {% block content %}
 <img src="/media/svg/add_data_background.svg" class="profile-background-image"></img>
 <img src="/media/svg/add_data_background_light.svg" class="profile-background-image-light"></img>
