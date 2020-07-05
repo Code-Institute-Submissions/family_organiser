@@ -116,11 +116,16 @@
 
 // user shopping list and status
 .profile-page-container {
+    position: fixed;
+    top: 237px;
+    height: calc(100vh - 237px);
+    right: 0;
+    left: 0;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 5px 29px 2px rgba(0,0,0,0.3);
     border-radius: 23px 23px 0px 0px;
     padding: 0px;
-    transform: translate(0, -454px);
+    overflow-x: scroll;
     &:after {
         display: block;
         position: relative;
@@ -155,7 +160,7 @@
     }
 }
 
-#send-button {
+#send-button-status {
     z-index: 100;
     position: fixed;
     border-radius: 50%;

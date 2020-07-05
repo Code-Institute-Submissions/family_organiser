@@ -190,13 +190,17 @@ nav {
 }
 
 .profile-page-container {
+  position: fixed;
+  top: 237px;
+  height: calc(100vh - 237px);
+  right: 0;
+  left: 0;
   background-color: white;
   -webkit-box-shadow: 0px 5px 29px 2px rgba(0, 0, 0, 0.3);
           box-shadow: 0px 5px 29px 2px rgba(0, 0, 0, 0.3);
   border-radius: 23px 23px 0px 0px;
   padding: 0px;
-  -webkit-transform: translate(0, -454px);
-          transform: translate(0, -454px);
+  overflow-x: scroll;
 }
 
 .profile-page-container:after {
@@ -235,7 +239,7 @@ nav {
   outline: none;
 }
 
-#send-button {
+#send-button-status {
   z-index: 100;
   position: fixed;
   border-radius: 50%;
@@ -249,11 +253,11 @@ nav {
           transform: translate(0px, 80px);
 }
 
-#send-button:focus {
+#send-button-status:focus {
   outline: none;
 }
 
-#send-button img {
+#send-button-status img {
   width: 38px;
   height: 38px;
 }

@@ -44,3 +44,23 @@ def add_status(request):
     status.save()
 
     return redirect('profile')
+
+def like_status(request, pk):
+    """
+    Add a like to the users status
+    """
+    status = Status.objects.get(pk=pk)
+
+    liked_by = status.liked_by.all()
+    like_post = True
+
+    for users in liked_by:
+        if users == request.user:
+            like_post = False
+
+    if like_post:
+        status.liked_by.add(request.user)
+        status.likes = status.likes + 1
+        status.save()
+
+    return redirect('news_feed')
