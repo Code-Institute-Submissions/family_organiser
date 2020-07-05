@@ -55,7 +55,7 @@
         <img src="https://img.icons8.com/carbon-copy/35/000000/family.png" />
         <label>Users</label>
     </a>
-    <a href="#">
+    <a id="add-status-form">
         <img src="https://img.icons8.com/carbon-copy/35/000000/commercial.png" />
         <label>Status</label>
     </a>
@@ -78,7 +78,7 @@
 </div>
 
 <!-- Add data forms container -->
-<div id="add-data-form-container"></div>
+<div id="add-data-form-container" class="closed"></div>
 
 
 <!-- users shopping list and status -->
@@ -103,9 +103,29 @@
     <span>+</span>
 </button>
 
+<button id="send-button" class="closed">
+    <img src="/media/icons/send.png"/>
+</button>
+
 
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/profile.js' %}"></script>
+<script>
+    $(document).on('click', '#add-status-form', function() {
+        $('#add-data-form-container').html(`
+            <form action="/status/add_status/" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="status-form">
+            {% csrf_token %}
+                <label>Title</label>
+                <input type="text" name="title" class="form-control">
+                <label>Post</label>
+                <input type="text" name="content" class="form-control">
+                <label class="d-block">Image</label>
+                <input type="file" name="image">
+            </form>
+        `);
+        gsap.to('#send-button', 0.6, {transform: 'translate(0, 0)'})
+    });
+</script>
 {% endblock %}

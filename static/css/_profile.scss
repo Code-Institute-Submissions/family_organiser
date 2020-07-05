@@ -108,6 +108,11 @@
     }
 }
 
+// data form container
+#add-data-form-container {
+    height: 370px;
+}
+
 
 // user shopping list and status
 .profile-page-container {
@@ -115,7 +120,7 @@
     box-shadow: 0px 5px 29px 2px rgba(0,0,0,0.3);
     border-radius: 23px 23px 0px 0px;
     padding: 0px;
-    transform: translate(0, -84px);
+    transform: translate(0, -454px);
     &:after {
         display: block;
         position: relative;
@@ -142,11 +147,31 @@
     box-shadow: 2px 5px 6px 1px rgba(0,0,0,0.12);
     span {
         position: relative;
-        bottom: 16px;
+        bottom: 15px;
         color: white;
     }
     &:focus {
         outline:none;
+    }
+}
+
+#send-button {
+    z-index: 100;
+    position: fixed;
+    border-radius: 50%;
+    bottom: 20px;
+    right: 90px;
+    height: 50px;
+    width: 50px;
+    border: none;
+    background: $theme-colour-gradient;
+    transform: translate(0px, 80px);
+    &:focus {
+        outline:none;
+    }
+    img {
+        width: 38px;
+        height: 38px;
     }
 }
 

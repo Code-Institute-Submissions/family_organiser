@@ -185,14 +185,18 @@ nav {
   color: white;
 }
 
+#add-data-form-container {
+  height: 370px;
+}
+
 .profile-page-container {
   background-color: white;
   -webkit-box-shadow: 0px 5px 29px 2px rgba(0, 0, 0, 0.3);
           box-shadow: 0px 5px 29px 2px rgba(0, 0, 0, 0.3);
   border-radius: 23px 23px 0px 0px;
   padding: 0px;
-  -webkit-transform: translate(0, -84px);
-          transform: translate(0, -84px);
+  -webkit-transform: translate(0, -454px);
+          transform: translate(0, -454px);
 }
 
 .profile-page-container:after {
@@ -223,12 +227,35 @@ nav {
 
 #add-button span {
   position: relative;
-  bottom: 16px;
+  bottom: 15px;
   color: white;
 }
 
 #add-button:focus {
   outline: none;
+}
+
+#send-button {
+  z-index: 100;
+  position: fixed;
+  border-radius: 50%;
+  bottom: 20px;
+  right: 90px;
+  height: 50px;
+  width: 50px;
+  border: none;
+  background: linear-gradient(120deg, #80f886, #39E86D);
+  -webkit-transform: translate(0px, 80px);
+          transform: translate(0px, 80px);
+}
+
+#send-button:focus {
+  outline: none;
+}
+
+#send-button img {
+  width: 38px;
+  height: 38px;
 }
 
 @media (min-width: 321px) {
@@ -244,6 +271,8 @@ nav {
   height: 55px;
   width: 55px;
   border-radius: 15px;
+  -webkit-box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
 }
 
 .status-image {
@@ -252,6 +281,8 @@ nav {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 4px;
+  -webkit-box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
 }
 
 body {

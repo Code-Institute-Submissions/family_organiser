@@ -1,8 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Status
 from user.models import Friend
-from django.contrib.auth.models import User
-from django.db.models import Q
+from django.utils import timezone
 
 # Create your views here.
 def news_feed(request):
@@ -30,3 +29,18 @@ def news_feed(request):
     }
 
     return render(request, 'status/news_feed.html', context)
+
+def add_status(request):
+    """
+    Add the users status to the database
+    """
+    status = Status(
+        user = request.user,
+        title = request.POST.get('title'),
+        content = request.POST.get('content'),
+        likes = 0,
+        image = request.FILES.get('image'),
+    )
+    status.save()
+
+    return redirect('news_feed')
