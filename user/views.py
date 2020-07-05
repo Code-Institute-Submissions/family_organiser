@@ -125,3 +125,39 @@ def settings(request):
     }
 
     return render(request, 'user/settings.html', context)
+
+def change_profile_image(request):
+    """
+    Change and save the users new profile image
+    """
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    profile_image = request.FILES.get('profile_image')
+    user_profile.profile_image = profile_image
+    user_profile.save()
+
+    return redirect('profile')
+
+def change_profile_details(request):
+    """
+    Change the profile details if changed by the user
+    """
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    # get the data from the form       
+    first_name = request.POST.get('first_name')
+    last_name = request.POST.get('last_name')
+    username = request.POST.get('username')
+    age = request.POST.get('age')
+    bio = request.POST.get('bio')
+    # update the users information
+    
+    user_profile.first_name = first_name
+    user_profile.last_name = last_name
+    user_profile.username = username
+    user_profile.age = age
+    user_profile.bio = bio
+
+    user_profile.save()
+
+    return redirect('profile')

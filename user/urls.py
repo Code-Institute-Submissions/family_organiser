@@ -9,4 +9,6 @@ urlpatterns = [
     path('requests/', views.requests, name='requests'),
     path('family/', views.family, name='family'),
     path('settings/', views.settings, name='settings'),
+    path('change_image/', views.change_profile_image, name='change_image'),
+    path('change_details/', views.change_profile_details, name='change_details'),
 ]
