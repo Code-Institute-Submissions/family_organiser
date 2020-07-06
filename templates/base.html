@@ -48,18 +48,19 @@
 
     <div class="page-container">
         <!-- Navigation -->
+        {% if user.is_authenticated %}
         <nav>
             <div class="container-fluid d-flex justify-content-between p-1 px-2 align-items-center">
                 <a href="/">
                     <img src="https://img.icons8.com/cotton/40/000000/family.png" />
                 </a>
-                {% if user.is_authenticated %}
+                
                 <div class="burger-container closed">
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
-                {% endif %}
+               
             </div>
             <ul class="mobile-navigation-links">
                 <h6>{{ user.username }}</h6>
@@ -101,8 +102,10 @@
                 </li>
             </ul>
         </nav>
-        <!-- Page content -->
         <div class="nav-margin-space"></div>
+        {% endif %}
+        
+        <!-- Page content -->
         {% block content %}{% endblock %}
     </div>
 

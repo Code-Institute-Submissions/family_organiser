@@ -37,15 +37,19 @@
                     </div>
                 </div>
                 <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-
+                   
                     <a class="icon-button mr-3">
                         <img src="https://img.icons8.com/carbon-copy/30/000000/add-to-chat.png"/>
                     </a>
-                    
+                    {% if user in news.liked_by.all %}
+                    <a class="icon-button">
+                        <img src="https://img.icons8.com/plasticine/29/000000/like--v1.png"/>
+                    </a>
+                    {% else %}
                     <a class="icon-button" href="/status/like_status/{{news.id}}">
                         <img src="https://img.icons8.com/carbon-copy/29/000000/like--v1.png"/>
                     </a>
-
+                    {% endif %}
                 </div>
             </div>
             <hr>
