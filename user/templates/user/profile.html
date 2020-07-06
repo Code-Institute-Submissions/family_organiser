@@ -17,7 +17,7 @@
             {% if friend_requests > 0 %}
             <div>
                 <a href="/user/requests">
-                    <img src="https://img.icons8.com/carbon-copy/27/000000/groups.png" />
+                    <img src="/media/icons/friend_request_icon.png" class="small-icon"/>
                     <p>{{ friend_requests }}</p>
                 </a>
             </div>
@@ -56,27 +56,27 @@
 <!-- Add data icons -->
 <div class="add-data-container">
     <a href="/user/find_users">
-        <img src="https://img.icons8.com/carbon-copy/35/000000/family.png" />
+        <img src="/media/icons/family_icon.png" />
         <label>Users</label>
     </a>
     <a id="add-status-form">
-        <img src="https://img.icons8.com/carbon-copy/35/000000/commercial.png" />
+        <img src="/media/icons/status_icon.png" />
         <label>Status</label>
     </a>
     <a href="#">
-        <img src="https://img.icons8.com/carbon-copy/35/000000/image.png" />
+        <img src="/media/icons/photo_icon.png" />
         <label>Photo</label>
     </a>
     <a href="#">
-        <img src="https://img.icons8.com/carbon-copy/35/000000/ingredients.png" />
+        <img src="/media/icons/item_icon.png" />
         <label>Item</label>
     </a>
     <a href="#">
-        <img src="https://img.icons8.com/carbon-copy/35/000000/food.png" />
+        <img src="/media/icons/dinner_icon.png" />
         <label>Dinner</label>
     </a>
     <a href="#">
-        <img src="https://img.icons8.com/carbon-copy/35/000000/to-do.png" />
+        <img src="/media/icons/to_do_icon.png" />
         <label>To Do</label>
     </a>
 </div>
@@ -102,7 +102,7 @@
                 <div class="col-12 m-0 p-0 pl-3">
                 <img src="/media/user-image.png" class="user-image-status float-left mr-3">
                     <h5>{{ news.user.first_name }} {{ news.user.last_name }}  <a class="icon-button icon-danger float-right mr-4" href="/status/update_status/remove/{{news.id}}">
-                        <img src="https://img.icons8.com/carbon-copy/28/000000/filled-trash.png" />
+                        <img src="/media/icons/delete_icon.png" />
                     </a></h5>
                     <h6 class="text-secondary">{{ news.title }}</h6>
                     
@@ -124,15 +124,15 @@
                 </div>
                 <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                     <a class="icon-button mr-3">
-                        <img src="https://img.icons8.com/carbon-copy/30/000000/add-to-chat.png"/>
+                        <img src="/media/icons/comment_icon.png"/>
                     </a>
                     {% if user in news.liked_by.all %}
                     <a class="icon-button">
-                        <img src="https://img.icons8.com/plasticine/29/000000/like--v1.png"/>
+                        <img src="/media/icons/heart_pink_icon.png"/>
                     </a>
                     {% else %}
                     <a class="icon-button" href="/status/like_status/{{news.id}}">
-                        <img src="https://img.icons8.com/carbon-copy/29/000000/like--v1.png"/>
+                        <img src="/media/icons/heart_white_icon.png"/>
                     </a>
                     {% endif %}
                 </div>

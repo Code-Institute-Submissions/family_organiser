@@ -24,7 +24,7 @@
 
 <div class="pl-4 d-flex justify-content-start align-items-center">
     <a class="icon-button " href="#status-form" data-toggle="collapse">
-        <img src="https://img.icons8.com/carbon-copy/28/000000/add-rule.png"/>
+        <img src="/media/icons/add_status_icon.png"/>
         </a>
     <p class="m-0 ml-2">Create a new post </p>
 
@@ -58,15 +58,15 @@
                 <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                    
                     <a class="icon-button mr-3" href="#comment-form-container-{{news.id}}" data-toggle="collapse">
-                        <img src="https://img.icons8.com/carbon-copy/30/000000/add-to-chat.png"/>
+                        <img src="/media/icons/comment_icon.png"/>
                     </a>
                     {% if user in news.liked_by.all %}
                     <a class="icon-button">
-                        <img src="https://img.icons8.com/plasticine/29/000000/like--v1.png"/>
+                        <img src="/media/icons/heart_pink_icon.png"/>
                     </a>
                     {% else %}
                     <a class="icon-button" href="/status/like_status/{{news.id}}">
-                        <img src="https://img.icons8.com/carbon-copy/29/000000/like--v1.png"/>
+                        <img src="/media/icons/heart_white_icon.png"/>
                     </a>
                     {% endif %}
                 </div>

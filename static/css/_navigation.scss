@@ -7,6 +7,11 @@ nav {
     z-index: 555;
 }
 
+.logo {
+    height: 40px;
+    width: 40px;
+}
+
 .burger-container {
     margin-right: 5px;
     cursor: pointer;
@@ -49,6 +54,10 @@ nav {
             color: black;
             &:focus,&:hover {
                 text-decoration: none;
+            }
+            img {
+        
+                width: 32px;
             }
         }
     }
