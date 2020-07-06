@@ -12,3 +12,14 @@
     border-radius: 4px;
     box-shadow: 2px 2px 12px 1px rgba(0,0,0,0.1);
 }
+
+.comment-container {
+    border-radius: 4px;
+    box-shadow: inset 0px 0px 9px 1px rgba(0,0,0,0.08);
+    padding: 13px;
+    img {
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+    }
+}

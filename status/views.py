@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Status
+from .models import Status, Comment
 from user.models import Friend
 from django.utils import timezone
 
@@ -69,5 +69,21 @@ def like_status(request, pk):
         status.liked_by.add(request.user)
         status.likes = status.likes + 1
         status.save()
+
+    return redirect('news_feed')
+
+def add_comment(request, pk):
+    status = Status.objects.get(pk=pk)
+
+    print(request.POST.get('comment'))
+
+    comment = Comment(
+        comment = request.POST.get('comment'),
+        author = request.user,
+    )
+    comment.save()
+
+    status.comment.add(comment)
+
 
     return redirect('news_feed')

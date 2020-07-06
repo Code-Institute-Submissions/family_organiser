@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                    
-                    <a class="icon-button mr-3">
+                    <a class="icon-button mr-3" href="#comment-form-container-{{news.id}}" data-toggle="collapse">
                         <img src="https://img.icons8.com/carbon-copy/30/000000/add-to-chat.png"/>
                     </a>
                     {% if user in news.liked_by.all %}
@@ -69,6 +69,23 @@
                         <img src="https://img.icons8.com/carbon-copy/29/000000/like--v1.png"/>
                     </a>
                     {% endif %}
+                </div>
+                <div class="col-12 my-2"></div>
+                {% for comment in news.comment.all %}
+                <div class="col-12 px-2 py-1">
+                    <div class="comment-container">
+                        <h6>{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
+                        <p class="m-0">{{ comment.comment }}</p>
+                        <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
+                    <form class="d-flex justify-content-between" action="/status/add_comment/{{news.id}}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" class="form-control" name="comment" required>
+                        <button class="btn btn-success ml-3">Comment</button>
+                    </form>
                 </div>
             </div>
             <hr>

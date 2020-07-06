@@ -136,6 +136,16 @@
                     </a>
                     {% endif %}
                 </div>
+                <div class="col-12 my-2"></div>
+                {% for comment in news.comment.all %}
+                <div class="col-12 px-2 py-1">
+                    <div class="comment-container">
+                        <h6>{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
+                        <p class="m-0">{{ comment.comment }}</p>
+                        <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
             <hr>
         </div>
