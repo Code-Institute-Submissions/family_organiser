@@ -24,24 +24,31 @@ def news_feed(request):
     for post in posts:
         news_feed.append(post)
 
+    news_feed = sorted(news_feed, key = lambda x: x.created_date, reverse=True)
+
     context = {
         'news_feed': news_feed,
     }
 
     return render(request, 'status/news_feed.html', context)
 
-def add_status(request):
+def update_status(request, operation, pk):
     """
     Add the users status to the database
     """
-    status = Status(
-        user = request.user,
-        title = request.POST.get('title'),
-        content = request.POST.get('content'),
-        likes = 0,
-        image = request.FILES.get('image'),
-    )
-    status.save()
+    if operation == 'add':
+        status = Status(
+            user = request.user,
+            title = request.POST.get('title'),
+            content = request.POST.get('content'),
+            likes = 0,
+            image = request.FILES.get('image'),
+        )
+        status.save()
+
+    elif operation == 'remove':
+        status = Status.objects.get(pk=pk)
+        status.delete()
 
     return redirect('profile')
 

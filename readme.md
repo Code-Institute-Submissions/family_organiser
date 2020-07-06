@@ -73,3 +73,5 @@ This web application is designed to keep users in touch with their family and al
 [Adding Friends](https://www.youtube.com/watch?v=_DqmVMlJzqA&t=538s)
 
 [ImageField](https://www.youtube.com/watch?v=Rr1-UTFCuH4)
+
+[Sorting array of objects](https://stackoverflow.com/questions/403421/how-to-sort-a-list-of-objects-based-on-an-attribute-of-the-objects)

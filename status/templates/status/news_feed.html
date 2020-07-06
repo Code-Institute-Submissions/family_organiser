@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <div class="row m-0 p-2">
@@ -7,8 +7,27 @@
         <p class="m-0 p-0 text-right">News Feed</p>
     </div>
 </div>
-<div class="px-3">
-    <a class="btn btn-success text-light container-fluid" href="add_status">Add Status</a>
+
+    <form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="mb-3 collapse px-3 pt-0" id="status-form">
+        {% csrf_token %}
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" id="form-title">
+            <label>Post</label>
+            <input type="text" name="content" class="form-control" id="form-content">
+            <label class="d-block">Image</label>
+            <input type="file" name="image" id="form-file">
+            <div class="btn btn-success float-right" id="send-button-status">Post</div>
+            <div id="error-container" class="mt-1"></div>
+    </form>
+
+
+
+<div class="pl-4 d-flex justify-content-start align-items-center">
+    <a class="icon-button " href="#status-form" data-toggle="collapse">
+        <img src="https://img.icons8.com/carbon-copy/28/000000/add-rule.png"/>
+        </a>
+    <p class="m-0 ml-2">Create a new post </p>
+
 </div>
 
 <hr>
@@ -57,4 +76,8 @@
     {% endfor %}
 </div>
 <p class="m-0 mt-2 mb-4 text-right mr-3">Search Result: {{ news_feed | length }}</p>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/forms.js' %}"></script>
 {% endblock %}

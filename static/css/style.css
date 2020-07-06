@@ -230,7 +230,7 @@ nav {
   outline: none;
 }
 
-#send-button-status {
+.send-button-status {
   z-index: 100;
   position: fixed;
   border-radius: 50%;
@@ -244,11 +244,11 @@ nav {
           transform: translate(0px, 80px);
 }
 
-#send-button-status:focus {
+.send-button-status:focus {
   outline: none;
 }
 
-#send-button-status img {
+.send-button-status img {
   width: 38px;
   height: 38px;
 }

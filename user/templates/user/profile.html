@@ -24,7 +24,6 @@
             {% else %}
             <b class="m-0 text-small">No notifications</b>
             {% endif %}
-
             <!-- <img src="https://img.icons8.com/carbon-copy/20/000000/shopping-basket.png" /> -->
         </div>
 
@@ -102,8 +101,11 @@
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0 pl-3">
                 <img src="/media/user-image.png" class="user-image-status float-left mr-3">
-                    <h5>{{ news.user.first_name }} {{ news.user.last_name }}</h5>
+                    <h5>{{ news.user.first_name }} {{ news.user.last_name }}  <a class="icon-button icon-danger float-right mr-4" href="/status/update_status/remove/{{news.id}}">
+                        <img src="https://img.icons8.com/carbon-copy/28/000000/filled-trash.png" />
+                    </a></h5>
                     <h6 class="text-secondary">{{ news.title }}</h6>
+                    
                 </div>
                 <div class="col-12 my-3">
                     
@@ -124,9 +126,15 @@
                     <a class="icon-button mr-3">
                         <img src="https://img.icons8.com/carbon-copy/30/000000/add-to-chat.png"/>
                     </a>
+                    {% if user in news.liked_by.all %}
                     <a class="icon-button">
+                        <img src="https://img.icons8.com/plasticine/29/000000/like--v1.png"/>
+                    </a>
+                    {% else %}
+                    <a class="icon-button" href="/status/like_status/{{news.id}}">
                         <img src="https://img.icons8.com/carbon-copy/29/000000/like--v1.png"/>
                     </a>
+                    {% endif %}
                 </div>
             </div>
             <hr>
@@ -142,7 +150,7 @@
     <span>+</span>
 </button>
 
-<button id="send-button-status" class="closed">
+<button id="send-button-status" class="closed send-button-status">
     <img src="/media/icons/send.png"/>
 </button>
 
@@ -151,10 +159,11 @@
 
 {% block extra_js %}
 <script src="{% static 'js/profile.js' %}"></script>
+<script src="{% static 'js/forms.js' %}"></script>
 <script>
     $(document).on('click', '#add-status-form', function() {
         $('#add-data-form-container').html(`
-            <form action="/status/add_status/" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="status-form">
+            <form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="status-form">
             {% csrf_token %}
                 <label>Title</label>
                 <input type="text" name="title" class="form-control" id="form-title">
