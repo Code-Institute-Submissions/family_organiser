@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from status.models import Status, CommentNotification
+from status.models import Status, CommentNotification, LikeNotification
 from .models import FriendRequests, Friend, UserProfile
 from django.db.models import Q
 
@@ -99,14 +99,28 @@ def notifications(request):
     """
     Shows the users sent friend requests for shopping and todo list
     """
-    
-    friend_requests = FriendRequests.objects.filter(to_user=request.user)
+
+    # get like and comment notifications and order them by date
+    notifications = []
 
     comment_notifications = CommentNotification.objects.filter(user=request.user)
 
+    for notification in comment_notifications:
+        notifications.append(notification)
+
+    like_notifications = LikeNotification.objects.filter(user=request.user)
+
+    for notification in like_notifications:
+        notifications.append(notification)
+   
+    notifications = sorted(notifications, key = lambda x: x.created_date, reverse=True)
+
+    # Find friend requests
+    friend_requests = FriendRequests.objects.filter(to_user=request.user)
+
     context = {
         'friend_requests': friend_requests,
-        'comment_notifications': comment_notifications,
+        'notifications': notifications,
     }
     return render(request, 'user/notifications.html', context)
 

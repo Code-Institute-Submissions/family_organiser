@@ -25,3 +25,10 @@ class CommentNotification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_noti_user", null=True)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, related_name="comment_noti_status", null=True)
     commenter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_noti_commenter", null=True)
+    created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
+
+class LikeNotification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="like_noti_user", null=True)
+    status = models.ForeignKey(Status, on_delete=models.CASCADE, related_name="like_noti_status", null=True)
+    liker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="like_noti_liker", null=True)
+    created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)

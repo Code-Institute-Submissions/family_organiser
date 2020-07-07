@@ -42,18 +42,37 @@ Requests | Family Organiser
             <hr>
         </div>
     {% endfor %}
-    {% for notification in comment_notifications %}
-        <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-                <div class="col-12">
-                    <p class="m-0"><b>{{ notification.commenter.first_name }} {{ notification.commenter.last_name }}</b> has commented on your post <b>"{{ notification.status.title }}"</b></p>
+    {% for notification in notifications %}
+
+        <!-- style the liked notification -->
+        {% if notification.liker %}
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12">
+                        <p class="m-0"><b>{{ notification.liker.first_name }} {{ notification.liker.last_name }}</b> has liked on your post <b>"{{ notification.status.title }}"</b></p>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <p class="m-0 text-small">{{ notification.created_date }}</p>
+                        <p class="m-0">View</p>
+                    </div>
                 </div>
-                <div class="col-12 d-flex justify-content-end">
-                    <p class="m-0">View</p>
-                </div>
+                <hr>
             </div>
-            <hr>
-        </div>
+        {% else %}
+            <!-- style the comment notification -->
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12">
+                        <p class="m-0"><b>{{ notification.commenter.first_name }} {{ notification.commenter.last_name }}</b> has commented on your post <b>"{{ notification.status.title }}"</b></p>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <p class="m-0 text-small">{{ notification.created_date }}</p>
+                        <p class="m-0">View</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        {% endif %}
     {% endfor %}
 </div>
 

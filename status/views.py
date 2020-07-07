@@ -9,9 +9,11 @@ def news_feed(request):
     Will show users all their friends posts
     """
 
+    # Find the current users friends
     friends = Friend.objects.get(current_user=request.user)
     all_friends = friends.users.all()
 
+    # Get all friends status and store them in an array
     news_feed = []
 
     for friend in all_friends:
@@ -19,11 +21,13 @@ def news_feed(request):
         for post in status:
             news_feed.append(post)
 
+    # Get all the current users status
     posts = Status.objects.filter(user=request.user)
 
     for post in posts:
         news_feed.append(post)
 
+    # Sort all status by data
     news_feed = sorted(news_feed, key = lambda x: x.created_date, reverse=True)
 
     context = {
@@ -36,6 +40,8 @@ def update_status(request, operation, pk):
     """
     Add the users status to the database
     """
+
+    # Add the status to the database, else remove the status from the database
     if operation == 'add':
         status = Status(
             user = request.user,
@@ -57,16 +63,13 @@ def like_status(request, pk):
     """
     Add a like to the users status
     """
+
     status = Status.objects.get(pk=pk)
 
     liked_by = status.liked_by.all()
-    like_post = True
 
-    for users in liked_by:
-        if users == request.user:
-            like_post = False
-
-    if like_post:
+    # If user hasn't liked the post add them to liked_by and add 1 to the likes
+    if request.user not in liked_by.all():
         status.liked_by.add(request.user)
         status.likes = status.likes + 1
         status.save()
@@ -77,8 +80,10 @@ def add_comment(request, pk):
     """
     Add a comment to the select status and send a notification to the user.
     """
+    # Get the status that has been commented on
     status = Status.objects.get(pk=pk)
 
+    # Create the new comment and save it to the database
     comment = Comment(
         comment = request.POST.get('comment'),
         author = request.user,
@@ -86,8 +91,10 @@ def add_comment(request, pk):
     )
     comment.save()
 
+    # Add the comment to the status
     status.comment.add(comment)
 
+    # Send a notification to the status owner to tell them their status has been commmented on.
     comment_notification = CommentNotification(
         user = status.user,
         status = status,
