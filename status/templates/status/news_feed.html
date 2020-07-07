@@ -30,67 +30,81 @@
 
 </div>
 
-<hr>
+<hr class="status-divider">
 <div class="row m-0 p-0">
     {% for news in news_feed %}
-        <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0 pl-3">
+    <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 pl-3">
+            {% if news.user_profile.profile_image %}
+                <img src="/media/{{news.user_profile.profile_image}}" class="user-image-status float-left mr-3">
+            {% else %}
                 <img src="/media/user-image.png" class="user-image-status float-left mr-3">
-                    <h5>{{ news.user.first_name }} {{ news.user.last_name }}</h5>
-                    <h6 class="text-secondary">{{ news.title }}</h6>
+            {% endif %}
+                <h5>{{ news.user.first_name }} {{ news.user.last_name }}  <a class="icon-button icon-danger float-right mr-4" href="/status/update_status/remove/{{news.id}}">
+                    <img src="/media/icons/delete_icon.png" />
+                </a></h5>
+                <h6 class="text-secondary">{{ news.title }}</h6>
+                
+            </div>
+            <div class="col-12 mb-3 mt-2">
+                <hr class="m-0 mb-3">
+                <p class="m-0">{{ news.content }}</p>
+                <hr class="m-0 mt-3">
+            </div>  
+            {% if news.image %}
+                <div class="col-12 mb-3">     
+                        <img src="/media/{{news.image}}" class="status-image">
                 </div>
-                <div class="col-12 my-3">
-                  
-                    <p class="m-0">{{ news.content }}</p>
-                </div>  
-                {% if news.image %}
-                    <div class="col-12 mb-3">     
-                            <img src="/media/{{news.image}}" class="status-image">
-                    </div>
-                {% endif %}
-                <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
-                    <div>
-                        <p class="m-0 text-small">{{ news.likes }} Likes 0 Comments</p>
-                        <p class="m-0 text-small">{{ news.created_date }}</p>
-                    </div>
-                </div>
-                <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-                   
-                    <a class="icon-button mr-3" href="#comment-form-container-{{news.id}}" data-toggle="collapse">
-                        <img src="/media/icons/comment_icon.png"/>
-                    </a>
-                    {% if user in news.liked_by.all %}
-                    <a class="icon-button">
-                        <img src="/media/icons/heart_pink_icon.png"/>
-                    </a>
-                    {% else %}
-                    <a class="icon-button" href="/status/like_status/{{news.id}}">
-                        <img src="/media/icons/heart_white_icon.png"/>
-                    </a>
-                    {% endif %}
-                </div>
-                <div class="col-12 my-2"></div>
-                {% for comment in news.comment.all %}
-                <div class="col-12 px-2 py-1">
-                    <div class="comment-container">
-                        <h6>{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
-                        <p class="m-0">{{ comment.comment }}</p>
-                        <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
-                    </div>
-                </div>
-                {% endfor %}
-                <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
-                    <form class="d-flex justify-content-between" action="/status/add_comment/{{news.id}}" method="POST">
-                        {% csrf_token %}
-                        <input type="text" class="form-control" name="comment" required>
-                        <button class="btn btn-success ml-3">Comment</button>
-                    </form>
+            {% endif %}
+            <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
+                <div>
+                    <p class="m-0 text-small">{{ news.likes }} Likes {{ news.comment.all | length }} Comments</p>
+                    <p class="m-0 text-small">{{ news.created_date }}</p>
                 </div>
             </div>
-            <hr>
+            <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+                <a class="icon-button mr-3" href="#comment-form-container-{{news.id}}" data-toggle="collapse">
+                    <img src="/media/icons/comment_icon.png"/>
+                </a>
+                {% if user in news.liked_by.all %}
+                <a class="icon-button">
+                    <img src="/media/icons/heart_pink_icon.png"/>
+                </a>
+                {% else %}
+                <a class="icon-button" href="/status/like_status/{{news.id}}">
+                    <img src="/media/icons/heart_white_icon.png"/>
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-12">
+                <hr class="mb-1">
+            </div>
+            {% for comment in news.comment.all %}
+            <div class="col-12 px-2 py-1">
+                <div class="comment-container">
+                    {% if comment.author_profile.profile_image %}
+                    <img src="/media/{{comment.author_profile.profile_image}}" class="float-left mr-2">
+                    {% else %}
+                    <img src="/media/user-image.png" class="float-left mr-2">
+                    {% endif %}
+                    <h6 class="m-0 mb-1">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
+                    <p class="m-0">{{ comment.comment }}</p>
+                    <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
+                <form class="d-flex justify-content-between" action="/status/add_comment/{{news.id}}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" name="comment" required>
+                    <button class="btn btn-success ml-3">Comment</button>
+                </form>
+            </div>
         </div>
-    {% endfor %}
+        <hr class="status-divider">
+    </div>
+{% endfor %}
 </div>
 <p class="m-0 mt-2 mb-4 text-right mr-3">Search Result: {{ news_feed | length }}</p>
 {% endblock %}

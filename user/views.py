@@ -95,7 +95,7 @@ def family(request):
 
     return render(request, 'user/family.html', context)
 
-def requests(request):
+def notifications(request):
     """
     Shows the users sent friend requests for shopping and todo list
     """
@@ -104,7 +104,7 @@ def requests(request):
     context = {
         'friend_requests': friend_requests,
     }
-    return render(request, 'user/requests.html', context)
+    return render(request, 'user/notifications.html', context)
 
 
 def update_friends(request, operation, pk, request_id):

@@ -143,16 +143,15 @@
     border-radius: 50%;
     height: 50px;
     width: 50px;
-    font-size: 45px;
+    font-size: 3em;
     font-weight: 800;
     border: none;
     background: $theme-colour-gradient;
     box-shadow: 2px 5px 6px 1px rgba(0,0,0,0.12);
-    span {
-        position: relative;
-        bottom: 15px;
-        color: white;
-    }
+    line-height: -0px;
+    padding-bottom: 14px;
+    text-align: center;
+    color: white;
     &:focus {
         outline:none;
     }

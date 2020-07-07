@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Status, Comment
-from user.models import Friend
+from user.models import Friend, UserProfile
 from django.utils import timezone
 
 # Create your views here.
@@ -39,6 +39,7 @@ def update_status(request, operation, pk):
     if operation == 'add':
         status = Status(
             user = request.user,
+            user_profile = UserProfile.objects.get(user=request.user),
             title = request.POST.get('title'),
             content = request.POST.get('content'),
             likes = 0,
@@ -75,11 +76,10 @@ def like_status(request, pk):
 def add_comment(request, pk):
     status = Status.objects.get(pk=pk)
 
-    print(request.POST.get('comment'))
-
     comment = Comment(
         comment = request.POST.get('comment'),
         author = request.user,
+        author_profile = UserProfile.objects.get(user=request.user),
     )
     comment.save()
 

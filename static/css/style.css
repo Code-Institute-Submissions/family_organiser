@@ -227,17 +227,15 @@ nav {
   border-radius: 50%;
   height: 50px;
   width: 50px;
-  font-size: 45px;
+  font-size: 3em;
   font-weight: 800;
   border: none;
   background: linear-gradient(120deg, #80f886, #39E86D);
   -webkit-box-shadow: 2px 5px 6px 1px rgba(0, 0, 0, 0.12);
           box-shadow: 2px 5px 6px 1px rgba(0, 0, 0, 0.12);
-}
-
-#add-button span {
-  position: relative;
-  bottom: 15px;
+  line-height: -0px;
+  padding-bottom: 14px;
+  text-align: center;
   color: white;
 }
 
@@ -296,9 +294,9 @@ nav {
 }
 
 .comment-container {
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0px 0px 9px 1px rgba(0, 0, 0, 0.08);
-          box-shadow: inset 0px 0px 9px 1px rgba(0, 0, 0, 0.08);
+  border-radius: 15px;
+  -webkit-box-shadow: inset 0px 0px 17px 1px rgba(0, 0, 0, 0.08);
+          box-shadow: inset 0px 0px 17px 1px rgba(0, 0, 0, 0.08);
   padding: 13px;
 }
 
@@ -306,6 +304,11 @@ nav {
   width: 20px;
   height: 20px;
   border-radius: 3px;
+}
+
+.status-divider {
+  height: 8px;
+  background-color: #cafacc;
 }
 
 .login-container {
