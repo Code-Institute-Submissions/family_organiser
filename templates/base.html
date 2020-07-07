@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- favicon -->
-    <link rel="icon" href="/media/icons/family_organiser.png" type="image/x-icon"/>
+    <link rel="icon" href="{{ MEDIA_URL }}icons/family_organiser.png" type="image/x-icon"/>
 
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@300&display=swap"
@@ -52,7 +52,7 @@
         <nav>
             <div class="container-fluid d-flex justify-content-between p-1 px-2 align-items-center">
                 <a href="/">
-                    <img src="/media/icons/family_organiser.png" class="logo"/>
+                    <img src="{{ MEDIA_URL }}icons/family_organiser.png" class="logo"/>
                 </a>
                 
                 <div class="burger-container closed">
@@ -67,37 +67,37 @@
                 <hr class="m-0">
                 <li>
                     <a href="/user/profile/">
-                        <img src="/media/icons/profile_icon.png" class="mr-2" />Profile
+                        <img src="{{ MEDIA_URL }}icons/profile_icon.png" class="mr-2" />Profile
                     </a>
                 </li>
                 <li>
                     <a href="/status/news_feed">
-                        <img src="/media/icons/news_icon.png" class="mr-2" />News Feed
+                        <img src="{{ MEDIA_URL }}icons/news_icon.png" class="mr-2" />News Feed
                     </a>
                 </li>
                 <li>
                     <a href="/">
-                        <img src="/media/icons/message_icon.png" class="mr-2" />Messages
+                        <img src="{{ MEDIA_URL }}icons/message_icon.png" class="mr-2" />Messages
                     </a>
                 </li>
                 <li>
                     <a href="/user/family">
-                        <img src="/media/icons/family_icon.png" class="mr-2" />Family
+                        <img src="{{ MEDIA_URL }}icons/family_icon.png" class="mr-2" />Family
                     </a>
                 </li>
                 <li>
                     <a href="/user/notifications">
-                        <img src="/media/icons/bell_icon.png" class="mr-2" />Notifications
+                        <img src="{{ MEDIA_URL }}icons/bell_icon.png" class="mr-2" />Notifications
                     </a>
                 </li>
                 <li>
                     <a href="/user/settings">
-                        <img src="/media/icons/settings_icon.png" class="mr-2" />Settings
+                        <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2" />Settings
                     </a>
                 </li>
-                <li>
+                <li class="logout-item">
                     <a href="/accounts/logout">
-                        <img src="/media/icons/logout_icon.png" class="mr-2" />Logout
+                        <img src="{{ MEDIA_URL }}icons/logout_icon.png" class="mr-2" />Logout
                     </a>
                 </li>
             </ul>

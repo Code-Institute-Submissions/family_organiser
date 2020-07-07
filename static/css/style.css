@@ -28,6 +28,8 @@ nav {
 }
 
 .mobile-navigation-links {
+  background: url("/media/svg/logout_background.svg") no-repeat;
+  background-position: bottom;
   background-color: #fafafa;
   z-index: 555;
   height: 100vh;
@@ -50,6 +52,17 @@ nav {
   margin-bottom: 13px;
 }
 
+.mobile-navigation-links .logout-item {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.mobile-navigation-links .logout-item a {
+  color: white;
+}
+
 .mobile-navigation-links li {
   padding: 0;
   margin: 0;
@@ -68,7 +81,7 @@ nav {
 }
 
 .mobile-navigation-links li a img {
-  width: 32px;
+  height: 32px;
 }
 
 .page-container {

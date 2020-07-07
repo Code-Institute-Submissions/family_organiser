@@ -24,7 +24,7 @@
 
 <div class="pl-4 d-flex justify-content-start align-items-center">
     <a class="icon-button " href="#status-form" data-toggle="collapse">
-        <img src="/media/icons/add_status_icon.png"/>
+        <img src="{{ MEDIA_URL }}icons/add_status_icon.png"/>
         </a>
     <p class="m-0 ml-2">Create a new post </p>
 
@@ -37,13 +37,11 @@
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 pl-3">
             {% if news.user_profile.profile_image %}
-                <img src="/media/{{news.user_profile.profile_image}}" class="user-image-status float-left mr-3">
+                <img src="{{ MEDIA_URL }}{{news.user_profile.profile_image}}" class="user-image-status float-left mr-3">
             {% else %}
-                <img src="/media/user-image.png" class="user-image-status float-left mr-3">
+                <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
             {% endif %}
-                <h5>{{ news.user.first_name }} {{ news.user.last_name }}  <a class="icon-button icon-danger float-right mr-4" href="/status/update_status/remove/{{news.id}}">
-                    <img src="/media/icons/delete_icon.png" />
-                </a></h5>
+                <h5>{{ news.user.first_name }} {{ news.user.last_name }} </h5>
                 <h6 class="text-secondary">{{ news.title }}</h6>
                 
             </div>
@@ -54,7 +52,7 @@
             </div>  
             {% if news.image %}
                 <div class="col-12 mb-3">     
-                        <img src="/media/{{news.image}}" class="status-image">
+                        <img src="{{ MEDIA_URL }}{{news.image}}" class="status-image">
                 </div>
             {% endif %}
             <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
@@ -65,15 +63,15 @@
             </div>
             <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                 <a class="icon-button mr-3" href="#comment-form-container-{{news.id}}" data-toggle="collapse">
-                    <img src="/media/icons/comment_icon.png"/>
+                    <img src="{{ MEDIA_URL }}icons/comment_icon.png"/>
                 </a>
                 {% if user in news.liked_by.all %}
                 <a class="icon-button">
-                    <img src="/media/icons/heart_pink_icon.png"/>
+                    <img src="{{ MEDIA_URL }}icons/heart_pink_icon.png"/>
                 </a>
                 {% else %}
                 <a class="icon-button" href="/status/like_status/{{news.id}}">
-                    <img src="/media/icons/heart_white_icon.png"/>
+                    <img src="{{ MEDIA_URL }}icons/heart_white_icon.png"/>
                 </a>
                 {% endif %}
             </div>
@@ -84,9 +82,9 @@
             <div class="col-12 px-2 py-1">
                 <div class="comment-container">
                     {% if comment.author_profile.profile_image %}
-                    <img src="/media/{{comment.author_profile.profile_image}}" class="float-left mr-2">
+                    <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}" class="float-left mr-2">
                     {% else %}
-                    <img src="/media/user-image.png" class="float-left mr-2">
+                    <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
                     {% endif %}
                     <h6 class="m-0 mb-1">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
                     <p class="m-0">{{ comment.comment }}</p>
