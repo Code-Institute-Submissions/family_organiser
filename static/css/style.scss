@@ -10,16 +10,21 @@ body {
     overflow-x: hidden;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3,h4,h5,h6,label {
     font-family: 'Merriweather', serif;
+    font-size: 0.9em;
 }
 
 p,a,b {
     font-family: 'Roboto', sans-serif; 
+    font-size: 0.9em;
+    color: black;
 }
 
+
 .text-small {
-    font-size: 12px;
+    font-size: 0.7em;
+    
 }
 
 // icons

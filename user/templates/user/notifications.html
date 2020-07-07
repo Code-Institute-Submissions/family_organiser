@@ -11,15 +11,18 @@ Requests | Family Organiser
         <p class="m-0 p-0 text-right">Notifications</p>
     </div>
 </div>
-<div class="container-fluid">
-    <h6>Friend Requests</h6>
-</div>
+
 <hr>
 <div class="row m-0 p-0">
-
     {% for request in friend_requests %}
         <div class="col-12 m-0 p-0">
             <div class="row m-0 p-0">
+                {% if forloop.first %}
+                <div class="col-12 m-0 p-0">
+                    <h6 class="ml-3">Friend Requests</h6>
+                    <hr>
+                </div>
+                {% endif %}
                 <div class="col-3 m-0 p-0 pl-3">
                     <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
                 </div>
@@ -34,6 +37,19 @@ Requests | Family Organiser
                     <a class="icon-button icon-success" href="/user/update_friends/add/{{request.from_user.id}}/{{request.id}}">
                         <img src="https://img.icons8.com/carbon-copy/32/000000/add-user-male.png"/>
                     </a>
+                </div>
+            </div>
+            <hr>
+        </div>
+    {% endfor %}
+    {% for notification in comment_notifications %}
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12">
+                    <p class="m-0"><b>{{ notification.commenter.first_name }} {{ notification.commenter.last_name }}</b> has commented on your post <b>"{{ notification.status.title }}"</b></p>
+                </div>
+                <div class="col-12 d-flex justify-content-end">
+                    <p class="m-0">View</p>
                 </div>
             </div>
             <hr>

@@ -14,8 +14,10 @@
 }
 
 .comment-container {
-    border-radius: 15px;
-    box-shadow: inset 0px 0px 17px 1px rgba(0,0,0,0.08);
+    display: inline-block;
+    border-radius: 18px;
+    background-color: rgba(0,0,0,0.05);
+    box-shadow: inset 0px 0px 17px 1px rgba(0, 0, 0, 0.1);
     padding: 13px;
     img {
         width: 20px;

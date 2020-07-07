@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block content %}
-<img src="/media/svg/add_data_background.svg" class="profile-background-image"></img>
-<img src="/media/svg/add_data_background_light.svg" class="profile-background-image-light"></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image"></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light"></img>
 
 <!-- profile and notifications section -->
 <div class="row m-0 p-0">
@@ -17,7 +17,7 @@
             {% if friend_requests > 0 %}
             <div>
                 <a href="/user/notifications">
-                    <img src="/media/icons/friend_request_icon.png" class="small-icon"/>
+                    <img src="{{ MEDIA_URL }}icons/friend_request_icon.png" class="small-icon"/>
                     <p>{{ friend_requests }}</p>
                 </a>
             </div>
@@ -87,9 +87,6 @@
 
 <!-- users shopping list and status -->
 <div class="profile-page-container">
-    <div class="p-2">
-    
-    </div>
     <h4 class="ml-3">Status</h4>
     <hr class="status-divider">
     <div class="row m-0 p-0 mb-5">
@@ -173,11 +170,11 @@
 
 
 <button id="add-button" class="closed">
-    +
+    <img src="{{ MEDIA_URL }}icons/plus_icon.png">
 </button>
 
 <button id="send-button-status" class="closed send-button-status">
-    <img src="/media/icons/send.png"/>
+    <img src="{{ MEDIA_URL }}icons/send.png"/>
 </button>
 
 

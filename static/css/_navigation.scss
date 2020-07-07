@@ -26,8 +26,6 @@ nav {
 }
 
 .mobile-navigation-links {
-    background: url('/media/svg/logout_background.svg') no-repeat;
-    background-position: bottom;
     background-color: #fafafa;
     z-index:555;
     height: 100vh;
@@ -51,10 +49,15 @@ nav {
         bottom: 0;
         width: 100%;
         background-color: rgba(0,0,0,0);
+        padding-bottom: 58px;
         a {
             color: white;
         }
-    
+        .logout-background-image {
+            position: absolute;
+            bottom: 0;
+            z-index: -5;
+        }
     }
     li {
         padding: 0;

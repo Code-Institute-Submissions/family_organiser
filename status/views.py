@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Status, Comment
+from .models import Status, Comment, CommentNotification
 from user.models import Friend, UserProfile
 from django.utils import timezone
 
@@ -74,6 +74,9 @@ def like_status(request, pk):
     return redirect('news_feed')
 
 def add_comment(request, pk):
+    """
+    Add a comment to the select status and send a notification to the user.
+    """
     status = Status.objects.get(pk=pk)
 
     comment = Comment(
@@ -85,5 +88,11 @@ def add_comment(request, pk):
 
     status.comment.add(comment)
 
-
+    comment_notification = CommentNotification(
+        user = status.user,
+        status = status,
+        commenter = request.user,
+    )
+    comment_notification.save()
+   
     return redirect('news_feed')
