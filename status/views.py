@@ -101,7 +101,7 @@ def like_status(request, pk):
 
     return redirect('news_feed')
 
-def add_comment(request, pk, redirect):
+def add_comment(request, pk, redirect_user):
     """
     Add a comment to the select status and send a notification to the user.
     """
@@ -132,7 +132,7 @@ def add_comment(request, pk, redirect):
         user_profile.status_notification += 1
         user_profile.save()
    
-    if redirect == 'profile':
+    if redirect_user == 'profile':
         return redirect('profile')
-    if redirect == 'news_feed':
+    if redirect_user == 'news_feed':
         return redirect('news_feed')
