@@ -265,7 +265,7 @@ nav {
   bottom: 11px;
 }
 
-.send-button-status {
+.send-button {
   z-index: 100;
   position: fixed;
   border-radius: 50%;
@@ -279,11 +279,11 @@ nav {
           transform: translate(0px, 100px);
 }
 
-.send-button-status:focus {
+.send-button:focus {
   outline: none;
 }
 
-.send-button-status img {
+.send-button img {
   width: 81px;
   height: 85px;
   position: relative;
@@ -336,6 +336,22 @@ nav {
 .status-divider {
   height: 8px;
   background-color: #cafacc;
+}
+
+.shopping-table tr:nth-of-type(odd) {
+  background-color: #fafafa;
+}
+
+.shopping-table tr:first-child {
+  background-color: #e1fce3;
+}
+
+.shopping-table th {
+  padding: 5px;
+}
+
+.shopping-table td {
+  padding: 4px;
 }
 
 .login-container {

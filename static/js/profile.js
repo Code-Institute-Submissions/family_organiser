@@ -18,7 +18,7 @@ $(document).on( 'click','#add-button', function() {
         setTimeout(function() {
             $('#add-data-form-container').html('')
         }, 200)
-        gsap.to('#send-button-status', 0.6, {transform: 'translate(0px, 100px)'})
+        gsap.to('#send-button', 0.6, {transform: 'translate(0px, 100px)'})
         tl.to('.profile-page-container', 0.5, {transform: 'translate(0, 0)'})
         tl.to('#add-button', 0.5, {transform: 'rotateZ(0deg)', background: 'linear-gradient(120deg, #80f886, #39E86D)'},'-=0.5')
         $(this).toggleClass('closed')

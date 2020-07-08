@@ -1,0 +1,14 @@
+.shopping-table {
+    tr:nth-of-type(odd) {
+        background-color: rgb(250, 250, 250);
+    }
+    tr:first-child {
+        background-color: lighten($theme-colour, 25%);
+    }
+    th {
+        padding: 5px;
+    }
+    td {
+        padding: 4px;
+    }
+}

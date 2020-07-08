@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from status.models import Status, CommentNotification, LikeNotification
+from shopping.models import Item, Category
 from .models import FriendRequests, Friend, UserProfile
 from django.db.models import Q
 
@@ -8,6 +9,7 @@ def profile(request):
     """
     Display the users profile
     """
+    # Find friend or turn a empty list if none.
     try:
         friends = Friend.objects.get(current_user=request.user)
         all_friends = friends.users.all()
@@ -16,6 +18,7 @@ def profile(request):
 
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
 
+    # Find user profile or create a friend list and user profile if new user.
     try:
         user_profile = UserProfile.objects.get(user=request.user)
     except:
@@ -33,13 +36,18 @@ def profile(request):
         )
         friends_list.save()
 
+    # find all status created by the current user
     news_feed = Status.objects.filter(user=request.user).order_by('created_date').reverse()
+
+    # item categories
+    item_categories = Category.objects.filter(user=request.user)
 
     context = {
         'friend_count': len(all_friends),
         'friend_requests': len(friend_requests),
         'user_profile': user_profile,
         'news_feed': news_feed,
+        'item_categories': item_categories,
     }
 
 

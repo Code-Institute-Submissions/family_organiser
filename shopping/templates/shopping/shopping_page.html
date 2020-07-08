@@ -10,27 +10,33 @@
     </div>
 </div>
 
-{% for category in categorys %}
+{% for category in categories %}
     <hr>
     <div class="row m-0 p-0">
         <div class="col-12 m-0">
-            <h6 class="m-0">{{category.category}}</h6>
+            <h5 class="m-0">{{category.category}}</h5>
         </div>
     </div>
     <hr>
 
     <div class="row m-0 p-0">
-        <div class="col-12 m-0 p-0">
-            <table class="container-fluid">
+        <div class="col-12 m-0 p-0 px-3">
+            <table class="container-fluid shopping-table">
                 <tr>
                     <th>Item</th>
-                    <th>Quantity</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-right">Add By</th>
                 </tr>
                 {% for item in items %}
                     {% if item.category.category == category.category %}
                     <tr>
                         <td>{{ item.item }}</td>
-                        <td>{{ item.quantity }}</td>
+                        <td class="text-center">{{ item.quantity }}</td>
+                        {% if item.user.username == user.username %}
+                        <td class="text-right">You</td>
+                        {% else %}
+                        <td class="text-right">{{ item.user.first_name }}{{ item.user.last_name }}</td>
+                        {% endif %}
                     </tr>
                     {% endif %}
                 {% endfor %}

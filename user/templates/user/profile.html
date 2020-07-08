@@ -195,9 +195,10 @@
     <img src="{{ MEDIA_URL }}icons/plus_icon.png">
 </button>
 
-<button id="send-button-status" class="closed send-button-status">
+<button id="send-button" class="closed send-button">
     <img src="{{ MEDIA_URL }}icons/send_icon.png" />
 </button>
+
 
 {% endblock %}
 
@@ -219,25 +220,28 @@
                 <div id="error-container" class="mt-1"></div>
             </form>
         `);
-        gsap.to('#send-button-status', 0.6, { transform: 'translate(0, 0)' })
+        gsap.to('#send-button', 0.6, { transform: 'translate(0, 0)' })
     });
 
     // Add item form 
     $(document).on('click', '#add-item-form', function () {
         $('#add-data-form-container').html(`
-            <form action="/shopping/add_item" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="status-form">
+            <form action="/shopping/add_item" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="item-form">
             {% csrf_token %}
                 <label>Item</label>
-                <input type="text" name="title" class="form-control" id="form-item">
+                <input type="text" name="item" class="form-control" id="form-item">
                 <label>Quantity</label>
-                <input type="number" name="content" class="form-control" id="form-quantity">
-                <div id="error-container" class="mt-1"></div>
+                <input type="number" name="quantity" class="form-control" id="form-quantity">
                 <label>Category</label>
-                <input type="number" name="content" class="form-control" id="form-category">
+                <select name="category" class="form-control" id="form-category">
+                    {% for category in item_categories %}
+                        <option value="{{ category.category }}">{{ category.category }}</option>
+                    {% endfor %}
+                </select>
                 <div id="error-container" class="mt-1"></div>
             </form>
         `);
-        gsap.to('#send-button-status', 0.6, { transform: 'translate(0, 0)' })
+        gsap.to('#send-button', 0.6, { transform: 'translate(0, 0)' })
     });
 
     // like post
