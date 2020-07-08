@@ -68,7 +68,7 @@
         <img src="{{ MEDIA_URL }}icons/family_icon.png" />
         <label>Users</label>
     </a>
-    <a id="add-status-form">
+    <a id="add-status-form" class="add-form">
         <img src="{{ MEDIA_URL }}icons/status_icon.png" />
         <label>Status</label>
     </a>
@@ -76,7 +76,7 @@
         <img src="{{ MEDIA_URL }}icons/photo_icon.png" />
         <label>Photo</label>
     </a>
-    <a href="#">
+    <a id="add-item-form" class="add-form">
         <img src="{{ MEDIA_URL }}icons/item_icon.png" />
         <label>Item</label>
     </a>
@@ -216,6 +216,24 @@
                 <input type="text" name="content" class="form-control" id="form-content">
                 <label class="d-block">Image</label>
                 <input type="file" name="image" id="form-file">
+                <div id="error-container" class="mt-1"></div>
+            </form>
+        `);
+        gsap.to('#send-button-status', 0.6, { transform: 'translate(0, 0)' })
+    });
+
+    // Add item form 
+    $(document).on('click', '#add-item-form', function () {
+        $('#add-data-form-container').html(`
+            <form action="/shopping/add_item" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="status-form">
+            {% csrf_token %}
+                <label>Item</label>
+                <input type="text" name="title" class="form-control" id="form-item">
+                <label>Quantity</label>
+                <input type="number" name="content" class="form-control" id="form-quantity">
+                <div id="error-container" class="mt-1"></div>
+                <label>Category</label>
+                <input type="number" name="content" class="form-control" id="form-category">
                 <div id="error-container" class="mt-1"></div>
             </form>
         `);

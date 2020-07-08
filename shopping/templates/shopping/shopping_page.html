@@ -2,5 +2,41 @@
 
 {% block content %}
 
-<h3>Shopping page</h3>
+<div class="row m-0 p-0">
+    <div class="col m-0 p-0 d-flex justify-content-between">
+    </div>
+    <div class="col m-0 p-2">
+        <p class="m-0 p-0 text-right">Shopping</p>
+    </div>
+</div>
+
+{% for category in categorys %}
+    <hr>
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0">
+            <h6 class="m-0">{{category.category}}</h6>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0">
+            <table class="container-fluid">
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                </tr>
+                {% for item in items %}
+                    {% if item.category.category == category.category %}
+                    <tr>
+                        <td>{{ item.item }}</td>
+                        <td>{{ item.quantity }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endfor %}
+
 {% endblock %}

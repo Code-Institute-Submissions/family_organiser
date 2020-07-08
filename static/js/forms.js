@@ -1,5 +1,5 @@
 // move page container to reveal form
-$(document).on('click', '#add-status-form', function() {
+$(document).on('click', '.add-form', function() {
     if ($('#add-data-form-container').hasClass('closed')) {
         // show the form
         tl.to('.profile-page-container', 0.5, {transform: 'translate(0, 350px)'})
@@ -16,6 +16,19 @@ $(document).on('click', '#send-button-status', function() {
     } else {
         $('#status-form').submit()
     }
+});
 
+
+// send item form
+$(document).on('click', '#send-button-item', function() {
+    if ($('#form-item').val() == '') {
+        $('#error-container').html('<p class="m-0 text-danger">Please add an item</p>')
+    } else if ($('#form-quantity').val() == '') {
+        $('#error-container').html('<p class="m-0 text-danger">Please add the quantity for your item</p>')
+    } else if ($('#form-category').val() == '') {
+        $('#error-container').html('<p class="m-0 text-danger">Please select a category for you item</p>')
+    } else {
+        $('#status-form').submit()
+    }
 });
 
