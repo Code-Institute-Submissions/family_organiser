@@ -13,17 +13,20 @@
 <!-- navigation to add, cart, insight -->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <a class="nav-link  text-theme active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add</a>
+        <a class="nav-link  text-theme active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+            aria-controls="home" aria-selected="true">Add</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a class="nav-link  text-theme" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Cart</a>
+        <a class="nav-link  text-theme" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+            aria-controls="profile" aria-selected="false">Cart</a>
     </li>
     <li class="nav-item" role="presentation">
-      <a class="nav-link text-theme" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Insight</a>
+        <a class="nav-link text-theme" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+            aria-controls="contact" aria-selected="false">Insight</a>
     </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-      <!-- Add section -->
+</ul>
+<div class="tab-content" id="myTabContent">
+    <!-- Add section -->
     <div class="tab-pane fade show active pt-3" id="home" role="tabpanel" aria-labelledby="add-tab">
         <div class="row m-0 p-0">
             <div class="col-12 m-0">
@@ -33,65 +36,66 @@
         <hr>
         <form action="/shopping/add_item" method="POST" class="px-3 pt-0 pb-1" id="item-form">
             {% csrf_token %}
-                <label>Item</label>
-                <input type="text" name="item" class="form-control" id="form-item">
-                <label>Quantity</label>
-                <input type="number" name="quantity" class="form-control" id="form-quantity">
-                <label>Category</label>
-                <div class="row m-0 p-0">
-                    <div class="col-12 m-0 p-0">
-                        <select name="category" class="form-control" id="form-category">
-                            {% for category in categories %}
-                                <option value="{{ category.category }}">{{ category.category }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div id="error-container" class="mt-1"></div>
-                <button class="btn btn-success container-fluid mt-3 mb-2">Add To Cart</button>
-            </form>
-            <hr>
+            <label>Item</label>
+            <input type="text" name="item" class="form-control" id="form-item">
+            <label>Quantity</label>
+            <input type="number" name="quantity" class="form-control" id="form-quantity">
+            <label>Category</label>
             <div class="row m-0 p-0">
-                <div class="col-12 m-0">
-                    <h5 class="m-0">Add Category</h5>
+                <div class="col-12 m-0 p-0">
+                    <select name="category" class="form-control" id="form-category">
+                        {% for category in categories %}
+                        <option value="{{ category.category }}">{{ category.category }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
-            <hr>
-            <form action="update_category/add/0" method="POST">
-                {% csrf_token %}
-                <div class="row m-0 p-0">
-                    <div class="col-12">
-                        <label>Category</label>
-                        <input type="text" name="category" class="form-control" id="form-quantity">
-                        <button class="btn btn-success container-fluid mt-3 mb-2">Add Category</button>
-                    </div>
-                </div>
-            </form>
-            <hr>
+            <div id="error-container" class="mt-1"></div>
+            <button class="btn btn-success container-fluid mt-3 mb-2">Add To Cart</button>
+        </form>
+        <hr>
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0">
+                <h5 class="m-0">Add Category</h5>
+            </div>
+        </div>
+        <hr>
+        <form action="update_category/add/0" method="POST">
+            {% csrf_token %}
             <div class="row m-0 p-0">
-                <div class="col-12 m-0">
-                    <h5 class="m-0">Categories</h5>
+                <div class="col-12">
+                    <label>Category</label>
+                    <input type="text" name="category" class="form-control" id="form-quantity">
+                    <button class="btn btn-success container-fluid mt-3 mb-2">Add Category</button>
                 </div>
             </div>
-            <hr>
-            <div class="row m-0 p-0">
-                {% for category in categories %}
-                <div class="col-12 d-flex justify-content-between mb-3">
-                    <p class="m-0">{{category.category}}</p>
-                    <form method="POST" action="update_category/remove/{{ category.id }}">
-                        {% csrf_token %}
-                        <button class="icon-button mr-3">
-                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                        </button>
-                    </form>
-                   
-                </div>
-             
-                {% endfor %}
+        </form>
+        <hr>
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0">
+                <h5 class="m-0">Categories</h5>
             </div>
+        </div>
+        <hr>
+        <div class="row m-0 p-0">
+            {% for category in categories %}
+            <div class="col-12 d-flex justify-content-between mb-3">
+                <p class="m-0">{{category.category}}</p>
+                <form method="POST" action="update_category/remove/{{ category.id }}">
+                    {% csrf_token %}
+                    <button class="icon-button mr-3">
+                        <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+                    </button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
     </div>
     <div class="tab-pane fade pt-3" id="profile" role="tabpanel" aria-labelledby="cart-tab">
         <!-- Cart section -->
+        {% if not categories_used %}
+        <p class="px-2">You have no items in your cart.</p>
+        {% endif %}
         {% for category in categories_used %}
         <div class="row m-0 p-0">
             <div class="col-12 m-0">
@@ -99,27 +103,28 @@
             </div>
         </div>
         <hr>
-    
         <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0 px-3">
+            <div class="col-12 m-0 p-0 px-2">
                 <table class="container-fluid shopping-table">
                     <tr>
                         <th>Item</th>
                         <th class="text-center">Quantity</th>
                         <th class="text-right">Add By</th>
+                        <th class="text-right">More</th>
                     </tr>
                     {% for item in items %}
-                        {% if item.category.category == category.category %}
-                        <tr>
-                            <td>{{ item.item }}</td>
-                            <td class="text-center">{{ item.quantity }}</td>
-                            {% if item.user.username == user.username %}
-                            <td class="text-right">You</td>
-                            {% else %}
-                            <td class="text-right">{{ item.user.first_name }}{{ item.user.last_name }}</td>
-                            {% endif %}
-                        </tr>
+                    {% if item.category.category == category.category %}
+                    <tr>
+                        <td>{{ item.item }}</td>
+                        <td class="text-center">{{ item.quantity }}</td>
+                        {% if item.user.username == user.username %}
+                        <td class="text-right">You</td>
+                        {% else %}
+                        <td class="text-right">{{ item.user.first_name }}{{ item.user.last_name }}</td>
                         {% endif %}
+                        <td class="text-right"><img src="{{ MEDIA_URL }}icons/more_icon.png"></td>
+                    </tr>
+                    {% endif %}
                     {% endfor %}
                 </table>
             </div>
@@ -127,28 +132,71 @@
                 <hr>
             </div>
         </div>
-    {% endfor %}
+        {% endfor %}
     </div>
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="graphs-tab">
         <!-- Insight section -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                <a class="nav-link active text-theme" id="Histroy-items" data-toggle="tab" href="#Histroy"
+                    role="tab" aria-controls="home" aria-selected="true">Histroy</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                <a class="nav-link text-theme" id="favorites-tab" data-toggle="tab" href="#favorites" role="tab"
+                    aria-controls="profile" aria-selected="false">Favorites</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                <a class="nav-link text-theme" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab"
+                    aria-controls="contact" aria-selected="false">Graphs</a>
             </li>
-          </ul>
-          <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-          </div>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="Histroy" role="tabpanel" aria-labelledby="Histroy-tab">
+                {% if not purchased_items %}
+                <p class="p-2 pt-3">You haven't added any items yet.</p>
+                {% else %}
+                <div class="px-2 mt-2">
+                    <table class="container-fluid shopping-table">
+                        <tr>
+                            <th>Item</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-right">Date</th>
+                        </tr>
+                        {% for item in purchased_items %}
+                        <tr>
+                            <td>{{ item.item }}</td>
+                            <td class="text-center">{{ item.quantity }}</td>
+                            <td class="text-right text-small">{{ item.created_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+            <div class="tab-pane fade" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
+                {% if not favorites %}
+                <p class="p-2 pt-3">You haven't added any items yet.</p>
+                {% else %}
+                <div class="px-2 mt-2">
+                    <table class="container-fluid shopping-table">
+                        <tr>
+                            <th>Item</th>
+                            <th class="text-right">Quantity</th>
+                        </tr>
+                        {% for item in favorites %}
+                        <tr>
+                            <td>{{ item.item }}</td>
+                            <td class="text-right">{{ item.quantity }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}                
+            </div>
+            <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">..graphs.</div>
+        </div>
     </div>
-  </div>
+</div>
 
 
 

@@ -7,6 +7,7 @@
 }
 
 .shopping-table {
+    border: solid rgb(218, 218, 218) 1px;
     tr:nth-of-type(odd) {
         background-color: rgb(250, 250, 250);
     }
@@ -15,10 +16,12 @@
     }
     th {
         padding: 5px;
-        width: 33.3%;
+        width: 25%;
     }
     td {
         padding: 4px 8px;
     }
-    border: solid rgb(218, 218, 218) 1px;
+    img {
+        width: 25px;
+    }
 }

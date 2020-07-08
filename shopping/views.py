@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Category, Item
+from .models import Category, Item, PurchasedItems
 
 # Create your views here.
 def shopping_page(request):
@@ -13,11 +13,32 @@ def shopping_page(request):
         if item.category not in categories_used:
             categories_used.append(item.category)
 
+    # Get purchased items
+    purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
+    
+    # Create a list of favorite items
+    favorites = []
+    for item in purchased_items:
+        item_dict = {
+            'item': item.item,
+            'quantity': item.quantity,
+        }
+        
+        if item_dict.item in favorites.item:
+            print('already in list')
+        
+        favorites.append(item_dict)
+
+
+    # sort the favorites by quantity
+    favorites = sorted(favorites, key= lambda x: x['quantity'], reverse=True)
 
     context = {
         'items': items,
         'categories': categories,
         'categories_used': categories_used,
+        'purchased_items': purchased_items,
+        'favorites': favorites,
     }
 
     return render(request, 'shopping/shopping_page.html', context)
@@ -51,6 +72,14 @@ def add_item(request):
                 category = category, 
             )
             new_item.save()
+
+        purchase_item = PurchasedItems(
+            user = request.user,
+            item = item_name,
+            quantity = quantity,
+            category = category, 
+        )
+        purchase_item.save()
 
     return redirect('shopping_page')
 

@@ -356,11 +356,15 @@ nav {
 
 .shopping-table th {
   padding: 5px;
-  width: 33.3%;
+  width: 25%;
 }
 
 .shopping-table td {
   padding: 4px 8px;
+}
+
+.shopping-table img {
+  width: 25px;
 }
 
 .login-container {
