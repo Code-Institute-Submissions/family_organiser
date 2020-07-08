@@ -30,8 +30,12 @@ def news_feed(request):
     # Sort all status by data
     news_feed = sorted(news_feed, key = lambda x: x.created_date, reverse=True)
 
+    # get users profile
+    user_profile = UserProfile.objects.get(user=request.user)
+
     context = {
         'news_feed': news_feed,
+        'user_profile': user_profile,
     }
 
     return render(request, 'status/news_feed.html', context)
@@ -97,34 +101,38 @@ def like_status(request, pk):
 
     return redirect('news_feed')
 
-def add_comment(request, pk):
+def add_comment(request, pk, redirect):
     """
     Add a comment to the select status and send a notification to the user.
     """
-    # Get the status that has been commented on
-    status = Status.objects.get(pk=pk)
+    if request.is_ajax():
+        # Get the status that has been commented on
+        status = Status.objects.get(pk=pk)
 
-    # Create the new comment and save it to the database
-    comment = Comment(
-        comment = request.POST.get('comment'),
-        author = request.user,
-        author_profile = UserProfile.objects.get(user=request.user),
-    )
-    comment.save()
+        # Create the new comment and save it to the database
+        comment = Comment(
+            comment = request.POST.get('comment'),
+            author = request.user,
+            author_profile = UserProfile.objects.get(user=request.user),
+        )
+        comment.save()
 
-    # Add the comment to the status
-    status.comment.add(comment)
+        # Add the comment to the status
+        status.comment.add(comment)
 
-    # Send a notification to the status owner to tell them their status has been commmented on.
-    comment_notification = CommentNotification(
-        user = status.user,
-        status = status,
-        commenter = request.user,
-    )
-    comment_notification.save()
+        # Send a notification to the status owner to tell them their status has been commmented on.
+        comment_notification = CommentNotification(
+            user = status.user,
+            status = status,
+            commenter = request.user,
+        )
+        comment_notification.save()
 
-    user_profile = UserProfile.objects.get(user=status.user)
-    user_profile.status_notification += 1
-    user_profile.save()
+        user_profile = UserProfile.objects.get(user=status.user)
+        user_profile.status_notification += 1
+        user_profile.save()
    
-    return redirect('news_feed')
+    if redirect == 'profile':
+        return redirect('profile')
+    if redirect == 'news_feed':
+        return redirect('news_feed')

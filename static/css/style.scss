@@ -41,6 +41,9 @@ p,a,b {
     img {
         width: 29px;
     }
+    &:focus {
+        outline: none;
+    }
 }
 
 .small-icon {

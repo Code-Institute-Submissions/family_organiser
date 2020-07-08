@@ -429,6 +429,10 @@ p, a, b {
   width: 29px;
 }
 
+.icon-button:focus {
+  outline: none;
+}
+
 .small-icon {
   width: 27px;
 }

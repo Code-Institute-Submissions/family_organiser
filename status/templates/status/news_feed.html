@@ -91,24 +91,26 @@
             <div class="col-12">
                 <hr class="mb-1">
             </div>
-            {% for comment in news.comment.all %}
-            <div class="col-12 px-2 py-1">
-                <div class="comment-container">
-                    {% if comment.author_profile.profile_image %}
-                    <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}" class="float-left mr-2">
-                    {% else %}
-                    <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
-                    {% endif %}
-                    <h6 class="m-0 mb-1">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
-                    <p class="m-0">{{ comment.comment }}</p>
-                    <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
+            <div class="row m-0 p-0" id="comment-container-{{ news.id }}">
+                {% for comment in news.comment.all %}
+                <div class="col-12 px-2 py-1">
+                    <div class="comment-container">
+                        {% if comment.author_profile.profile_image %}
+                        <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}" class="float-left mr-2">
+                        {% else %}
+                        <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
+                        {% endif %}
+                        <h6 class="m-0 mb-1">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
+                        <p class="m-0">{{ comment.comment }}</p>
+                        <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
             <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
-                <form class="d-flex justify-content-between" action="/status/add_comment/{{news.id}}" method="POST">
+                <form class="d-flex justify-content-between status-comment-ajax" action="/status/add_comment/{{news.id}}/profile" id="{{ news.id }}" method="POST">
                     {% csrf_token %}
-                    <input type="text" class="form-control" name="comment" required>
+                    <input type="text" class="form-control" name="comment" id="input-{{ news.id }}" required>
                     <button class="btn btn-success ml-3">Comment</button>
                 </form>
             </div>
@@ -123,8 +125,10 @@
 {% block extra_js %}
 <script src="{% static 'js/forms.js' %}"></script>
 <script>
-    // like post
-    $(document).ready(function (event) {
+      // like post
+      $(document).ready(function (event) {
+        var tl = gsap.timeline()
+
         var theForm = $('.status-like-ajax');
         theForm.submit(function (event) {
             var formId = this.id
@@ -133,25 +137,68 @@
             var actionEndpoint = thisForm.attr("action");
             var httpMethod = thisForm.attr("method");
             var formData = thisForm.serialize();
+            var imgId = '#like-img-' + formId;
+            var likeCounterId = '#like-count-' + formId;
+
+            tl.to(imgId, 0.2, { transform: 'rotateY(180deg)', ease: 'none'})
+            tl.to(imgId, 0.2, { transform: 'rotateY(0deg)', ease: 'none'})
+
+            if ($(imgId).attr('src') == "{{ MEDIA_URL }}icons/heart_pink_icon.png") {
+                $(imgId).attr('src', '{{ MEDIA_URL }}icons/heart_white_icon.png')
+                $(likeCounterId).html(parseInt($(likeCounterId).html()) - 1)
+            } else {
+                $(imgId).attr('src', "{{ MEDIA_URL }}icons/heart_pink_icon.png")
+                $(likeCounterId).html(parseInt($(likeCounterId).html()) + 1)
+            }
+   
+            $.ajax({
+                url: actionEndpoint,
+                method: httpMethod,
+                data: formData,
+                success: function (data) {
+
+                   
+                }
+            })
+        })
+    });
+
+    // add comment
+    $(document).ready(function (event) {
+        var theForm = $('.status-comment-ajax');
+        theForm.submit(function (event) {
+            var formId = this.id
+            event.preventDefault();
+            var thisForm = $(this)
+            var actionEndpoint = thisForm.attr("action");
+            var httpMethod = thisForm.attr("method");
+            var formData = thisForm.serialize();
+            var commentContainerId = '#comment-container-'.concat(formId)
+            var inputId = '#input-'.concat(formId)
+
+            var comment = $(inputId).val()
+            $(commentContainerId).append(`
+                    <div class="col-12 px-2 py-1">
+                        <div class="comment-container">
+                            {% if user_profile.profile_image %}
+                            <img src="{{ MEDIA_URL }}{{user_profile.profile_image}}" class="float-left mr-2">
+                            {% else %}
+                            <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
+                            {% endif %}
+                            <h6 class="m-0 mb-1">{{ user.first_name }} {{ user.last_name }}</h6>
+                            <p class="m-0">${comment}</p>
+                            <p class="m-0 text-small text-right">Javascript to add the time</p>
+                        </div>
+                    </div>
+                    `)
+            $(inputId).val('')
 
             $.ajax({
                 url: actionEndpoint,
                 method: httpMethod,
                 data: formData,
                 success: function (data) {
-                    var imgId = '#like-img-' + formId;
-                    var likeCounterId = '#like-count-' + formId;
-
-                    if ($(imgId).attr('src') == "{{ MEDIA_URL }}icons/heart_pink_icon.png") {
-                        $(imgId).attr('src', '{{ MEDIA_URL }}icons/heart_white_icon.png')
-                        $(likeCounterId).html(parseInt($(likeCounterId).html()) - 1)
-                    } else {
-                        $(imgId).attr('src', "{{ MEDIA_URL }}icons/heart_pink_icon.png")
-                        $(likeCounterId).html(parseInt($(likeCounterId).html()) + 1)
-                    }
-                },
-                error: function (errorData) {
-
+                 
                 }
             })
         })
