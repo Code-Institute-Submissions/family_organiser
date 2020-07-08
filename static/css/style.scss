@@ -24,9 +24,13 @@ p,a,b {
 
 
 .text-small {
-    font-size: 0.7em;
-    
+    font-size: 0.7em;    
 }
+
+.text-theme {
+    color: darken($theme-colour, 25%);
+}
+
 
 // icons
 .icon-button {

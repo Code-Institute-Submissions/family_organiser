@@ -1,14 +1,24 @@
+.link-item {
+    a {
+        .link-nav {
+            color: black;
+        }
+    }
+}
+
 .shopping-table {
     tr:nth-of-type(odd) {
         background-color: rgb(250, 250, 250);
     }
     tr:first-child {
-        background-color: lighten($theme-colour, 25%);
+        background-color: lighten($theme-colour, 29%);
     }
     th {
         padding: 5px;
+        width: 33.3%;
     }
     td {
-        padding: 4px;
+        padding: 4px 8px;
     }
+    border: solid rgb(218, 218, 218) 1px;
 }

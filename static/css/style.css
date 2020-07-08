@@ -338,20 +338,29 @@ nav {
   background-color: #cafacc;
 }
 
+.link-item a .link-nav {
+  color: black;
+}
+
+.shopping-table {
+  border: solid #dadada 1px;
+}
+
 .shopping-table tr:nth-of-type(odd) {
   background-color: #fafafa;
 }
 
 .shopping-table tr:first-child {
-  background-color: #e1fce3;
+  background-color: #f4fef4;
 }
 
 .shopping-table th {
   padding: 5px;
+  width: 33.3%;
 }
 
 .shopping-table td {
-  padding: 4px;
+  padding: 4px 8px;
 }
 
 .login-container {
@@ -420,6 +429,10 @@ p, a, b {
 
 .text-small {
   font-size: 0.7em;
+}
+
+.text-theme {
+  color: #12cc1c;
 }
 
 .icon-button {

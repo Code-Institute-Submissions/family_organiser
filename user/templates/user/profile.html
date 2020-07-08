@@ -226,18 +226,27 @@
     // Add item form 
     $(document).on('click', '#add-item-form', function () {
         $('#add-data-form-container').html(`
-            <form action="/shopping/add_item" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="item-form">
+            <form action="/shopping/add_item" method="POST" class="p-3 pt-4" id="item-form">
             {% csrf_token %}
                 <label>Item</label>
                 <input type="text" name="item" class="form-control" id="form-item">
                 <label>Quantity</label>
                 <input type="number" name="quantity" class="form-control" id="form-quantity">
                 <label>Category</label>
-                <select name="category" class="form-control" id="form-category">
-                    {% for category in item_categories %}
-                        <option value="{{ category.category }}">{{ category.category }}</option>
-                    {% endfor %}
-                </select>
+                <div class="row m-0 p-0">
+                    <div class="col-10 m-0 p-0 pr-3">
+                        <select name="category" class="form-control" id="form-category">
+                            {% for category in item_categories %}
+                                <option value="{{ category.category }}">{{ category.category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-2 m-0 p-0">
+                        <a class="btn btn-success container-fluid" href="/shopping/shopping_page">
+                            Add
+                        </a>
+                    </div>  
+                </div>
                 <div id="error-container" class="mt-1"></div>
             </form>
         `);
