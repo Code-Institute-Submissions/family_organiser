@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Status, Comment, CommentNotification
+from .models import Status, Comment, CommentNotification, LikeNotification
 from user.models import Friend, UserProfile
 from django.utils import timezone
 
@@ -64,15 +64,35 @@ def like_status(request, pk):
     Add a like to the users status
     """
 
-    status = Status.objects.get(pk=pk)
+    if request.is_ajax():
 
-    liked_by = status.liked_by.all()
+        status = Status.objects.get(pk=pk)
+        liked_by = status.liked_by.all()
 
-    # If user hasn't liked the post add them to liked_by and add 1 to the likes
-    if request.user not in liked_by.all():
-        status.liked_by.add(request.user)
-        status.likes = status.likes + 1
-        status.save()
+        # If user hasn't liked the post add them to liked_by and add 1 to the likes
+        if request.user not in liked_by.all():
+            status.liked_by.add(request.user)
+            status.likes = status.likes + 1
+            status.save()
+            print('like post')
+
+            # Send a notification to the status owner to tell them their status has been liked on.
+            like_notification = LikeNotification(
+                user = status.user,
+                status = status,
+                liker = request.user,
+            )
+            like_notification.save()
+
+            user_profile = UserProfile.objects.get(user=status.user)
+            user_profile.status_notification += 1
+            user_profile.save()
+
+        else:
+            status.liked_by.remove(request.user)
+            status.likes = status.likes - 1
+            status.save()
+            print('unlike post')
 
 
     return redirect('news_feed')

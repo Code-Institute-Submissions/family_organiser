@@ -18,3 +18,4 @@ $(document).on('click', '#send-button-status', function() {
     }
 
 });
+

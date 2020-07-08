@@ -10,24 +10,25 @@
 
 <hr class="mt-0">
 
-    <form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="mb-3 collapse px-3 pt-0" id="status-form">
-        {% csrf_token %}
-            <label>Title</label>
-            <input type="text" name="title" class="form-control" id="form-title">
-            <label>Post</label>
-            <input type="text" name="content" class="form-control" id="form-content">
-            <label class="d-block">Image</label>
-            <input type="file" name="image" id="form-file">
-            <div class="btn btn-success float-right" id="send-button-status">Post</div>
-            <div id="error-container" class="mt-1"></div>
-    </form>
+<form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="mb-3 collapse px-3 pt-0"
+    id="status-form">
+    {% csrf_token %}
+    <label>Title</label>
+    <input type="text" name="title" class="form-control" id="form-title">
+    <label>Post</label>
+    <input type="text" name="content" class="form-control" id="form-content">
+    <label class="d-block">Image</label>
+    <input type="file" name="image" id="form-file">
+    <div class="btn btn-success float-right" id="send-button-status">Post</div>
+    <div id="error-container" class="mt-1"></div>
+</form>
 
 
 
 <div class="pl-4 d-flex justify-content-start align-items-center">
     <a class="icon-button " href="#status-form" data-toggle="collapse">
-        <img src="{{ MEDIA_URL }}icons/add_status_icon.png"/>
-        </a>
+        <img src="{{ MEDIA_URL }}icons/add_status_icon.png" />
+    </a>
     <p class="m-0 ml-2">Create a new post </p>
 
 </div>
@@ -38,43 +39,53 @@
     <div class="col-12 m-0 p-0">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 pl-3">
-            {% if news.user_profile.profile_image %}
+                {% if news.user_profile.profile_image %}
                 <img src="{{ MEDIA_URL }}{{news.user_profile.profile_image}}" class="user-image-status float-left mr-3">
-            {% else %}
+                {% else %}
                 <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
-            {% endif %}
+                {% endif %}
                 <h5>{{ news.user.first_name }} {{ news.user.last_name }} </h5>
                 <h6 class="text-secondary">{{ news.title }}</h6>
-                
+
             </div>
             <div class="col-12 mb-3 mt-2">
                 <hr class="m-0 mb-3">
                 <p class="m-0">{{ news.content }}</p>
                 <hr class="m-0 mt-3">
-            </div>  
+            </div>
             {% if news.image %}
-                <div class="col-12 mb-3">     
-                        <img src="{{ MEDIA_URL }}{{news.image}}" class="status-image">
-                </div>
+            <div class="col-12 mb-3">
+                <img src="{{ MEDIA_URL }}{{news.image}}" class="status-image">
+            </div>
             {% endif %}
             <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
                 <div>
-                    <p class="m-0 text-small">{{ news.likes }} Likes {{ news.comment.all | length }} Comments</p>
+                    <p class="m-0 text-small"><span id="like-count-{{ news.id }}">{{ news.likes }}</span> Likes
+                        {{ news.comment.all | length }} Comments</p>
                     <p class="m-0 text-small">{{ news.created_date }}</p>
                 </div>
             </div>
             <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                 <a class="icon-button mr-3" href="#comment-form-container-{{news.id}}" data-toggle="collapse">
-                    <img src="{{ MEDIA_URL }}icons/comment_icon.png"/>
+                    <img src="{{ MEDIA_URL }}icons/comment_icon.png" />
                 </a>
+                <!-- like post icons -->
                 {% if user in news.liked_by.all %}
-                <a class="icon-button">
-                    <img src="{{ MEDIA_URL }}icons/heart_pink_icon.png"/>
-                </a>
+                <form action="/status/like_status/{{news.id}}" method="POST" class="status-like-ajax"
+                    id="{{ news.id }}">
+                    {% csrf_token %}
+                    <button class="icon-button" type="submit">
+                        <img src="{{ MEDIA_URL }}icons/heart_pink_icon.png" id="like-img-{{ news.id }}" />
+                    </button>
+                </form>
                 {% else %}
-                <a class="icon-button" href="/status/like_status/{{news.id}}">
-                    <img src="{{ MEDIA_URL }}icons/heart_white_icon.png"/>
-                </a>
+                <form action="/status/like_status/{{news.id}}" method="POST" class="status-like-ajax"
+                    id="{{ news.id }}">
+                    {% csrf_token %}
+                    <button class="icon-button" type="submit">
+                        <img src="{{ MEDIA_URL }}icons/heart_white_icon.png" id="like-img-{{ news.id }}" />
+                    </button>
+                </form>
                 {% endif %}
             </div>
             <div class="col-12">
@@ -104,11 +115,46 @@
         </div>
         <hr class="status-divider">
     </div>
-{% endfor %}
+    {% endfor %}
 </div>
 <p class="m-0 mt-2 mb-4 text-right mr-3">Search Result: {{ news_feed | length }}</p>
 {% endblock %}
 
 {% block extra_js %}
 <script src="{% static 'js/forms.js' %}"></script>
+<script>
+    // like post
+    $(document).ready(function (event) {
+        var theForm = $('.status-like-ajax');
+        theForm.submit(function (event) {
+            var formId = this.id
+            event.preventDefault();
+            var thisForm = $(this)
+            var actionEndpoint = thisForm.attr("action");
+            var httpMethod = thisForm.attr("method");
+            var formData = thisForm.serialize();
+
+            $.ajax({
+                url: actionEndpoint,
+                method: httpMethod,
+                data: formData,
+                success: function (data) {
+                    var imgId = '#like-img-' + formId;
+                    var likeCounterId = '#like-count-' + formId;
+
+                    if ($(imgId).attr('src') == "{{ MEDIA_URL }}icons/heart_pink_icon.png") {
+                        $(imgId).attr('src', '{{ MEDIA_URL }}icons/heart_white_icon.png')
+                        $(likeCounterId).html(parseInt($(likeCounterId).html()) - 1)
+                    } else {
+                        $(imgId).attr('src', "{{ MEDIA_URL }}icons/heart_pink_icon.png")
+                        $(likeCounterId).html(parseInt($(likeCounterId).html()) + 1)
+                    }
+                },
+                error: function (errorData) {
+
+                }
+            })
+        })
+    });
+</script>
 {% endblock %}
