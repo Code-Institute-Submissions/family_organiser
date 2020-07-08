@@ -4,7 +4,7 @@ $(document).on('click', '#add-status-form', function() {
         // show the form
         tl.to('.profile-page-container', 0.5, {transform: 'translate(0, 350px)'})
     } 
-    $('#add-data-form-container').toggleClass('closed')
+    $('#add-data-form-container').removeClass('closed')
 });
 
 // send status form

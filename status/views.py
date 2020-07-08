@@ -74,6 +74,7 @@ def like_status(request, pk):
         status.likes = status.likes + 1
         status.save()
 
+
     return redirect('news_feed')
 
 def add_comment(request, pk):
@@ -101,5 +102,9 @@ def add_comment(request, pk):
         commenter = request.user,
     )
     comment_notification.save()
+
+    user_profile = UserProfile.objects.get(user=status.user)
+    user_profile.status_notification += 1
+    user_profile.save()
    
     return redirect('news_feed')

@@ -100,6 +100,11 @@ def notifications(request):
     Shows the users sent friend requests for shopping and todo list
     """
 
+    # Reset the users notifications to zero
+    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile.status_notification = 0
+    user_profile.save()
+
     # get like and comment notifications and order them by date
     notifications = []
 

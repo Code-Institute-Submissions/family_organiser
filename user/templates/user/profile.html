@@ -21,7 +21,16 @@
                     <p>{{ friend_requests }}</p>
                 </a>
             </div>
-            {% else %}
+            {% endif %}
+            {% if user_profile.status_notification > 0 %}
+            <div class="ml-2">
+                <a href="/user/notifications">
+                    <img src="{{ MEDIA_URL }}icons/status_noti_icon.png" class="small-icon"/>
+                    <p>{{ user_profile.status_notification }}</p>
+                </a>
+            </div>
+            {% endif %}
+            {% if friend_requests == 0 and user_profile.status_notification == 0 %}
             <b class="m-0 text-small">No notifications</b>
             {% endif %}
             <!-- <img src="https://img.icons8.com/carbon-copy/20/000000/shopping-basket.png" /> -->
@@ -99,7 +108,7 @@
                 {% else %}
                     <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
                 {% endif %}
-                    <h5>{{ news.user.first_name }} {{ news.user.last_name }}  <a class="icon-button icon-danger float-right mr-4" href="/status/update_status/remove/{{news.id}}">
+                    <h5>{{ news.user.first_name }} {{ news.user.last_name }}  <a class="icon-button  float-right mr-4" href="/status/update_status/remove/{{news.id}}">
                         <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
                     </a></h5>
                     <h6 class="text-secondary">{{ news.title }}</h6>
@@ -174,7 +183,7 @@
 </button>
 
 <button id="send-button-status" class="closed send-button-status">
-    <img src="{{ MEDIA_URL }}icons/send.png"/>
+    <img src="{{ MEDIA_URL }}icons/send_icon.png"/>
 </button>
 
 
@@ -183,6 +192,7 @@
 {% block extra_js %}
 <script src="{% static 'js/profile.js' %}"></script>
 <script src="{% static 'js/forms.js' %}"></script>
+<!-- Add status form -->
 <script>
     $(document).on('click', '#add-status-form', function() {
         $('#add-data-form-container').html(`

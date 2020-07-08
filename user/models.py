@@ -33,4 +33,5 @@ class UserProfile(models.Model):
     profile_image = models.ImageField(null=True, blank=True)
     bio = models.CharField(null=True, max_length=150, default="", blank=True)
     premium = models.BooleanField(default=False)
+    status_notification = models.IntegerField(default=0)
 
