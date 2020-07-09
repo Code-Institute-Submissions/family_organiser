@@ -44,7 +44,8 @@
                 {% csrf_token %}
                 <button class="shopping-item">
                     <p class="m-0">{{ item.item }}</p>
-                    <div>x1</div>
+                    <p class="m-0 category">{{ item.category }}</p>
+                    <div class="text-dark">x1</div>
                 </button>
             </form>
             {% endfor %}
@@ -140,11 +141,6 @@
         <hr>
         <form action="/shopping/update_item/remove" method="POST">
         {% csrf_token %}
-        
-        
-        
-        
-      
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 px-2">
                 <table class="container-fluid shopping-table">
@@ -166,7 +162,6 @@
                                 {% endif %}
                                 <td class="text-right collapse edit-item-{{category.id}} edit-item"><input type="checkbox" name="{{ item.id }}"></td>
                             </tr>
-                        
                         {% endif %}
                     {% endfor %}
                 </table>
@@ -201,10 +196,11 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="Histroy" role="tabpanel" aria-labelledby="Histroy-tab">
+                <!-- histroy -->
                 {% if not purchased_items %}
                 <p class="p-2 pt-3">You haven't added any items yet.</p>
                 {% else %}
-                <div class="px-2 mt-2">
+                <div class="px-2 my-2">
                     <table class="container-fluid shopping-table">
                         <tr>
                             <th>Item</th>
@@ -223,6 +219,7 @@
                 {% endif %}
             </div>
             <div class="tab-pane fade" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
+                <!-- favorites -->
                 {% if not favorites %}
                 <p class="p-2 pt-3">You haven't added any items yet.</p>
                 {% else %}
@@ -230,11 +227,13 @@
                     <table class="container-fluid shopping-table">
                         <tr>
                             <th>Item</th>
+                            <th class="text-center">Category</th>
                             <th class="text-right">Quantity</th>
                         </tr>
                         {% for item in favorites %}
                         <tr>
                             <td>{{ item.item }}</td>
+                            <td class="text-center">{{ item.category }}</td>
                             <td class="text-right">{{ item.quantity }}</td>
                         </tr>
                         {% endfor %}
@@ -243,6 +242,7 @@
                 {% endif %}                
             </div>
             <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
+                <!-- Graphs -->
                 
                 <canvas id="topFiveChart" width="400" height="400"></canvas>
 

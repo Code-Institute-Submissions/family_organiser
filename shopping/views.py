@@ -13,10 +13,10 @@ def shopping_page(request):
         if item.category not in categories_used:
             categories_used.append(item.category)
 
-    # Get purchased items
+
+    # Create a list of favorite items from purchased items
     purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-item')
-    
-    # Create a list of favorite items
+
     favorites = []
     index_deductor = 1
 
@@ -25,6 +25,7 @@ def shopping_page(request):
         item_dict = {
             'item': item.item,
             'quantity': item.quantity,
+            'category': item.category,
         }
         
         try:
@@ -38,6 +39,9 @@ def shopping_page(request):
         
     # sort the favorites by quantity
     favorites = sorted(favorites, key= lambda x: x['quantity'], reverse=True)
+
+    # Get all purchased items 
+    purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
 
     # top five chart data
     all_favorites = favorites
@@ -56,6 +60,8 @@ def shopping_page(request):
     for favorite in all_favorites:
         chart_labels.append(favorite['item'])
         chart_data.append(favorite['quantity'])
+
+    
         
     context = {
         'items': items,

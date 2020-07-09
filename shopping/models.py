@@ -7,6 +7,9 @@ class Category(models.Model):
     user = models.ForeignKey(User, related_name="category_user", on_delete=models.CASCADE)
     category = models.CharField(max_length=150)
 
+    def __str__(self):
+        return self.category
+
 class Item(models.Model):
     user = models.ForeignKey(User, related_name="item_user", on_delete=models.CASCADE)
     item = models.CharField(max_length=150)

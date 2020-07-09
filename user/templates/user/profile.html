@@ -96,7 +96,23 @@
 
 <!-- users shopping list and status -->
 <div class="profile-page-container">
-    <h4 class="ml-3">Status</h4>
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0">
+            <h5 class="m-0 d-flex align-items-center justify-content-between">Shopping List <a href="/shopping/shopping_page"><i class="fas fa-list-ul float-right mr-2 text-dark"></i></a></h5>
+        </div>
+    </div>
+    <hr>
+    <div class="shopping-item-container">
+        {% for item in items %}
+        <a class="shopping-item" href="/shopping/shopping_page">
+            <p class="m-0">{{ item.item }}</p>
+            <p class="m-0 category">{{ item.category }}</p>
+            <div class="text-dark">x{{ item.quantity }}</div>
+        </a>
+        {% endfor %}
+    </div>
+    <hr>
+    <h5 class="ml-3">Status</h5>
     <hr class="status-divider">
     <div class="row m-0 p-0 mb-5">
         {% for news in news_feed %}
@@ -109,9 +125,10 @@
                     {% else %}
                     <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
                     {% endif %}
-                    <h5>{{ news.user.first_name }} {{ news.user.last_name }}  <a class="icon-button  float-right mr-4" href="/status/update_status/remove/{{news.id}}">
-                        <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                    </a></h5>
+                    <h6>{{ news.user.first_name }} {{ news.user.last_name }} <a class="icon-button  float-right mr-4"
+                            href="/status/update_status/remove/{{news.id}}">
+                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+                        </a></h6>
                     <h6 class="text-secondary">{{ news.title }}</h6>
 
                 </div>
@@ -175,7 +192,8 @@
                     {% endfor %}
                 </div>
                 <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
-                    <form class="d-flex justify-content-between status-comment-ajax" action="/status/add_comment/{{news.id}}/profile" id="{{ news.id }}" method="POST">
+                    <form class="d-flex justify-content-between status-comment-ajax"
+                        action="/status/add_comment/{{news.id}}/profile" id="{{ news.id }}" method="POST">
                         {% csrf_token %}
                         <input type="text" class="form-control" name="comment" id="input-{{ news.id }}" required>
                         <button class="btn btn-success ml-3">Comment</button>
@@ -200,6 +218,10 @@
 </button>
 
 
+{% endblock %}
+
+{% block extra_css %}
+<script src="https://kit.fontawesome.com/d4ed0579d0.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block extra_js %}
@@ -271,8 +293,8 @@
                 var imgId = '#like-img-' + formId;
                 var likeCounterId = '#like-count-' + formId;
 
-                tl.to(imgId, 0.2, { transform: 'rotateY(180deg)', ease: 'none'})
-                tl.to(imgId, 0.2, { transform: 'rotateY(0deg)', ease: 'none'})
+                tl.to(imgId, 0.2, { transform: 'rotateY(180deg)', ease: 'none' })
+                tl.to(imgId, 0.2, { transform: 'rotateY(0deg)', ease: 'none' })
 
                 if ($(imgId).attr('src') == "{{ MEDIA_URL }}icons/heart_pink_icon.png") {
                     $(imgId).attr('src', '{{ MEDIA_URL }}icons/heart_white_icon.png')
@@ -281,7 +303,7 @@
                     $(imgId).attr('src', "{{ MEDIA_URL }}icons/heart_pink_icon.png")
                     $(likeCounterId).html(parseInt($(likeCounterId).html()) + 1)
                 }
-    
+
                 $.ajax({
                     url: actionEndpoint,
                     method: httpMethod,
@@ -290,13 +312,13 @@
 
                     }
                 })
-                setTimeout(function() {
+                setTimeout(function () {
                     addLike = true;
-                },  2500)
+                }, 2500)
             }
         })
 
-    // add comment
+        // add comment
         var theForm = $('.status-comment-ajax');
         var addComment = true;
 
@@ -334,10 +356,10 @@
                     method: httpMethod,
                     data: formData,
                     success: function (data) {
-                    
+
                     }
                 })
-                setTimeout(function() {
+                setTimeout(function () {
                     addComment = true
                 }, 2500)
             }

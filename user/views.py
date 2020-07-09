@@ -42,12 +42,16 @@ def profile(request):
     # item categories
     item_categories = Category.objects.filter(user=request.user)
 
+    # get all items
+    items = Item.objects.filter(user=request.user)
+
     context = {
         'friend_count': len(all_friends),
         'friend_requests': len(friend_requests),
         'user_profile': user_profile,
         'news_feed': news_feed,
         'item_categories': item_categories,
+        'items': items,
     }
 
 

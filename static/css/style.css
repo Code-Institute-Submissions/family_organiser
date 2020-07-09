@@ -414,6 +414,13 @@ nav {
   font-size: 0.8em;
 }
 
+.shopping-item-container .shopping-item .category {
+  position: absolute;
+  left: 3px;
+  bottom: 0px;
+  font-size: 9px;
+}
+
 .login-container {
   padding-top: 40px;
   background-color: #6cf273;
