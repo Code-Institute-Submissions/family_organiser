@@ -18,7 +18,7 @@
     </li>
     <li class="nav-item" role="presentation">
         <a class="nav-link  text-theme" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-            aria-controls="profile" aria-selected="false">Cart</a>
+            aria-controls="profile" aria-selected="false">List</a>
     </li>
     <li class="nav-item" role="presentation">
         <a class="nav-link text-theme" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
@@ -39,11 +39,14 @@
             {% if not favorites %}
             <p class="px-2">You haven't added any items yet.</p>
             {% endif %}
-            {% for items in favorites %}
-            <div class="shopping-item">
-                <p class="m-0"> {{ items.item }}</p>
-                <div>x1</div>
-            </div>
+            {% for item in favorites %}
+            <form action="/shopping/quick_item/{{item.item}}/Kitchen" method="POST">
+                {% csrf_token %}
+                <button class="shopping-item">
+                    <p class="m-0">{{ item.item }}</p>
+                    <div>x1</div>
+                </button>
+            </form>
             {% endfor %}
         </div>
         <hr>
@@ -123,7 +126,7 @@
  
     </div>
     <div class="tab-pane fade pt-3" id="profile" role="tabpanel" aria-labelledby="cart-tab">
-        <!-- Cart section -->
+        <!-- list section -->
         <hr>
         {% if not categories_used %}
         <p class="px-2">You have no items in your cart.</p>

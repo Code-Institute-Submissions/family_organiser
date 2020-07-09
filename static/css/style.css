@@ -373,7 +373,12 @@ nav {
   padding: 8px;
 }
 
+.shopping-item-container form {
+  display: inline-block;
+}
+
 .shopping-item-container .shopping-item {
+  border: #6CF273 1px solid;
   display: inline-block;
   text-align: center;
   text-decoration: none;

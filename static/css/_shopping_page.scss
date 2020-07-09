@@ -30,7 +30,11 @@
     overflow: auto;
     white-space: nowrap;
     padding: 8px;
+    form {
+        display: inline-block;
+    }
     .shopping-item {
+        border: $theme-colour 1px solid;
         display: inline-block;
         text-align: center;
         text-decoration: none;

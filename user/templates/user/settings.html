@@ -14,37 +14,45 @@ Settings | Family Organiser
 </div>
 <hr>
 
-
-
-    <div class="row m-0 p-0 px-1">
-        <div class="col-12 px-2 mb-1" id="image-form-container">
-            <form action="/user/change_image/" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
+<div class="row m-0 p-0 px-1">
+    <div class="col-4 m-0 p-0 px-2">
+        <label>First Name</label>
+        <p>{{user.first_name}}</p>
+    </div>
+    <div class="col-4 m-0 p-0 px-2">
+        <label>Last Name</label>
+        <p>{{user.last_name}}</p>
+    </div>
+    <div class="col-4 m-0 p-0 px-2 mt-1">
+        <label>Username</label>
+        <p>{{user.username}}</p>
+    </div>
+</div>
+<hr class="mt-1">
+<div class="row m-0 p-0 px-1">
+    <div class="col-12 px-2 mb-1" id="image-form-container">
+        <form action="/user/change_image/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <label class="d-block">Profile Image</label>
             <input type="file" name="profile_image">
             <button type="submit" class="btn btn-success text-light mr-1 float-right">Save</button>
-            </form>
-        </div>
+        </form>
     </div>
-    <hr>
-    <form action="/user/change_details/" method="POST">
-        {% csrf_token %}
-    <div class="row m-0 p-0 px-1">  
-        <div class="col-6 m-0 p-0 px-2">
-            <label>First Name</label>
-            <input class="form-control" value="{{user.first_name}}" name="first_name">
-        </div>
-        <div class="col-6 m-0 p-0 px-2">
-            <label>Last Name</label>
-            <input class="form-control" value="{{user.last_name}}" name="last_name">
-        </div>
-        <div class="col-9 m-0 p-0 px-2 mt-1">
-            <label>Username</label>
-            <input class="form-control" value="{{user.username}}" name="username">
-        </div>
-        <div class="col-3 m-0 p-0 px-2 mt-1">
+</div>
+<hr>
+<form action="/user/change_details/" method="POST">
+    {% csrf_token %}
+    <div class="row m-0 p-0 px-1">
+        <div class="col-6 m-0 p-0 px-2 mt-1">
             <label>Age</label>
             <input type="number" class="form-control" value="{{user_profile.age}}" name="age">
+        </div>
+        <div class="col-6 m-0 p-0 px-2 mt-1">
+            <label>Gender</label>
+            <select class="form-control">
+                <option>Male</option>
+                <option>Female</option>
+            </select>
         </div>
         <div class="col-12 m-0 p-0 px-2 mt-1">
             <label>Bio</label>
@@ -55,7 +63,7 @@ Settings | Family Organiser
 
     <button type="submit" class="btn btn-success text-light mr-3 float-right">Save</button>
 
-    </form>
+</form>
 
 {% endblock %}
 

@@ -4,7 +4,7 @@ from .models import Category, Item, PurchasedItems
 # Create your views here.
 def shopping_page(request):
 
-    items = Item.objects.filter(user=request.user)
+    items = Item.objects.filter(user=request.user).order_by('item')
     categories = Category.objects.filter(user=request.user)
     
     # Find the categories being used
@@ -116,7 +116,8 @@ def update_item(request, operation):
             checked_items = 0
             item_pk = 0
             
-            # if item has been checked, get the pk and remove the item from the database or add 1 to item_pk and try again until all checkboxs have been remove.
+            # if item has been checked, get the pk and remove the item from the database or add 1 to 
+            # item_pk and try again until all checkboxs have been remove.
             while checked_items < number_of_items:
                 requested_name = request.POST.get(str(item_pk))
   
@@ -130,21 +131,56 @@ def update_item(request, operation):
 
     return redirect('shopping_page')
 
+def quick_item(request, item, category):
+
+    item_name = item
+    quantity = 1
+    category_selected = Category.objects.get(category=category)
+
+    # Get users items from the database.
+    users_items = Item.objects.filter(user=request.user)
+    new_item = True
+
+    # If item in database add the quantity instead of creating a new object.
+    for item in users_items:
+        if item.item == item_name:
+            item_in_database = Item.objects.get(item=item_name)
+            item_in_database.quantity += quantity
+            item_in_database.save()
+            new_item = False
+    
+    # Add item if new
+    if new_item:
+        new_item = Item(
+            user = request.user,
+            item = item_name,
+            quantity = quantity,
+            category = category_selected, 
+        )
+        new_item.save()
+
+    purchase_item = PurchasedItems(
+        user = request.user,
+        item = item_name,
+        quantity = quantity,
+        category = category_selected, 
+    )
+    purchase_item.save()
+
+    return redirect('shopping_page')
+
 def update_category(request, operation, pk):
     
     if request.method == 'POST':
-        print('nearly')
         if operation == 'add':
             new_category = Category(
                 user = request.user,
                 category = request.POST.get('category'),
             )
             new_category.save()
-        print('nearly')
         if operation == 'remove':
 
             category = Category.objects.get(pk=pk)
             category.delete()
-            print('remove item')
 
     return redirect('shopping_page')
