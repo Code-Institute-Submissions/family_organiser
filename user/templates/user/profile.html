@@ -226,7 +226,7 @@
     // Add item form 
     $(document).on('click', '#add-item-form', function () {
         $('#add-data-form-container').html(`
-            <form action="/shopping/add_item" method="POST" class="p-3 pt-4" id="item-form">
+            <form action="/shopping/update_item/add" method="POST" class="p-3 pt-4" id="item-form">
             {% csrf_token %}
                 <label>Item</label>
                 <input type="text" name="item" class="form-control" id="form-item">

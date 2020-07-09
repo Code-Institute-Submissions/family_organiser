@@ -71,43 +71,62 @@ def shopping_page(request):
 
     return render(request, 'shopping/shopping_page.html', context)
 
-def add_item(request):
+def update_item(request, operation):
 
     if request.method == 'POST':
+        if operation == 'add':
 
-        item_name = request.POST.get('item')
-        quantity = int(request.POST.get('quantity'))
-        category = Category.objects.get(category=request.POST.get('category'))
+            item_name = request.POST.get('item')
+            quantity = int(request.POST.get('quantity'))
+            category = Category.objects.get(category=request.POST.get('category'))
 
-        # Get users items from the database.
-        users_items = Item.objects.filter(user=request.user)
-        new_item = True
+            # Get users items from the database.
+            users_items = Item.objects.filter(user=request.user)
+            new_item = True
 
-        # If item in database add the quantity instead of creating a new object.
-        for item in users_items:
-            if item.item == item_name:
-                item_in_database = Item.objects.get(item=item_name)
-                item_in_database.quantity += quantity
-                item_in_database.save()
-                new_item = False
-        
-        # Add item if new
-        if new_item:
-            new_item = Item(
+            # If item in database add the quantity instead of creating a new object.
+            for item in users_items:
+                if item.item == item_name:
+                    item_in_database = Item.objects.get(item=item_name)
+                    item_in_database.quantity += quantity
+                    item_in_database.save()
+                    new_item = False
+            
+            # Add item if new
+            if new_item:
+                new_item = Item(
+                    user = request.user,
+                    item = item_name,
+                    quantity = quantity,
+                    category = category, 
+                )
+                new_item.save()
+
+            purchase_item = PurchasedItems(
                 user = request.user,
                 item = item_name,
                 quantity = quantity,
                 category = category, 
             )
-            new_item.save()
-
-        purchase_item = PurchasedItems(
-            user = request.user,
-            item = item_name,
-            quantity = quantity,
-            category = category, 
-        )
-        purchase_item.save()
+            purchase_item.save()
+        
+        # Remove items checked by the user
+        if operation == 'remove':
+            number_of_items = len(request.POST) - 1
+            checked_items = 0
+            item_pk = 0
+            
+            # if item has been checked, get the pk and remove the item from the database or add 1 to item_pk and try again until all checkboxs have been remove.
+            while checked_items < number_of_items:
+                requested_name = request.POST.get(str(item_pk))
+  
+                if not requested_name:
+                    item_pk += 1
+                else:
+                    select_item = Item.objects.get(pk=item_pk)
+                    select_item.delete()
+                    item_pk += 1
+                    checked_items += 1
 
     return redirect('shopping_page')
 
