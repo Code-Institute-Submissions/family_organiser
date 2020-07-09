@@ -77,3 +77,5 @@ This web application is designed to keep users in touch with their family and al
 [Sorting array of objects](https://stackoverflow.com/questions/403421/how-to-sort-a-list-of-objects-based-on-an-attribute-of-the-objects)
 
 [Setting up Ajax](https://www.youtube.com/watch?v=LLBx4beHI1U)
+
+[Lambda](https://www.youtube.com/watch?v=Ob9rY6PQMfI)

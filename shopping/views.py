@@ -14,22 +14,27 @@ def shopping_page(request):
             categories_used.append(item.category)
 
     # Get purchased items
-    purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
+    purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-item')
     
-    # Create a list of favorite items
+    # Create a list of favorite items and add the quantity of the item if it already exists.
     favorites = []
-    for item in purchased_items:
+    index_deductor = 1
+
+    for index_item, item in enumerate(purchased_items):
         item_dict = {
             'item': item.item,
             'quantity': item.quantity,
         }
         
-        if item_dict.item in favorites.item:
-            print('already in list')
+        try:
+            if favorites[index_item - index_deductor]['item'] == item.item:
+                favorites[index_item - index_deductor]['quantity'] += item.quantity
+                index_deductor += 1
+            else:
+                favorites.append(item_dict)
+        except:
+            favorites.append(item_dict)
         
-        favorites.append(item_dict)
-
-
     # sort the favorites by quantity
     favorites = sorted(favorites, key= lambda x: x['quantity'], reverse=True)
 
