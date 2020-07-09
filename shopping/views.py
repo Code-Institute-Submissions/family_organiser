@@ -39,24 +39,32 @@ def shopping_page(request):
     # sort the favorites by quantity
     favorites = sorted(favorites, key= lambda x: x['quantity'], reverse=True)
 
-    # chart data
+    # top five chart data
+    all_favorites = favorites
+    chart_data_top_five = []
+    chart_labels_top_five = []
+
+    for favorite in range(5):
+        chart_labels_top_five.append(all_favorites[favorite]['item'])
+        chart_data_top_five.append(all_favorites[favorite]['quantity'])
+
+    # all favorites for chart data
     all_favorites = favorites
     chart_data = []
     chart_labels = []
 
-    for favorite in range(5):
-        chart_labels.append(all_favorites[favorite]['item'])
-        print(all_favorites[favorite]['item'])
-
-        chart_data.append(all_favorites[favorite]['quantity'])
+    for favorite in all_favorites:
+        chart_labels.append(favorite['item'])
+        chart_data.append(favorite['quantity'])
         
-
     context = {
         'items': items,
         'categories': categories,
         'categories_used': categories_used,
         'purchased_items': purchased_items,
         'favorites': favorites,
+        'chart_data_top_five': chart_data_top_five,
+        'chart_labels_top_five': chart_labels_top_five,
         'chart_data': chart_data,
         'chart_labels': chart_labels,
     }
