@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <div class="row m-0 p-0">
@@ -28,68 +28,99 @@
 <div class="tab-content" id="myTabContent">
     <!-- Add section -->
     <div class="tab-pane fade show active pt-3" id="home" role="tabpanel" aria-labelledby="add-tab">
+        <!-- quick add -->
         <div class="row m-0 p-0">
             <div class="col-12 m-0">
-                <h5 class="m-0">Add Item</h5>
+                <h5 class="m-0 d-flex align-items-center justify-content-between">Quick Add</h5>
             </div>
         </div>
         <hr>
-        <form action="/shopping/add_item" method="POST" class="px-3 pt-0 pb-1" id="item-form">
-            {% csrf_token %}
-            <label>Item</label>
-            <input type="text" name="item" class="form-control" id="form-item">
-            <label>Quantity</label>
-            <input type="number" name="quantity" class="form-control" id="form-quantity">
-            <label>Category</label>
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0">
-                    <select name="category" class="form-control" id="form-category">
-                        {% for category in categories %}
-                        <option value="{{ category.category }}">{{ category.category }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div id="error-container" class="mt-1"></div>
-            <button class="btn btn-success container-fluid mt-3 mb-2">Add To Cart</button>
-        </form>
-        <hr>
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0">
-                <h5 class="m-0">Add Category</h5>
-            </div>
-        </div>
-        <hr>
-        <form action="update_category/add/0" method="POST">
-            {% csrf_token %}
-            <div class="row m-0 p-0">
-                <div class="col-12">
-                    <label>Category</label>
-                    <input type="text" name="category" class="form-control" id="form-quantity">
-                    <button class="btn btn-success container-fluid mt-3 mb-2">Add Category</button>
-                </div>
-            </div>
-        </form>
-        <hr>
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0">
-                <h5 class="m-0">Categories</h5>
-            </div>
-        </div>
-        <hr>
-        <div class="row m-0 p-0">
-            {% for category in categories %}
-            <div class="col-12 d-flex justify-content-between mb-3">
-                <p class="m-0">{{category.category}}</p>
-                <form method="POST" action="update_category/remove/{{ category.id }}">
-                    {% csrf_token %}
-                    <button class="icon-button mr-3">
-                        <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                    </button>
-                </form>
+        <div class="shopping-item-container">
+            {% if not favorites %}
+            <p class="px-2">You haven't added any items yet.</p>
+            {% endif %}
+            {% for items in favorites %}
+            <div class="shopping-item">
+                <p class="m-0"> {{ items.item }}</p>
+                <div>x1</div>
             </div>
             {% endfor %}
         </div>
+        <hr>
+        <!-- adding an item -->
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0">
+                <h5 class="m-0 d-flex align-items-center justify-content-between">Add Item<i class="far fa-plus-square float-right mr-2" data-toggle="collapse" href="#item-form-container"></i></h5>
+            </div>
+        </div>
+        <hr>
+        <div id="item-form-container" class="collapse">
+            <form action="/shopping/add_item" method="POST" class="px-3 pt-0 pb-1" id="item-form">
+                {% csrf_token %}
+                <label>Item</label>
+                <input type="text" name="item" class="form-control" id="form-item">
+                <label>Quantity</label>
+                <input type="number" name="quantity" class="form-control" id="form-quantity">
+                <label>Category</label>
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+                        <select name="category" class="form-control" id="form-category">
+                            {% for category in categories %}
+                            <option value="{{ category.category }}">{{ category.category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div id="error-container" class="mt-1"></div>
+                <button class="btn btn-success container-fluid mt-3 mb-2">Add To Cart</button>
+            </form>
+            <hr>
+        </div>
+        <!-- adding a category -->
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0">
+                <h5 class="m-0 d-flex align-items-center justify-content-between">Add Category<i class="far fa-plus-square float-right mr-2" data-toggle="collapse" href="#category-form-container"></i></h5>
+            </div>
+        </div>
+        <hr>
+        <div id="category-form-container" class="collapse">
+            <form action="update_category/add/0" method="POST">
+                {% csrf_token %}
+                <div class="row m-0 p-0">
+                    <div class="col-12">
+                        <label>Category</label>
+                        <input type="text" name="category" class="form-control" id="form-quantity">
+                        <button class="btn btn-success container-fluid mt-3 mb-2">Add Category</button>
+                    </div>
+                </div>
+            </form>
+            <hr>
+        </div>
+       
+        <!-- editing categories -->
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0">
+                <h5 class="m-0 d-flex align-items-center justify-content-between">Categories<i class="far fa-plus-square float-right mr-2" data-toggle="collapse" href="#category-edit-container"></i></h5>
+            </div>
+        </div>
+        <hr>
+        <div id="category-edit-container" class="collapse">
+            <div class="row m-0 p-0">
+                {% for category in categories %}
+                <div class="col-12 d-flex justify-content-between mb-3">
+                    <p class="m-0">{{category.category}}</p>
+                    <form method="POST" action="update_category/remove/{{ category.id }}">
+                        {% csrf_token %}
+                        <button class="icon-button mr-3">
+                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+                        </button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+            <hr>
+        </div>
+ 
     </div>
     <div class="tab-pane fade pt-3" id="profile" role="tabpanel" aria-labelledby="cart-tab">
         <!-- Cart section -->
@@ -194,8 +225,8 @@
                 {% endif %}                
             </div>
             <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
-
-                <canvas id="myChart" width="400" height="400"></canvas>
+                
+                <canvas id="topFiveChart" width="400" height="400"></canvas>
 
                 <canvas id="allFavorites" width="400" height="400"></canvas>
 
@@ -206,11 +237,16 @@
 
 {% endblock %}
 
+{% block extra_css %}
+<script src="https://kit.fontawesome.com/d4ed0579d0.js" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block extra_js %}
+<script src="{% static 'js/shopping_page.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
     $(document).ready(function() {
-        var ctx = document.getElementById('myChart').getContext('2d');
+        var ctx = document.getElementById('topFiveChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
