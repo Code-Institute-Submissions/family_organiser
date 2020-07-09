@@ -83,3 +83,5 @@ This web application is designed to keep users in touch with their family and al
 [strftime](https://strftime.org/)
 
 [Remove duplicates form an array](https://www.w3schools.com/python/python_howto_remove_duplicates.asp)
+
+[Creating a random number](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/)

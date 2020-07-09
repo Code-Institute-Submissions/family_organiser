@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Category, Item, PurchasedItems
 from user.models import UserProfile
+from random import randint
 import datetime
 
 # Create your views here.
@@ -97,6 +98,7 @@ def shopping_page(request):
     search_month = str(user_profile.start_date)[5:7]
 
     # (bug if user doesn't submit a item for a few months with won't work.)
+    # (bug the quantity isn't being added only the item.)
     # For each items used, search all items each month between the users start date and now.
     # Storing the amount of the same items found each month in an item_quantity_in_months
     for item in used_items:
@@ -121,6 +123,30 @@ def shopping_page(request):
         monthly_report_data.append(item_dict)
         # Reseting the month ready for the next item.
         search_month = str(user_profile.start_date)[5:7]
+
+    # formating monthly_report_data in line_chart_dataset ready for chart.js
+    line_chart_dataset = []
+
+    for data in monthly_report_data:
+        random_colour = []
+        for number in range(3):
+            random_colour.append(randint(80, 230))
+
+        data_dict = {
+                    'label': data['item'],
+                    'data': data['quantity'],
+                    'backgroundColor': [
+                        'rgba(' + str(random_colour)[1:-1] + ',0.2)',
+                    ],
+                    'borderColor': [
+                        'rgba(' + str(random_colour)[1:-1] + ', 1)',
+                    ],
+                    'borderWidth': 2,
+                    'fill': 'false',
+                }
+        line_chart_dataset.append(data_dict)
+
+
     
     # Get all purchased items 
     purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
