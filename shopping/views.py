@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Category, Item, PurchasedItems
+from user.models import UserProfile
+import datetime
 
 # Create your views here.
 def shopping_page(request):
@@ -7,12 +9,11 @@ def shopping_page(request):
     items = Item.objects.filter(user=request.user).order_by('item')
     categories = Category.objects.filter(user=request.user)
     
-    # Find the categories being used
+    # Find the categories being used and append to categories_used
     categories_used = []
     for item in items:
         if item.category not in categories_used:
             categories_used.append(item.category)
-
 
     # Create a list of favorite items from purchased items
     purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-item')
@@ -40,17 +41,17 @@ def shopping_page(request):
     # sort the favorites by quantity
     favorites = sorted(favorites, key= lambda x: x['quantity'], reverse=True)
 
-    # Get all purchased items 
-    purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
-
     # top five chart data
     all_favorites = favorites
     chart_data_top_five = []
     chart_labels_top_five = []
 
     for favorite in range(5):
-        chart_labels_top_five.append(all_favorites[favorite]['item'])
-        chart_data_top_five.append(all_favorites[favorite]['quantity'])
+        try:
+            chart_labels_top_five.append(all_favorites[favorite]['item'])
+            chart_data_top_five.append(all_favorites[favorite]['quantity'])
+        except:
+            break
 
     # all favorites for chart data
     all_favorites = favorites
@@ -61,8 +62,69 @@ def shopping_page(request):
         chart_labels.append(favorite['item'])
         chart_data.append(favorite['quantity'])
 
+    # dataset for the line chart
+    line_chart_dataset = []
+    monthly_report_dates = []
+
+    # get purchsed items form the oldest first
+    purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('created_date')
+
+    # Get the months that items have been added to the list and append them in an array, ready for the monthly report and chart.
+    for item in purchased_items:
+        item_year = str(item.created_date)[0:4]
+        item_month = str(item.created_date)[5:7]
+        item_day = str(item.created_date)[8:10]
+        format_date = datetime.date(int(item_year), int(item_month), int(item_day))
+        monthly_report_dates.append(format_date.strftime('%B'))
+
+    monthly_report_dates = list(dict.fromkeys(monthly_report_dates))
+    monthly_report_data = []
+
+     # Create a list of favorite items from purchased items
+    purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('created_date')
     
-        
+    # find the name of each item used and sort in in used_items
+    used_items = []
+    for item in purchased_items:
+        used_items.append(item.item)
+
+    used_items = list(dict.fromkeys(used_items))
+    
+    # get the users account
+    user_profile = UserProfile.objects.get(user=request.user)
+    
+    # Start the search from when the user created an account
+    search_month = str(user_profile.start_date)[5:7]
+
+    # (bug if user doesn't submit a item for a few months with won't work.)
+    # For each items used, search all items each month between the users start date and now.
+    # Storing the amount of the same items found each month in an item_quantity_in_months
+    for item in used_items:
+        item_quantity_in_months = []
+        for month in range(len(monthly_report_dates)):
+            same_items_list = []
+            for search_item in purchased_items:
+                if search_item.item == item:
+                    search_item_month = str(search_item.created_date)[5:7]
+                    if search_item_month == search_month:
+                        same_items_list.append(item)
+            item_quantity_in_months.append(len(same_items_list))
+            search_month = int(search_month) + 1
+            if search_month < 10:
+                search_month = '0' + str(search_month)
+
+        # Creating an dictionary for each item with the quantity for each month
+        item_dict = {
+                'item': item,
+                'quantity': item_quantity_in_months,
+            }
+        monthly_report_data.append(item_dict)
+        # Reseting the month ready for the next item.
+        search_month = str(user_profile.start_date)[5:7]
+    
+    # Get all purchased items 
+    purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
+
     context = {
         'items': items,
         'categories': categories,
@@ -73,6 +135,9 @@ def shopping_page(request):
         'chart_labels_top_five': chart_labels_top_five,
         'chart_data': chart_data,
         'chart_labels': chart_labels,
+        'line_chart_dataset': line_chart_dataset,
+        'monthly_report_dates': monthly_report_dates,
+        'monthly_report_data': monthly_report_data,
     }
 
     return render(request, 'shopping/shopping_page.html', context)

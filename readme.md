@@ -79,3 +79,7 @@ This web application is designed to keep users in touch with their family and al
 [Setting up Ajax](https://www.youtube.com/watch?v=LLBx4beHI1U)
 
 [Lambda](https://www.youtube.com/watch?v=Ob9rY6PQMfI)
+
+[strftime](https://strftime.org/)
+
+[Remove duplicates form an array](https://www.w3schools.com/python/python_howto_remove_duplicates.asp)

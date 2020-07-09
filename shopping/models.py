@@ -17,9 +17,15 @@ class Item(models.Model):
     category = models.ForeignKey(Category, related_name="item_category", on_delete=models.CASCADE)
     created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
 
+    def __str__(self):
+        return self.item
+
 class PurchasedItems(models.Model):
     user = models.ForeignKey(User, related_name="purchased_item_user", on_delete=models.CASCADE)
     item = models.CharField(max_length=150)
     quantity = models.IntegerField(default=1)
     category = models.ForeignKey(Category, related_name="purchase_item_category", on_delete=models.CASCADE)
     created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
+
+    def __str__(self):
+        return self.item

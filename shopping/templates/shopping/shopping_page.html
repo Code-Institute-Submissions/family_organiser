@@ -40,7 +40,7 @@
             <p class="px-2">You haven't added any items yet.</p>
             {% endif %}
             {% for item in favorites %}
-            <form action="/shopping/quick_item/{{item.item}}/Kitchen" method="POST">
+            <form action="/shopping/quick_item/{{item.item}}/{{item.category}}" method="POST">
                 {% csrf_token %}
                 <button class="shopping-item">
                     <p class="m-0">{{ item.item }}</p>
@@ -220,34 +220,74 @@
             </div>
             <div class="tab-pane fade" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
                 <!-- favorites -->
-                {% if not favorites %}
-                <p class="p-2 pt-3">You haven't added any items yet.</p>
-                {% else %}
-                <div class="px-2 mt-2">
-                    <table class="container-fluid shopping-table">
-                        <tr>
-                            <th>Item</th>
-                            <th class="text-center">Category</th>
-                            <th class="text-right">Quantity</th>
-                        </tr>
-                        {% for item in favorites %}
-                        <tr>
-                            <td>{{ item.item }}</td>
-                            <td class="text-center">{{ item.category }}</td>
-                            <td class="text-right">{{ item.quantity }}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+                <div class="row m-0 p-0">
+                    <div class="col-12 col-md-6 m-0 p-0 px-md-3">
+                        <h5 class="m-0 my-3 ml-3">Most Purchased</h5>
+                        {% if not favorites %}
+                        <p class="p-2 pt-3">You haven't added any items yet.</p>
+                        {% else %}
+                        <div class="px-2">
+                            <table class="container-fluid shopping-table">
+                                <tr>
+                                    <th>Item</th>
+                                    <th class="text-center">Category</th>
+                                    <th class="text-right">Quantity</th>
+                                </tr>
+                                {% for item in favorites %}
+                                <tr>
+                                    <td>{{ item.item }}</td>
+                                    <td class="text-center">{{ item.category }}</td>
+                                    <td class="text-right">{{ item.quantity }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        {% endif %} 
+                    </div>
+                    <div class="col-12 col-md-6 m-0 p-0 px-md-3">
+                        <h5 class="m-0 my-3 ml-3">Monthly Report</h5>
+                        {% if not monthly_report %}
+                        <p class="p-2 pt-3">You haven't added any items yet.</p>
+                        {% endif %}
+                        <div class="px-2 mb-2">
+                            <table class="container-fluid shopping-table">
+                                <tr>
+                                    <th>Item</th>
+                                    {% for month in monthly_report_dates %}
+                                        <th>{{month}}</th>
+                                    {% endfor %}
+                                </tr>
+                                {% for item in monthly_report_data %}
+                                <tr>
+                                    <td>{{ item.item }}</td>
+                                    {% for quantity in item.quantity %}
+                                    <td>{{quantity}}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                       
+                    </div>
                 </div>
-                {% endif %}                
+                              
             </div>
             <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
                 <!-- Graphs -->
-                
-                <canvas id="topFiveChart" width="400" height="400"></canvas>
-
-                <canvas id="allFavorites" width="400" height="400"></canvas>
-
+                <div class="row m-0 p-0 d-flex justify-content-center">
+                    <div class="col-12 col-md-6 col-lg-4 m-0 p-0 px-md-3">
+                        <h4>Top 5 Items</h4>
+                        <canvas id="topFiveChart" width="400" height="400"></canvas>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 m-0 p-0 px-md-3">
+                        <h4>All Items</h4>
+                        <canvas id="allFavorites" width="400" height="400"></canvas>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 m-0 p-0 px-md-3">
+                        <h4>Monthly Report</h4>
+                        <canvas id="itemsOverTimeChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -264,6 +304,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
     $(document).ready(function() {
+        // top five items chart
         var ctx = document.getElementById('topFiveChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -301,7 +342,7 @@
                 }
             }
         });
-
+        // all items in order of favorite
         var ctx = document.getElementById('allFavorites').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -338,6 +379,26 @@
                     }]
                 }
             }
+        });
+        // How much of an item was purchased over a period of time
+        var ctx = document.getElementById('itemsOverTimeChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ monthly_report_dates | safe }},
+                datasets: {{ line_chart_dataset | safe }}
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            
+                        }
+                    }]
+                }
+            },
+            
         });
     })
     </script>
