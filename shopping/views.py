@@ -16,10 +16,11 @@ def shopping_page(request):
     # Get purchased items
     purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-item')
     
-    # Create a list of favorite items and add the quantity of the item if it already exists.
+    # Create a list of favorite items
     favorites = []
     index_deductor = 1
 
+    # Check each item in the database returning the quantity if already in the list or creating a new object if not.
     for index_item, item in enumerate(purchased_items):
         item_dict = {
             'item': item.item,
@@ -38,12 +39,26 @@ def shopping_page(request):
     # sort the favorites by quantity
     favorites = sorted(favorites, key= lambda x: x['quantity'], reverse=True)
 
+    # chart data
+    all_favorites = favorites
+    chart_data = []
+    chart_labels = []
+
+    for favorite in range(5):
+        chart_labels.append(all_favorites[favorite]['item'])
+        print(all_favorites[favorite]['item'])
+
+        chart_data.append(all_favorites[favorite]['quantity'])
+        
+
     context = {
         'items': items,
         'categories': categories,
         'categories_used': categories_used,
         'purchased_items': purchased_items,
         'favorites': favorites,
+        'chart_data': chart_data,
+        'chart_labels': chart_labels,
     }
 
     return render(request, 'shopping/shopping_page.html', context)
