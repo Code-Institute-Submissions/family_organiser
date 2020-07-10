@@ -108,7 +108,8 @@
                 {% endfor %}
             </div>
             <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
-                <form class="d-flex justify-content-between status-comment-ajax" action="/status/add_comment/{{news.id}}/profile" id="{{ news.id }}" method="POST">
+                <form class="d-flex justify-content-between status-comment-ajax"
+                    action="/status/add_comment/{{news.id}}/profile" id="{{ news.id }}" method="POST">
                     {% csrf_token %}
                     <input type="text" class="form-control" name="comment" id="input-{{ news.id }}" required>
                     <button class="btn btn-success ml-3">Comment</button>
@@ -125,8 +126,8 @@
 {% block extra_js %}
 <script src="{% static 'js/forms.js' %}"></script>
 <script>
-      // like post
-      $(document).ready(function (event) {
+    // like post
+    $(document).ready(function (event) {
         var tl = gsap.timeline()
         var theForm = $('.status-like-ajax');
         var addLike = true;
@@ -143,8 +144,8 @@
                 var imgId = '#like-img-' + formId;
                 var likeCounterId = '#like-count-' + formId;
 
-                tl.to(imgId, 0.2, { transform: 'rotateY(180deg)', ease: 'none'})
-                tl.to(imgId, 0.2, { transform: 'rotateY(0deg)', ease: 'none'})
+                tl.to(imgId, 0.2, { transform: 'rotateY(180deg)', ease: 'none' })
+                tl.to(imgId, 0.2, { transform: 'rotateY(0deg)', ease: 'none' })
 
                 if ($(imgId).attr('src') == "{{ MEDIA_URL }}icons/heart_pink_icon.png") {
                     $(imgId).attr('src', '{{ MEDIA_URL }}icons/heart_white_icon.png')
@@ -153,22 +154,19 @@
                     $(imgId).attr('src', "{{ MEDIA_URL }}icons/heart_pink_icon.png")
                     $(likeCounterId).html(parseInt($(likeCounterId).html()) + 1)
                 }
-    
+
                 $.ajax({
                     url: actionEndpoint,
                     method: httpMethod,
                     data: formData,
                     success: function (data) {
-
+                        addLike = true;
                     }
                 })
-                setTimeout(function() {
-                    addLike = true;
-                },  2500)
             }
         })
 
-    // add comment
+        // add comment
         var theForm = $('.status-comment-ajax');
         var addComment = true;
 
@@ -206,12 +204,9 @@
                     method: httpMethod,
                     data: formData,
                     success: function (data) {
-                    
+                        addComment = true
                     }
                 })
-                setTimeout(function() {
-                    addComment = true
-                }, 2500)
             }
         })
     });

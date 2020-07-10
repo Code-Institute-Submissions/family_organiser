@@ -62,26 +62,30 @@ This web application is designed to keep users in touch with their family and al
 
 [Profile Image](https://illlustrations.co/)
 
+[Icons8 - Icons](https://icons8.com/icons/set/tick-list)
+
+[Fontawesome - Icons](https://fontawesome.com/)
+
 ### Acknowledgements
 
-[The Basics for sass](https://www.youtube.com/watch?v=Zz6eOVaaelI&t=651s)
+[The Basics for sass - Sass](https://www.youtube.com/watch?v=Zz6eOVaaelI&t=651s)
 
-[Google login](https://www.youtube.com/watch?v=ZTBexYIIOP8&t=333s)
+[Google login - Django](https://www.youtube.com/watch?v=ZTBexYIIOP8&t=333s)
 
-[Custom User Registration](https://www.youtube.com/watch?v=66l9b2QrBR8)
+[Custom User Registration - Django](https://www.youtube.com/watch?v=66l9b2QrBR8)
 
-[Adding Friends](https://www.youtube.com/watch?v=_DqmVMlJzqA&t=538s)
+[Adding Friends - Django](https://www.youtube.com/watch?v=_DqmVMlJzqA&t=538s)
 
-[ImageField](https://www.youtube.com/watch?v=Rr1-UTFCuH4)
+[ImageField - Django](https://www.youtube.com/watch?v=Rr1-UTFCuH4)
 
-[Sorting array of objects](https://stackoverflow.com/questions/403421/how-to-sort-a-list-of-objects-based-on-an-attribute-of-the-objects)
+[Sorting array of objects - Python](https://stackoverflow.com/questions/403421/how-to-sort-a-list-of-objects-based-on-an-attribute-of-the-objects)
 
 [Setting up Ajax](https://www.youtube.com/watch?v=LLBx4beHI1U)
 
-[Lambda](https://www.youtube.com/watch?v=Ob9rY6PQMfI)
+[Lambda - Python](https://www.youtube.com/watch?v=Ob9rY6PQMfI)
 
-[strftime](https://strftime.org/)
+[strftime - Python](https://strftime.org/)
 
-[Remove duplicates form an array](https://www.w3schools.com/python/python_howto_remove_duplicates.asp)
+[Remove duplicates form an array - Python](https://www.w3schools.com/python/python_howto_remove_duplicates.asp)
 
-[Creating a random number](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/)
+[Creating a random number - Python](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/)

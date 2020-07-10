@@ -14,45 +14,26 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
         <a class="nav-link  text-theme active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-            aria-controls="home" aria-selected="true">Add</a>
+            aria-controls="home" aria-selected="true">Items</a>
     </li>
     <li class="nav-item" role="presentation">
         <a class="nav-link  text-theme" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
             aria-controls="profile" aria-selected="false">List</a>
     </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link text-theme" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-            aria-controls="contact" aria-selected="false">Insight</a>
-    </li>
+    <a href="/shopping/insight">
+        <button class="btn btn-success float-right">Insight</button>
+    </a>
 </ul>
 <div class="tab-content" id="myTabContent">
     <!-- Add section -->
     <div class="tab-pane fade show active pt-3" id="home" role="tabpanel" aria-labelledby="add-tab">
-        <!-- quick add -->
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0">
-                <h5 class="m-0 d-flex align-items-center justify-content-between">Quick Add</h5>
-            </div>
-        </div>
-        <hr>
-        <div class="shopping-item-container">
-            {% if not favorites %}
-            <p class="px-2">You haven't added any items yet.</p>
-            {% endif %}
-            {% for item in favorites %}
-            <form action="/shopping/quick_item/{{item.item}}/{{item.category}}" method="POST">
-                {% csrf_token %}
-                <button class="btn btn-success ">
-                    <p class="m-0 text-light">{{ item.item }}</p>
-                </button>
-            </form>
-            {% endfor %}
-        </div>
-        <hr>
+
         <!-- adding an item -->
         <div class="row m-0 p-0">
             <div class="col-12 m-0">
-                <h5 class="m-0 d-flex align-items-center justify-content-between">Add Item<i class="far fa-plus-square float-right mr-2" data-toggle="collapse" href="#item-form-container"></i></h5>
+                <h5 class="m-0 d-flex align-items-center justify-content-between">Add Item<i
+                        class="far fa-plus-square float-right mr-2" data-toggle="collapse"
+                        href="#item-form-container"></i></h5>
             </div>
         </div>
         <hr>
@@ -60,13 +41,13 @@
             <form action="/shopping/update_item/add" method="POST" class="px-3 pt-0 pb-1" id="item-form">
                 {% csrf_token %}
                 <label>Item</label>
-                <input type="text" name="item" class="form-control" id="form-item">
+                <input type="text" name="item" class="form-control" id="form-item" required>
                 <label>Quantity</label>
-                <input type="number" name="quantity" class="form-control" id="form-quantity">
+                <input type="number" name="quantity" class="form-control" id="form-quantity" value="1" required>
                 <label>Category</label>
                 <div class="row m-0 p-0">
                     <div class="col-12 m-0 p-0">
-                        <select name="category" class="form-control" id="form-category">
+                        <select name="category" class="form-control" id="form-category" required>
                             {% for category in categories %}
                             <option value="{{ category.category }}">{{ category.category }}</option>
                             {% endfor %}
@@ -74,14 +55,16 @@
                     </div>
                 </div>
                 <div id="error-container" class="mt-1"></div>
-                <button class="btn btn-success container-fluid mt-3 mb-2">Add To Cart</button>
+                <button class="btn btn-success container-fluid mt-3 mb-2">Add To List</button>
             </form>
             <hr>
         </div>
         <!-- adding a category -->
         <div class="row m-0 p-0">
             <div class="col-12 m-0">
-                <h5 class="m-0 d-flex align-items-center justify-content-between">Add Category<i class="far fa-plus-square float-right mr-2" data-toggle="collapse" href="#category-form-container"></i></h5>
+                <h5 class="m-0 d-flex align-items-center justify-content-between">Add Category<i
+                        class="far fa-plus-square float-right mr-2" data-toggle="collapse"
+                        href="#category-form-container"></i></h5>
             </div>
         </div>
         <hr>
@@ -98,11 +81,13 @@
             </form>
             <hr>
         </div>
-       
+
         <!-- editing categories -->
         <div class="row m-0 p-0">
             <div class="col-12 m-0">
-                <h5 class="m-0 d-flex align-items-center justify-content-between">Categories<i class="far fa-plus-square float-right mr-2" data-toggle="collapse" href="#category-edit-container"></i></h5>
+                <h5 class="m-0 d-flex align-items-center justify-content-between">Categories<i
+                        class="far fa-plus-square float-right mr-2" data-toggle="collapse"
+                        href="#category-edit-container"></i></h5>
             </div>
         </div>
         <hr>
@@ -122,192 +107,95 @@
             </div>
             <hr>
         </div>
- 
+
     </div>
     <div class="tab-pane fade pt-3" id="profile" role="tabpanel" aria-labelledby="cart-tab">
         <!-- list section -->
+        <!-- quick add -->
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0">
+                <h5 class="m-0 d-flex align-items-center justify-content-between">Quick Add</h5>
+            </div>
+        </div>
+        <hr>
+        <div class="shopping-item-container">
+            {% if not favorites %}
+            <p class="px-2">You haven't added any items yet.</p>
+            {% endif %}
+            {% for item in favorites %}
+            <form action="/shopping/quick_item/{{item.item}}/{{item.category}}" method="POST"
+                class="quick-add-item-ajax">
+                {% csrf_token %}
+                <button class="btn btn-success ">
+                    <p class="m-0 text-light">{{ item.item }}</p>
+                </button>
+            </form>
+            {% endfor %}
+        </div>
+        <hr>
         {% if not categories_used %}
         <p class="px-2">Your shoppping list is empty.</p>
         {% else %}
         <div class="d-flex justify-content-end">
             <i class="fas fa-edit mr-3" data-toggle="collapse" href=".edit-item"></i>
-            <img src="{{ MEDIA_URL }}icons/tick_all_icon.png" width="25px" class="collapse edit-item select-all-checkboxes mr-3" id="checkbox-{{category.id}}">
+            <img src="{{ MEDIA_URL }}icons/tick_all_icon.png" width="25px"
+                class="collapse edit-item select-all-checkboxes mr-3" id="checkbox-{{category.id}}">
         </div>
         {% endif %}
         <hr>
         {% for category in categories_used %}
         <div class="row m-0 p-0">
             <div class="col-12 m-0">
-                <h5 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}<img src="{{ MEDIA_URL }}icons/tick_all_icon.png" width="25px" class="collapse edit-item select-category-inputs" id="checkbox-{{category.id}}"></h5>
+                <h5 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}<img
+                        src="{{ MEDIA_URL }}icons/tick_all_icon.png" width="25px"
+                        class="collapse edit-item select-category-inputs" id="checkbox-{{category.id}}"></h5>
             </div>
         </div>
         <hr>
         <form action="/shopping/update_item/remove" method="POST">
-        {% csrf_token %}
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0 px-2">
-                <table class="container-fluid shopping-table">
-                    <tr>
-                        <th>Item</th>
-                        <th class="text-center">Quantity</th>
-                        <th class="text-right">Add By</th>
-                        <th class="text-right collapse edit-item">Remove</th>
-                    </tr>
-                    {% for item in items %}
+            {% csrf_token %}
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0 px-2">
+                    <table class="container-fluid shopping-table">
+                        <tr>
+                            <th>Item</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-right">Add By</th>
+                            <th class="text-right collapse edit-item">Remove</th>
+                        </tr>
+                        {% for item in items %}
                         {% if item.category.category == category.category %}
-                            <tr>
-                                <td>{{ item.item }}</td>
-                                <td class="text-center">{{ item.quantity }}</td>
-                                {% if item.user.username == user.username %}
-                                <td class="text-right">You</td>
-                                {% else %}
-                                <td class="text-right">{{ item.user.first_name }}{{ item.user.last_name }}</td>
-                                {% endif %}
-                                <td class="text-right collapse edit-item-{{category.id}} edit-item"><input type="checkbox" name="{{ item.id }}" class="checkbox-{{category.id}} checkbox"></td>
-                            </tr>
+                        <tr>
+                            <td>{{ item.item }}</td>
+                            <td class="text-center">{{ item.quantity }}</td>
+                            {% if item.user.username == user.username %}
+                            <td class="text-right">You</td>
+                            {% else %}
+                            <td class="text-right">{{ item.user.first_name }}{{ item.user.last_name }}</td>
+                            {% endif %}
+                            <td class="text-right collapse edit-item-{{category.id}} edit-item"><input type="checkbox"
+                                    name="{{ item.id }}" class="checkbox-{{category.id}} checkbox"></td>
+                        </tr>
                         {% endif %}
-                    {% endfor %}
-                </table>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="col-12 m-0 p-0">
+                    <hr>
+                </div>
             </div>
-            <div class="col-12 m-0 p-0">
-                <hr>
+            {% endfor %}
+            <div class="row m-0 p-0 my-3 mb-4 collapse edit-item">
+                <div class="col-12 m-0 p-0 px-2">
+                    <button class="btn btn-success container-fluid">Done</button>
+                </div>
             </div>
-        </div>
-        {% endfor %}
-        <div class="row m-0 p-0 my-3 mb-4 collapse edit-item">
-            <div class="col-12 m-0 p-0 px-2">
-                <button class="btn btn-success container-fluid">Done</button>
-            </div>
-        </div>
-    </form>
+        </form>
     </div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="graphs-tab">
-        <!-- Insight section -->
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active text-theme" id="Histroy-items" data-toggle="tab" href="#Histroy"
-                    role="tab" aria-controls="home" aria-selected="true">Histroy</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link text-theme" id="favorites-tab" data-toggle="tab" href="#favorites" role="tab"
-                    aria-controls="profile" aria-selected="false">Favorites</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link text-theme" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab"
-                    aria-controls="contact" aria-selected="false">Graphs</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="Histroy" role="tabpanel" aria-labelledby="Histroy-tab">
-                <!-- histroy -->
-                <div class="row m-0 p-0 d-flex justify-content-center">
-                    <div class="col-12 col-md-7 col-lg-4 m-0 p-0">
-                        <h5 class="m-0 my-3 ml-3">Purchased Items</h5>
-                        <hr>
-                        {% if not purchased_items %}
-                        <p class="p-2 pt-3">You haven't added any items yet.</p>
-                        {% else %}
-                        <div class="px-2 my-2">
-                            <table class="container-fluid shopping-table">
-                                <tr>
-                                    <th>Item</th>
-                                    <th class="text-center">Quantity</th>
-                                    <th class="text-right">Date</th>
-                                </tr>
-                                {% for item in purchased_items %}
-                                <tr>
-                                    <td>{{ item.item }}</td>
-                                    <td class="text-center">{{ item.quantity }}</td>
-                                    <td class="text-right text-small">{{ item.created_date }}</td>
-                                </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
-                <!-- favorites -->
-                <div class="row m-0 p-0">
-                    <div class="col-12 col-md-6 m-0 p-0">
-                        <h5 class="m-0 my-3 ml-3">Most Purchased</h5>
-                        <hr>
-                        {% if not favorites %}
-                        <p class="p-2 pt-3">You haven't added any items yet.</p>
-                        {% else %}
-                        <div class="px-2">
-                            <table class="container-fluid shopping-table">
-                                <tr>
-                                    <th>Item</th>
-                                    <th class="text-center">Category</th>
-                                    <th class="text-right">Quantity</th>
-                                </tr>
-                                {% for item in favorites %}
-                                <tr>
-                                    <td>{{ item.item }}</td>
-                                    <td class="text-center">{{ item.category }}</td>
-                                    <td class="text-right">{{ item.quantity }}</td>
-                                </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                        {% endif %} 
-                    </div>
-                    <div class="col-12 col-md-6 m-0 p-0">
-                        <hr class="d-md-none">
-                        <h5 class="m-0 my-3 ml-3">Monthly Report</h5>
-                        <hr>
-                        {% if not monthly_report_dates %}
-                        <p class="p-2 pt-3">You haven't added any items yet.</p>
-                        {% else %}
-                        <div class="px-2 mb-2">
-                            <table class="container-fluid shopping-table">
-                                <tr>
-                                    <th>Item</th>
-                                    {% for month in monthly_report_dates %}
-                                        <th>{{month}}</th>
-                                    {% endfor %}
-                                </tr>
-                                {% for item in monthly_report_data %}
-                                <tr>
-                                    <td>{{ item.item }}</td>
-                                    {% for quantity in item.quantity %}
-                                    <td>{{quantity}}</td>
-                                    {% endfor %}
-                                </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                        {% endif %} 
-                    </div>
-                </div>
-                              
-            </div>
-            <div class="tab-pane fade" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
-                <!-- Graphs -->
-                <div class="row m-0 p-0 d-flex justify-content-center">
-                    <div class="col-12 col-md-6 col-lg-4 m-0 p-0">
-                        <h5 class="mt-3 pl-3">Top 5 Items</h5>
-                        <hr>
-                        <canvas id="topFiveChart" width="400" height="400" class="p-3"></canvas>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 m-0 p-0">
-                        <hr class="d-md-none">
-                        <h5 class="pl-3 mt-3">All Items</h5>
-                        <hr>
-                        <canvas id="allFavorites" width="400" height="400" class="p-3"></canvas>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 m-0 p-0">
-                        <hr class="d-md-none">
-                        <h5 class="pl-3 mt-3">Monthly Report</h5>
-                        <hr>
-                        <canvas id="itemsOverTimeChart" width="400" height="400" class="p-3"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
+
+
 </div>
 
 {% endblock %}
@@ -320,103 +208,31 @@
 <script src="{% static 'js/shopping_page.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
-    $(document).ready(function() {
-        // top five items chart
-        var ctx = document.getElementById('topFiveChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: {{ chart_labels_top_five | safe }},
-                datasets: [{
-                    label: 'Top 5 Items',
-                    data: {{ chart_data_top_five }},
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
+    $(document).ready(function () {
+
+        // Add an item using ajax
+        var theForm = $('.quick-add-item-ajax');
+
+        theForm.submit(function (event) {
+            event.preventDefault();
+
+            var formId = this.id
+            var thisForm = $(this)
+            var actionEndpoint = thisForm.attr("action");
+            var httpMethod = thisForm.attr("method");
+            var formData = thisForm.serialize();
+
+            $.ajax({
+                url: actionEndpoint,
+                method: httpMethod,
+                data: formData,
+                success: function (data) {
+
                 }
-            }
-        });
-        // all items in order of favorite
-        var ctx = document.getElementById('allFavorites').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: {{ chart_labels | safe }},
-                datasets: [{
-                    label: 'All Items',
-                    data: {{ chart_data }},
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-        // How much of an item was purchased over a period of time
-        var ctx = document.getElementById('itemsOverTimeChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: {{ monthly_report_dates | safe }},
-                datasets: {{ line_chart_dataset | safe }}
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            
-                        }
-                    }]
-                }
-            },
-            
-        });
-    })
-    </script>
+            })
+
+        })
+
+    });
+</script>
 {% endblock %}
