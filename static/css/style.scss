@@ -31,6 +31,11 @@ p,a,b {
     color: darken($theme-colour, 25%);
 }
 
+// buttons
+.btn-success {
+    background: linear-gradient(darken($theme-colour, 8%), darken($theme-colour, 20%));
+    border: none;
+}
 
 // icons
 .far {

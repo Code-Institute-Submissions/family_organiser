@@ -13,6 +13,19 @@ nav {
   width: 40px;
 }
 
+#navigation-alpha-over {
+  height: calc(100vh - 48px);
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 50;
+  opacity: 0.5;
+  background-color: white;
+  -webkit-transform: translate(100vw, 0);
+          transform: translate(100vw, 0);
+}
+
 .burger-container {
   margin-right: 5px;
   cursor: pointer;
@@ -222,6 +235,60 @@ nav {
   height: 370px;
 }
 
+.shopping-item-container {
+  overflow: auto;
+  white-space: nowrap;
+  padding: 8px;
+}
+
+.shopping-item-container form {
+  display: inline-block;
+}
+
+.shopping-item-container .shopping-item {
+  border: #6CF273 1px solid;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 30px;
+  border-radius: 7px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#a0f088), to(#56da82));
+  background: linear-gradient(#a0f088, #56da82);
+  position: relative;
+  margin-right: 9px;
+  -webkit-box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.08);
+          box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.08);
+}
+
+.shopping-item-container .shopping-item div {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 7px;
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  -webkit-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.05);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.8em;
+}
+
+.shopping-item-container .shopping-item .category {
+  position: absolute;
+  left: 3px;
+  bottom: 0px;
+  font-size: 9px;
+}
+
 .profile-page-container {
   position: fixed;
   top: 237px;
@@ -367,66 +434,22 @@ nav {
   width: 25px;
 }
 
-.shopping-item-container {
-  overflow: auto;
-  white-space: nowrap;
-  padding: 8px;
-}
-
-.shopping-item-container form {
-  display: inline-block;
-}
-
-.shopping-item-container .shopping-item {
-  border: #6CF273 1px solid;
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
-  padding: 10px 30px;
-  border-radius: 7px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#95F19A), to(#6CF2CE));
-  background: linear-gradient(#95F19A, #6CF2CE);
-  position: relative;
-  margin-right: 9px;
-  -webkit-box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.08);
-          box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.08);
-}
-
-.shopping-item-container .shopping-item div {
-  width: 25px;
-  height: 25px;
-  background-color: white;
-  border-radius: 7px;
-  position: absolute;
-  right: -5px;
-  bottom: -5px;
-  -webkit-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.05);
-          box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.05);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 0.8em;
-}
-
-.shopping-item-container .shopping-item .category {
-  position: absolute;
-  left: 3px;
-  bottom: 0px;
-  font-size: 9px;
-}
-
 .login-container {
   padding-top: 40px;
   background-color: #6cf273;
   min-height: 680px;
   height: 85vh;
   position: relative;
+  z-index: 0;
+}
+
+.login-container .login-background {
+  position: absolute;
+  width: 100vw;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .login-icon {
@@ -491,6 +514,12 @@ p, a, b {
 
 .text-theme {
   color: #12cc1c;
+}
+
+.btn-success {
+  background: -webkit-gradient(linear, left top, left bottom, from(#47ef4f), to(#14e41f));
+  background: linear-gradient(#47ef4f, #14e41f);
+  border: none;
 }
 
 .far {

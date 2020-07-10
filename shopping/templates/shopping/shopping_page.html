@@ -42,10 +42,8 @@
             {% for item in favorites %}
             <form action="/shopping/quick_item/{{item.item}}/{{item.category}}" method="POST">
                 {% csrf_token %}
-                <button class="shopping-item">
-                    <p class="m-0">{{ item.item }}</p>
-                    <p class="m-0 category">{{ item.category }}</p>
-                    <div class="text-dark">x1</div>
+                <button class="btn btn-success ">
+                    <p class="m-0 text-light">{{ item.item }}</p>
                 </button>
             </form>
             {% endfor %}

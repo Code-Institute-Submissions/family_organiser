@@ -98,7 +98,6 @@ def shopping_page(request):
     search_month = str(user_profile.start_date)[5:7]
 
     # (bug if user doesn't submit a item for a few months with won't work.)
-    # (bug the quantity isn't being added only the item.)
     # For each items used, search all items each month between the users start date and now.
     # Storing the amount of the same items found each month in an item_quantity_in_months
     for item in used_items:
@@ -109,8 +108,12 @@ def shopping_page(request):
                 if search_item.item == item:
                     search_item_month = str(search_item.created_date)[5:7]
                     if search_item_month == search_month:
-                        same_items_list.append(item)
-            item_quantity_in_months.append(len(same_items_list))
+                        if not search_item.quantity:
+                            same_items_list.append(0)
+                        else:
+                            same_items_list.append(search_item.quantity)
+
+            item_quantity_in_months.append(sum(same_items_list))
             search_month = int(search_month) + 1
             if search_month < 10:
                 search_month = '0' + str(search_month)
@@ -120,6 +123,7 @@ def shopping_page(request):
                 'item': item,
                 'quantity': item_quantity_in_months,
             }
+        print(item_dict)
         monthly_report_data.append(item_dict)
         # Reseting the month ready for the next item.
         search_month = str(user_profile.start_date)[5:7]
@@ -146,8 +150,6 @@ def shopping_page(request):
                 }
         line_chart_dataset.append(data_dict)
 
-
-    
     # Get all purchased items 
     purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
 

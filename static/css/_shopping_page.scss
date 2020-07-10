@@ -26,44 +26,4 @@
     }
 }
 
-.shopping-item-container {
-    overflow: auto;
-    white-space: nowrap;
-    padding: 8px;
-    form {
-        display: inline-block;
-    }
-    .shopping-item {
-        border: $theme-colour 1px solid;
-        display: inline-block;
-        text-align: center;
-        text-decoration: none;
-        padding: 10px 30px;
-        border-radius: 7px;
-        background: linear-gradient(#95F19A,#6CF2CE);
-        position: relative;
-        margin-right: 9px;
-        box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.08);
-        div {
-            width: 25px;
-            height: 25px;
-            background-color: white;
-            border-radius: 7px;
-            position: absolute;
-            right: -5px;
-            bottom: -5px;
-            box-shadow: 1px 1px 8px 1px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.8em;
-        }
-        .category {
-            position: absolute;
-            left: 3px;
-            bottom: 0px;
-            font-size: 9px;
-        }
-    }
-}
 
