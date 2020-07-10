@@ -103,6 +103,9 @@
     </div>
     <hr>
     <div class="shopping-item-container">
+        {% if not items %}
+            <p class="m-0">Your shoppping list is empty. <a href="/shopping/shopping_page">Add Items</a></p>
+        {% endif %}
         {% for item in items %}
         <a class="shopping-item" href="/shopping/shopping_page">
             <p class="m-0">{{ item.item }}</p>
