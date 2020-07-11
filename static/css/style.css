@@ -439,6 +439,11 @@ nav {
   width: 25px;
 }
 
+.home-container {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 .illustration {
   width: 300px;
   display: block;
@@ -520,15 +525,13 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6, label {
+h1, h2, h3, h4, h5, h6 {
   font-family: 'Merriweather', serif;
-  font-size: 0.9em;
 }
 
-p, a, b {
+p, a, b, label {
   font-family: 'Roboto', sans-serif;
   font-size: 0.9em;
-  color: black;
 }
 
 .text-small {

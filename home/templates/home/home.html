@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
 <nav>
@@ -13,28 +13,28 @@
     </div>
 </nav>
 
-<div class="p-2 mt-5">
+<div class="p-2 mt-5 home-container">
 
     <h2 class="text-center mt-3 mb-5">Family Organiser</h2>
 
-    <p class="big-text">Team work makes the dream work, keeping your family organised and providing some useful insight on the mundane.</p>
+    <p class="big-text" data-aos="fade-left">Team work makes the dream work, keeping your family organised and providing some useful insight on the mundane.</p>
     
-    <img src="{{ MEDIA_URL }}svg/collaborating_illustration.svg" class="illustration">
+    <img src="{{ MEDIA_URL }}svg/collaborating_illustration.svg" class="illustration" data-aos="fade-right">
     
-    <p class="big-text">Easily create a shopping list and invite family members to take the load off shopping. View your monthly habits and
+    <p class="big-text" data-aos="fade-left">Easily create a shopping list and invite family members to take the load off shopping. View your monthly habits and
         make sure your household is consuming nutritious foods.</p>
     
-    <img src="{{ MEDIA_URL }}svg/graphs_illustration.svg" class="illustration">
+    <img src="{{ MEDIA_URL }}svg/graphs_illustration.svg" class="illustration" data-aos="fade-right">
     
-    <p class="big-text">Book days out and events with each other, dicuss them on a personalised page and even save them to your google
+    <p class="big-text" data-aos="fade-left">Book days out and events with each other, dicuss them on a personalised page and even save them to your google
         calendar to make sure you don't forget.</p>
     
-    <img src="{{ MEDIA_URL }}svg/calendar_illustration.svg" class="illustration">
+    <img src="{{ MEDIA_URL }}svg/calendar_illustration.svg" class="illustration" data-aos="fade-right">
     
-    <p class="big-text">Forget to put the bins out? Forget to pay bills? Create reminders for errands and even invite family members to
+    <p class="big-text" data-aos="fade-left">Forget to put the bins out? Forget to pay bills? Create reminders for errands and even invite family members to
         complete them for you.</p>
     
-    <img src="{{ MEDIA_URL }}svg/bills_illustration.svg" class="illustration">
+    <img src="{{ MEDIA_URL }}svg/bills_illustration.svg" class="illustration" data-aos="fade-right">
 </div>
 
 
@@ -42,4 +42,18 @@
     <p class="text-center">&#169; 2020 Family Organiser</p>
 </footer>
 
+{% endblock %}
+
+{% block extra_css %}
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    $(document).ready(function() {
+        AOS.init();
+    });
+    
+  </script>
 {% endblock %}
