@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import json
 from django.http import JsonResponse
-from .models import Category, Item, PurchasedItems
+from .models import Category, Item, PurchasedItems, Favorite
 from user.models import UserProfile
 from random import randint
 import datetime
@@ -18,31 +18,8 @@ def shopping_page(request):
         if item.category not in categories_used:
             categories_used.append(item.category)
 
-    # Create a list of favorite items from purchased items
-    purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-item')
-
-    favorites = []
-    index_deductor = 1
-
-    # Check each item in the database returning the quantity if already in the list or creating a new object if not.
-    for index_item, item in enumerate(purchased_items):
-        item_dict = {
-            'item': item.item,
-            'quantity': item.quantity,
-            'category': item.category,
-        }
-        
-        try:
-            if favorites[index_item - index_deductor]['item'] == item.item:
-                favorites[index_item - index_deductor]['quantity'] += item.quantity
-                index_deductor += 1
-            else:
-                favorites.append(item_dict)
-        except:
-            favorites.append(item_dict)
-        
-    # sort the favorites by quantity
-    favorites = sorted(favorites, key= lambda x: x['quantity'], reverse=True)
+    # Get all users favorite items and order them by quantity
+    favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
 
     context = {
         'items': items,
@@ -59,7 +36,7 @@ def update_item(request, operation):
         
         if operation == 'add':
 
-            item_name = request.POST.get('item')
+            item_name = request.POST.get('item').capitalize()
             quantity = int(request.POST.get('quantity'))
             category = Category.objects.get(category=request.POST.get('category'))
 
@@ -92,10 +69,23 @@ def update_item(request, operation):
                 category = category, 
             )
             purchase_item.save()
+            
+            try:
+                favorite = Favorite.objects.get(item=item_name)
+                favorite.quantity += quantity
+                favorite.save()
+            except:
+                favorite_item = Favorite(
+                    user = request.user,
+                    item = item_name,
+                    quantity = quantity,
+                    category = category, 
+                )
+                favorite_item.save()
 
             items = Item.objects.filter(user=request.user).order_by('item')
 
-            return JsonResponse({'result': 'success', 'working': 'yes'})
+            return redirect('shopping_page')
         
         # Remove items checked by the user
         if operation == 'remove':
@@ -122,7 +112,7 @@ def quick_item(request, item, category):
     """
     Add or remove an item from the database returning json
     """
-    item_name = item
+    item_name = item.capitalize()
     quantity = 1
     category_selected = Category.objects.get(category=category)
 
@@ -155,6 +145,19 @@ def quick_item(request, item, category):
         category = category_selected, 
     )
     purchase_item.save()
+
+    try:
+        favorite = Favorite.objects.get(item=item_name)
+        favorite.quantity += quantity
+        favorite.save()
+    except:
+        favorite_item = Favorite(
+            user = request.user,
+            item = item_name,
+            quantity = quantity,
+            category = category, 
+        )
+        favorite_item.save()
 
     # Get the items form the database and order them into an array.
     items = Item.objects.filter(user=request.user).order_by('item')
@@ -204,28 +207,8 @@ def insight(request):
     # Create a list of favorite items from purchased items
     purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-item')
 
-    favorites = []
-    index_deductor = 1
-
-    # Check each item in the database returning the quantity if already in the list or creating a new object if not.
-    for index_item, item in enumerate(purchased_items):
-        item_dict = {
-            'item': item.item,
-            'quantity': item.quantity,
-            'category': item.category,
-        }
-        
-        try:
-            if favorites[index_item - index_deductor]['item'] == item.item:
-                favorites[index_item - index_deductor]['quantity'] += item.quantity
-                index_deductor += 1
-            else:
-                favorites.append(item_dict)
-        except:
-            favorites.append(item_dict)
-        
-    # sort the favorites by quantity
-    favorites = sorted(favorites, key= lambda x: x['quantity'], reverse=True)
+    # Get all users favorite items and order them by quantity
+    favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
 
     # top five chart data
     all_favorites = favorites
@@ -234,8 +217,8 @@ def insight(request):
 
     for favorite in range(5):
         try:
-            chart_labels_top_five.append(all_favorites[favorite]['item'])
-            chart_data_top_five.append(all_favorites[favorite]['quantity'])
+            chart_labels_top_five.append(all_favorites[favorite].item)
+            chart_data_top_five.append(all_favorites[favorite].quantity)
         except:
             break
 
@@ -245,8 +228,8 @@ def insight(request):
     chart_labels = []
 
     for favorite in all_favorites:
-        chart_labels.append(favorite['item'])
-        chart_data.append(favorite['quantity'])
+        chart_labels.append(favorite.item)
+        chart_data.append(favorite.quantity)
 
     # dataset for the line chart
     line_chart_dataset = []

@@ -18,7 +18,7 @@
     <hr class="mt-0">
     <div class="row m-0 p-0">
         <div class="col-12 m-0">
-            <h6 class="m-0 d-flex align-items-center justify-content-between">Add Item<i
+            <h6 class="m-0 d-flex align-items-center justify-content-between">Add New Item<i
                     class="far fa-plus-square float-right mr-2" data-toggle="collapse" href="#item-form-container"></i>
             </h6>
         </div>
@@ -49,7 +49,7 @@
     <!-- adding a category -->
     <div class="row m-0 p-0">
         <div class="col-12 m-0">
-            <h6 class="m-0 d-flex align-items-center justify-content-between">Add Category<i
+            <h6 class="m-0 d-flex align-items-center justify-content-between">Add New Category<i
                     class="far fa-plus-square float-right mr-2" data-toggle="collapse"
                     href="#category-form-container"></i></h6>
         </div>
@@ -72,16 +72,16 @@
     <!-- editing categories -->
     <div class="row m-0 p-0">
         <div class="col-12 m-0">
-            <h6 class="m-0 d-flex align-items-center justify-content-between">Categories<i
+            <h6 class="m-0 d-flex align-items-center justify-content-between">Edit Categories<i
                     class="far fa-plus-square float-right mr-2" data-toggle="collapse"
                     href="#category-edit-container"></i></h6>
         </div>
     </div>
-    <hr>
+    <hr class="mb-2">
     <div id="category-edit-container" class="collapse">
         <div class="row m-0 p-0">
             {% for category in categories %}
-            <div class="col-12 d-flex justify-content-between mb-3">
+            <div class="col-12 d-flex justify-content-between mt-3">
                 <p class="m-0">{{category.category}}</p>
                 <form method="POST" action="update_category/remove/{{ category.id }}">
                     {% csrf_token %}
@@ -97,29 +97,21 @@
 
     <!-- list section -->
     <!-- quick add -->
-    <div class="row m-0 p-0">
-        <div class="col-12 m-0">
-            <h6 class="m-0 d-flex align-items-center justify-content-between">Quick Add<i
-                class="far fa-plus-square float-right mr-2" data-toggle="collapse"
-                href=".shopping-item-container"></i></h6>
-        </div>
-    </div>
-    <hr>
-    <div class="shopping-item-container collapse">
+    <div class="shopping-item-container">
         {% if not favorites %}
         <p class="px-2">You haven't added any items yet.</p>
         {% endif %}
         {% for item in favorites %}
-        <form action="/shopping/quick_item/{{item.item}}/{{item.category}}" method="POST" class="quick-add-item-ajax">
+        <form action="/shopping/quick_item/{{item.item}}/{{item.category}}" method="POST" class="add-item-ajax">
             {% csrf_token %}
             <button class="btn btn-success ">
                 <p class="m-0 text-light">{{ item.item }}</p>
             </button>
         </form>
         {% endfor %}
-        <hr>
+        
     </div>
-    
+    <hr class="mt-2">
     {% if not categories_used %}
     <p class="px-2">Your shoppping list is empty.</p>
     {% else %}
@@ -192,7 +184,7 @@
     $(document).ready(function () {
 
         // Add an item using ajax
-        var theForm = $('.quick-add-item-ajax');
+        var theForm = $('.add-item-ajax');
 
         theForm.submit(function (event) {
             event.preventDefault();

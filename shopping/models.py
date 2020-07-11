@@ -35,3 +35,6 @@ class Favorite(models.Model):
     item = models.CharField(max_length=150)
     quantity = models.IntegerField(default=1)
     category = models.ForeignKey(Category, related_name="favorite_item_category", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.item
