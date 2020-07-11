@@ -26,4 +26,7 @@ $(document).on( 'click','#add-button', function() {
     }
 });
 
-
+$(document).on('click', '#add-button', function() {
+    document.querySelector('body').scrollIntoView({ behavior: 'smooth' })
+})
+    

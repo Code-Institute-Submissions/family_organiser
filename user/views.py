@@ -64,8 +64,8 @@ def find_users(request):
     """
     if request.method == 'GET':
         try:
-            query = request.GET['q']
-            queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query)
+            query = request.GET['q'].capitalize()
+            queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query) | Q(username__startswith=query.capitalize()) | Q(first_name__startswith=query.capitalize()) | Q(last_name__startswith=query.capitalize())
             all_users = User.objects.filter(queries)
         except:
             all_users = []

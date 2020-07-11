@@ -1,14 +1,18 @@
 from django.shortcuts import render, redirect
 import json
+from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import JsonResponse
 from .models import Category, Item, PurchasedItems, Favorite
-from user.models import UserProfile
+from user.models import UserProfile, Friend
 from random import randint
 import datetime
 
 # Create your views here.
 def shopping_page(request):
-
+    """
+    Display the shopping list and the forms to add/remove items.
+    """
     items = Item.objects.filter(user=request.user).order_by('item')
     categories = Category.objects.filter(user=request.user)
     
@@ -31,7 +35,9 @@ def shopping_page(request):
     return render(request, 'shopping/shopping_page.html', context)
 
 def update_item(request, operation):
-
+    """
+    Add or remove an item from the database.
+    """
     if request.method == 'POST':
         
         if operation == 'add':
@@ -341,11 +347,34 @@ def insight(request):
         return redirect('premium_info')
 
 def add_partner(request):
-
+    """
+    Search and add shopping partners to the users shopping list.
+    """
     user_profile = UserProfile.objects.get(user=request.user)
+    # if the user has a premium account return the shopping partners page or return premium information.
     if user_profile.premium:
 
-        return render(request, 'shopping/shopping_partner.html')
+        if request.method == 'GET':
+            try:
+                query = request.GET['q']
+                print(query)
+                queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query) | Q(username__startswith=query.capitalize()) | Q(first_name__startswith=query.capitalize()) | Q(last_name__startswith=query.capitalize())
+                print('working')
+                all_users = User.objects.filter(queries)
+                print('accoutns found')
+            except:
+                all_users = []
+                print('non found')
+
+        friends = Friend.objects.get(current_user=request.user)
+        all_friends = friends.users.all()
+
+        context = {
+            'all_users': all_users,
+            'friends': all_friends,
+        }
+
+        return render(request, 'shopping/shopping_partner.html', context)
 
     else: 
         return redirect('premium_info')

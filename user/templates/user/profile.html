@@ -6,10 +6,11 @@
 {% endblock %}
 
 {% block content %}
-<img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image"></img>
+<div id="page-top"></div>
+<img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image" ></img>
 <img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light"></img>
 
-<div class="profile-bio-form-container">
+<div class="profile-bio-form-container"  >
 <!-- profile and notifications section -->
 <div class="row m-0 p-0">
     <div class="col m-0 p-0 d-flex justify-content-between">
@@ -215,8 +216,8 @@
 
 
 
-<button id="add-button" class="closed">
-    <img src="{{ MEDIA_URL }}icons/plus_icon.png">
+<button id="add-button" class="closed" >
+    <img src="{{ MEDIA_URL }}icons/plus_icon.png" href="#page-top">
 </button>
 
 <button id="send-button" class="closed send-button">
