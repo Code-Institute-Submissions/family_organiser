@@ -38,3 +38,28 @@ class Favorite(models.Model):
 
     def __str__(self):
         return self.item
+
+class PartnerRequest(models.Model):
+    from_user = models.ForeignKey(User, related_name="partner_fromuser", null=True, on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
+class Partner(models.Model):
+    partners = models.ManyToManyField(User)
+    current_user = models.ForeignKey(User, related_name="partner_owner", null=True, on_delete=models.CASCADE)
+
+    @classmethod
+    def make_partner(cls, current_user, new_friend):
+        partner, created = cls.objects.get_or_create(
+            current_user=current_user
+        )
+        partner.partners.add(new_friend)
+
+    @classmethod
+    def remove_partner(cls, current_user, new_friend):
+        partner, created = cls.objects.get_or_create(
+            current_user=current_user
+        )
+        partner.partners.remove(new_friend)
+
+    def __str__(self):
+        return self.current_user.username

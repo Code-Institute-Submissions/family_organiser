@@ -443,6 +443,10 @@ nav {
   width: 25px;
 }
 
+.icon-button .add-list-icon {
+  width: 21px;
+}
+
 .home-container {
   width: 100vw;
   overflow-x: hidden;

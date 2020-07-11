@@ -82,7 +82,7 @@ def find_users(request):
 
 def create_friend_request(request, pk):
     """
-    Takes the request from the user and saves the requests to the database
+    Takes the request from the user and saves the request to the database
     """
     requested_user = User.objects.get(pk=pk)
     
