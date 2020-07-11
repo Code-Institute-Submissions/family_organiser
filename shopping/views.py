@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+import json
+from django.http import JsonResponse
 from .models import Category, Item, PurchasedItems
 from user.models import UserProfile
 from random import randint
@@ -90,6 +92,10 @@ def update_item(request, operation):
                 category = category, 
             )
             purchase_item.save()
+
+            items = Item.objects.filter(user=request.user).order_by('item')
+
+            return JsonResponse({'result': 'success', 'working': 'yes'})
         
         # Remove items checked by the user
         if operation == 'remove':
@@ -113,7 +119,9 @@ def update_item(request, operation):
     return redirect('shopping_page')
 
 def quick_item(request, item, category):
-
+    """
+    Add or remove an item from the database returning json
+    """
     item_name = item
     quantity = 1
     category_selected = Category.objects.get(category=category)
@@ -148,10 +156,33 @@ def quick_item(request, item, category):
     )
     purchase_item.save()
 
-    return redirect('shopping_page')
+    # Get the items form the database and order them into an array.
+    items = Item.objects.filter(user=request.user).order_by('item')
+    categories = Category.objects.filter(user=request.user)
+    items_list = []
+
+    for item in items:
+        item_dict = {
+            'user': item.user.username,
+            'item': item.item,
+            'item_id': item.id,
+            'quantity': item.quantity,
+            'category': item.category.category,
+        }
+        items_list.append(item_dict)
+
+    # Find the categories being used and append to categories_used
+    categories_used = []
+    for item in items:
+        if item.category.category not in categories_used:
+            categories_used.append(item.category.category)
+
+    return JsonResponse({'items': items_list, 'categories_used': categories_used, })
 
 def update_category(request, operation, pk):
-    
+    """
+    Add or remove category from the database.
+    """
     if request.method == 'POST':
         if operation == 'add':
             new_category = Category(
@@ -166,7 +197,10 @@ def update_category(request, operation, pk):
 
     return redirect('shopping_page')
 
-def insight(request):    
+def insight(request):   
+    """
+    Display instight page with graphs and table of the users favorite items and shopping habbits.
+    """ 
     # Create a list of favorite items from purchased items
     purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-item')
 

@@ -8,7 +8,7 @@
 .status-image {
     height: 300px;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 4px;
     box-shadow: 2px 2px 12px 1px rgba(0,0,0,0.1);
 }
@@ -19,6 +19,7 @@
     background-color: rgba(0,0,0,0.05);
     box-shadow: inset 0px 0px 17px 1px rgba(0, 0, 0, 0.1);
     padding: 13px;
+    min-width: 160px;
     img {
         width: 20px;
         height: 20px;

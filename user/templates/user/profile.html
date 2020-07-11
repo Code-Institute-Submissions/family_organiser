@@ -9,6 +9,7 @@
 <img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image"></img>
 <img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light"></img>
 
+<div class="profile-bio-form-container">
 <!-- profile and notifications section -->
 <div class="row m-0 p-0">
     <div class="col m-0 p-0 d-flex justify-content-between">
@@ -93,12 +94,14 @@
 <!-- Add data forms container -->
 <div id="add-data-form-container" class="closed"></div>
 
+</div>
+
 
 <!-- users shopping list and status -->
 <div class="profile-page-container">
     <div class="row m-0 p-0">
         <div class="col-12 m-0">
-            <h5 class="m-0 d-flex align-items-center justify-content-between">Shopping List <a href="/shopping/shopping_page"><i class="fas fa-list-ul float-right mr-2 text-dark"></i></a></h5>
+            <h5 class="m-0 d-flex align-items-center justify-content-between">Shopping List <a href="/shopping/shopping_page" class="text-small">More</a></h5>
         </div>
     </div>
     <hr>
@@ -117,7 +120,7 @@
     <hr>
     <h5 class="ml-3">Status</h5>
     <hr class="status-divider">
-    <div class="row m-0 p-0 mb-5">
+    <div class="row m-0 p-0">
         {% for news in news_feed %}
         <div class="col-12 m-0 p-0">
             <div class="row m-0 p-0">
@@ -359,7 +362,7 @@
                     method: httpMethod,
                     data: formData,
                     success: function (data) {
-
+                        
                     }
                 })
                 setTimeout(function () {

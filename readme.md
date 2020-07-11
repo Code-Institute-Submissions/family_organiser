@@ -89,3 +89,9 @@ This web application is designed to keep users in touch with their family and al
 [Remove duplicates form an array - Python](https://www.w3schools.com/python/python_howto_remove_duplicates.asp)
 
 [Creating a random number - Python](https://machinelearningmastery.com/how-to-generate-random-numbers-in-python/)
+
+[AJAX and Django csrf_token](https://stackoverflow.com/questions/6506897/csrf-token-missing-or-incorrect-while-post-parameter-via-ajax-in-django)
+
+[JsonResponse - Django](https://stackoverflow.com/questions/34971605/django-version-of-flask-jsonify-jsonify)
+
+[Using Jquery to update page](https://www.youtube.com/watch?v=Kcka5WBMktw)
