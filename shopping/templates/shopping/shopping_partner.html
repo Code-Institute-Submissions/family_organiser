@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Find Partners | Family Organiser
@@ -11,6 +12,23 @@ Find Partners | Family Organiser
     </div>
 </div>
 
+<hr>
+<div class="row m-0 p-0">
+    <div class="col-12 m-0">
+        <h6 class="m-0 d-flex align-items-center justify-content-between">Shopping Partners<i
+                class="far fa-plus-square float-right mr-2" data-toggle="collapse"
+                href="#shopping-partners-container"></i></h6>
+    </div>
+</div>
+
+<hr>
+<div class="row m-0 p-0 collapse" id="shopping-partners-container">
+    <div class="col-12 m-0 px-3">
+        {% for partner in shopping_partners.all %}
+            <p>{{ partner.username }}</p>
+        {% endfor %}
+    </div>
+</div>
 
 <form action="/shopping/add_partner" method="GET" class="px-3">
     {% csrf_token %}
@@ -23,7 +41,6 @@ Find Partners | Family Organiser
 <hr>
 <div class="row m-0 p-0">
     {% for aUser in all_users %}
-        
             <div class="col-12 m-0 p-0">
                 <div class="row m-0 p-0">
                     <div class="col-3 m-0 p-0 pl-3">
@@ -34,7 +51,7 @@ Find Partners | Family Organiser
                         <h5>{{ aUser.last_name }}</h5>
                     </div>
                     <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-                        <a class="icon-button" href="/user/create_request/{{aUser.id}}">
+                        <a class="icon-button" href="/shopping/create_request/{{aUser.id}}">
                             <img src="{{ MEDIA_URL }}icons/add_list_icon.png" class="add-list-icon"/>
                         </a>
                         <!-- <a class="icon-button icon-warning">
@@ -51,6 +68,12 @@ Find Partners | Family Organiser
 </div>
 <p class="m-0 mt-2 text-right mr-3">Search Result: {{ all_users | length }}</p>
 
+{% endblock %}
 
+{% block extra_css %}
+<script src="https://kit.fontawesome.com/d4ed0579d0.js" crossorigin="anonymous"></script>
+{% endblock %}
 
+{% block extra_js %}
+<script src="{% static 'js/shopping_page.js' %}"></script>
 {% endblock %}

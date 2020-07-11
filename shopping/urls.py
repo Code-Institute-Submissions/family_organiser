@@ -8,4 +8,6 @@ urlpatterns = [
     path('update_item/<operation>', views.update_item, name="update_item"),
     path('quick_item/<item>/<category>', views.quick_item, name="quick_item"),
     path('update_category/<operation>/<pk>', views.update_category, name="update_category"),
+    path('create_request/<pk>', views.create_request, name="create_request"),
+    path('update_partners/<operation>/<pk>/<request_id>', views.update_partners, name='update_partners'),
 ]

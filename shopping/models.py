@@ -43,6 +43,9 @@ class PartnerRequest(models.Model):
     from_user = models.ForeignKey(User, related_name="partner_fromuser", null=True, on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.from_user.username
+
 class Partner(models.Model):
     partners = models.ManyToManyField(User)
     current_user = models.ForeignKey(User, related_name="partner_owner", null=True, on_delete=models.CASCADE)

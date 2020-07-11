@@ -3,7 +3,7 @@ import json
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import JsonResponse
-from .models import Category, Item, PurchasedItems, Favorite
+from .models import Category, Item, PurchasedItems, Favorite, Partner, PartnerRequest
 from user.models import UserProfile, Friend
 from random import randint
 import datetime
@@ -25,6 +25,7 @@ def shopping_page(request):
     # Get all users favorite items and order them by quantity
     favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
 
+
     context = {
         'items': items,
         'categories': categories,
@@ -44,7 +45,7 @@ def update_item(request, operation):
 
             item_name = request.POST.get('item').capitalize()
             quantity = int(request.POST.get('quantity'))
-            category = Category.objects.get(category=request.POST.get('category'))
+            category = Category.objects.get(category=request.POST.get('category'), user=request.user)
 
             # Get users items from the database.
             users_items = Item.objects.filter(user=request.user)
@@ -53,7 +54,7 @@ def update_item(request, operation):
             # If item in database add the quantity instead of creating a new object.
             for item in users_items:
                 if item.item == item_name:
-                    item_in_database = Item.objects.get(item=item_name)
+                    item_in_database = Item.objects.get(item=item_name, user=request.user)
                     item_in_database.quantity += quantity
                     item_in_database.save()
                     new_item = False
@@ -77,7 +78,7 @@ def update_item(request, operation):
             purchase_item.save()
             
             try:
-                favorite = Favorite.objects.get(item=item_name)
+                favorite = Favorite.objects.get(item=item_name, user=request.user)
                 favorite.quantity += quantity
                 favorite.save()
             except:
@@ -120,7 +121,7 @@ def quick_item(request, item, category):
     """
     item_name = item.capitalize()
     quantity = 1
-    category_selected = Category.objects.get(category=category)
+    category_selected = Category.objects.get(category=category, user=request.user)
 
     # Get users items from the database.
     users_items = Item.objects.filter(user=request.user)
@@ -129,7 +130,7 @@ def quick_item(request, item, category):
     # If item in database add the quantity instead of creating a new object.
     for item in users_items:
         if item.item == item_name:
-            item_in_database = Item.objects.get(item=item_name)
+            item_in_database = Item.objects.get(item=item_name, user=request.user)
             item_in_database.quantity += quantity
             item_in_database.save()
             new_item = False
@@ -153,7 +154,7 @@ def quick_item(request, item, category):
     purchase_item.save()
 
     try:
-        favorite = Favorite.objects.get(item=item_name)
+        favorite = Favorite.objects.get(item=item_name, user=request.user)
         favorite.quantity += quantity
         favorite.save()
     except:
@@ -194,11 +195,15 @@ def update_category(request, operation, pk):
     """
     if request.method == 'POST':
         if operation == 'add':
-            new_category = Category(
-                user = request.user,
-                category = request.POST.get('category'),
-            )
-            new_category.save()
+            try: 
+                category = Category.objects.get(user=request.user, category=request.POST.get('category'))
+            except:
+                new_category = Category(
+                    user = request.user,
+                    category = request.POST.get('category'),
+                )
+                new_category.save()
+
         if operation == 'remove':
 
             category = Category.objects.get(pk=pk)
@@ -353,7 +358,6 @@ def add_partner(request):
     user_profile = UserProfile.objects.get(user=request.user)
     # if the user has a premium account return the shopping partners page or return premium information.
     if user_profile.premium:
-
         if request.method == 'GET':
             try:
                 query = request.GET['q']
@@ -369,12 +373,62 @@ def add_partner(request):
         friends = Friend.objects.get(current_user=request.user)
         all_friends = friends.users.all()
 
+        # Get users shopping partners
+        shopping_partners = Partner.objects.get(current_user=request.user)
+        shopping_partners = shopping_partners.partners.all()
+
         context = {
             'all_users': all_users,
             'friends': all_friends,
+            'shopping_partners': shopping_partners,
         }
 
         return render(request, 'shopping/shopping_partner.html', context)
 
     else: 
         return redirect('premium_info')
+
+def create_request(request, pk):
+    """
+    Create or remove a request to a user to join their shopping list.
+    """
+    requested_user = User.objects.get(pk=pk)
+    
+    try:
+        PartnerRequest.objects.get(from_user=request.user, to_user=requested_user)
+    except:
+        PartnerRequest.objects.create(from_user=request.user, to_user=requested_user)
+
+
+    return redirect('add_partner')
+
+def update_partners(request, operation, pk, request_id):
+    """
+    Add or remove the chosen user from or too their partner list
+    """
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    if user_profile.premium:
+
+        new_partner = User.objects.get(pk=pk)
+
+        try:
+            partner_request = PartnerRequest.objects.get(pk=request_id)
+            partner_request.delete()
+        except:
+            partner_request = None
+
+
+        if operation == 'add':
+            Partner.make_partner(request.user, new_partner)
+            Partner.make_partner(new_partner, request.user)
+        elif operation == 'remove':
+            Partner.remove_partner(request.user, new_partner)
+            Partner.remove_partner(new_partner, request.user)
+            
+            
+        return redirect('profile')
+
+    else: 
+        return redirect('premium_info')
+

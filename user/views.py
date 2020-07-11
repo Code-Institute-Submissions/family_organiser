@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from status.models import Status, CommentNotification, LikeNotification
-from shopping.models import Item, Category
+from shopping.models import Item, Category, PartnerRequest
 from .models import FriendRequests, Friend, UserProfile
 from django.db.models import Q
 
@@ -17,6 +17,8 @@ def profile(request):
         all_friends = []
 
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
+
+    partner_requests = PartnerRequest.objects.filter(to_user=request.user)
 
     # Find user profile or create a friend list and user profile if new user.
     try:
@@ -48,6 +50,7 @@ def profile(request):
     context = {
         'friend_count': len(all_friends),
         'friend_requests': len(friend_requests),
+        'partner_requests': len(partner_requests),
         'user_profile': user_profile,
         'news_feed': news_feed,
         'item_categories': item_categories,
@@ -135,8 +138,12 @@ def notifications(request):
     # Find friend requests
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
 
+    # find partner requests
+    partner_requests = PartnerRequest.objects.filter(to_user=request.user)
+
     context = {
         'friend_requests': friend_requests,
+        'partner_requests': partner_requests,
         'notifications': notifications,
     }
     return render(request, 'user/notifications.html', context)
