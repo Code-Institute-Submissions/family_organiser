@@ -99,11 +99,13 @@
     <!-- quick add -->
     <div class="row m-0 p-0">
         <div class="col-12 m-0">
-            <h6 class="m-0 d-flex align-items-center justify-content-between">Quick Add</h6>
+            <h6 class="m-0 d-flex align-items-center justify-content-between">Quick Add<i
+                class="far fa-plus-square float-right mr-2" data-toggle="collapse"
+                href=".shopping-item-container"></i></h6>
         </div>
     </div>
     <hr>
-    <div class="shopping-item-container">
+    <div class="shopping-item-container collapse">
         {% if not favorites %}
         <p class="px-2">You haven't added any items yet.</p>
         {% endif %}
@@ -115,8 +117,9 @@
             </button>
         </form>
         {% endfor %}
+        <hr>
     </div>
-    <hr>
+    
     {% if not categories_used %}
     <p class="px-2">Your shoppping list is empty.</p>
     {% else %}

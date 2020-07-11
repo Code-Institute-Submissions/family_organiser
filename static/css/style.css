@@ -267,6 +267,10 @@ nav {
           box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.08);
 }
 
+.shopping-item-container .shopping-item p {
+  color: black;
+}
+
 .shopping-item-container .shopping-item div {
   width: 25px;
   height: 25px;
