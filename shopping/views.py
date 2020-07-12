@@ -53,20 +53,33 @@ def shopping_page(request):
     all_items_no_duplicates = []
 
     for loop_index, item in enumerate(all_items):
+        item_dict = {
+            'item': item.item,
+            'quantity': item.quantity,
+            'category': item.category,
+            'id': item.id,
+            'user': {
+                'username': item.user.first_name
+                }
+        }
+
         if loop_index == 0:
-            all_items_no_duplicates.append(item)
+            all_items_no_duplicates.append(item_dict)
         else:
             item_is_not_a_copy = True
             for list_item in all_items_no_duplicates:
-                if list_item.item == item.item:
+                if list_item['item'] == item.item:
                     item_is_not_a_copy = False
-                    list_item.quantity += item.quantity
-
+                    list_item['quantity'] += item.quantity
+                    list_item['user']['username'] += ' / ' + item.user.first_name
             if item_is_not_a_copy:
-                all_items_no_duplicates.append(item)
+                all_items_no_duplicates.append(item_dict)
 
     # Get all users favorite items and order them by quantity
     favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
+
+    # Sort items alphabetically
+    all_items_no_duplicates = sorted(all_items_no_duplicates, key = lambda x: x['item'], reverse=True)
 
     context = {
         'items': all_items_no_duplicates,
@@ -208,28 +221,77 @@ def quick_item(request, item, category):
         )
         favorite_item.save()
 
-    # Get the items form the database and order them into an array.
-    items = Item.objects.filter(user=request.user).order_by('item')
-    categories = Category.objects.filter(user=request.user)
-    items_list = []
+     # Get the current users shopping partners
+    shopping_partners = Partner.objects.get(current_user=request.user)
+    shopping_partners_list = shopping_partners.partners.all()
 
-    for item in items:
-        item_dict = {
-            'user': item.user.username,
-            'item': item.item,
-            'item_id': item.id,
-            'quantity': item.quantity,
-            'category': item.category.category,
-        }
-        items_list.append(item_dict)
+    # Get all the current users items
+    items = Item.objects.filter(user=request.user).order_by('item')
+
+    all_items = [item for item in items]
+
+    # Add all the users items and their shopping partners items into all_items
+
+    for shopping_partner in shopping_partners_list:
+        if not shopping_partner == request.user:
+            partners_shopping_list = Item.objects.filter(user=shopping_partner)
+            for item in partners_shopping_list:
+                all_items.append(item)
+
+    categories = Category.objects.filter(user=request.user)
 
     # Find the categories being used and append to categories_used
     categories_used = []
-    for item in items:
-        if item.category.category not in categories_used:
-            categories_used.append(item.category.category)
 
-    return JsonResponse({'items': items_list, 'categories_used': categories_used, })
+    for item_index, item in enumerate(all_items):
+        category_dict = {
+            'category': item.category.category,
+        }
+        if item_index == 0:
+            categories_used.append(category_dict)
+        else:
+            add_category = True
+
+            for list_item in categories_used:
+ 
+                if list_item['category'] == item.category.category:
+                    add_category = False
+            
+            if add_category:
+                categories_used.append(category_dict)
+
+    # Add the quantity of any duplicate items
+    all_items_no_duplicates = []
+
+    for loop_index, item in enumerate(all_items):
+        item_dict = {
+            'item': item.item,
+            'quantity': item.quantity,
+            'category': {
+                'category': item.category.category
+                },
+            'id': item.id,
+            'user': {
+                'username': item.user.first_name
+                },
+        }
+
+        if loop_index == 0:
+            all_items_no_duplicates.append(item_dict)
+        else:
+            item_is_not_a_copy = True
+            for list_item in all_items_no_duplicates:
+                if list_item['item'] == item.item:
+                    item_is_not_a_copy = False
+                    list_item['quantity'] += item.quantity
+                    list_item['user']['username'] += ' / ' + item.user.first_name
+            if item_is_not_a_copy:
+                all_items_no_duplicates.append(item_dict)
+
+    # Sort items alphabetically
+    all_items_no_duplicates = sorted(all_items_no_duplicates, key = lambda x: x['item'], reverse=True)
+
+    return JsonResponse({'items': all_items_no_duplicates, 'categories_used': categories_used, })
 
 def update_category(request, operation, pk):
     """
@@ -474,3 +536,98 @@ def update_partners(request, operation, pk, request_id):
     else: 
         return redirect('premium_info')
 
+def edit_item_quantity(request, operation, pk):
+
+    if operation == 'decrement':
+        try:
+            edit_item = Item.objects.get(pk=pk)
+            edit_item.quantity -= 1
+            edit_item.save()
+            print('before if statment')
+            if edit_item.quantity <= 0:
+                print('remove item')
+                edit_item.delete()
+        except:
+            edit_item = None
+
+    if operation == 'increment':
+        try:
+            edit_item = Item.objects.get(pk=pk)
+            edit_item.quantity += 1
+            edit_item.save()
+        except:
+            edit_item = None
+
+    
+     # Get the current users shopping partners
+    shopping_partners = Partner.objects.get(current_user=request.user)
+    shopping_partners_list = shopping_partners.partners.all()
+
+    # Get all the current users items
+    items = Item.objects.filter(user=request.user).order_by('item')
+
+    all_items = [item for item in items]
+
+    # Add all the users items and their shopping partners items into all_items
+
+    for shopping_partner in shopping_partners_list:
+        if not shopping_partner == request.user:
+            partners_shopping_list = Item.objects.filter(user=shopping_partner)
+            for item in partners_shopping_list:
+                all_items.append(item)
+
+    categories = Category.objects.filter(user=request.user)
+
+    
+    # Find the categories being used and append to categories_used
+    categories_used = []
+
+    for item_index, item in enumerate(all_items):
+        category_dict = {
+            'category': item.category.category,
+        }
+        if item_index <= 0:
+            categories_used.append(category_dict)
+        else:
+            add_category = True
+
+            for list_item in categories_used:
+ 
+                if list_item['category'] == item.category.category:
+                    add_category = False
+            
+            if add_category:
+                categories_used.append(category_dict)
+
+    # Add the quantity of any duplicate items
+    all_items_no_duplicates = []
+
+    for loop_index, item in enumerate(all_items):
+        item_dict = {
+            'item': item.item,
+            'quantity': item.quantity,
+            'category': {
+                'category': item.category.category
+                },
+            'id': item.id,
+            'user': {
+                'username': item.user.first_name
+                },
+        }
+
+        if loop_index == 0:
+            all_items_no_duplicates.append(item_dict)
+        else:
+            item_is_not_a_copy = True
+            for list_item in all_items_no_duplicates:
+                if list_item['item'] == item.item:
+                    item_is_not_a_copy = False
+                    list_item['quantity'] += item.quantity
+                    list_item['user']['username'] += ' / ' + item.user.first_name
+            if item_is_not_a_copy:
+                all_items_no_duplicates.append(item_dict)
+
+    # Sort items alphabetically
+    all_items_no_duplicates = sorted(all_items_no_duplicates, key = lambda x: x['item'], reverse=True)
+
+    return JsonResponse({'items': all_items_no_duplicates, 'categories_used': categories_used, })

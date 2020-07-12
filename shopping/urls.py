@@ -10,4 +10,5 @@ urlpatterns = [
     path('update_category/<operation>/<pk>', views.update_category, name="update_category"),
     path('create_request/<pk>', views.create_request, name="create_request"),
     path('update_partners/<operation>/<pk>/<request_id>', views.update_partners, name='update_partners'),
+    path('edit_item_quantity/<operation>/<pk>', views.edit_item_quantity , name="edit_item_quantity"),
 ]
