@@ -29,7 +29,7 @@
 </div>
 <hr>
 <div id="item-form-container" class="collapse">
-    <form action="/shopping/update_item/add" method="POST" class="px-3 pt-0 pb-1" id="item-form">
+    <form action="/shopping/edit_item_quantity/add/0" method="POST" class="px-3 pt-0 pb-1" id="item-form">
         {% csrf_token %}
         <label>Item</label>
         <input type="text" name="item" class="form-control" id="form-item" required>
@@ -113,11 +113,12 @@
         </button>
     </form>
     {% endfor %}
-
 </div>
 <hr class="mt-2">
 {% if not categories_used %}
-<p class="px-2">Your shoppping list is empty.</p>
+<div class=" shopping-list-empty">
+    <p class="px-2">Your shoppping list is empty.</p>
+</div>
 {% else %}
 <div class="d-flex justify-content-end">
     <i class="fas fa-edit mr-3" data-toggle="collapse" href=".edit-item"></i>
@@ -136,56 +137,56 @@
         </div>
     </div>
     <hr>
-        {% csrf_token %}
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0 px-2">
-                <table class="container-fluid shopping-table">
-                    <tr>
-                        <th>Item</th>
-                        <th class="text-center">Quantity</th>
-                        <th class="text-right">Add By</th>
-                        <th class="text-right collapse edit-item">Remove</th>
-                    </tr>
-                    {% for item in items %}
-                    {% if item.category.category == category.category %}
-                    <tr>
-                        <td>{{ item.item }}</td>
-                        <td class="d-flex justify-content-between">
-                                <form method="POST" action="edit_item_quantity/decrement/{{item.id}}" class="add-item-ajax">
-                                    {% csrf_token %}
-                                    <button class="text-dark button-no-style">
-                                        <i class="far fa-caret-square-down"></i>
-                                    </button>
-                                </form>
-                        
-                            <span class="mx-2">{{ item.quantity }}</span>
+    {% csrf_token %}
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0 px-2">
+            <table class="container-fluid shopping-table">
+                <tr>
+                    <th>Item</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-right">Add By</th>
+                    <th class="text-right collapse edit-item">Remove</th>
+                </tr>
+                {% for item in items %}
+                {% if item.category.category == category.category %}
+                <tr>
+                    <td>{{ item.item }}</td>
+                    <td class="d-flex justify-content-between">
+                        <form method="POST" action="edit_item_quantity/decrement/{{item.id}}" class="add-item-ajax">
+                            {% csrf_token %}
+                            <button class="text-dark button-no-style">
+                                <i class="far fa-caret-square-down"></i>
+                            </button>
+                        </form>
 
-                                <form method="POST" action="edit_item_quantity/increment/{{item.id}}" class="add-item-ajax">
-                                    {% csrf_token %}
-                                    <button class="text-dark button-no-style">
-                                        <i class="far fa-caret-square-up"></i>
-                                    </button>
-                                </form>
-                        </td>
-                        <td class="text-right text-small">{{ item.user.username }}</td>
-                        <td class="text-right collapse edit-item-{{category.id}} edit-item"><input type="checkbox"
-                                name="{{ item.id }}" class="checkbox-{{category.id}} checkbox">
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                </table>
-            </div>
-            <div class="col-12 m-0 p-0">
-                <hr>
-            </div>
+                        <span class="mx-2">{{ item.quantity }}</span>
+
+                        <form method="POST" action="edit_item_quantity/increment/{{item.id}}" class="add-item-ajax">
+                            {% csrf_token %}
+                            <button class="text-dark button-no-style">
+                                <i class="far fa-caret-square-up"></i>
+                            </button>
+                        </form>
+                    </td>
+                    <td class="text-right text-small">{{ item.user.username }}</td>
+                    <td class="text-right collapse edit-item-{{category.id}} edit-item"><input type="checkbox"
+                            name="{{ item.id }}" class="checkbox-{{category.id}} checkbox">
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
         </div>
-        {% endfor %}
-        <div class="row m-0 p-0 my-3 mb-4 collapse edit-item">
-            <div class="col-12 m-0 p-0 px-2">
-                <button class="btn btn-success container-fluid">Done</button>
-            </div>
+        <div class="col-12 m-0 p-0">
+            <hr>
         </div>
+    </div>
+    {% endfor %}
+    <div class="row m-0 p-0 my-3 mb-4 collapse edit-item">
+        <div class="col-12 m-0 p-0 px-2">
+            <button class="btn btn-success container-fluid">Done</button>
+        </div>
+    </div>
 </div>
 </div>
 
@@ -224,8 +225,10 @@
                     success: function (data) {
                         console.log(data)
                         $('.shopping-table-container').html('')
-                        $('.shopping-table-container').append(` <form action="/shopping/update_item/remove" method="POST">
-                                {% csrf_token %}`)
+                        $('.shopping-list-empty').html('')
+                        if (data.categories_used.length == 0) {
+                            $('.shopping-list-empty').append('<p>You shopping list is empty.</p>')
+                        }
                         for (let i = 0; i < data.categories_used.length; i++) {
                             function crateTableRows() {
                                 var tableRows = ''
@@ -300,8 +303,7 @@
                                     <div class="col-12 m-0 p-0 px-2">
                                         <button class="btn btn-success container-fluid" type="submit">Done</button>
                                     </div>
-                                </div>
-                    </form>`)
+                                </div>`)
                     }
                 })
             })

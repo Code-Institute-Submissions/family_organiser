@@ -90,86 +90,6 @@ def shopping_page(request):
 
     return render(request, 'shopping/shopping_page.html', context)
 
-def update_item(request, operation):
-    """
-    Add or remove an item from the database.
-    """
-    if request.method == 'POST':
-        
-        if operation == 'add':
-
-            item_name = request.POST.get('item').capitalize()
-            quantity = int(request.POST.get('quantity'))
-            category = Category.objects.get(category=request.POST.get('category'), user=request.user)
-
-            # Get users items from the database.
-            users_items = Item.objects.filter(user=request.user)
-            new_item = True
-
-            # If item in database add the quantity instead of creating a new object.
-            for item in users_items:
-                if item.item == item_name:
-                    item_in_database = Item.objects.get(item=item_name, user=request.user)
-                    item_in_database.quantity += quantity
-                    item_in_database.save()
-                    new_item = False
-            
-            # Add item if new
-            if new_item:
-                new_item = Item(
-                    user = request.user,
-                    item = item_name,
-                    quantity = quantity,
-                    category = category, 
-                )
-                new_item.save()
-
-            purchase_item = PurchasedItems(
-                user = request.user,
-                item = item_name,
-                quantity = quantity,
-                category = category, 
-            )
-            purchase_item.save()
-            
-            try:
-                favorite = Favorite.objects.get(item=item_name, user=request.user)
-                favorite.quantity += quantity
-                favorite.save()
-            except:
-                favorite_item = Favorite(
-                    user = request.user,
-                    item = item_name,
-                    quantity = quantity,
-                    category = category, 
-                )
-                favorite_item.save()
-
-            items = Item.objects.filter(user=request.user).order_by('item')
-
-            return redirect('shopping_page')
-        
-        # Remove items checked by the user
-        if operation == 'remove':
-            number_of_items = len(request.POST) - 1
-            checked_items = 0
-            item_pk = 0
-            
-            # if item has been checked, get the pk and remove the item from the database or add 1 to 
-            # item_pk and try again until all checkboxs have been remove.
-            while checked_items < number_of_items:
-                requested_name = request.POST.get(str(item_pk))
-  
-                if not requested_name:
-                    item_pk += 1
-                else:
-                    select_item = Item.objects.get(pk=item_pk)
-                    select_item.delete()
-                    item_pk += 1
-                    checked_items += 1
-
-    return redirect('shopping_page')
-
 def quick_item(request, item, category):
     """
     Add or remove an item from the database returning json
@@ -185,10 +105,14 @@ def quick_item(request, item, category):
     # If item in database add the quantity instead of creating a new object.
     for item in users_items:
         if item.item == item_name:
-            item_in_database = Item.objects.get(item=item_name, user=request.user)
-            item_in_database.quantity += quantity
-            item_in_database.save()
-            new_item = False
+            try:
+                item_in_database = Item.objects.get(item=item_name, user=request.user)
+                item_in_database.quantity += quantity
+                item_in_database.save()
+                new_item = False
+            except:
+                print('duplicate items!!')
+                new_item = False
     
     # Add item if new
     if new_item:
@@ -380,10 +304,10 @@ def insight(request):
         user_profile = UserProfile.objects.get(user=request.user)
         
         # Start the search from when the user created an account
-        search_month = str(user_profile.start_date)[5:7]
+        search_month = str(user_profile.start_date)[0:7]
 
         # (bug if user doesn't submit a item for a few months with won't work.)
-        # (bug jan 2020 and jan 2021 will add up the quantity for jan.)
+        # (bug jan 2020 and jan 2021 will add up the quantity for jan.) (Maybe fixed can't tell until last bug)
         # For each items used, search all items each month between the users start date and now.
         # Storing the amount of the same items found each month in an item_quantity_in_months
         for item in used_items:
@@ -392,7 +316,8 @@ def insight(request):
                 same_items_list = []
                 for search_item in purchased_items:
                     if search_item.item == item:
-                        search_item_month = str(search_item.created_date)[5:7]
+                        search_item_month = str(search_item.created_date)[0:7]
+                        print(search_item_month, search_month)
                         if search_item_month == search_month:
                             if not search_item.quantity:
                                 same_items_list.append(0)
@@ -400,9 +325,11 @@ def insight(request):
                                 same_items_list.append(search_item.quantity)
 
                 item_quantity_in_months.append(sum(same_items_list))
-                search_month = int(search_month) + 1
-                if search_month < 10:
-                    search_month = '0' + str(search_month)
+                month_edit = int(search_month[5:7]) + 1
+                if month_edit < 10:
+                    month_edit = '0' + str(month_edit)
+
+                search_month = search_month[0:5] + month_edit
 
             # Creating an dictionary for each item with the quantity for each month
             item_dict = {
@@ -411,7 +338,7 @@ def insight(request):
                 }
             monthly_report_data.append(item_dict)
             # Reseting the month ready for the next item.
-            search_month = str(user_profile.start_date)[5:7]
+            search_month = str(user_profile.start_date)[0:7]
 
         # formating monthly_report_data in line_chart_dataset ready for chart.js
         line_chart_dataset = []
@@ -550,6 +477,7 @@ def edit_item_quantity(request, operation, pk):
         except:
             edit_item = None
 
+
     if operation == 'increment':
         try:
             edit_item = Item.objects.get(pk=pk)
@@ -557,6 +485,99 @@ def edit_item_quantity(request, operation, pk):
             edit_item.save()
         except:
             edit_item = None
+
+        purchase_item = PurchasedItems(
+                user = request.user,
+                item = edit_item.item,
+                quantity = 1,
+                category = edit_item.category, 
+            )
+        purchase_item.save()
+
+        try:
+            favorite = Favorite.objects.get(item=edit_item, user=request.user)
+            favorite.quantity += 1
+            favorite.save()
+        except:
+            favorite_item = Favorite(
+                user = request.user,
+                item = edit_item,
+                quantity = 1,
+                category = category, 
+            )
+            favorite_item.save()
+
+    if operation == 'add':
+
+            item_name = request.POST.get('item').capitalize()
+            quantity = int(request.POST.get('quantity'))
+            category = Category.objects.get(category=request.POST.get('category'), user=request.user)
+
+            # Get users items from the database.
+            users_items = Item.objects.filter(user=request.user)
+            new_item = True
+
+            # If item in database add the quantity instead of creating a new object.
+            for item in users_items:
+                if item.item == item_name:
+                    item_in_database = Item.objects.get(item=item_name, user=request.user)
+                    item_in_database.quantity += quantity
+                    item_in_database.save()
+                    new_item = False
+            
+            # Add item if new
+            if new_item:
+                new_item = Item(
+                    user = request.user,
+                    item = item_name,
+                    quantity = quantity,
+                    category = category, 
+                )
+                new_item.save()
+
+            purchase_item = PurchasedItems(
+                user = request.user,
+                item = item_name,
+                quantity = quantity,
+                category = category, 
+            )
+            purchase_item.save()
+            
+            try:
+                favorite = Favorite.objects.get(item=item_name, user=request.user)
+                favorite.quantity += quantity
+                favorite.save()
+            except:
+                favorite_item = Favorite(
+                    user = request.user,
+                    item = item_name,
+                    quantity = quantity,
+                    category = category, 
+                )
+                favorite_item.save()
+
+            items = Item.objects.filter(user=request.user).order_by('item')
+
+            return redirect('shopping_page')
+
+    # Remove items checked by the user
+    if operation == 'remove':
+        number_of_items = len(request.POST) - 1
+        checked_items = 0
+        item_pk = 0
+        
+        # if item has been checked, get the pk and remove the item from the database or add 1 to 
+        # item_pk and try again until all checkboxs have been remove.
+        while checked_items < number_of_items:
+            requested_name = request.POST.get(str(item_pk))
+
+            if not requested_name:
+                item_pk += 1
+            else:
+                select_item = Item.objects.get(pk=item_pk)
+                select_item.delete()
+                item_pk += 1
+                checked_items += 1
 
     
      # Get the current users shopping partners
