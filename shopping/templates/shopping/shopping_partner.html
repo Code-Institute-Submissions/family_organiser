@@ -7,8 +7,16 @@ Find Partners | Family Organiser
 
 {% block content %}
 <div class="row m-0 p-2">
-    <div class="col-12 m-0 p-0">
-        <p class="m-0 p-0 text-right">Find Partners</p>
+    <div class="col-8 m-0 p-2 d-flex justify-content-start">
+        <a href="/shopping/shopping_page" class="mr-2">
+            <button class="btn btn-success float-right">Shopping</button>
+        </a>
+        <a href="/shopping/insight">
+            <button class="btn btn-success">Insight</button>
+        </a>
+    </div>
+    <div class="col-4 m-0 p-0">
+        <p class="m-0 p-0 text-right">Shopping - Partners</p>
     </div>
 </div>
 
@@ -23,10 +31,16 @@ Find Partners | Family Organiser
 
 <hr>
 <div class="row m-0 p-0 collapse" id="shopping-partners-container">
-    <div class="col-12 m-0 px-3">
-        {% for partner in shopping_partners.all %}
-            <p>{{ partner.username }}</p>
-        {% endfor %}
+    <div class="col-12 m-0 p-0">
+        <div class="px-3">
+            {% if not shopping_partners %}
+                <p>You don't have any shopping partners, search and invite memebers!</p>
+            {% endif %}
+            {% for partner in shopping_partners.all %}
+                <p>{{ partner.username }}</p>
+            {% endfor %}
+        </div>
+        <hr>
     </div>
 </div>
 

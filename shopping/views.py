@@ -13,21 +13,63 @@ def shopping_page(request):
     """
     Display the shopping list and the forms to add/remove items.
     """
+    # Get the current users shopping partners
+    shopping_partners = Partner.objects.get(current_user=request.user)
+    shopping_partners_list = shopping_partners.partners.all()
+
+    # Get all the current users items
     items = Item.objects.filter(user=request.user).order_by('item')
+
+    all_items = [item for item in items]
+
+    # Add all the users items and their shopping partners items into all_items
+
+    for shopping_partner in shopping_partners_list:
+        if not shopping_partner == request.user:
+            partners_shopping_list = Item.objects.filter(user=shopping_partner)
+            for item in partners_shopping_list:
+                all_items.append(item)
+
     categories = Category.objects.filter(user=request.user)
+
     
     # Find the categories being used and append to categories_used
     categories_used = []
-    for item in items:
-        if item.category not in categories_used:
+
+    for item_index, item in enumerate(all_items):
+        if item_index == 0:
             categories_used.append(item.category)
+        else:
+            add_category = True
+
+            for list_item in categories_used:
+                if list_item.category == item.category.category:
+                    add_category = False
+            
+            if add_category:
+                categories_used.append(item.category)
+
+    # Add the quantity of any duplicate items
+    all_items_no_duplicates = []
+
+    for loop_index, item in enumerate(all_items):
+        if loop_index == 0:
+            all_items_no_duplicates.append(item)
+        else:
+            item_is_not_a_copy = True
+            for list_item in all_items_no_duplicates:
+                if list_item.item == item.item:
+                    item_is_not_a_copy = False
+                    list_item.quantity += item.quantity
+
+            if item_is_not_a_copy:
+                all_items_no_duplicates.append(item)
 
     # Get all users favorite items and order them by quantity
     favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
 
-
     context = {
-        'items': items,
+        'items': all_items_no_duplicates,
         'categories': categories,
         'categories_used': categories_used,
         'favorites': favorites,

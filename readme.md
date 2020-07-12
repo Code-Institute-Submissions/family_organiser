@@ -66,6 +66,8 @@ This web application is designed to keep users in touch with their family and al
 
 [Fontawesome - Icons](https://fontawesome.com/)
 
+[Undraw - Illustarations](https://undraw.co/illustrations)
+
 ### Acknowledgements
 
 [The Basics for sass - Sass](https://www.youtube.com/watch?v=Zz6eOVaaelI&t=651s)
@@ -96,4 +98,6 @@ This web application is designed to keep users in touch with their family and al
 
 [Using Jquery to update page](https://www.youtube.com/watch?v=Kcka5WBMktw)
 
-[Scroll To Top](https://stackoverflow.com/questions/19012495/smooth-scroll-to-div-id-jquery)
+[Scroll To Top - Jquery](https://stackoverflow.com/questions/19012495/smooth-scroll-to-div-id-jquery)
+
+[Comprehensions - Python](https://www.youtube.com/watch?v=3dt4OGnU5sM)

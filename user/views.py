@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from status.models import Status, CommentNotification, LikeNotification
-from shopping.models import Item, Category, PartnerRequest
+from shopping.models import Item, Category, PartnerRequest, Partner
 from .models import FriendRequests, Friend, UserProfile
 from django.db.models import Q
 
@@ -44,8 +44,38 @@ def profile(request):
     # item categories
     item_categories = Category.objects.filter(user=request.user)
 
-    # get all items
-    items = Item.objects.filter(user=request.user)
+    # Get the current users shopping partners
+    shopping_partners = Partner.objects.get(current_user=request.user)
+    shopping_partners_list = shopping_partners.partners.all()
+
+    # Get all the current users items
+    items = Item.objects.filter(user=request.user).order_by('item')
+
+    all_items = [item for item in items]
+
+    # Add all the users items and their shopping partners items into all_items
+
+    for shopping_partner in shopping_partners_list:
+        if not shopping_partner == request.user:
+            partners_shopping_list = Item.objects.filter(user=shopping_partner)
+            for item in partners_shopping_list:
+                all_items.append(item)
+
+    # Add the quantity of any duplicate items
+    all_items_no_duplicates = []
+
+    for loop_index, item in enumerate(all_items):
+        if loop_index == 0:
+            all_items_no_duplicates.append(item)
+        else:
+            item_is_not_a_copy = True
+            for list_item in all_items_no_duplicates:
+                if list_item.item == item.item:
+                    item_is_not_a_copy = False
+                    list_item.quantity += item.quantity
+
+            if item_is_not_a_copy:
+                all_items_no_duplicates.append(item)
 
     context = {
         'friend_count': len(all_friends),
@@ -54,7 +84,7 @@ def profile(request):
         'user_profile': user_profile,
         'news_feed': news_feed,
         'item_categories': item_categories,
-        'items': items,
+        'items': all_items_no_duplicates,
     }
 
 
@@ -67,7 +97,7 @@ def find_users(request):
     """
     if request.method == 'GET':
         try:
-            query = request.GET['q'].capitalize()
+            query = request.GET['q']
             queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query) | Q(username__startswith=query.capitalize()) | Q(first_name__startswith=query.capitalize()) | Q(last_name__startswith=query.capitalize())
             all_users = User.objects.filter(queries)
         except:

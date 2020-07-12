@@ -120,6 +120,7 @@
         {% endif %}
         {% for item in items %}
         <a class="shopping-item" href="/shopping/shopping_page">
+            <p class="m-0 item-username">{{ item.user }}</p>
             <p class="m-0">{{ item.item }}</p>
             <p class="m-0 category">{{ item.category }}</p>
             <div class="text-dark">x{{ item.quantity }}</div>

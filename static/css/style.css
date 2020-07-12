@@ -257,7 +257,7 @@ nav {
   display: inline-block;
   text-align: center;
   text-decoration: none;
-  padding: 10px 30px;
+  padding: 8px 30px;
   border-radius: 7px;
   background: -webkit-gradient(linear, left top, left bottom, from(#a0f088), to(#56da82));
   background: linear-gradient(#a0f088, #56da82);
@@ -269,6 +269,9 @@ nav {
 
 .shopping-item-container .shopping-item p {
   color: black;
+  font-size: 1.1em;
+  position: relative;
+  top: 2px;
 }
 
 .shopping-item-container .shopping-item div {
@@ -293,10 +296,17 @@ nav {
   font-size: 0.8em;
 }
 
+.shopping-item-container .shopping-item .item-username {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  font-size: 0.7em;
+}
+
 .shopping-item-container .shopping-item .category {
   position: absolute;
   left: 3px;
-  bottom: 0px;
+  top: 0px;
   font-size: 9px;
 }
 
