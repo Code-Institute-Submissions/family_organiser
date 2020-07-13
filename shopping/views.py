@@ -14,8 +14,12 @@ def shopping_page(request):
     Display the shopping list and the forms to add/remove items.
     """
     # Get the current users shopping partners
-    shopping_partners = Partner.objects.get(current_user=request.user)
-    shopping_partners_list = shopping_partners.partners.all()
+    try:
+        shopping_partners = Partner.objects.get(current_user=request.user)
+        shopping_partners_list = shopping_partners.partners.all()
+    except:
+        shopping_partners = []
+        shopping_partners_list = []
 
     # Get all the current users items
     items = Item.objects.filter(user=request.user).order_by('item')
@@ -145,9 +149,13 @@ def quick_item(request, item, category):
         )
         favorite_item.save()
 
-     # Get the current users shopping partners
-    shopping_partners = Partner.objects.get(current_user=request.user)
-    shopping_partners_list = shopping_partners.partners.all()
+     # Get the current users shopping partners of return an empty array
+    try:
+        shopping_partners = Partner.objects.get(current_user=request.user)
+        shopping_partners_list = shopping_partners.partners.all()
+    except:
+        shopping_partners = []
+        shopping_partners_list = []
 
     # Get all the current users items
     items = Item.objects.filter(user=request.user).order_by('item')
@@ -394,22 +402,34 @@ def add_partner(request):
                 query = request.GET['q']
                 print(query)
                 queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query) | Q(username__startswith=query.capitalize()) | Q(first_name__startswith=query.capitalize()) | Q(last_name__startswith=query.capitalize())
-                print('working')
                 all_users = User.objects.filter(queries)
-                print('accoutns found')
+                searched_users = []
+                for one_user in all_users:
+                    user_profile = UserProfile.objects.get(user=one_user)
+
+                    user_dict = {
+                        'first_name': one_user.first_name,
+                        'last_name': one_user.last_name,
+                        'user_profile': {
+                            'profile_image': user_profile.profile_image,
+                        }
+                    }
+                    searched_users.append(user_dict)
             except:
-                all_users = []
-                print('non found')
+                searched_users = []
 
         friends = Friend.objects.get(current_user=request.user)
         all_friends = friends.users.all()
 
-        # Get users shopping partners
-        shopping_partners = Partner.objects.get(current_user=request.user)
-        shopping_partners = shopping_partners.partners.all()
+        # Get users shopping partners or return an empty array
+        try:
+            shopping_partners = Partner.objects.get(current_user=request.user)
+            shopping_partners = shopping_partners.partners.all()
+        except:
+            shopping_partners = []
 
         context = {
-            'all_users': all_users,
+            'searched_users': searched_users,
             'friends': all_friends,
             'shopping_partners': shopping_partners,
         }
@@ -580,9 +600,13 @@ def edit_item_quantity(request, operation, pk):
                 checked_items += 1
 
     
-     # Get the current users shopping partners
-    shopping_partners = Partner.objects.get(current_user=request.user)
-    shopping_partners_list = shopping_partners.partners.all()
+     # Get the current users shopping partners or return empty arrays
+    try:
+        shopping_partners = Partner.objects.get(current_user=request.user)
+        shopping_partners_list = shopping_partners.partners.all()
+    except:
+        shopping_partners = []
+        shopping_partners_list = []
 
     # Get all the current users items
     items = Item.objects.filter(user=request.user).order_by('item')

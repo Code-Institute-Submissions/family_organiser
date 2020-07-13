@@ -56,6 +56,8 @@ This web application is designed to keep users in touch with their family and al
 
 - Items added in january 2020 and january 2021 might be added to the same monthly report section (I might of fixed this, can't tell until other bug is fixed...)
 
+- Remove checkboxes no longer work as I can have nested forms.
+
 ## Features to add
 
 ### Shopping page

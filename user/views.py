@@ -18,7 +18,10 @@ def profile(request):
 
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
 
-    partner_requests = PartnerRequest.objects.filter(to_user=request.user)
+    try:
+        partner_requests = PartnerRequest.objects.filter(to_user=request.user)
+    except:
+        partner_requests = []
 
     # Find user profile or create a friend list and user profile if new user.
     try:
@@ -45,8 +48,12 @@ def profile(request):
     item_categories = Category.objects.filter(user=request.user)
 
     # Get the current users shopping partners
-    shopping_partners = Partner.objects.get(current_user=request.user)
-    shopping_partners_list = shopping_partners.partners.all()
+    try:
+        shopping_partners = Partner.objects.get(current_user=request.user)
+        shopping_partners_list = shopping_partners.partners.all()
+    except:
+        shopping_partners = []
+        shopping_partners_list = []
 
     # Get all the current users items
     items = Item.objects.filter(user=request.user).order_by('item')
@@ -100,14 +107,26 @@ def find_users(request):
             query = request.GET['q']
             queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query) | Q(username__startswith=query.capitalize()) | Q(first_name__startswith=query.capitalize()) | Q(last_name__startswith=query.capitalize())
             all_users = User.objects.filter(queries)
+            searched_users = []
+            for one_user in all_users:
+                user_profile = UserProfile.objects.get(user=one_user)
+
+                user_dict = {
+                    'first_name': one_user.first_name,
+                    'last_name': one_user.last_name,
+                    'user_profile': {
+                        'profile_image': user_profile.profile_image,
+                    }
+                }
+                searched_users.append(user_dict)
         except:
-            all_users = []
+            searched_users = []
 
     friends = Friend.objects.get(current_user=request.user)
     all_friends = friends.users.all()
 
     context = {
-        'all_users': all_users,
+        'searched_users': searched_users,
         'friends': all_friends,
     }
 

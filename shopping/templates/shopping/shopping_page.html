@@ -122,8 +122,6 @@
 {% else %}
 <div class="d-flex justify-content-end">
     <i class="fas fa-edit mr-3" data-toggle="collapse" href=".edit-item"></i>
-    <img src="{{ MEDIA_URL }}icons/tick_all_icon.png" width="25px" class="collapse edit-item select-all-checkboxes mr-3"
-        id="checkbox-{{category.id}}">
 </div>
 {% endif %}
 <hr>
@@ -131,9 +129,7 @@
     {% for category in categories_used %}
     <div class="row m-0 p-0">
         <div class="col-12 m-0">
-            <h5 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}<img
-                    src="{{ MEDIA_URL }}icons/tick_all_icon.png" width="25px"
-                    class="collapse edit-item select-category-inputs" id="checkbox-{{category.id}}"></h5>
+            <h5 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}</h5>
         </div>
     </div>
     <hr>
@@ -151,7 +147,7 @@
                 {% if item.category.category == category.category %}
                 <tr>
                     <td>{{ item.item }}</td>
-                    <td class="d-flex justify-content-between">
+                    <td class="d-flex justify-content-between p-2">
                         <form method="POST" action="edit_item_quantity/decrement/{{item.id}}" class="add-item-ajax">
                             {% csrf_token %}
                             <button class="text-dark button-no-style">
@@ -169,8 +165,12 @@
                         </form>
                     </td>
                     <td class="text-right text-small">{{ item.user.username }}</td>
-                    <td class="text-right collapse edit-item-{{category.id}} edit-item"><input type="checkbox"
-                            name="{{ item.id }}" class="checkbox-{{category.id}} checkbox">
+                    <td class="collapse edit-item">
+                        <div class="container-fluid d-flex justify-content-end p-0">
+                            <button class="icon-button">
+                                <img src="{{MEDIA_URL}}icons/delete_icon.png">
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 {% endif %}
@@ -184,7 +184,7 @@
     {% endfor %}
     <div class="row m-0 p-0 my-3 mb-4 collapse edit-item">
         <div class="col-12 m-0 p-0 px-2">
-            <button class="btn btn-success container-fluid">Done</button>
+            <button class="btn btn-danger container-fluid">Delete All</button>
         </div>
     </div>
 </div>
@@ -237,7 +237,7 @@
                                     var newRow = `
                                     <tr>
                                         <td>${data.items[j]['item']}</td>
-                                        <td class="d-flex justify-content-between">
+                                        <td class="d-flex justify-content-between p-2">
                                             <form method="POST" action="edit_item_quantity/decrement/${data.items[j]['id']}" class="add-item-ajax">
                                                 {% csrf_token %}
                                                 <button class="text-dark button-no-style">
