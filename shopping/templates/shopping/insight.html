@@ -36,7 +36,9 @@
             <!-- histroy -->
             <div class="row m-0 p-0 d-flex justify-content-center">
                 <div class="col-12 col-md-7 col-lg-4 m-0 p-0">
-                    <h5 class="m-0 my-3 ml-3">Purchased Items</h5>
+                    <h5 class="m-0 my-3 ml-3 d-flex justify-content-between">Purchased Items
+                        <i class="fas fa-edit mr-3" data-toggle="collapse" href=".edit-item"></i>
+                    </h5>
                     <hr>
                     {% if not purchased_items %}
                     <p class="p-2 pt-3">You haven't added any items yet.</p>
@@ -47,12 +49,23 @@
                                 <th>Item</th>
                                 <th class="text-center">Quantity</th>
                                 <th class="text-right">Date</th>
+                                <th class="text-right edit-item collapse">Remove</th>
                             </tr>
                             {% for item in purchased_items %}
                             <tr>
                                 <td>{{ item.item }}</td>
                                 <td class="text-center">{{ item.quantity }}</td>
                                 <td class="text-right text-small">{{ item.created_date }}</td>
+                                <td class="text-right edit-item collapse">
+                                    <div class="container-fluid d-flex justify-content-end p-0">
+                                        <form method="POST" action="edit_purchased_item/remove/{{item.id}}">
+                                            {% csrf_token %}
+                                            <button class="icon-button">
+                                                <img src="{{MEDIA_URL}}icons/delete_icon.png">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
                             {% endfor %}
                         </table>
@@ -142,6 +155,10 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block extra_css %}
+<script src="https://kit.fontawesome.com/d4ed0579d0.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block extra_js %}

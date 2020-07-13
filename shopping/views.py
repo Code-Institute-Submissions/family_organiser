@@ -264,12 +264,10 @@ def insight(request):
         chart_data_top_five = []
         chart_labels_top_five = []
 
-        for favorite in range(5):
-            try:
-                chart_labels_top_five.append(all_favorites[favorite].item)
-                chart_data_top_five.append(all_favorites[favorite].quantity)
-            except:
-                break
+        for fav_index, favorite in enumerate(all_favorites):
+            if fav_index < 5:
+                chart_labels_top_five.append(favorite.item)
+                chart_data_top_five.append(favorite.quantity)
 
         # all favorites for chart data
         all_favorites = favorites
@@ -410,6 +408,7 @@ def add_partner(request):
                     user_dict = {
                         'first_name': one_user.first_name,
                         'last_name': one_user.last_name,
+                        'username': one_user.username,
                         'user_profile': {
                             'profile_image': user_profile.profile_image,
                         }
@@ -582,24 +581,9 @@ def edit_item_quantity(request, operation, pk):
 
     # Remove items checked by the user
     if operation == 'remove':
-        number_of_items = len(request.POST) - 1
-        checked_items = 0
-        item_pk = 0
-        
-        # if item has been checked, get the pk and remove the item from the database or add 1 to 
-        # item_pk and try again until all checkboxs have been remove.
-        while checked_items < number_of_items:
-            requested_name = request.POST.get(str(item_pk))
+        remove_item = Item.objects.get(pk=pk)
+        remove_item.delete()
 
-            if not requested_name:
-                item_pk += 1
-            else:
-                select_item = Item.objects.get(pk=item_pk)
-                select_item.delete()
-                item_pk += 1
-                checked_items += 1
-
-    
      # Get the current users shopping partners or return empty arrays
     try:
         shopping_partners = Partner.objects.get(current_user=request.user)
@@ -676,3 +660,21 @@ def edit_item_quantity(request, operation, pk):
     all_items_no_duplicates = sorted(all_items_no_duplicates, key = lambda x: x['item'], reverse=True)
 
     return JsonResponse({'items': all_items_no_duplicates, 'categories_used': categories_used, })
+
+def edit_purchased_item(request, operation, pk):
+
+    if operation == 'remove':
+        remove_item = PurchasedItems.objects.get(pk=pk)
+
+        remove_item_favs = Favorite.objects.get(user=request.user, item=remove_item.item)
+
+        if remove_item_favs.quantity == remove_item.quantity:
+            remove_item_favs.delete()
+            remove_item.delete()
+        else:
+            remove_item_favs.quantity -= remove_item.quantity
+            remove_item_favs.save()
+            remove_item.delete()
+
+
+    return redirect('insight')

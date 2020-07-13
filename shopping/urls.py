@@ -10,4 +10,5 @@ urlpatterns = [
     path('create_request/<pk>', views.create_request, name="create_request"),
     path('update_partners/<operation>/<pk>/<request_id>', views.update_partners, name='update_partners'),
     path('edit_item_quantity/<operation>/<pk>', views.edit_item_quantity , name="edit_item_quantity"),
+    path('edit_purchased_item/<operation>/<pk>', views.edit_purchased_item , name="edit_purchased_item"),
 ]
