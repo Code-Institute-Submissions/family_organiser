@@ -39,12 +39,14 @@
     <div class="col-12 m-0 p-0">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 pl-3">
-                {% if news.user_profile.profile_image %}
-                <img src="{{ MEDIA_URL }}{{news.user_profile.profile_image}}" class="user-image-status float-left mr-3">
-                {% else %}
-                <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
-                {% endif %}
-                <h5>{{ news.user.first_name }} {{ news.user.last_name }} </h5>
+                <a href="/user/view_user_profile/{{news.user.id}}">
+                    {% if news.user_profile.profile_image %}
+                    <img src="{{ MEDIA_URL }}{{news.user_profile.profile_image}}" class="user-image-status float-left mr-3">
+                    {% else %}
+                    <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
+                    {% endif %}
+                    <h5 class="text-dark">{{ news.user.first_name }} {{ news.user.last_name }} </h5>
+                </a>
                 <h6 class="text-secondary">{{ news.title }}</h6>
 
             </div>
@@ -95,12 +97,14 @@
                 {% for comment in news.comment.all %}
                 <div class="col-12 px-2 py-1">
                     <div class="comment-container">
-                        {% if comment.author_profile.profile_image %}
-                        <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}" class="float-left mr-2">
-                        {% else %}
-                        <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
-                        {% endif %}
-                        <h6 class="m-0 mb-1">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
+                        <a href="/user/view_user_profile/{{comment.author.id}}">
+                            {% if comment.author_profile.profile_image %}
+                            <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}" class="float-left mr-2">
+                            {% else %}
+                            <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
+                            {% endif %}
+                            <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
+                        </a>
                         <p class="m-0">{{ comment.comment }}</p>
                         <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
                     </div>

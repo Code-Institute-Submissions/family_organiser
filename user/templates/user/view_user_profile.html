@@ -13,41 +13,8 @@
 <div class="profile-bio-form-container"  >
 <!-- profile and notifications section -->
 <div class="row m-0 p-0">
-    <div class="col m-0 p-0 d-flex justify-content-between">
-        <div class="notification-container h-100 d-flex justify-content-center align-items-center px-3">
-            <!-- <img src="https://img.icons8.com/carbon-copy/20/000000/chat-message.png" /> -->
-            {% if friend_requests > 0 %}
-            <div>
-                <a href="/user/notifications">
-                    <img src="{{ MEDIA_URL }}icons/friend_request_icon.png" class="small-icon" />
-                    <p>{{ friend_requests }}</p>
-                </a>
-            </div>
-            {% endif %}
-            {% if partner_requests > 0 %}
-            <div>
-                <a href="/user/notifications">
-                    <img src="{{ MEDIA_URL }}icons/add_list_icon.png" class="small-icon add-list-icon-notification"/>
-                    <p>{{ partner_requests }}</p>
-                </a>
-            </div>
-            {% endif %}
-            {% if user_profile.status_notification > 0 %}
-            <div class="ml-2">
-                <a href="/user/notifications">
-                    <img src="{{ MEDIA_URL }}icons/status_noti_icon.png" class="small-icon" />
-                    <p>{{ user_profile.status_notification }}</p>
-                </a>
-            </div>
-            {% endif %}
-            {% if friend_requests == 0 and user_profile.status_notification == 0 and partner_requests == 0 %}
-            <b class="m-0 text-small">No notifications</b>
-            {% endif %}
-            <!-- <img src="https://img.icons8.com/carbon-copy/20/000000/shopping-basket.png" /> -->
-        </div>
 
-    </div>
-    <div class="col m-0 p-2">
+    <div class="col-12 m-0 px-2 pt-2">
         <p class="m-0 p-0 text-right">Profile</p>
     </div>
 </div>
@@ -58,9 +25,8 @@
         {% else %}
         <img src="{{ MEDIA_URL }}user-image.png" class="profile-image">
         {% endif %}
-
-        <h5>{{ user.first_name }}</h5>
-        <h5>{{ user.last_name }}</h5>
+        <h5>{{ find_user.first_name }}</h5>
+        <h5>{{ find_user.last_name }}</h5>
         <p>{{ user_profile.bio }}</p>
         <a href="/user/settings">+</a>
     </div>
@@ -72,62 +38,8 @@
     </div>
 </div>
 
-<!-- Add data icons -->
-<div class="add-data-container">
-    <a href="/user/find_users">
-        <img src="{{ MEDIA_URL }}icons/family_icon.png" />
-        <label>Users</label>
-    </a>
-    <a id="add-status-form" class="add-form">
-        <img src="{{ MEDIA_URL }}icons/status_icon.png" />
-        <label>Status</label>
-    </a>
-    <a href="#">
-        <img src="{{ MEDIA_URL }}icons/photo_icon.png" />
-        <label>Photo</label>
-    </a>
-    <a id="add-item-form" class="add-form">
-        <img src="{{ MEDIA_URL }}icons/item_icon.png" />
-        <label>Item</label>
-    </a>
-    <a href="#">
-        <img src="{{ MEDIA_URL }}icons/dinner_icon.png" />
-        <label>Dinner</label>
-    </a>
-    <a href="#">
-        <img src="{{ MEDIA_URL }}icons/to_do_icon.png" />
-        <label>To Do</label>
-    </a>
-</div>
-
-<!-- Add data forms container -->
-<div id="add-data-form-container" class="closed"></div>
-
-</div>
-
-
 <!-- users shopping list and status -->
-<div class="profile-page-container">
-    <div class="row m-0 p-0">
-        <div class="col-12 m-0">
-            <h5 class="m-0 d-flex align-items-center justify-content-between">Shopping List <a href="/shopping/shopping_page" class="text-small">More</a></h5>
-        </div>
-    </div>
-    <hr>
-    <div class="shopping-item-container">
-        {% if not items %}
-            <p class="m-0">Your shoppping list is empty. <a href="/shopping/shopping_page">Add Items</a></p>
-        {% endif %}
-        {% for item in items %}
-        <a class="shopping-item" href="/shopping/shopping_page">
-            <p class="m-0 item-username">{{ item.user.first_name }}</p>
-            <p class="m-0">{{ item.item }}</p>
-            <p class="m-0 category">{{ item.category }}</p>
-            <div class="text-dark">x{{ item.quantity }}</div>
-        </a>
-        {% endfor %}
-    </div>
-    <hr>
+<div class="profile-page-container profile-view-page-container">
     <h5 class="ml-3">Status</h5>
     <hr class="status-divider">
     <div class="row m-0 p-0">
@@ -141,10 +53,7 @@
                     {% else %}
                     <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
                     {% endif %}
-                    <h6>{{ news.user.first_name }} {{ news.user.last_name }} <a class="icon-button  float-right mr-4"
-                            href="/status/update_status/remove/{{news.id}}">
-                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                        </a></h6>
+                    <h6>{{ news.user.first_name }} {{ news.user.last_name }}</h6>
                     <h6 class="text-secondary">{{ news.title }}</h6>
 
                 </div>
@@ -225,15 +134,6 @@
 
 </div>
 
-
-
-<button id="add-button" class="closed" >
-    <img src="{{ MEDIA_URL }}icons/plus_icon.png" href="#page-top">
-</button>
-
-<button id="send-button" class="closed send-button">
-    <img src="{{ MEDIA_URL }}icons/send_icon.png" />
-</button>
 
 
 {% endblock %}

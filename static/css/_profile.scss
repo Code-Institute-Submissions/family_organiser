@@ -192,6 +192,12 @@
     min-height: 70vh;
 }
 
+.profile-view-page-container {
+    transform: translate(0, 8px);
+}
+
+
+
 #add-button {
     cursor: pointer;
     z-index: 100;

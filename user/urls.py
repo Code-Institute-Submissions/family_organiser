@@ -11,4 +11,5 @@ urlpatterns = [
     path('settings/', views.settings, name='settings'),
     path('change_image/', views.change_profile_image, name='change_image'),
     path('change_details/', views.change_profile_details, name='change_details'),
+    path('view_user_profile/<pk>', views.view_user_profile, name='view_user_profile'),
 ]

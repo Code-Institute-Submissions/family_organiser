@@ -94,7 +94,6 @@ def profile(request):
         'items': all_items_no_duplicates,
     }
 
-
     return render(request, 'user/profile.html', context)
 
 
@@ -271,3 +270,101 @@ def change_profile_details(request):
     user_profile.save()
 
     return redirect('profile')
+
+def view_user_profile(request, pk):
+    """
+    Find the a users profile and display their basic 
+    information or if current user redirect them to their profile page.
+    """
+    # Find friend or turn a empty list if none.
+    find_user = User.objects.get(pk=pk)
+
+    if find_user == request.user:
+        return redirect('profile')
+
+    try:
+        friends = Friend.objects.get(current_user=find_user)
+        all_friends = friends.users.all()
+    except:
+        all_friends = []
+
+    friend_requests = FriendRequests.objects.filter(to_user=find_user)
+
+    try:
+        partner_requests = PartnerRequest.objects.filter(to_user=find_user)
+    except:
+        partner_requests = []
+
+    # Find user profile or create a friend list and user profile if new user.
+    try:
+        user_profile = UserProfile.objects.get(user=find_user)
+    except:
+        user_profile = UserProfile(
+            user = find_user,
+            age = 18,
+            profile_image = '',
+            bio = "Click add on your profile image to finish set up!",
+            premium = False,
+        )
+        user_profile.save()
+
+        friends_list = Friend(
+            current_user = find_user,
+        )
+        friends_list.save()
+
+    # find all status created by the current user
+    news_feed = Status.objects.filter(user=find_user).order_by('created_date').reverse()
+
+    # item categories
+    item_categories = Category.objects.filter(user=find_user)
+
+    # Get the current users shopping partners
+    try:
+        shopping_partners = Partner.objects.get(current_user=find_user)
+        shopping_partners_list = shopping_partners.partners.all()
+    except:
+        shopping_partners = []
+        shopping_partners_list = []
+
+    # Get all the current users items
+    items = Item.objects.filter(user=find_user).order_by('item')
+
+    all_items = [item for item in items]
+
+    # Add all the users items and their shopping partners items into all_items
+
+    for shopping_partner in shopping_partners_list:
+        if not shopping_partner == find_user:
+            partners_shopping_list = Item.objects.filter(user=shopping_partner)
+            for item in partners_shopping_list:
+                all_items.append(item)
+
+    # Add the quantity of any duplicate items
+    all_items_no_duplicates = []
+
+    for loop_index, item in enumerate(all_items):
+        if loop_index == 0:
+            all_items_no_duplicates.append(item)
+        else:
+            item_is_not_a_copy = True
+            for list_item in all_items_no_duplicates:
+                if list_item.item == item.item:
+                    item_is_not_a_copy = False
+                    list_item.quantity += item.quantity
+
+            if item_is_not_a_copy:
+                all_items_no_duplicates.append(item)
+
+    context = {
+        'find_user': find_user,
+        'friend_count': len(all_friends),
+        'friend_requests': len(friend_requests),
+        'partner_requests': len(partner_requests),
+        'user_profile': user_profile,
+        'news_feed': news_feed,
+        'item_categories': item_categories,
+        'items': all_items_no_duplicates,
+    }
+
+    return render(request, 'user/view_user_profile.html', context)

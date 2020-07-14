@@ -323,6 +323,11 @@ nav {
   min-height: 70vh;
 }
 
+.profile-view-page-container {
+  -webkit-transform: translate(0, 8px);
+          transform: translate(0, 8px);
+}
+
 #add-button {
   cursor: pointer;
   z-index: 100;
