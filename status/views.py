@@ -81,16 +81,19 @@ def like_status(request, pk):
             print('like post')
 
             # Send a notification to the status owner to tell them their status has been liked on.
-            like_notification = LikeNotification(
-                user = status.user,
-                status = status,
-                liker = request.user,
-            )
-            like_notification.save()
+            try:
+                LikeNotification.objects.get(user=status.user, status=status, liker=request.user)
+            except:
+                like_notification = LikeNotification(
+                    user = status.user,
+                    status = status,
+                    liker = request.user,
+                )
+                like_notification.save()
 
-            user_profile = UserProfile.objects.get(user=status.user)
-            user_profile.status_notification += 1
-            user_profile.save()
+                user_profile = UserProfile.objects.get(user=status.user)
+                user_profile.status_notification += 1
+                user_profile.save()
 
         else:
             status.liked_by.remove(request.user)
@@ -110,10 +113,14 @@ def add_comment(request, pk, redirect_user):
         status = Status.objects.get(pk=pk)
 
         # Create the new comment and save it to the database
+        users_comment = request.POST.get('comment')
+        author = request.user
+        author_profile = UserProfile.objects.get(user=request.user)
+
         comment = Comment(
-            comment = request.POST.get('comment'),
-            author = request.user,
-            author_profile = UserProfile.objects.get(user=request.user),
+            comment = users_comment,
+            author = author,
+            author_profile = author_profile,
         )
         comment.save()
 

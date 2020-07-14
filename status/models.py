@@ -21,6 +21,9 @@ class Status(models.Model):
     image = models.ImageField(null=True, blank=True)
     comment = models.ManyToManyField(Comment, related_name="status_comment",  blank=True)
 
+    def __str__(self):
+        return self.title
+
 class CommentNotification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_noti_user", null=True)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, related_name="comment_noti_status", null=True)

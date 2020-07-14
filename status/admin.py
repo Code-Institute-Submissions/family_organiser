@@ -3,7 +3,33 @@ from .models import Status, Comment, CommentNotification, LikeNotification
 
 
 # Register your models here.
-admin.site.register(Status)
-admin.site.register(Comment)
-admin.site.register(CommentNotification)
-admin.site.register(LikeNotification)
+class StatusAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'title',
+    )
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = (
+        'author',
+        'comment',
+    )
+
+class CommentNotificationAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'status',
+    )
+
+class LikeNotificationAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'liker',
+        'status'
+    )
+
+
+admin.site.register(Status, StatusAdmin)
+admin.site.register(Comment, CommentAdmin)
+admin.site.register(CommentNotification, CommentNotificationAdmin)
+admin.site.register(LikeNotification, LikeNotificationAdmin)
