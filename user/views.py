@@ -114,6 +114,7 @@ def find_users(request):
                     'first_name': one_user.first_name,
                     'last_name': one_user.last_name,
                     'username': one_user.username,
+                    'id': one_user.id,
                     'user_profile': {
                         'profile_image': user_profile.profile_image,
                     }

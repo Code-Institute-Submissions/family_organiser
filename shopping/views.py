@@ -388,14 +388,18 @@ def add_partner(request):
     Search and add shopping partners to the users shopping list.
     """
     user_profile = UserProfile.objects.get(user=request.user)
+    print('working add-parter')
     # if the user has a premium account return the shopping partners page or return premium information.
     if user_profile.premium:
         if request.method == 'GET':
+
             try:
+
                 query = request.GET['q']
-                print(query)
                 queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query) | Q(username__startswith=query.capitalize()) | Q(first_name__startswith=query.capitalize()) | Q(last_name__startswith=query.capitalize())
-                all_users = User.objects.filter(queries)
+                users_friends = Friend.objects.get(current_user=request.user)
+                all_users = users_friends.users.filter(queries)
+
                 searched_users = []
                 for one_user in all_users:
                     user_profile = UserProfile.objects.get(user=one_user)
@@ -404,6 +408,7 @@ def add_partner(request):
                         'first_name': one_user.first_name,
                         'last_name': one_user.last_name,
                         'username': one_user.username,
+                        'id': one_user.id,
                         'user_profile': {
                             'profile_image': user_profile.profile_image,
                         }

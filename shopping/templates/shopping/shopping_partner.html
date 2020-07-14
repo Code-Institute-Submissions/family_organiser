@@ -58,15 +58,19 @@ Find Partners | Family Organiser
             <div class="col-12 m-0 p-0">
                 <div class="row m-0 p-0">
                     <div class="col-3 m-0 p-0 pl-3">
+                        <a href="/user/view_user_profile/{{aUser.id}}">
                         {% if aUser.user_profile.profile_image %}
                             <img src="{{ MEDIA_URL }}{{aUser.user_profile.profile_image}}" class="user-image">
                         {% else %}
                             <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
                         {% endif %}
+                        </a>
                     </div>
                     <div class="col-6 m-0 p-0">
-                        <h5>{{ aUser.first_name }}{% if aUser.username == user.username %} <span class="text-secondary">(You!)</span>{% endif %}</h5>
-                        <h5>{{ aUser.last_name }}</h5>
+                        <a href="/user/view_user_profile/{{aUser.id}}">
+                        <h5 class="text-dark">{{ aUser.first_name }}{% if aUser.username == user.username %} <span class="text-secondary">(You!)</span>{% endif %}</h5>
+                        <h5 class="text-dark">{{ aUser.last_name }}</h5>
+                        </a>
                     </div>
                     <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                         {% if not aUser.username == user.username %}
@@ -86,7 +90,7 @@ Find Partners | Family Organiser
             </div>
     {% endfor %}
 </div>
-<p class="m-0 mt-2 text-right mr-3">Search Result: {{ all_users | length }}</p>
+<p class="m-0 mt-2 text-right mr-3">Search Result: {{ searched_users | length }}</p>
 
 {% endblock %}
 
