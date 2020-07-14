@@ -77,7 +77,8 @@
 <div class="row m-0 p-0">
     <div class="col-12 m-0">
         <h6 class="m-0 d-flex align-items-center justify-content-between ">Edit Categories<i
-                class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse" href="#category-edit-container"></i>
+                class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
+                href="#category-edit-container"></i>
         </h6>
     </div>
 </div>
@@ -204,6 +205,9 @@
 <script>
     $(document).ready(function () {
 
+
+        var sendForm = true
+
         // Add an item using ajax
         $(document).on('click', '.add-item-ajax', function () {
 
@@ -212,31 +216,38 @@
             theForm.submit(function (event) {
                 event.preventDefault();
 
-                var formId = this.id
-                var thisForm = $(this)
-                var actionEndpoint = thisForm.attr("action");
-                var httpMethod = thisForm.attr("method");
-                var formData = thisForm.serialize();
+                if (sendForm) {
+                    sendForm = false
+                    setTimeout(function() {
+                        sendForm = true;
+                    }, 500)
+                    var formId = this.id
+                    var thisForm = $(this)
+                    var actionEndpoint = thisForm.attr("action");
+                    var httpMethod = thisForm.attr("method");
+                    var formData = thisForm.serialize();
 
-                req = $.ajax({
-                    url: actionEndpoint,
-                    method: httpMethod,
-                    headers: { "X-CSRFToken": '{{csrf_token}}' },
-                    contentType: 'application/json; charset=utf-8',
-                    data: formData,
-                    success: function (data) {
-                        console.log(data)
-                        $('.shopping-table-container').html('')
-                        $('.shopping-list-empty').html('')
-                        if (data.categories_used.length == 0) {
-                            $('.shopping-list-empty').append('<p>You shopping list is empty.</p>')
-                        }
-                        for (let i = 0; i < data.categories_used.length; i++) {
-                            function crateTableRows() {
-                                var tableRows = ''
 
-                                for (let j = 0; j < data.items.length; j++) {
-                                    var newRow = `
+                    req = $.ajax({
+                        url: actionEndpoint,
+                        method: httpMethod,
+                        async: true,
+                        headers: { "X-CSRFToken": '{{csrf_token}}' },
+                        contentType: 'application/json; charset=utf-8',
+                        data: formData,
+                        success: function (data) {
+                            console.log(data)
+                            $('.shopping-table-container').html('')
+                            $('.shopping-list-empty').html('')
+                            if (data.categories_used.length == 0) {
+                                $('.shopping-list-empty').append('<p>You shopping list is empty.</p>')
+                            }
+                            for (let i = 0; i < data.categories_used.length; i++) {
+                                function crateTableRows() {
+                                    var tableRows = ''
+
+                                    for (let j = 0; j < data.items.length; j++) {
+                                        var newRow = `
                                     <tr>
                                         <td>${data.items[j]['item']}</td>
                                         <td class="d-flex justify-content-between p-2">
@@ -266,21 +277,21 @@
                                         </td>
                                     </tr>
                                 `
-                                    var itemCategory = data.items[j]['category']['category']
-                                    var tableCategory = data.categories_used[i]['category']
-                                    console.log('condition')
-                                    console.log(itemCategory, tableCategory)
-                                    if (itemCategory == tableCategory) {
-                                        tableRows = tableRows.concat(newRow)
-                                        console.log('This is the new row', newRow)
+                                        var itemCategory = data.items[j]['category']['category']
+                                        var tableCategory = data.categories_used[i]['category']
+                                        console.log('condition')
+                                        console.log(itemCategory, tableCategory)
+                                        if (itemCategory == tableCategory) {
+                                            tableRows = tableRows.concat(newRow)
+                                            console.log('This is the new row', newRow)
+                                        }
                                     }
-                                }
-                                return tableRows
-                            };
+                                    return tableRows
+                                };
 
-                            var tableRows = crateTableRows()
+                                var tableRows = crateTableRows()
 
-                            $('.shopping-table-container').append(`
+                                $('.shopping-table-container').append(`
                             <div class="row m-0 p-0">
                                 <div class="col-12 m-0">
                                     <h5 class="m-0 d-flex justify-content-between align-items-center">${data.categories_used[i]['category']}</h5>
@@ -305,15 +316,18 @@
                             </div>
                                
                         `);
-                        }
-                        $('.shopping-table-container').append(` 
+                            }
+                            $('.shopping-table-container').append(` 
                             <div class="row m-0 p-0 my-3 mb-4 collapse edit-item">
                                     <div class="col-12 m-0 p-0 px-2">
                                         <button class="btn btn-danger container-fluid" type="submit">Delete All</button>
                                     </div>
                                 </div>`)
-                    }
-                })
+                        },
+                        timeout: 10000,
+                    })
+
+                }
             })
         })
     });

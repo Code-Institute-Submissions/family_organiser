@@ -104,19 +104,14 @@ def quick_item(request, item, category):
 
     # Get users items from the database.
     users_items = Item.objects.filter(user=request.user)
-    new_item = True
 
-    # If item in database add the quantity instead of creating a new object.
-    for item in users_items:
-        if item.item == item_name:
-            try:
-                item_in_database = Item.objects.get(item=item_name, user=request.user)
-                item_in_database.quantity += quantity
-                item_in_database.save()
-                new_item = False
-            except:
-                print('duplicate items!!')
-                new_item = False
+    try:
+        item_in_database = Item.objects.get(item=item_name, user=request.user)
+        item_in_database.quantity += quantity
+        item_in_database.save()
+        new_item = False
+    except:
+        new_item = True
     
     # Add item if new
     if new_item:
