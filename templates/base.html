@@ -27,8 +27,10 @@
 
     <!-- gsap (js) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js"></script>
-
+    <!-- navigation bar js -->
     <script src="{% static 'js/navigation.js' %}"></script>
+    <!-- Stripe js -->
+    <script src="https://js.stripe.com/v3/"></script>
     {% block extra_js %}{% endblock %}
 
     {% block extra_css %}{% endblock %}
@@ -131,6 +133,10 @@
         <!-- Page content -->
         {% block content %}{% endblock %}
     </div>
+
+    {% block postloadjs %}
+        
+    {% endblock %}
 
 </body>
 
