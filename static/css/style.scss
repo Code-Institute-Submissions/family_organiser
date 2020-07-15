@@ -2,10 +2,11 @@
 @import 'navigation';
 @import 'base';
 @import 'profile';
-@import 'news_feed';
-@import 'shopping_page';
+@import 'status';
+@import 'shopping';
 @import 'stripe';
 @import 'home';
+@import 'message';
 @import 'allauth';
 
 html {
@@ -96,6 +97,6 @@ p,a,b,label {
 .user-image {
     height: 65px;
     width: 65px;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 

@@ -1,0 +1,23 @@
+.message-container {
+    padding: 11px;
+    margin-bottom: 7px;
+    box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.07);
+    p {
+        margin: 0;
+    }
+}
+
+.from-message-container {
+    display: inline-block;
+    justify-content: flex-end;
+    background-color: lighten($theme-colour, 23%);
+    margin-left: 20px;
+    border-radius: 8px 0px 8px 12px;
+}
+
+.to-message-container {
+    background-color: rgb(241, 241, 241);
+    margin-right: 20px;
+    display: inline-block;
+    border-radius: 0px 8px 12px 8px;
+}

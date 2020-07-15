@@ -194,7 +194,7 @@ nav {
 .profile-image {
   height: 90px;
   width: 90px;
-  border-radius: 15px;
+  border-radius: 10px;
   float: left;
   margin-right: 15px;
   -webkit-box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.13);
@@ -394,7 +394,7 @@ nav {
 .user-image-status {
   height: 55px;
   width: 55px;
-  border-radius: 15px;
+  border-radius: 10px;
   -webkit-box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
 }
@@ -422,7 +422,7 @@ nav {
 .comment-container img {
   width: 20px;
   height: 20px;
-  border-radius: 3px;
+  border-radius: 6px;
 }
 
 .status-divider {
@@ -520,6 +520,34 @@ nav {
 footer {
   border-top: solid silver 1px;
   padding-top: 20px;
+}
+
+.message-container {
+  padding: 11px;
+  margin-bottom: 7px;
+  -webkit-box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.07);
+          box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.07);
+}
+
+.message-container p {
+  margin: 0;
+}
+
+.from-message-container {
+  display: inline-block;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  background-color: #b4f0b7;
+  margin-left: 20px;
+  border-radius: 8px 0px 8px 12px;
+}
+
+.to-message-container {
+  background-color: #f1f1f1;
+  margin-right: 20px;
+  display: inline-block;
+  border-radius: 0px 8px 12px 8px;
 }
 
 .login-container {
@@ -673,6 +701,6 @@ p, a, b, label {
 .user-image {
   height: 65px;
   width: 65px;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 /*# sourceMappingURL=style.css.map */
