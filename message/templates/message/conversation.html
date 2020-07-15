@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row m-0 p-2">
+    <div class="col-12 m-0 p-0">
+        <p class="m-0 p-0 text-right">Messages</p>
+    </div>
+</div>
+<hr class="my-0">
+
+<h5 class="p-3">{{ message_user.first_name }} {{ message_user.last_name }}</h5>
+
+{% for message in messages %}
+    <hr class="mt-0">
+    <p>From: {{ message.sent_from }}</p>
+    <p>To: {{ message.sent_to }}</p>
+    <p>{{ message }}</p>
+    <p>{{ message.created_date }}</p>
+{% endfor %}
+<hr>
+<div class="row m-0 p-0">
+    <div class="col-12 m-0 p-0">
+        <form action="/message/conversation/{{message_user.id}}" method="POST" class="container-fluid d-flex justify-content-center">
+            {% csrf_token %}
+            <input type="text" class="form-control" name="message">
+            <button type="submit" class="btn btn-success ml-3">Send</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
