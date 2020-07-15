@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
+from user.models import UserProfile
 
 import stripe
 
@@ -14,6 +15,11 @@ def make_payment(request):
     """
     The form for processing the payment and sending the form to stripe.
     """
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    if user_profile.premium:
+        return redirect('profile')
+
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     stripe_total = 199
@@ -31,4 +37,16 @@ def make_payment(request):
         'client_secret': intent.client_secret,
     }
 
+    if request.method == 'POST':
+
+        user_profile.premium = True
+        user_profile.save()
+
+        return redirect('payment_successful')
+
     return render(request, 'premium/make_payment.html' ,context)
+
+def payment_successful(request):
+
+
+    return render(request, 'premium/payment_successful.html')
