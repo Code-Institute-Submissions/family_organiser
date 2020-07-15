@@ -37,6 +37,15 @@ nav {
     }
 }
 
+.desktop-navigation {
+    list-style: none;
+    width: 100%;
+    text-align: center;
+    li {
+        display: inline-block;
+    }
+}
+
 .mobile-navigation-links {
     background-color: #fafafa;
     z-index:555;

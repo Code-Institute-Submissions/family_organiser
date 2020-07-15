@@ -7,8 +7,10 @@
 
 {% block content %}
 <div id="page-top"></div>
-<img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image" ></img>
-<img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light"></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image d-md-none" ></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light d-md-none"></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background_desktop.svg" class="profile-background-image d-none d-md-block" ></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background_light_desktop.svg" class="profile-background-image-light d-none d-md-block"></img>
 
 <div class="profile-bio-form-container"  >
 <!-- profile and notifications section -->
@@ -64,8 +66,8 @@
         <p>{{ user_profile.bio }}</p>
         <a href="/user/settings">+</a>
     </div>
-    <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center align-items-end">
-        <a href="/user/family/">
+    <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center justify-content-md-end align-items-end">
+        <a href="/user/family/" class="m-0 mr-md-5">
             <h3 class="text-center text-white">{{ friend_count }}</h3>
             <h6 class="text-white">Family</h6>
         </a>
@@ -109,7 +111,7 @@
 <!-- users shopping list and status -->
 <div class="profile-page-container">
     <div class="row m-0 p-0">
-        <div class="col-12 m-0">
+        <div class="col-12 col-md-6 m-0">
             <h5 class="m-0 d-flex align-items-center justify-content-between">Shopping List <a href="/shopping/shopping_page" class="text-small">More</a></h5>
         </div>
     </div>
