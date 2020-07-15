@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'status',
     'shopping',
     'premium',
+    'message',
 
     'storages',
 ]
