@@ -18,7 +18,7 @@ Premium | Family Organiser
         <p class="m-0">You have selected a premium feature but you don't have a premium account, for a one time payment, premium users will gain access to the following:</p>
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 d-flex justify-content-end">
-                <button class="btn btn-success">Upgrade £1.99</button>
+                <a class="btn btn-success" href="/premium/make_payment">Upgrade £1.99</a>
             </div>
         </div>
         <hr>
@@ -44,8 +44,3 @@ Premium | Family Organiser
 
 {% endblock %}
 
-{% block postloadjs %}
-    {{ block.super }}
-    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
-    {{ client_secret|json_script:"id_client_secret" }}
-{% endblock %}
