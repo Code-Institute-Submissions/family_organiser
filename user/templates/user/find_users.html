@@ -35,18 +35,42 @@ Find Users | Family Organiser
                     {% endif %}
                 </a>
             </div>
-            <div class="col-6 m-0 p-0">
+            <div class="col-5 m-0 p-0">
                 <a href="/user/view_user_profile/{{aUser.id}}">
                     <h5 class="text-dark">{{ aUser.first_name }}{% if aUser.username == user.username %} <span
                             class="text-secondary">(You!)</span>{% endif %}</h5>
                     <h5 class="text-dark">{{ aUser.last_name }}</h5>
                 </a>
             </div>
-            <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+            <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                 {% if not aUser.username == user.username %}
-                <a class="icon-button" href="/user/create_request/{{aUser.id}}">
-                    <img src="{{ MEDIA_URL }}icons/add_user_icon.png" />
-                </a>
+                    {% if not aUser.username in friends %}
+                        {% if not aUser.username in friend_request_sent %}
+                        <div>
+                            <a class="icon-button d-block mx-auto" href="/user/create_request/{{aUser.id}}">
+                                <img src="{{ MEDIA_URL }}icons/add_user_icon.png" />
+                            </a>
+                            <small>Add User</small>
+                        </div>
+                           
+                        {% else %}
+                        <div>
+                            <div class="icon-button d-block mx-auto">
+                                <img src="{{ MEDIA_URL }}icons/timer_icon.png" />
+                            </div>
+                            <small>Request Pending</small>
+                        </div>
+                            
+                        {% endif %}
+                    {% else %}
+                    <div>
+                        <a class="icon-button d-block mx-auto" href="/user/update_friends/remove/{{aUser.id}}/0">
+                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+                        </a>
+                        <small>Already Friends</small>
+                    </div>
+                      
+                    {% endif %}
                 {% endif %}
                 <!-- <a class="icon-button icon-warning">
                             <img src="https://img.icons8.com/cotton/19/000000/sent.png" class="px-2"/>

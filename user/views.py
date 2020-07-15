@@ -123,12 +123,27 @@ def find_users(request):
         except:
             searched_users = []
 
-    friends = Friend.objects.get(current_user=request.user)
-    all_friends = friends.users.all()
+    try:
+        friends = Friend.objects.get(current_user=request.user)
+        all_friends_query_set = friends.users.all()
+        all_friends = []
+        for friend in all_friends_query_set:
+            all_friends.append(friend.username)
+    except:
+        all_friends = []
+
+    try:
+        friend_requests = FriendRequests.objects.filter(from_user=request.user)
+        friend_request_sent = []
+        for friend_request in friend_requests:
+            friend_request_sent.append(friend_request.to_user.username)
+    except:
+        friend_request_sent = []
 
     context = {
         'searched_users': searched_users,
         'friends': all_friends,
+        'friend_request_sent': friend_request_sent,
     }
 
     return render(request, 'user/find_users.html', context)
