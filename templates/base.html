@@ -87,13 +87,13 @@
                             Account
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Messages</a>
-                            <a class="dropdown-item" href="#">Notifications</a>
+                            <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                            <a class="dropdown-item" href="{% url 'start_conversation' %}">Messages</a>
+                            <a class="dropdown-item" href="{% url 'notifications' %}">Notifications</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Find Friends</a>
+                            <a class="dropdown-item" href="{% url 'find_users' %}">Find Friends</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <a class="dropdown-item" href="{% url 'settings' %}">Settings</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -102,10 +102,10 @@
                             Shopping
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Shopping List</a>
+                            <a class="dropdown-item" href="{% url 'shopping_page' %}">Shopping List</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Insight</a>
-                            <a class="dropdown-item" href="#">Shopping Partners</a>
+                            <a class="dropdown-item" href="{% url 'insight' %}">Insight</a>
+                            <a class="dropdown-item" href="{% url 'add_partner' %}">Shopping Partners</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -120,8 +120,19 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">News Feed</a>
-                      </li>
+                        <a class="nav-link" href="{% url 'news_feed' %}">News Feed</a>
+                    </li>
+                    <li class="nav-item dropdown float-right">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Settings
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'settings' %}">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/accounts/logout">Logout</a>
+                        </div>
+                    </li>
                 </ul>
                 <div class="burger-container toggle-menu closed d-block d-lg-none">
                     <div class="burger-top"></div>

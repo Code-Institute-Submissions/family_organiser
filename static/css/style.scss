@@ -42,6 +42,12 @@ p,a,b,label {
     border: none;
 }
 
+.btn {
+    &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(121, 255, 168, 0.25);
+    }
+}
+
 // icons
 .far {
     font-size: 14px;
@@ -66,6 +72,11 @@ p,a,b,label {
     }
     &:focus {
         outline: none;
+    }
+    .right_arrow_icon {
+        position: relative;
+        left: 3px;
+        top: 1px;
     }
 }
 

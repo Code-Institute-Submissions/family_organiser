@@ -46,6 +46,19 @@ nav {
     }
 }
 
+.nav-link {
+    color: black;
+}
+
+
+.dropdown-item {
+    &:hover {
+        background-color: lighten($theme-colour, 35%);
+    }
+}
+
+
+
 .mobile-navigation-links {
     background-color: #fafafa;
     z-index:555;
@@ -98,4 +111,20 @@ nav {
             }
         }
     }
+}
+
+// Mini navigation
+
+.mini-navigation-container {
+    border-top: solid rgba(0,0,0,0.1) 1px;
+    background-color: #f8f9fa;
+}
+
+.mini-navigation-button {
+    background-color: white;
+}
+
+.mini-navigation-active {
+    background-color: #fdfdfd;
+    box-shadow: inset 0px 0px 5px 2px rgba(0,0,0,0.1);
 }

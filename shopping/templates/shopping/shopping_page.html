@@ -4,15 +4,39 @@
 
 <div class="row m-0 p-0">
     <div class="col-8 m-0 p-3">
-        <a href="/shopping/insight" class="mr-2">
-            <button class="btn btn-success">Insight</button>
-        </a>
-        <a href="/shopping/add_partner">
-            <button class="btn btn-success">Partners</button>
-        </a>
+        
+        
     </div>
     <div class="col-4 m-0 p-2">
-        <p class="m-0 p-0 text-right">Shopping</p>
+        <p class="m-0 p-0 text-right">Shopping - List</p>
+    </div>
+</div>
+
+<!-- Shopping navigation -->
+<div class="row m-0 p-0 py-3 mini-navigation-container">
+    <div class="col-4 m-0 p-0 d-flex justify-content-center">
+        <a href="/shopping/shopping_page">
+            <button class="btn border mini-navigation-button mini-navigation-active">
+                <img src="{{ MEDIA_URL }}icons/list_icon.png" class="small-icon"/>
+                <small>List</small>
+            </button>
+        </a>
+    </div>
+    <div class="col-4 m-0 p-0 d-flex justify-content-center">
+        <a href="/shopping/add_partner">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/family_icon.png" class="small-icon"/>
+                <small>Partners</small>
+            </button>
+        </a>
+    </div>
+    <div class="col-4 m-0 p-0 d-flex justify-content-center">
+        <a href="/shopping/insight" class="mr-2">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/graph_icon.png" class="small-icon"/>
+                <small>Insight</small>
+            </button>
+        </a>
     </div>
 </div>
 
@@ -121,7 +145,8 @@
     <p class="px-2">Your shoppping list is empty.</p>
 </div>
 {% else %}
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-between">
+    <h5 class="ml-3 mb-0">List</h5>
     <i class="fas fa-edit mr-3" data-toggle="collapse" href=".edit-item"></i>
 </div>
 {% endif %}
@@ -130,7 +155,7 @@
     {% for category in categories_used %}
     <div class="row m-0 p-0">
         <div class="col-12 m-0">
-            <h5 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}</h5>
+            <h6 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}</h6>
         </div>
     </div>
     <hr>

@@ -2,15 +2,39 @@
 {% block content %}
 <div class="row m-0 p-2">
     <div class="col-12 m-0 p-0">
-        <p class="m-0 p-0 text-right">Messages</p>
+        <p class="m-0 p-0 text-right">Messages - {{ message_user.first_name }} {{ message_user.last_name }}</p>
     </div>
 </div>
+
+<!-- Messaging navigation -->
+<div class="row m-0 p-0 py-3 mini-navigation-container">
+    <div class="col-6 m-0 p-0 d-flex justify-content-center">
+        <a href="">
+            <button class="btn border mini-navigation-button ">
+                <img src="{{ MEDIA_URL }}icons/add_chat_icon.png" class="small-icon"/>
+                <small>New</small>
+            </button>
+        </a>
+    </div>
+    <div class="col-6 m-0 p-0 d-flex justify-content-center">
+        <a href="{% url 'start_conversation' %}">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/chat_icon.png" class="small-icon"/>
+                <small>Conversations</small>
+            </button>
+        </a>
+    </div>
+</div>
+
 <hr class="mt-0">
 
 <h5 class="pl-3">{{ message_user.first_name }} {{ message_user.last_name }}</h5>
 
 <hr>
 <div class="px-2">
+    {% if not messages %}
+        
+    {% endif %}
     {% for message in messages %}
 
     {% if message.sent_from == user %}

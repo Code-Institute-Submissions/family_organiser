@@ -8,19 +8,42 @@ Find Partners | Family Organiser
 {% block content %}
 <div class="row m-0 p-2">
     <div class="col-8 m-0 p-2 d-flex justify-content-start">
-        <a href="/shopping/shopping_page" class="mr-2">
-            <button class="btn btn-success float-right">Shopping</button>
-        </a>
-        <a href="/shopping/insight">
-            <button class="btn btn-success">Insight</button>
-        </a>
+
     </div>
     <div class="col-4 m-0 p-0">
         <p class="m-0 p-0 text-right">Shopping - Partners</p>
     </div>
 </div>
 
-<hr>
+<!-- Shopping navigation -->
+<div class="row m-0 p-0 py-3 mini-navigation-container">
+    <div class="col-4 m-0 p-0 d-flex justify-content-center">
+        <a href="/shopping/shopping_page">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/list_icon.png" class="small-icon"/>
+                <small>List</small>
+            </button>
+        </a>
+    </div>
+    <div class="col-4 m-0 p-0 d-flex justify-content-center">
+        <a href="/shopping/add_partner">
+            <button class="btn border mini-navigation-button mini-navigation-active">
+                <img src="{{ MEDIA_URL }}icons/family_icon.png" class="small-icon"/>
+                <small>Partners</small>
+            </button>
+        </a>
+    </div>
+    <div class="col-4 m-0 p-0 d-flex justify-content-center">
+        <a href="/shopping/insight" class="mr-2">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/graph_icon.png" class="small-icon"/>
+                <small>Insight</small>
+            </button>
+        </a>
+    </div>
+</div>
+
+<hr class="mt-0">
 <div class="row m-0 p-0">
     <div class="col-12 m-0">
         <h6 class="m-0 d-flex align-items-center justify-content-between">Shopping Partners<i
@@ -43,10 +66,11 @@ Find Partners | Family Organiser
         <hr>
     </div>
 </div>
-
+<h4 class="ml-3">Search</h4>
+<hr>
 <form action="/shopping/add_partner" method="GET" class="px-3">
     {% csrf_token %}
-    <h3>Search</h3>
+
     <div class="container-fluid d-flex justify-content-between m-0 p-0">
         <input type="text" name="q" class="form-control d-inline" placeholder="Name / Username">
         <button class="btn btn-success ml-3">Find</button>
