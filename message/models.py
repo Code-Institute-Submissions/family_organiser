@@ -13,8 +13,8 @@ class Message(models.Model):
         return self.message
 
 class MessageNotification(models.Model):
-    user = models.ForeignKey(User, related_name="message_noti_user", on_delete=models.CASCADE)
-    sent_from = models.ForeignKey(User, related_name="message_noti_sent_from", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="message_noti_user", null=True, on_delete=models.CASCADE)
+    sent_from = models.ForeignKey(User, related_name="message_noti_sent_from", null=True, on_delete=models.CASCADE)
     notifications = models.IntegerField(default=0)
 
     def __str__(self):

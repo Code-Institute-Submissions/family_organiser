@@ -2,9 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+class AcceptedFriendRequests(models.Model):
+    from_user = models.ForeignKey(User, related_name="accepted_fromuser", null=True,  on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, null=True, related_name="accepted_touser", on_delete=models.CASCADE)
+
 class FriendRequests(models.Model):
     from_user = models.ForeignKey(User, related_name="fromuser", null=True, on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
 
 class Friend(models.Model):
     users = models.ManyToManyField(User)
