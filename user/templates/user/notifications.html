@@ -73,11 +73,10 @@ Requests | Family Organiser
     {% endfor %}
 
     {% for notification in notifications %}
-
         <!-- style the liked notification -->
         {% if notification.liker %}
             <div class="col-12 m-0 p-0">
-                <div class="row m-0 p-0">
+                <a class="row m-0 p-0 text-dark" href="/status/view_status/{{notification.status.id}}">
                     <div class="col-12">
                         <p class="m-0"><b>{{ notification.liker.first_name }} {{ notification.liker.last_name }}</b> has liked your post <b>"{{ notification.status.title }}"</b></p>
                     </div>
@@ -85,13 +84,13 @@ Requests | Family Organiser
                         <p class="m-0 text-small">{{ notification.created_date }}</p>
                         <p class="m-0">View</p>
                     </div>
-                </div>
+                </a>
                 <hr>
             </div>
         {% elif notification.commenter %}
             <!-- style the comment notification -->
             <div class="col-12 m-0 p-0">
-                <div class="row m-0 p-0">
+                <a class="row m-0 p-0 text-dark" href="/status/view_status/{{notification.status.id}}">
                     <div class="col-12">
                         <p class="m-0"><b>{{ notification.commenter.first_name }} {{ notification.commenter.last_name }}</b> has commented on your post <b>"{{ notification.status.title }}"</b></p>
                     </div>
@@ -99,7 +98,7 @@ Requests | Family Organiser
                         <p class="m-0 text-small">{{ notification.created_date }}</p>
                         <p class="m-0">View</p>
                     </div>
-                </div>
+                </a>
                 <hr>
             </div>
         {% else %}

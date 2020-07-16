@@ -4,39 +4,12 @@
 
 <div class="row m-0 p-2">
     <div class="col-12 m-0 p-0">
-        <p class="m-0 p-0 text-right">News Feed</p>
+        <p class="m-0 p-0 text-right">Status - {{ news.title }}</p>
     </div>
 </div>
-
-<!-- Shopping navigation -->
-<div class="row m-0 p-0 py-3 mini-navigation-container">
-    <div class="col-12 m-0 p-0 d-flex justify-content-center">
-        <a href="#status-form" data-toggle="collapse">
-            <button class="btn border mini-navigation-button ">
-                <img src="{{ MEDIA_URL }}icons/add_status_icon.png" class="small-icon"/>
-                <small>Create Post</small>
-            </button>
-        </a>
-    </div>
-</div>
-
-<hr class="my-0">
-
-<form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="p-3 pt-4 collapse" id="status-form">
-    {% csrf_token %}
-        <label>Title</label>
-        <input type="text" name="title" class="form-control" id="form-title">
-        <label>Post</label>
-        <input type="text" name="content" class="form-control" id="form-content">
-        <label class="d-block">Image</label>
-        <input type="file" name="image" id="form-file">
-        <button class="btn btn-success float-right">Send</button>
-        <div id="error-container" class="mt-1"></div>
-    </form>
 
 <hr class="status-divider">
 <div class="row m-0 p-0">
-    {% for news in news_feed %}
     <div class="col-12 m-0 p-0">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 pl-3">
@@ -123,9 +96,7 @@
         </div>
         <hr class="status-divider">
     </div>
-    {% endfor %}
 </div>
-<p class="m-0 mt-2 mb-4 text-right mr-3">Search Result: {{ news_feed | length }}</p>
 {% endblock %}
 
 {% block extra_js %}

@@ -145,7 +145,7 @@ nav {
   border-right: none;
   border-left: none;
   background-color: white;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .nav-margin-space {

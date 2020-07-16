@@ -143,3 +143,16 @@ def add_comment(request, pk, redirect_user):
         return redirect('profile')
     if redirect_user == 'news_feed':
         return redirect('news_feed')
+
+def view_status(request, pk):
+    """
+    Take the user to a page that shows one status from their notificats or from the news feed.
+    """
+
+    status = Status.objects.get(pk=pk)
+
+    context = {
+        'news': status,
+    }
+
+    return render(request, 'status/view_status.html', context)
