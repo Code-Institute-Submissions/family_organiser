@@ -242,17 +242,65 @@ def update_category(request, operation, pk):
 
     return redirect('shopping_page')
 
-def insight(request):   
+def insight(request, filter):   
     """
     Display instight page with graphs and table of the users favorite items and shopping habbits.
     """ 
     user_profile = UserProfile.objects.get(user=request.user)
     if user_profile.premium:
-        # Create a list of favorite items from purchased items
-        purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-item')
 
-        # Get all users favorite items and order them by quantity
-        favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
+        if filter == 'personal':
+            # Get all users favorite items and order them by quantity
+            favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
+             # get purchsed items form the oldest first
+            purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('created_date')
+             # Get all purchased items 
+            all_purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
+        if filter == 'group':
+            # Get users shopping partners
+            partners = Partner.objects.get(current_user=request.user)
+            partners = partners.partners.all()
+
+            # Append the current users and their shopping partners favorite into a list
+            favorites = []
+            current_users_favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
+            for favorite in current_users_favorites:
+                favorites.append(favorite)
+
+            for partner in partners:
+                partners_favorites = Favorite.objects.filter(user=partner).order_by('-quantity')
+                for favorite in partners_favorites:
+                    favorites.append(favorite)
+
+            favorites_list = favorites
+            favorites = []
+            
+            for index, favorite in enumerate(favorites_list):
+                if index == 0:
+                    favorites.append(favorite)
+                else:
+                    new_item = True
+                    for list_item in favorites:
+                        if list_item.item == favorite.item:
+                            list_item.quantity += favorite.quantity
+                            new_item = False
+                    if new_item:
+                        favorites.append(favorite)
+
+            favorites = sorted(favorites, key = lambda x: x.quantity, reverse=True)
+
+            # Append the current users purchased items and their shopping partners items together in a list
+            purchased_items = []
+            current_users_purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
+            for purchased in current_users_purchased_items:
+                purchased_items.append(purchased)
+
+            for partner in partners:
+                partners_purchased_items = PurchasedItems.objects.filter(user=partner).order_by('-quantity')
+                for item in partners_purchased_items:
+                    purchased_items.append(item)
+
+            all_purchased_items = purchased_items
 
         # top five chart data
         all_favorites = favorites
@@ -277,9 +325,6 @@ def insight(request):
         line_chart_dataset = []
         monthly_report_dates = []
 
-        # get purchsed items form the oldest first
-        purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('created_date')
-
         # Get the months that items have been added to the list and append them in an array, ready for the monthly report and chart.
         for item in purchased_items:
             item_year = str(item.created_date)[0:4]
@@ -290,9 +335,6 @@ def insight(request):
 
         monthly_report_dates = list(dict.fromkeys(monthly_report_dates))
         monthly_report_data = []
-
-        # Create a list of favorite items from purchased items
-        purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('created_date')
         
         # find the name of each item used and sort in in used_items
         used_items = []
@@ -318,7 +360,6 @@ def insight(request):
                 for search_item in purchased_items:
                     if search_item.item == item:
                         search_item_month = str(search_item.created_date)[0:7]
-                        print(search_item_month, search_month)
                         if search_item_month == search_month:
                             if not search_item.quantity:
                                 same_items_list.append(0)
@@ -363,11 +404,8 @@ def insight(request):
                     }
             line_chart_dataset.append(data_dict)
 
-        # Get all purchased items 
-        purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
-
         context = {
-            'purchased_items': purchased_items,
+            'purchased_items': all_purchased_items,
             'favorites': favorites,
             'chart_data_top_five': chart_data_top_five,
             'chart_labels_top_five': chart_labels_top_five,
@@ -388,7 +426,6 @@ def add_partner(request):
     Search and add shopping partners to the users shopping list.
     """
     user_profile = UserProfile.objects.get(user=request.user)
-    print('working add-parter')
     # if the user has a premium account return the shopping partners page or return premium information.
     if user_profile.premium:
         if request.method == 'GET':
@@ -489,9 +526,7 @@ def edit_item_quantity(request, operation, pk):
             edit_item = Item.objects.get(pk=pk)
             edit_item.quantity -= 1
             edit_item.save()
-            print('before if statment')
             if edit_item.quantity <= 0:
-                print('remove item')
                 edit_item.delete()
         except:
             edit_item = None

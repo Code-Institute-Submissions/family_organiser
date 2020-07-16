@@ -16,6 +16,7 @@ html {
 body {
     width: 100vw;
     overflow-x: hidden;
+    background-color: lighten($theme-colour, 35%);
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -42,11 +43,12 @@ p,a,b,label {
     border: none;
 }
 
-.btn {
+.btn, .form-control {
     &:focus {
-        box-shadow: 0 0 0 0.2rem rgba(121, 255, 168, 0.25);
+        box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);
     }
 }
+
 
 // icons
 .far {

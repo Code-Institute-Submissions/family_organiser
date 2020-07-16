@@ -30,7 +30,7 @@
         </a>
     </div>
     <div class="col-4 m-0 p-0 d-flex justify-content-center">
-        <a href="/shopping/insight" class="mr-2">
+        <a href="/shopping/insight/personal" class="mr-2">
             <button class="btn border mini-navigation-button mini-navigation-active">
                 <img src="{{ MEDIA_URL }}icons/graph_icon.png" class="small-icon"/>
                 <small>Insight</small>
@@ -40,14 +40,17 @@
 </div>
 
 <hr class="m-0">
-
-<div class="container-fluid p-2">
-    <select class="form-control">
-        <option>Personal</option>
-        <option>Group</option>
-    </select>
-</div>
-
+<!-- Filter -->
+<div class="btn-group p-3">
+    <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Filter
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="personal">Personal</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="group">Group</a>
+    </div>
+  </div>
 
     <!-- Insight section -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -81,6 +84,7 @@
                             <tr>
                                 <th>Item</th>
                                 <th class="text-center">Quantity</th>
+                                <th class="text-right">User</th>
                                 <th class="text-right">Date</th>
                                 <th class="text-right edit-item collapse">Remove</th>
                             </tr>
@@ -88,7 +92,8 @@
                             <tr>
                                 <td>{{ item.item }}</td>
                                 <td class="text-center">{{ item.quantity }}</td>
-                                <td class="text-right text-small">{{ item.created_date }}</td>
+                                <td class="text-right text-small">{{ item.user | slice:"2,5" }}</td>
+                                <td class="text-right text-small"><small>{{ item.created_date | truncatechars:11 }}</small></td>
                                 <td class="text-right edit-item collapse">
                                     <div class="container-fluid d-flex justify-content-end p-0">
                                         <form method="POST" action="edit_purchased_item/remove/{{item.id}}">
@@ -297,7 +302,7 @@
             },
             
         });
-       
+
     });
     </script>
 {% endblock %}

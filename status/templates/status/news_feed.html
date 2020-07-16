@@ -8,9 +8,21 @@
     </div>
 </div>
 
-<hr class="mt-0">
+<!-- Shopping navigation -->
+<div class="row m-0 p-0 py-3 mini-navigation-container">
+    <div class="col-12 m-0 p-0 d-flex justify-content-center">
+        <a href="#status-form" data-toggle="collapse">
+            <button class="btn border mini-navigation-button ">
+                <img src="{{ MEDIA_URL }}icons/add_status_icon.png" class="small-icon"/>
+                <small>Create Post</small>
+            </button>
+        </a>
+    </div>
+</div>
 
-<form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="mb-3 collapse px-3 pt-0"
+<hr class="my-0">
+
+<form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="mb-3 collapse px-3 pt-2"
     id="status-form">
     {% csrf_token %}
     <label>Title</label>
@@ -22,16 +34,6 @@
     <div class="btn btn-success float-right" id="send-button-status">Post</div>
     <div id="error-container" class="mt-1"></div>
 </form>
-
-
-
-<div class="pl-4 d-flex justify-content-start align-items-center">
-    <a class="icon-button " href="#status-form" data-toggle="collapse">
-        <img src="{{ MEDIA_URL }}icons/add_status_icon.png" />
-    </a>
-    <p class="m-0 ml-2">Create a new post </p>
-
-</div>
 
 <hr class="status-divider">
 <div class="row m-0 p-0">

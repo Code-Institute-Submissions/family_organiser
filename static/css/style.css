@@ -137,15 +137,26 @@ nav {
 
 .page-container {
   min-height: 100vh;
-  max-width: 1200px;
+  max-width: 1100px;
   position: relative;
   margin-right: auto;
   margin-left: auto;
   display: block;
+  border-right: none;
+  border-left: none;
+  background-color: white;
+  overflow: hidden;
 }
 
 .nav-margin-space {
   height: 48px;
+}
+
+@media (min-width: 900px) {
+  .page-container {
+    border-right: solid 1px #c2c2c2;
+    border-left: solid 1px #c2c2c2;
+  }
 }
 
 .notification-container {
@@ -208,14 +219,14 @@ nav {
   width: 100%;
   position: absolute;
   top: 125px;
-  z-index: -5;
+  z-index: 0;
 }
 
 .profile-background-image-light {
   width: 100%;
   position: absolute;
   top: 155px;
-  z-index: -4;
+  z-index: 0;
 }
 
 .profile-bio-form-container {
@@ -768,6 +779,7 @@ html {
 body {
   width: 100vw;
   overflow-x: hidden;
+  background-color: #e7fae8;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -793,9 +805,9 @@ p, a, b, label {
   border: none;
 }
 
-.btn:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(121, 255, 168, 0.25);
-          box-shadow: 0 0 0 0.2rem rgba(121, 255, 168, 0.25);
+.btn:focus, .form-control:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);
 }
 
 .far {
