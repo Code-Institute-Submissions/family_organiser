@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from status.models import Status, CommentNotification, LikeNotification
 from shopping.models import Item, Category, PartnerRequest, Partner
-from .models import FriendRequests, Friend, UserProfile
+from .models import FriendRequests, Friend, UserProfile, AcceptedFriendRequests
 from django.db.models import Q
 
 def profile(request):
@@ -84,9 +84,13 @@ def profile(request):
             if item_is_not_a_copy:
                 all_items_no_duplicates.append(item)
 
+    # Find the users accepted friend requests 
+    accepted_friend_requests = AcceptedFriendRequests.objects.filter(from_user=request.user)
+
     context = {
         'friend_count': len(all_friends),
         'friend_requests': len(friend_requests),
+        'accepted_friend_requests': len(accepted_friend_requests),
         'partner_requests': len(partner_requests),
         'user_profile': user_profile,
         'news_feed': news_feed,
@@ -183,19 +187,23 @@ def notifications(request):
     # Reset the users notifications to zero
     user_profile = UserProfile.objects.get(user=request.user)
     user_profile.status_notification = 0
+    user_profile.accepted_friend_notification = 0
     user_profile.save()
 
     # get like and comment notifications and order them by date
     notifications = []
 
     comment_notifications = CommentNotification.objects.filter(user=request.user)
+    like_notifications = LikeNotification.objects.filter(user=request.user)
+    accepted_friend_requests = AcceptedFriendRequests.objects.filter(from_user=request.user)
 
     for notification in comment_notifications:
         notifications.append(notification)
 
-    like_notifications = LikeNotification.objects.filter(user=request.user)
-
     for notification in like_notifications:
+        notifications.append(notification)
+
+    for notification in accepted_friend_requests:
         notifications.append(notification)
    
     notifications = sorted(notifications, key = lambda x: x.created_date, reverse=True)
@@ -227,11 +235,19 @@ def update_friends(request, operation, pk, request_id):
     except:
         friend_request = None
 
-    
-    
     if operation == 'add':
         Friend.make_friend(request.user, new_friend)
         Friend.make_friend(new_friend, request.user)
+        accepted_friend = AcceptedFriendRequests(
+            from_user = new_friend,
+            to_user = request.user,
+        )
+        accepted_friend.save()
+
+        new_friend_user_profile = UserProfile.objects.get(user=new_friend)
+        new_friend_user_profile.accepted_friend_notification += 1
+        new_friend_user_profile.save()
+
     elif operation == 'remove':
         Friend.remove_friend(request.user, new_friend)
         Friend.remove_friend(new_friend, request.user)

@@ -17,12 +17,19 @@
 <div class="row m-0 p-0">
     <div class="col m-0 p-0 d-flex justify-content-between">
         <div class="notification-container h-100 d-flex justify-content-center align-items-center px-3">
-            <!-- <img src="https://img.icons8.com/carbon-copy/20/000000/chat-message.png" /> -->
             {% if friend_requests > 0 %}
             <div>
                 <a href="/user/notifications">
                     <img src="{{ MEDIA_URL }}icons/friend_request_icon.png" class="small-icon"/>
                     <p>{{ friend_requests }}</p>
+                </a>
+            </div>
+            {% endif %}
+            {% if user_profile.accepted_friend_notification > 0 %}
+            <div>
+                <a href="/user/notifications">
+                    <img src="{{ MEDIA_URL }}icons/friend_request_icon.png" class="small-icon"/>
+                    <p>{{ user_profile.accepted_friend_notification }}</p>
                 </a>
             </div>
             {% endif %}
@@ -42,12 +49,10 @@
                 </a>
             </div>
             {% endif %}
-            {% if friend_requests == 0 and user_profile.status_notification == 0 and partner_requests == 0 %}
+            {% if friend_requests == 0 and user_profile.status_notification == 0 and partner_requests == 0 and user_profile.accepted_friend_notification == 0 %}
             <b class="m-0 text-small">No notifications</b>
             {% endif %}
-            <!-- <img src="https://img.icons8.com/carbon-copy/20/000000/shopping-basket.png" /> -->
         </div>
-
     </div>
     <div class="col m-0 p-2">
         <p class="m-0 p-0 text-right">Profile</p>

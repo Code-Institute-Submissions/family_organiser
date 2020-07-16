@@ -88,12 +88,26 @@ Requests | Family Organiser
                 </div>
                 <hr>
             </div>
-        {% else %}
+        {% elif notification.commenter %}
             <!-- style the comment notification -->
             <div class="col-12 m-0 p-0">
                 <div class="row m-0 p-0">
                     <div class="col-12">
                         <p class="m-0"><b>{{ notification.commenter.first_name }} {{ notification.commenter.last_name }}</b> has commented on your post <b>"{{ notification.status.title }}"</b></p>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <p class="m-0 text-small">{{ notification.created_date }}</p>
+                        <p class="m-0">View</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        {% else %}
+            <!-- style the accepted friend request notification -->
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12">
+                        <p class="m-0"><b>{{ notification.to_user.first_name }} {{ notification.to_user.last_name }}</b> has accepted your friend request.</p>
                     </div>
                     <div class="col-12 d-flex justify-content-between">
                         <p class="m-0 text-small">{{ notification.created_date }}</p>
