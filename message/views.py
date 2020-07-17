@@ -5,9 +5,19 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def start_conversation(request):
+    """
+    Continue a coversation that has already been started.
+    """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
 
-    friends = Friend.objects.get(current_user=request.user)
-    friends_list = friends.users.all()
+
+    try:
+        friends = Friend.objects.get(current_user=request.user)
+        friends_list = friends.users.all()
+    except:
+        friends_list = []
 
     context = {
         'friends': friends_list,
@@ -20,6 +30,10 @@ def conversation(request, pk):
     Conversation page where users will see all their message between themself and the recipient,
     and be able to send new messages.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+        
 
     message_user = User.objects.get(pk=pk)
 

@@ -36,6 +36,11 @@
 
 <hr class="status-divider">
 <div class="row m-0 p-0">
+    {% if not news_feed %}
+    <div class="col-12">
+        <p>There are currently no posts! Be the first to create a post, or <a href="/user/find_users">Find Users</a></p>
+    </div>
+    {% endif %}
     {% for news in news_feed %}
     <div class="col-12 m-0 p-0">
         <div class="row m-0 p-0">

@@ -8,10 +8,17 @@ def news_feed(request):
     """
     Will show users all their friends posts
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
 
     # Find the current users friends
-    friends = Friend.objects.get(current_user=request.user)
-    all_friends = friends.users.all()
+    try:
+        friends = Friend.objects.get(current_user=request.user)
+        all_friends = friends.users.all()
+    except:
+        all_friends = []
 
     # Get all friends status and store them in an array
     news_feed = []
@@ -22,7 +29,10 @@ def news_feed(request):
             news_feed.append(post)
 
     # Get all the current users status
-    posts = Status.objects.filter(user=request.user)
+    try:
+        posts = Status.objects.filter(user=request.user)
+    except:
+        posts = []
 
     for post in posts:
         news_feed.append(post)
@@ -31,7 +41,10 @@ def news_feed(request):
     news_feed = sorted(news_feed, key = lambda x: x.created_date, reverse=True)
 
     # get users profile
-    user_profile = UserProfile.objects.get(user=request.user)
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+    except:
+        user_profile = []
 
     context = {
         'news_feed': news_feed,
@@ -44,6 +57,10 @@ def update_status(request, operation, pk):
     """
     Add the users status to the database
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
 
     # Add the status to the database, else remove the status from the database
     if operation == 'add':
@@ -67,6 +84,10 @@ def like_status(request, pk):
     """
     Add a like to the users status
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
 
     if request.is_ajax():
 
@@ -108,6 +129,10 @@ def add_comment(request, pk, redirect_user):
     """
     Add a comment to the select status and send a notification to the user.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     if request.is_ajax():
         # Get the status that has been commented on
         status = Status.objects.get(pk=pk)
@@ -148,6 +173,9 @@ def view_status(request, pk):
     """
     Take the user to a page that shows one status from their notificats or from the news feed.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
 
     status = Status.objects.get(pk=pk)
 

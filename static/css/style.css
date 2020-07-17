@@ -818,8 +818,16 @@ p, a, b, label {
   font-size: 14px;
 }
 
+.far:hover {
+  cursor: pointer;
+}
+
 .fas {
   font-size: 18px;
+}
+
+.fas:hover {
+  cursor: pointer;
 }
 
 .icon-button {

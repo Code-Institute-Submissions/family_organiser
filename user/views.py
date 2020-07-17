@@ -9,6 +9,10 @@ def profile(request):
     """
     Display the users profile
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     # Find friend or turn a empty list if none.
     try:
         friends = Friend.objects.get(current_user=request.user)
@@ -105,6 +109,10 @@ def find_users(request):
     """
     Search for other users and send a friend request
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     if request.method == 'GET':
         try:
             query = request.GET['q']
@@ -156,6 +164,10 @@ def create_friend_request(request, pk):
     """
     Takes the request from the user and saves the request to the database
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     requested_user = User.objects.get(pk=pk)
     
     try:
@@ -169,6 +181,10 @@ def family(request):
     """
     View the list of friends that the users has
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     friends = Friend.objects.get(current_user=request.user)
     all_friends = friends.users.all()
 
@@ -183,6 +199,10 @@ def notifications(request):
     """
     Shows the users sent friend requests for shopping and todo list
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
 
     # Reset the users notifications to zero
     user_profile = UserProfile.objects.get(user=request.user)
@@ -226,6 +246,10 @@ def update_friends(request, operation, pk, request_id):
     """
     Add or remove the chosen user from or too their friends list
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
 
     new_friend = User.objects.get(pk=pk)
 
@@ -259,6 +283,10 @@ def settings(request):
     """
     Edit account details
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     user_profile = UserProfile.objects.get(user=request.user)
 
     context = {
@@ -271,6 +299,10 @@ def change_profile_image(request):
     """
     Change and save the users new profile image
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     user_profile = UserProfile.objects.get(user=request.user)
 
     profile_image = request.FILES.get('profile_image')
@@ -283,6 +315,10 @@ def change_profile_details(request):
     """
     Change the profile details if changed by the user
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     user_profile = UserProfile.objects.get(user=request.user)
 
     # get the data from the form       
@@ -308,6 +344,10 @@ def view_user_profile(request, pk):
     Find the a users profile and display their basic 
     information or if current user redirect them to their profile page.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+        
     # Find friend or turn a empty list if none.
     find_user = User.objects.get(pk=pk)
 

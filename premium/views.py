@@ -9,12 +9,20 @@ def premium_info(request):
     """
     View the benefits of purchasing a premium account.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     return render(request, 'premium/premium_info.html')
 
 def make_payment(request):
     """
     The form for processing the payment and sending the form to stripe.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     user_profile = UserProfile.objects.get(user=request.user)
 
     if user_profile.premium:
@@ -47,6 +55,8 @@ def make_payment(request):
     return render(request, 'premium/make_payment.html' ,context)
 
 def payment_successful(request):
-
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
 
     return render(request, 'premium/payment_successful.html')

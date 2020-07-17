@@ -53,10 +53,16 @@ p,a,b,label {
 // icons
 .far {
     font-size: 14px;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .fas {
     font-size: 18px;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .icon-button {

@@ -13,6 +13,10 @@ def shopping_page(request):
     """
     Display the shopping list and the forms to add/remove items.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     # Get the current users shopping partners
     try:
         shopping_partners = Partner.objects.get(current_user=request.user)
@@ -98,6 +102,10 @@ def quick_item(request, item, category):
     """
     Add or remove an item from the database returning json
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     item_name = item.capitalize()
     quantity = 1
     category_selected = Category.objects.get(category=category, user=request.user)
@@ -224,6 +232,10 @@ def update_category(request, operation, pk):
     """
     Add or remove category from the database.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     if request.method == 'POST':
         if operation == 'add':
             try: 
@@ -246,6 +258,10 @@ def insight(request, filter):
     """
     Display instight page with graphs and table of the users favorite items and shopping habbits.
     """ 
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     user_profile = UserProfile.objects.get(user=request.user)
     if user_profile.premium:
 
@@ -258,8 +274,11 @@ def insight(request, filter):
             all_purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
         if filter == 'group':
             # Get users shopping partners
-            partners = Partner.objects.get(current_user=request.user)
-            partners = partners.partners.all()
+            try:
+                partners = Partner.objects.get(current_user=request.user)
+                partners = partners.partners.all()
+            except:
+                partners = []
 
             # Append the current users and their shopping partners favorite into a list
             favorites = []
@@ -425,6 +444,10 @@ def add_partner(request):
     """
     Search and add shopping partners to the users shopping list.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     user_profile = UserProfile.objects.get(user=request.user)
     # if the user has a premium account return the shopping partners page or return premium information.
     if user_profile.premium:
@@ -479,6 +502,10 @@ def create_request(request, pk):
     """
     Create or remove a request to a user to join their shopping list.
     """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
     requested_user = User.objects.get(pk=pk)
     
     try:
@@ -520,6 +547,12 @@ def update_partners(request, operation, pk, request_id):
         return redirect('premium_info')
 
 def edit_item_quantity(request, operation, pk):
+    """
+    Add, remove, increment or decrement an item from the database, also save a copy to the purchased items and favorites.
+    """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
 
     if operation == 'decrement':
         try:
@@ -697,6 +730,14 @@ def edit_item_quantity(request, operation, pk):
     return JsonResponse({'items': all_items_no_duplicates, 'categories_used': categories_used, })
 
 def edit_purchased_item(request, operation, pk):
+    """
+    Allows the user to remove items from their purchased items list and also remove the copy
+    from their favorites
+    """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+        
 
     if operation == 'remove':
         remove_item = PurchasedItems.objects.get(pk=pk)

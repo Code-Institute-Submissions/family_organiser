@@ -4,8 +4,8 @@
 
 <div class="row m-0 p-0">
     <div class="col-8 m-0 p-3">
-        
-        
+
+
     </div>
     <div class="col-4 m-0 p-2">
         <p class="m-0 p-0 text-right">Shopping - List</p>
@@ -17,7 +17,7 @@
     <div class="col-4 m-0 p-0 d-flex justify-content-center">
         <a href="/shopping/shopping_page">
             <button class="btn border mini-navigation-button mini-navigation-active">
-                <img src="{{ MEDIA_URL }}icons/list_icon.png" class="small-icon"/>
+                <img src="{{ MEDIA_URL }}icons/list_icon.png" class="small-icon" />
                 <small>List</small>
             </button>
         </a>
@@ -25,7 +25,7 @@
     <div class="col-4 m-0 p-0 d-flex justify-content-center">
         <a href="/shopping/add_partner">
             <button class="btn border mini-navigation-button">
-                <img src="{{ MEDIA_URL }}icons/family_icon.png" class="small-icon"/>
+                <img src="{{ MEDIA_URL }}icons/family_icon.png" class="small-icon" />
                 <small>Partners</small>
             </button>
         </a>
@@ -33,7 +33,7 @@
     <div class="col-4 m-0 p-0 d-flex justify-content-center">
         <a href="/shopping/insight/personal" class="mr-2">
             <button class="btn border mini-navigation-button">
-                <img src="{{ MEDIA_URL }}icons/graph_icon.png" class="small-icon"/>
+                <img src="{{ MEDIA_URL }}icons/graph_icon.png" class="small-icon" />
                 <small>Insight</small>
             </button>
         </a>
@@ -43,87 +43,89 @@
 <!-- Add section -->
 <!-- adding an item -->
 <hr class="mt-0">
+
 <div class="row m-0 p-0">
-    <div class="col-12 m-0">
+    <div class="col-12 col-md-6 col-lg-4 m-0 ">
         <h6 class="m-0 d-flex align-items-center justify-content-between">Add New Item<i
                 class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
                 href="#item-form-container"></i>
         </h6>
-    </div>
-</div>
-<hr>
-<div id="item-form-container" class="collapse">
-    <form action="/shopping/edit_item_quantity/add/0" method="POST" class="px-3 pt-0 pb-1" id="item-form">
-        {% csrf_token %}
-        <label>Item</label>
-        <input type="text" name="item" class="form-control" id="form-item" required>
-        <label>Quantity</label>
-        <input type="number" name="quantity" class="form-control" id="form-quantity" value="1" required>
-        <label>Category</label>
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0">
-                <select name="category" class="form-control" id="form-category" required>
-                    {% for category in categories %}
-                    <option value="{{ category.category }}">{{ category.category }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+        <hr>
+        <div id="item-form-container" class="collapse">
+            <form action="/shopping/edit_item_quantity/add/0" method="POST" class="px-3 pt-0 pb-1" id="item-form">
+                {% csrf_token %}
+                <label>Item</label>
+                <input type="text" name="item" class="form-control" id="form-item" required>
+                <label>Quantity</label>
+                <input type="number" name="quantity" class="form-control" id="form-quantity" value="1" required>
+                <label>Category</label>
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+                        <select name="category" class="form-control" id="form-category" required>
+                            {% for category in categories %}
+                            <option value="{{ category.category }}">{{ category.category }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div id="error-container" class="mt-1"></div>
+                <button class="btn btn-success container-fluid mt-3 mb-2">Add To List</button>
+            </form>
+            <hr>
         </div>
-        <div id="error-container" class="mt-1"></div>
-        <button class="btn btn-success container-fluid mt-3 mb-2">Add To List</button>
-    </form>
-    <hr>
-</div>
-<!-- adding a category -->
-<div class="row m-0 p-0">
-    <div class="col-12 m-0">
+    </div>
+    <!-- adding a category -->
+
+    <div class="col-12 col-md-6 col-lg-4 m-0">
         <h6 class="m-0 d-flex align-items-center justify-content-between">Add New Category<i
                 class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
                 href="#category-form-container"></i></h6>
-    </div>
-</div>
-<hr>
-<div id="category-form-container" class="collapse">
-    <form action="update_category/add/0" method="POST">
-        {% csrf_token %}
-        <div class="row m-0 p-0">
-            <div class="col-12">
-                <label>Category</label>
-                <input type="text" name="category" class="form-control" id="form-quantity">
-                <button class="btn btn-success container-fluid mt-3 mb-2">Add Category</button>
-            </div>
-        </div>
-    </form>
-    <hr>
-</div>
 
-<!-- editing categories -->
-<div class="row m-0 p-0">
-    <div class="col-12 m-0">
+
+        <hr>
+        <div id="category-form-container" class="collapse">
+            <form action="update_category/add/0" method="POST">
+                {% csrf_token %}
+                <div class="row m-0 p-0">
+                    <div class="col-12">
+                        <label>Category</label>
+                        <input type="text" name="category" class="form-control" id="form-quantity">
+                        <button class="btn btn-success container-fluid mt-3 mb-2">Add Category</button>
+                    </div>
+                </div>
+            </form>
+            <hr>
+        </div>
+    </div>
+
+    <!-- editing categories -->
+
+    <div class="col-12 col-md-6 col-lg-4 m-0">
         <h6 class="m-0 d-flex align-items-center justify-content-between ">Edit Categories<i
                 class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
                 href="#category-edit-container"></i>
         </h6>
-    </div>
-</div>
-<hr class="mb-2">
-<div id="category-edit-container" class="collapse">
-    <div class="row m-0 p-0">
-        {% for category in categories %}
-        <div class="col-12 d-flex justify-content-between mt-3">
-            <p class="m-0">{{category.category}}</p>
-            <form method="POST" action="update_category/remove/{{ category.id }}">
-                {% csrf_token %}
-                <button class="icon-button mr-3">
-                    <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                </button>
-            </form>
-        </div>
-        {% endfor %}
-    </div>
-    <hr>
-</div>
 
+
+        <hr class="mb-2">
+        <div id="category-edit-container" class="collapse">
+            <div class="row m-0 p-0">
+                {% for category in categories %}
+                <div class="col-12 d-flex justify-content-between mt-3">
+                    <p class="m-0">{{category.category}}</p>
+                    <form method="POST" action="update_category/remove/{{ category.id }}">
+                        {% csrf_token %}
+                        <button class="icon-button mr-3">
+                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+                        </button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
 <!-- list section -->
 <!-- quick add -->
 <div class="shopping-item-container">
@@ -152,16 +154,13 @@
 {% endif %}
 <hr>
 <div class="shopping-table-container">
-    {% for category in categories_used %}
-    <div class="row m-0 p-0">
-        <div class="col-12 m-0">
+    <div class="row m-0 p-0 justify-content-center">
+        {% for category in categories_used %}
+        {% csrf_token %}
+
+        <div class="col-12 col-md-6 col-lg-4 m-0 p-0 px-2">
             <h6 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}</h6>
-        </div>
-    </div>
-    <hr>
-    {% csrf_token %}
-    <div class="row m-0 p-0">
-        <div class="col-12 m-0 p-0 px-2">
+            <hr>
             <table class="container-fluid shopping-table">
                 <tr>
                     <th>Item</th>
@@ -204,12 +203,12 @@
                 {% endif %}
                 {% endfor %}
             </table>
-        </div>
-        <div class="col-12 m-0 p-0">
             <hr>
         </div>
+
+
+        {% endfor %}
     </div>
-    {% endfor %}
     <div class="row m-0 p-0 my-3 mb-4 collapse edit-item">
         <div class="col-12 m-0 p-0 px-2">
             <button class="btn btn-danger container-fluid">Delete All</button>
@@ -243,7 +242,7 @@
 
                 if (sendForm) {
                     sendForm = false
-                    setTimeout(function() {
+                    setTimeout(function () {
                         sendForm = true;
                     }, 500)
                     var formId = this.id

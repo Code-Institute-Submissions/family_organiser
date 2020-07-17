@@ -121,3 +121,5 @@ This web application is designed to keep users in touch with their family and al
 [Scroll To Top - Jquery](https://stackoverflow.com/questions/19012495/smooth-scroll-to-div-id-jquery)
 
 [Comprehensions - Python](https://www.youtube.com/watch?v=3dt4OGnU5sM)
+
+[If user is anonymous](https://stackoverflow.com/questions/4642596/how-do-i-check-whether-this-user-is-anonymous-or-actually-a-user-on-my-system/4642607)
