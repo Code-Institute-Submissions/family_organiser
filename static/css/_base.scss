@@ -1,6 +1,7 @@
 .page-container {
     min-height: 100vh;
     max-width: 1100px;
+    height: 100%;
     position: relative;
     margin-right: auto;
     margin-left: auto;
@@ -8,7 +9,6 @@
     border-right: none;
     border-left: none;
     background-color: white;
-    overflow-x: hidden;
 }
 
 .nav-margin-space {
