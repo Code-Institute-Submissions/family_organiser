@@ -400,3 +400,10 @@ def view_user_profile(request, pk):
     }
 
     return render(request, 'user/view_user_profile.html', context)
+
+def delete_account(request):
+
+    current_user = User.objects.get(username=request.user.username)
+    current_user.delete()
+
+    return redirect('home')
