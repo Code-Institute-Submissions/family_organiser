@@ -67,15 +67,33 @@ def select_conversation(request):
     if request.user.is_anonymous:
         return redirect('home')
 
+    conversations_from = Message.objects.filter(sent_from=request.user)
+    conversations_to = Message.objects.filter(sent_to=request.user)
+    current_conversations_with_users = []
 
-    try:
-        friends = Friend.objects.get(current_user=request.user)
-        friends_list = friends.users.all()
-    except:
-        friends_list = []
+    for conversation in conversations_from:
+        print(conversation, conversation.sent_from)
+        current_conversations_with_users.append(conversation.sent_to)
+
+    for conversation in conversations_to:
+        print(conversation, conversation.sent_from)
+        current_conversations_with_users.append(conversation.sent_from)
+
+    current_conversations = []
+
+    for index, conversation in enumerate(current_conversations_with_users):
+        if index == 0:
+            current_conversations.append(conversation)
+        else:
+            new_conversation = True
+            for list_item in current_conversations:
+                if list_item == conversation:
+                    new_conversation = False
+            if new_conversation:
+                current_conversations.append(conversation)
 
     context = {
-        'friends': friends_list,
+        'conversations': current_conversations,
     }
 
     return render(request, 'message/select_conversation.html', context)
