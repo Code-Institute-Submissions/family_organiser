@@ -88,7 +88,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-                            <a class="dropdown-item" href="{% url 'start_conversation' %}">Messages</a>
+                            <a class="dropdown-item" href="{% url 'select_conversation' %}">Messages</a>
                             <a class="dropdown-item" href="{% url 'notifications' %}">Notifications</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'find_users' %}">Find Friends</a>
@@ -154,7 +154,7 @@
                     </a>
                 </li>
                 <li class="navigation-item">
-                    <a href="/message/start_conversation">
+                    <a href="/message/select_conversation">
                         <img src="{{ MEDIA_URL }}icons/message_icon.png" class="mr-2" />Messages
                     </a>
                 </li>
