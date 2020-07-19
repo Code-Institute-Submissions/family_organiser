@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account socialaccount %}
+{% providers_media_js %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
@@ -25,7 +26,7 @@
   <div class="socialaccount_ballot">
     <div class="container-fluid d-flex justify-content-center">
       <a title="Google" class="socialaccount_provider google-button text-secondary mr-2"
-        href="/accounts/google/login/?process=login">
+        href="{% provider_login_url "google" %}">
         <img src="https://img.icons8.com/color/30/000000/google-logo.png" />
         <b>Sign In
           with Google</b>

@@ -104,7 +104,7 @@ Requests | Family Organiser
         {% else %}
             <!-- style the accepted friend request notification -->
             <div class="col-12 m-0 p-0">
-                <div class="row m-0 p-0">
+                <a class="row m-0 p-0 text-dark" href="/user/view_user_profile/{{notification.to_user.id}}">
                     <div class="col-12">
                         <p class="m-0"><b>{{ notification.to_user.first_name }} {{ notification.to_user.last_name }}</b> has accepted your friend request.</p>
                     </div>
@@ -112,7 +112,7 @@ Requests | Family Organiser
                         <p class="m-0 text-small">{{ notification.created_date }}</p>
                         <p class="m-0">View</p>
                     </div>
-                </div>
+                </a>
                 <hr>
             </div>
         {% endif %}
