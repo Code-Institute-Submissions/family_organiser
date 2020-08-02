@@ -430,6 +430,10 @@ nav {
   bottom: 11px;
 }
 
+.dropdown-toggle::after {
+  content: none !important;
+}
+
 .settings-table {
   border: solid grey 1px;
 }

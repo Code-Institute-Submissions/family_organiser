@@ -246,6 +246,12 @@
     }
 }
 
+// edit status
+
+.dropdown-toggle::after {
+    content: none !important;
+}
+
 //  settings
 
 .settings-table {

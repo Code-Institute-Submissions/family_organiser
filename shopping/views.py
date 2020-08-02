@@ -353,6 +353,7 @@ def insight(request, filter):
             monthly_report_dates.append(format_date.strftime('%B'))
 
         monthly_report_dates = list(dict.fromkeys(monthly_report_dates))
+        print(monthly_report_dates)
         monthly_report_data = []
         
         # find the name of each item used and sort in in used_items
@@ -368,10 +369,10 @@ def insight(request, filter):
         # Start the search from when the user created an account
         search_month = str(user_profile.start_date)[0:7]
 
-        # (bug if user doesn't submit a item for a few months with won't work.)
-        # (bug jan 2020 and jan 2021 will add up the quantity for jan.) (Maybe fixed can't tell until last bug)
+        # (bug if user doesn't submit a item for a few months it won't work.)
+        # (bug jan 2020 and jan 2021 will add up the quantity for jan.) (Maybe fixed can't tell until last bug is fixed)
         # For each items used, search all items each month between the users start date and now.
-        # Storing the amount of the same items found each month in an item_quantity_in_months
+        # Storing the amount of the same items found each month in item_quantity_in_months
         for item in used_items:
             item_quantity_in_months = []
             for month in range(len(monthly_report_dates)):

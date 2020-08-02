@@ -151,10 +151,22 @@
                     {% else %}
                     <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
                     {% endif %}
-                    <h6>{{ news.user.first_name }} {{ news.user.last_name }} <a class="icon-button  float-right mr-4"
-                            href="/status/update_status/remove/{{news.id}}">
-                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                        </a></h6>
+                    <h6>{{ news.user.first_name }} {{ news.user.last_name }} 
+                        <div class="dropdown">
+                            <a class="icon-button float-right mr-4 dropdown-toggle" type="button"
+                            id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                                <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                <h6 class="text-center">Are you sure?</h6>
+                                <a class="dropdown-item" href="/status/update_status/remove/{{news.id}}">Remove Status</a>
+                              </div>
+                        </div>
+                       
+                    
+                    
+                    </h6>
+                      
                     <h6 class="text-secondary">{{ news.title }}</h6>
 
                 </div>
@@ -244,6 +256,7 @@
 <button id="send-button" class="closed send-button">
     <img src="{{ MEDIA_URL }}icons/send_icon.png" />
 </button>
+
 
 
 {% endblock %}
