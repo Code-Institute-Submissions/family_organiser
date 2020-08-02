@@ -12,25 +12,38 @@ Settings | Family Organiser
         <p class="m-0 p-0 text-right">Settings</p>
     </div>
 </div>
-<hr>
 
-<div class="row m-0 p-0 px-1">
-    <div class="col-4 m-0 p-0 px-2">
-        <label>First Name</label>
-        <p>{{user.first_name}}</p>
-    </div>
-    <div class="col-4 m-0 p-0 px-2">
-        <label>Last Name</label>
-        <p>{{user.last_name}}</p>
-    </div>
-    <div class="col-4 m-0 p-0 px-2 mt-1">
-        <label>Username</label>
-        <p>{{user.username}}</p>
-    </div>
-</div>
+
 <hr class="mt-1">
 <div class="row m-0 p-0 px-1">
-    <div class="col-12 px-2 mb-1" id="image-form-container">
+    <div class="col-12 col-lg-6">
+        <table class="container-fluid settings-table">
+            <tr>
+                <th>First Name</th>
+                <td class="text-right">{{ user.first_name }}</td>
+                
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td class="text-right">{{ user.last_name }}</td>
+            
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td class="text-right">{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td class="text-right">{{ user.email }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-12 d-block d-lg-none m-0 p-0">
+        <hr>
+    </div>
+    <div class="col-12 col-lg-6 px-2 mb-1" id="image-form-container">
+       
         <form action="/user/change_image/" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <label class="d-block">Profile Image</label>

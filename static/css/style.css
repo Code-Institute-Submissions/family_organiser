@@ -430,6 +430,22 @@ nav {
   bottom: 11px;
 }
 
+.settings-table {
+  border: solid grey 1px;
+}
+
+.settings-table tr {
+  border: solid grey 1px;
+}
+
+.settings-table tg {
+  padding: 4px;
+}
+
+.settings-table td {
+  padding: 4px;
+}
+
 @media (min-width: 321px) {
   .profile-background-image {
     top: 120px;

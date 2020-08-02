@@ -246,6 +246,25 @@
     }
 }
 
+//  settings
+
+.settings-table {
+    border: solid grey 1px;
+    tr {
+        border: solid grey 1px;
+    }
+    tg {
+        padding: 4px;
+    }
+    td {
+        padding: 4px;
+    }
+}
+
+
+
+// media quires
+
 @media (min-width: 321px) {
     .profile-background-image {
         top: 120px;
