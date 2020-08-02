@@ -141,6 +141,9 @@
     <h5 class="ml-3">Status</h5>
     <hr class="status-divider">
     <div class="row m-0 p-0">
+        {% if not news_feed %}
+        <p class="ml-3">You haven't created any status yet</p>
+        {% endif %}
         {% for news in news_feed %}
         <div class="col-12 m-0 p-0">
             <div class="row m-0 p-0">

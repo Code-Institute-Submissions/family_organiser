@@ -2,7 +2,8 @@
 {% load static %}
 {% block content %}
 
-<h3 class="p-3">Make Payment</h3>
+<h3 class="p-3 text-center">Make Payment</h3>
+    <p class="text-center">This will be a one time payment of £1.99</p>
 
     <div class="p-3">
         <form id="payment-form" method="POST" action="{% url 'make_payment' %}">
@@ -10,7 +11,7 @@
             <div class="mb-3" id="card-element"></div>
 
             <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
-            <button class="btn btn-success">Make Payment</button>
+            <button class="btn btn-success container mt-3">Make Payment</button>
         </form>
     </div>
 
