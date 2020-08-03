@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from status.models import Status, CommentNotification, LikeNotification
 from shopping.models import Item, Category, PartnerRequest, Partner
 from .models import FriendRequests, Friend, UserProfile, AcceptedFriendRequests
+from message.models import MessageNotification
 from django.db.models import Q
 
 def profile(request):
@@ -91,11 +92,19 @@ def profile(request):
     # Find the users accepted friend requests 
     accepted_friend_requests = AcceptedFriendRequests.objects.filter(from_user=request.user)
 
+    # Get users message notifications
+    try:
+        message_notification_data = MessageNotification.objects.filter(user=request.user)
+        message_notification = len(message_notification_data)
+    except:
+        message_notification = 0
+
     context = {
         'friend_count': len(all_friends),
         'friend_requests': len(friend_requests),
         'accepted_friend_requests': len(accepted_friend_requests),
         'partner_requests': len(partner_requests),
+        'message_notification': message_notification,
         'user_profile': user_profile,
         'news_feed': news_feed,
         'item_categories': item_categories,

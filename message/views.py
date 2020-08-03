@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from user.models import Friend
-from .models import Message
+from .models import Message, MessageNotification
 from django.contrib.auth.models import User
 from user.models import UserProfile
 from django.db.models import Q
@@ -106,7 +106,6 @@ def conversation(request, pk):
     # If user isn't logged in return to the home page.
     if request.user.is_anonymous:
         return redirect('home')
-        
 
     message_user = User.objects.get(pk=pk)
 
@@ -119,6 +118,13 @@ def conversation(request, pk):
             sent_to = message_user,
         )
         new_message.save()
+
+        message_notification = MessageNotification(
+            user = message_user,
+            sent_from = request.user,
+            notifications = 1,
+        )
+        message_notification.save()
 
     messages_from_recipient = Message.objects.filter(sent_from=message_user, sent_to=request.user)
     message_from_current_user = Message.objects.filter(sent_to=message_user, sent_from=request.user)

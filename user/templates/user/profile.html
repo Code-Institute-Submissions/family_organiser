@@ -17,6 +17,7 @@
 <div class="row m-0 p-0">
     <div class="col m-0 p-0 d-flex justify-content-between">
         <div class="notification-container h-100 d-flex justify-content-center align-items-center px-3">
+            <!-- friend request notification -->
             {% if friend_requests > 0 %}
             <div>
                 <a href="/user/notifications">
@@ -25,6 +26,7 @@
                 </a>
             </div>
             {% endif %}
+             <!-- friend request accepted notification -->
             {% if user_profile.accepted_friend_notification > 0 %}
             <div>
                 <a href="/user/notifications">
@@ -33,6 +35,7 @@
                 </a>
             </div>
             {% endif %}
+             <!-- shopping partner request notification -->
             {% if partner_requests > 0 %}
             <div>
                 <a href="/user/notifications">
@@ -41,6 +44,7 @@
                 </a>
             </div>
             {% endif %}
+             <!-- status notification -->
             {% if user_profile.status_notification > 0 %}
             <div class="ml-2">
                 <a href="/user/notifications">
@@ -49,7 +53,16 @@
                 </a>
             </div>
             {% endif %}
-            {% if friend_requests == 0 and user_profile.status_notification == 0 and partner_requests == 0 and user_profile.accepted_friend_notification == 0 %}
+             <!-- message notification -->
+            {% if message_notification > 0 %}
+            <div class="ml-2">
+                <a href="/message/select_conversation/">
+                    <img src="{{ MEDIA_URL }}icons/message_icon.png" class="small-icon"/>
+                    <p>{{ message_notification }}</p>
+                </a>
+            </div>
+            {% endif %}
+            {% if friend_requests == 0 and user_profile.status_notification == 0 and partner_requests == 0 and user_profile.accepted_friend_notification == 0 and message_notification == 0 %}
             <b class="m-0 text-small">No notifications</b>
             {% endif %}
         </div>
@@ -90,21 +103,21 @@
             <img src="{{ MEDIA_URL }}icons/status_icon.png" />
             <label>Status</label>
         </a>
-        <a href="#">
-            <img src="{{ MEDIA_URL }}icons/photo_icon.png" />
-            <label>Photo</label>
-        </a>
         <a id="add-item-form" class="add-form">
             <img src="{{ MEDIA_URL }}icons/item_icon.png" />
             <label>Item</label>
         </a>
         <a href="#">
-            <img src="{{ MEDIA_URL }}icons/dinner_icon.png" />
-            <label>Dinner</label>
+            <img src="{{ MEDIA_URL }}icons/schedule_icon.png" />
+            <label>Event</label>
         </a>
         <a href="#">
             <img src="{{ MEDIA_URL }}icons/to_do_icon.png" />
             <label>To Do</label>
+        </a>
+        <a href="#">
+            <img src="{{ MEDIA_URL }}icons/photo_icon.png" />
+            <label>Photo</label>
         </a>
     </div>
 </div>

@@ -18,4 +18,4 @@ class MessageNotification(models.Model):
     notifications = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.user
+        return self.user.username
