@@ -92,8 +92,13 @@ def select_conversation(request):
             if new_conversation:
                 current_conversations.append(conversation)
 
+    new_message_conversation = MessageNotification.objects.filter(user=request.user)
+
+
+
     context = {
         'conversations': current_conversations,
+        'new_message_conversation': new_message_conversation,
     }
 
     return render(request, 'message/select_conversation.html', context)
@@ -108,6 +113,10 @@ def conversation(request, pk):
         return redirect('home')
 
     message_user = User.objects.get(pk=pk)
+
+    notifications_from_recipient = MessageNotification.objects.filter(sent_from=pk)
+    for notifications in notifications_from_recipient:
+        notifications.delete()
 
     if request.method == 'POST':
         users_message = request.POST.get('message')

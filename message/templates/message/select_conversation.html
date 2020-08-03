@@ -28,6 +28,46 @@
 
 <hr class="mt-0">
 
+{% if new_message_conversation %}
+<h6 class="ml-3">Unread Messages</h6>
+<hr>
+{% endif %}
+
+{% for aUser in new_message_conversation %}
+<div class="col-12 m-0 p-0">
+    <div class="row m-0 p-0">
+        <div class="col-3 m-0 p-0 pl-3">
+            <a href="/user/view_user_profile/{{aUser.sent_from.id}}">
+                {% if aUser.sent_from.user_profile.profile_image %}
+                <img src="{{ MEDIA_URL }}{{aUser.sent_from.user_profile.profile_image}}" class="user-image">
+                {% else %}
+                <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
+                {% endif %}
+            </a>
+        </div>
+        <div class="col-5 m-0 p-0">
+            <a href="/user/view_user_profile/{{aUser.sent_from.id}}">
+                <h5 class="text-dark">{{ aUser.sent_from.first_name }}{% if aUser.username == user.username %} <span
+                        class="text-secondary">(You!)</span>{% endif %}</h5>
+                <h5 class="text-dark">{{ aUser.sent_from.last_name }}</h5>
+            </a>
+        </div>
+        <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+            <div>
+                <a class="icon-button d-block mx-auto" href="/message/conversation/{{aUser.sent_from.id}}">
+                    <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon"/>
+                </a>
+                <small>Message</small>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+{% endfor %}
+
+<h6 class="ml-3">Conversations</h6>
+<hr>
+
 {% for aUser in conversations %}
 
 <div class="col-12 m-0 p-0">
@@ -59,6 +99,7 @@
     </div>
     <hr>
 </div>
+
 {% endfor %}
 
 {% endblock %}
