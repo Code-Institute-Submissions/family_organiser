@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from status.models import Status, CommentNotification, LikeNotification
 from shopping.models import Item, Category, PartnerRequest, Partner
 from .models import FriendRequests, Friend, UserProfile, AcceptedFriendRequests
-from message.models import MessageNotification
+from message.models import MessageNotification, Message
 from django.db.models import Q
 
 def profile(request):
@@ -284,6 +284,14 @@ def update_friends(request, operation, pk, request_id):
     elif operation == 'remove':
         Friend.remove_friend(request.user, new_friend)
         Friend.remove_friend(new_friend, request.user)
+
+        old_friends_messages = Message.objects.filter(sent_from=new_friend)
+        for message in old_friends_messages:
+            message.delete()
+        old_friends_messages = Message.objects.filter(sent_to=new_friend)
+        for message in old_friends_messages:
+            message.delete()
+
         
         
     return redirect('profile')

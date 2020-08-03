@@ -14,19 +14,30 @@ Family | Family Organiser
 <hr>
 <div class="row m-0 p-0">
     {% for member in friends %}
-        <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0" >
+            <div class="row m-0 p-0" >
                 <div class="col-3 m-0 p-0 pl-3">
-                    <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
+                    <a href="/user/view_user_profile/{{member.id}}">
+                        <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
+                    </a>
                 </div>
                 <div class="col-6 m-0 p-0">
+                    <a href="/user/view_user_profile/{{member.id}}" class="text-dark">
                     <h5>{{ member.first_name }}</h5>
                     <h5>{{ member.last_name }}</h5>
+                </a>
                 </div>
                 <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-                    <a class="icon-button" href="/user/update_friends/remove/{{member.id}}/0">
-                        <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                    </a>
+                    <div class="dropdown">
+                        <a class="icon-button float-right dropdown-toggle" type="button"
+                        id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-120,20">
+                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                            <h6 class="text-center">Are you sure?</h6>
+                            <a class="dropdown-item" href="/user/update_friends/remove/4/0">Remove Friend</a>
+                          </div>
+                    </div>
                 </div>
             </div>
             <hr>
