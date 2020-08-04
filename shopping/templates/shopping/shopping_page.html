@@ -142,9 +142,16 @@
                     <p class="m-0">{{category.category}}</p>
                     <form method="POST" action="update_category/remove/{{ category.id }}">
                         {% csrf_token %}
-                        <button class="icon-button mr-3">
-                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                        </button>
+                        <div class="dropdown">
+                            <a class="icon-button float-right mr-2 dropdown-toggle" type="button"
+                            id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-120,10">
+                                <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                <h6 class="text-center">Are you sure?</h6>
+                                <button class="dropdown-item font-weight-light">Remove Category</button>
+                              </div>
+                        </div>
                     </form>
                 </div>
                 {% endfor %}
