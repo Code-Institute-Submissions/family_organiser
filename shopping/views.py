@@ -40,6 +40,9 @@ def shopping_page(request):
 
     categories = Category.objects.filter(user=request.user)
 
+    if len(categories) == 0:
+        return redirect('shopping_intro')
+
     
     # Find the categories being used and append to categories_used
     categories_used = []
@@ -755,3 +758,7 @@ def edit_purchased_item(request, operation, pk):
 
 
     return redirect('insight')
+
+def shopping_intro(request):
+
+    return render(request, 'shopping/shopping_intro.html')

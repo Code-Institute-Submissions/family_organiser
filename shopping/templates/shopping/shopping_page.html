@@ -80,8 +80,6 @@
         <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Add New Category<i
                 class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
                 href="#category-form-container"></i></h6>
-
-
         <hr>
         <div id="category-form-container" class="collapse">
             <form action="update_category/add/0" method="POST">
@@ -94,9 +92,38 @@
                     </div>
                 </div>
             </form>
-            <hr>
+            <p class="text-right mr-3 mt-2" type="button" data-toggle="modal" data-target="#staticBackdrop">Category Examples</p>
+            <hr class="mt-3">
         </div>
     </div>
+    <!-- Example categories modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Category Examples</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li>Fruit</li>
+                <li>Vegetable</li>
+                <li>Cupboard</li>
+                <li>Fridge</li>
+                <li>Cleaning</li>
+                <li>Bathroom</li>
+                <li>Junk Food</li>
+                <li>Alcoholic</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Okay</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- editing categories -->
 

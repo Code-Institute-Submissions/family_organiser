@@ -94,6 +94,7 @@
     padding-right: 30px;
     overflow: auto;
     white-space: nowrap;
+    position: relative;
     a {
         cursor: pointer;
         display: inline-block;
@@ -116,6 +117,19 @@
             display: block;
             text-align: center;
             color: white;
+        }
+        .coming-soon {
+            position: absolute;
+            font-weight: 700;
+            color: rgb(153, 24, 24);
+            border: solid 2px rgb(153, 24, 24);
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 5px;
+            transform: rotate(-45deg) translate(-28px, 0);
+            padding: 0px 5px;
+            top: 15px;
+            margin: 0;
+            font-size: 0.8em !important;
         }
     }
 }

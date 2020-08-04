@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row m-0 p-0">
+    <div class="col-12 m-0 p-2">
+        <p class="m-0 p-0 text-right">Shopping - Introduction</p>
+    </div>
+</div>
+
+<!-- Shopping navigation -->
+<div class="row m-0 p-0 py-3 mini-navigation-container">
+    <div class="col-4 m-0 p-0 d-flex justify-content-center">
+        <a href="/shopping/shopping_page">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/list_icon.png" class="small-icon" />
+                <small>List</small>
+            </button>
+        </a>
+    </div>
+    <div class="col-4 m-0 p-0 d-flex justify-content-center">
+        <a href="/shopping/add_partner">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/family_icon.png" class="small-icon" />
+                <small>Partners</small>
+            </button>
+        </a>
+    </div>
+    <div class="col-4 m-0 p-0 d-flex justify-content-center">
+        <a href="/shopping/insight/personal" class="mr-2">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/graph_icon.png" class="small-icon" />
+                <small>Insight</small>
+            </button>
+        </a>
+    </div>
+</div>
+
+<!-- Add section -->
+<hr class="mt-0">
+
+<div class="row m-0 p-0">
+    <!-- adding a category -->
+    <div class="col-12 col-md-6 col-lg-4 m-0 p-0">
+        <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Add New Category</h6>
+        <hr>
+        <div id="category-form-container">
+            <form action="update_category/add/0" method="POST">
+                {% csrf_token %}
+                <div class="row m-0 p-0">
+                    <div class="col-12">
+                        <label>Category</label>
+                        <input type="text" name="category" class="form-control" id="form-quantity">
+                        <button class="btn btn-success container-fluid mt-3 mb-2">Add Category</button>
+                    </div>
+                </div>
+            </form>
+            <hr>
+        </div>
+    </div>
+</div>
+<!-- list section -->
+<p class="mb-1 ml-3">Example categories:</p>
+<ul>
+    <li>Fruit</li>
+    <li>Vegetable</li>
+    <li>Cupboard</li>
+    <li>Fridge</li>
+    <li>Cleaning</li>
+    <li>Bathroom</li>
+    <li>Junk Food</li>
+    <li>Alcoholic</li>
+</ul>
+
+
+{% endblock %}
+
+{% block extra_css %}
+<script src="https://kit.fontawesome.com/d4ed0579d0.js" crossorigin="anonymous"></script>
+{% endblock %}
