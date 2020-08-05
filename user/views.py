@@ -109,6 +109,7 @@ def profile(request):
         'news_feed': news_feed,
         'item_categories': item_categories,
         'items': all_items_no_duplicates,
+        'bio_length': len(user_profile.bio)
     }
 
     return render(request, 'user/profile.html', context)
