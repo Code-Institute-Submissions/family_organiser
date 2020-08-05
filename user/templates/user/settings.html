@@ -69,8 +69,8 @@ Settings | Family Organiser
         </div>
         <div class="col-12 m-0 p-0 px-2 mt-1">
             <label>Bio</label>
-            <input class="form-control" value="{{user_profile.bio}}" name="bio"></input>
-            <p class="m-1">Characters Remains: 50</p>
+            <input class="form-control" value="{{user_profile.bio}}" name="bio" id="users-bio" maxlength=150 onkeydown="bioCount()" required></input>
+            <p class="m-1">Characters Remains: <span id="remaining-letters"></span></p>
         </div>
     </div>
     <div class="container-fluid d-flex justify-content-end p-0">
@@ -87,5 +87,6 @@ Settings | Family Organiser
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/settings.js' %}"></script>
+<script src="{% static 'js/settings_page.js' %}"></script>
+
 {% endblock %}
