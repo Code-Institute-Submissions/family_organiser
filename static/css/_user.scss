@@ -272,12 +272,16 @@
     border: solid grey 1px;
     tr {
         border: solid grey 1px;
+        &:nth-child(even) {
+            background-color: rgba(0,0,0,0.025);
+        }
     }
-    tg {
-        padding: 4px;
+    th {
+        padding: 6px;
+        border-right: solid grey 1px;
     }
     td {
-        padding: 4px;
+        padding: 6px;
     }
 }
 

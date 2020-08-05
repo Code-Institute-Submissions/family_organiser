@@ -42,7 +42,6 @@ def shopping_page(request):
 
     if len(categories) == 0:
         return redirect('shopping_intro')
-
     
     # Find the categories being used and append to categories_used
     categories_used = []
@@ -322,7 +321,7 @@ def insight(request, filter):
                 for item in partners_purchased_items:
                     purchased_items.append(item)
 
-            all_purchased_items = purchased_items
+            all_purchased_items = sorted(purchased_items, key = lambda x: x.created_date, reverse=True)
 
         # top five chart data
         all_favorites = favorites

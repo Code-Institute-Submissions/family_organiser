@@ -60,6 +60,10 @@ This web application is designed to keep users in touch with their family and al
 
 - On reload the page will resend the users message again.
 
+### Status
+
+- When a user is removed their status are removed but not comments on their status. Same when removing a status the comment stay in the database.
+
 ## Features to add
 
 ### Shopping page

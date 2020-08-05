@@ -458,12 +458,17 @@ nav {
   border: solid grey 1px;
 }
 
-.settings-table tg {
-  padding: 4px;
+.settings-table tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.settings-table th {
+  padding: 6px;
+  border-right: solid grey 1px;
 }
 
 .settings-table td {
-  padding: 4px;
+  padding: 6px;
 }
 
 @media (min-width: 321px) {
