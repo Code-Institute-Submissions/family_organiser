@@ -46,6 +46,7 @@ Find Users | Family Organiser
                 {% if not aUser.username == user.username %}
                     {% if not aUser.username in friends %}
                         {% if not aUser.username in friend_request_sent %}
+                        <!-- Send a friend request -->
                         <div>
                             <a class="icon-button d-block mx-auto" href="/user/create_request/{{aUser.id}}">
                                 <img src="{{ MEDIA_URL }}icons/add_user_icon.png" />
@@ -54,6 +55,7 @@ Find Users | Family Organiser
                         </div>
                            
                         {% else %}
+                        <!-- friend request pending -->
                         <div>
                             <div class="icon-button d-block mx-auto">
                                 <img src="{{ MEDIA_URL }}icons/timer_icon.png" />
@@ -63,13 +65,7 @@ Find Users | Family Organiser
                             
                         {% endif %}
                     {% else %}
-                    <div>
-                        <a class="icon-button d-block mx-auto" href="/user/update_friends/remove/{{aUser.id}}/0">
-                            <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                        </a>
-                        <small>Already Friends</small>
-                    </div>
-                      
+                        <!-- if users are already friends -->
                     {% endif %}
                 {% endif %}
             </div>
