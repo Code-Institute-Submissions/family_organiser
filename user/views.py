@@ -36,7 +36,7 @@ def profile(request):
             user = request.user,
             age = 18,
             profile_image = '',
-            bio = "Click add on your profile image to finish set up!",
+            bio = "Click add on your profile image to add a personalised image and bio!",
             premium = False,
         )
         user_profile.save()
@@ -198,8 +198,22 @@ def family(request):
     friends = Friend.objects.get(current_user=request.user)
     all_friends = friends.users.all()
 
+    all_friends_dict = []
+
+    for friend in all_friends:
+        user_profile = UserProfile.objects.get(pk=friend.id)
+
+        friend_dict = {
+            'first_name': friend.first_name,
+            'last_name': friend.last_name,
+            'id': friend.id,
+            'profile_image': user_profile.profile_image,
+        }
+
+        all_friends_dict.append(friend_dict)
+
     context = {
-        'friends': all_friends,
+        'friends': all_friends_dict,
     }
 
 

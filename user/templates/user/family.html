@@ -18,7 +18,12 @@ Family | Family Organiser
             <div class="row m-0 p-0" >
                 <div class="col-3 m-0 p-0 pl-3">
                     <a href="/user/view_user_profile/{{member.id}}">
+                        {% if member.profile_image %}
+                        <img src="{{ MEDIA_URL }}{{member.profile_image}}" class="user-image">
+                        {% else %}
                         <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
+                        {% endif %}
+                      
                     </a>
                 </div>
                 <div class="col-6 m-0 p-0">

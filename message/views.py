@@ -92,12 +92,22 @@ def select_conversation(request):
             if new_conversation:
                 current_conversations.append(conversation)
 
+    current_conversation_dicts = []
+
+    for conversation in current_conversations:
+        user_profile = UserProfile.objects.get(pk=conversation.id)
+        conversation_dict = {
+            'first_name': conversation.first_name,
+            'last_name': conversation.last_name,
+            'id': conversation.id,
+            'profile_image': user_profile.profile_image,
+        }
+        current_conversation_dicts.append(conversation_dict)
+
     new_message_conversation = MessageNotification.objects.filter(user=request.user)
 
-
-
     context = {
-        'conversations': current_conversations,
+        'conversations': current_conversation_dicts,
         'new_message_conversation': new_message_conversation,
     }
 
