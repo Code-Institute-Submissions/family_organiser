@@ -4,57 +4,21 @@ from .models import Message, MessageNotification
 from django.contrib.auth.models import User
 from user.models import UserProfile
 from django.db.models import Q
+from .functions.functions import *
 
 # Create your views here.
 def new_conversation(request):
-
+    """
+    Search the database for users and start new conversations.
+    """
     if request.method == 'GET':
+        searched_users = get_searched_users(request)
 
-        try:
-
-            query = request.GET['q']
-            queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query) | Q(username__startswith=query.capitalize()) | Q(first_name__startswith=query.capitalize()) | Q(last_name__startswith=query.capitalize())
-            users_friends = Friend.objects.get(current_user=request.user)
-            all_users = users_friends.users.filter(queries)
-
-            searched_users = []
-            for one_user in all_users:
-                user_profile = UserProfile.objects.get(user=one_user)
-
-                user_dict = {
-                    'first_name': one_user.first_name,
-                    'last_name': one_user.last_name,
-                    'username': one_user.username,
-                    'id': one_user.id,
-                    'user_profile': {
-                        'profile_image': user_profile.profile_image,
-                    }
-                }
-                searched_users.append(user_dict)
-        except:
-            searched_users = []
-        
-    try:
-        friends = Friend.objects.get(current_user=request.user)
-        all_friends_query_set = friends.users.all()
-        all_friends = []
-        for friend in all_friends_query_set:
-            all_friends.append(friend.username)
-    except:
-        all_friends = []
-
-    try:
-        friend_requests = FriendRequests.objects.filter(from_user=request.user)
-        friend_request_sent = []
-        for friend_request in friend_requests:
-            friend_request_sent.append(friend_request.to_user.username)
-    except:
-        friend_request_sent = []
+    all_friends = get_all_friends(request)
 
     context = {
         'searched_users': searched_users,
         'friends': all_friends,
-        'friend_request_sent': friend_request_sent,
     }
 
     return render(request, 'message/new_conversation.html', context)
@@ -67,43 +31,7 @@ def select_conversation(request):
     if request.user.is_anonymous:
         return redirect('home')
 
-    conversations_from = Message.objects.filter(sent_from=request.user)
-    conversations_to = Message.objects.filter(sent_to=request.user)
-    current_conversations_with_users = []
-
-    for conversation in conversations_from:
-        print(conversation, conversation.sent_from)
-        current_conversations_with_users.append(conversation.sent_to)
-
-    for conversation in conversations_to:
-        print(conversation, conversation.sent_from)
-        current_conversations_with_users.append(conversation.sent_from)
-
-    current_conversations = []
-
-    for index, conversation in enumerate(current_conversations_with_users):
-        if index == 0:
-            current_conversations.append(conversation)
-        else:
-            new_conversation = True
-            for list_item in current_conversations:
-                if list_item == conversation:
-                    new_conversation = False
-            if new_conversation:
-                current_conversations.append(conversation)
-
-    current_conversation_dicts = []
-
-    for conversation in current_conversations:
-        user_profile = UserProfile.objects.get(pk=conversation.id)
-        conversation_dict = {
-            'first_name': conversation.first_name,
-            'last_name': conversation.last_name,
-            'id': conversation.id,
-            'profile_image': user_profile.profile_image,
-        }
-        current_conversation_dicts.append(conversation_dict)
-
+    current_conversation_dicts = get_current_conversation_dict(request)
     new_message_conversation = MessageNotification.objects.filter(user=request.user)
 
     context = {
@@ -115,7 +43,7 @@ def select_conversation(request):
 
 def conversation(request, pk):
     """
-    Conversation page where users will see all their message between themself and the recipient,
+    Display conversation page where users will see all their message between themself and the recipient,
     and be able to send new messages.
     """
     # If user isn't logged in return to the home page.
@@ -144,19 +72,8 @@ def conversation(request, pk):
             notifications = 1,
         )
         message_notification.save()
-
-    messages_from_recipient = Message.objects.filter(sent_from=message_user, sent_to=request.user)
-    message_from_current_user = Message.objects.filter(sent_to=message_user, sent_from=request.user)
     
-    conversation_messages = []
-
-    for message in messages_from_recipient:
-        conversation_messages.append(message)
-
-    for message in message_from_current_user:
-        conversation_messages.append(message)
-
-    conversation_messages = sorted(conversation_messages, key = lambda x: x.created_date)
+    conversation_messages = get_conversation_messages(request, message_user)
 
     context = {
         'message_user': message_user,
