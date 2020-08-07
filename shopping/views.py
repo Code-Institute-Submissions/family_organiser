@@ -7,6 +7,7 @@ from .models import Category, Item, PurchasedItems, Favorite, Partner, PartnerRe
 from user.models import UserProfile, Friend
 from random import randint
 import datetime
+from .functions.functions import *
 
 # Create your views here.
 def shopping_page(request):
@@ -17,82 +18,19 @@ def shopping_page(request):
     if request.user.is_anonymous:
         return redirect('home')
 
-    # Get the current users shopping partners
-    try:
-        shopping_partners = Partner.objects.get(current_user=request.user)
-        shopping_partners_list = shopping_partners.partners.all()
-    except:
-        shopping_partners = []
-        shopping_partners_list = []
-
-    # Get all the current users items
-    items = Item.objects.filter(user=request.user).order_by('item')
-
-    all_items = [item for item in items]
-
-    # Add all the users items and their shopping partners items into all_items
-
-    for shopping_partner in shopping_partners_list:
-        if not shopping_partner == request.user:
-            partners_shopping_list = Item.objects.filter(user=shopping_partner)
-            for item in partners_shopping_list:
-                all_items.append(item)
-
     categories = Category.objects.filter(user=request.user)
 
     if len(categories) == 0:
         return redirect('shopping_intro')
-    
-    # Find the categories being used and append to categories_used
-    categories_used = []
 
-    for item_index, item in enumerate(all_items):
-        if item_index == 0:
-            categories_used.append(item.category)
-        else:
-            add_category = True
-
-            for list_item in categories_used:
-                if list_item.category == item.category.category:
-                    add_category = False
-            
-            if add_category:
-                categories_used.append(item.category)
-
-    # Add the quantity of any duplicate items
-    all_items_no_duplicates = []
-
-    for loop_index, item in enumerate(all_items):
-        item_dict = {
-            'item': item.item,
-            'quantity': item.quantity,
-            'category': item.category,
-            'id': item.id,
-            'user': {
-                'username': item.user.first_name
-                }
-        }
-
-        if loop_index == 0:
-            all_items_no_duplicates.append(item_dict)
-        else:
-            item_is_not_a_copy = True
-            for list_item in all_items_no_duplicates:
-                if list_item['item'] == item.item:
-                    item_is_not_a_copy = False
-                    list_item['quantity'] += item.quantity
-                    list_item['user']['username'] += ' / ' + item.user.first_name
-            if item_is_not_a_copy:
-                all_items_no_duplicates.append(item_dict)
-
-    # Get all users favorite items and order them by quantity
+    shopping_partners = get_shopping_partners(request)
+    categories_used = find_categories_used(request)
+    all_items_no_duplicates = add_items_quantity_not_duplicates(request)
     favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
-
-    # Sort items alphabetically
-    all_items_no_duplicates = sorted(all_items_no_duplicates, key = lambda x: x['item'], reverse=True)
+    all_items_no_duplicates_sorted = sorted(all_items_no_duplicates, key = lambda x: x['item'], reverse=True)
 
     context = {
-        'items': all_items_no_duplicates,
+        'items': all_items_no_duplicates_sorted,
         'categories': categories,
         'categories_used': categories_used,
         'favorites': favorites,

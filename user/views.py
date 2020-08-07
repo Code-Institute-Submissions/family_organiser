@@ -5,7 +5,7 @@ from shopping.models import Item, Category, PartnerRequest, Partner
 from .models import FriendRequests, Friend, UserProfile, AcceptedFriendRequests
 from message.models import MessageNotification, Message
 from django.db.models import Q
-from .functions.functions import get_partner_requests, find_friends, get_users_profile, get_message_notifications, get_all_shopping_items, get_all_notifications, search_users
+from .functions.functions import *
 
 def profile(request):
     """
