@@ -5,99 +5,25 @@ from shopping.models import Item, Category, PartnerRequest, Partner
 from .models import FriendRequests, Friend, UserProfile, AcceptedFriendRequests
 from message.models import MessageNotification, Message
 from django.db.models import Q
+from .functions.functions import get_partner_requests, find_friends, get_users_profile, get_message_notifications, get_all_shopping_items, get_all_notifications, search_users
 
 def profile(request):
     """
-    Display the users profile
+    Display the users profile, status, shopping items and notifications.
     """
     # If user isn't logged in return to the home page.
     if request.user.is_anonymous:
         return redirect('home')
 
-    # Find friend or turn a empty list if none.
-    try:
-        friends = Friend.objects.get(current_user=request.user)
-        all_friends = friends.users.all()
-    except:
-        all_friends = []
-
+    all_friends = find_friends(request)
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
-
-    try:
-        partner_requests = PartnerRequest.objects.filter(to_user=request.user)
-    except:
-        partner_requests = []
-
-    # Find user profile or create a friend list and user profile if new user.
-    try:
-        user_profile = UserProfile.objects.get(user=request.user)
-    except:
-        user_profile = UserProfile(
-            user = request.user,
-            age = 18,
-            profile_image = '',
-            bio = "Click add on your profile image to add a personalised image and bio!",
-            premium = False,
-        )
-        user_profile.save()
-
-        friends_list = Friend(
-            current_user = request.user,
-        )
-        friends_list.save()
-
-    # find all status created by the current user
+    partner_requests = get_partner_requests(request)
+    user_profile = get_users_profile(request, request.user.id)
     news_feed = Status.objects.filter(user=request.user).order_by('created_date').reverse()
-
-    # item categories
     item_categories = Category.objects.filter(user=request.user)
-
-    # Get the current users shopping partners
-    try:
-        shopping_partners = Partner.objects.get(current_user=request.user)
-        shopping_partners_list = shopping_partners.partners.all()
-    except:
-        shopping_partners = []
-        shopping_partners_list = []
-
-    # Get all the current users items
-    items = Item.objects.filter(user=request.user).order_by('item')
-
-    all_items = [item for item in items]
-
-    # Add all the users items and their shopping partners items into all_items
-
-    for shopping_partner in shopping_partners_list:
-        if not shopping_partner == request.user:
-            partners_shopping_list = Item.objects.filter(user=shopping_partner)
-            for item in partners_shopping_list:
-                all_items.append(item)
-
-    # Add the quantity of any duplicate items
-    all_items_no_duplicates = []
-
-    for loop_index, item in enumerate(all_items):
-        if loop_index == 0:
-            all_items_no_duplicates.append(item)
-        else:
-            item_is_not_a_copy = True
-            for list_item in all_items_no_duplicates:
-                if list_item.item == item.item:
-                    item_is_not_a_copy = False
-                    list_item.quantity += item.quantity
-
-            if item_is_not_a_copy:
-                all_items_no_duplicates.append(item)
-
-    # Find the users accepted friend requests 
+    all_items = get_all_shopping_items(request)
     accepted_friend_requests = AcceptedFriendRequests.objects.filter(from_user=request.user)
-
-    # Get users message notifications
-    try:
-        message_notification_data = MessageNotification.objects.filter(user=request.user)
-        message_notification = len(message_notification_data)
-    except:
-        message_notification = 0
+    message_notification = get_message_notifications(request)
 
     context = {
         'friend_count': len(all_friends),
@@ -108,7 +34,7 @@ def profile(request):
         'user_profile': user_profile,
         'news_feed': news_feed,
         'item_categories': item_categories,
-        'items': all_items_no_duplicates,
+        'items': all_items,
         'bio_length': len(user_profile.bio)
     }
 
@@ -124,26 +50,7 @@ def find_users(request):
         return redirect('home')
 
     if request.method == 'GET':
-        try:
-            query = request.GET['q']
-            queries = Q(username__startswith=query) | Q(first_name__startswith=query) | Q(last_name__startswith=query) | Q(username__startswith=query.capitalize()) | Q(first_name__startswith=query.capitalize()) | Q(last_name__startswith=query.capitalize())
-            all_users = User.objects.filter(queries)
-            searched_users = []
-            for one_user in all_users:
-                user_profile = UserProfile.objects.get(user=one_user)
-
-                user_dict = {
-                    'first_name': one_user.first_name,
-                    'last_name': one_user.last_name,
-                    'username': one_user.username,
-                    'id': one_user.id,
-                    'user_profile': {
-                        'profile_image': user_profile.profile_image,
-                    }
-                }
-                searched_users.append(user_dict)
-        except:
-            searched_users = []
+        searched_users = search_users(request)
 
     try:
         friends = Friend.objects.get(current_user=request.user)
@@ -196,7 +103,7 @@ def family(request):
         return redirect('home')
 
     friends = Friend.objects.get(current_user=request.user)
-    all_friends = friends.users.all()
+    all_friends = find_friends(request)
 
     all_friends_dict = []
 
@@ -216,7 +123,6 @@ def family(request):
         'friends': all_friends_dict,
     }
 
-
     return render(request, 'user/family.html', context)
 
 def notifications(request):
@@ -227,7 +133,6 @@ def notifications(request):
     if request.user.is_anonymous:
         return redirect('home')
 
-
     # Reset the users notifications to zero
     user_profile = UserProfile.objects.get(user=request.user)
     user_profile.status_notification = 0
@@ -235,28 +140,13 @@ def notifications(request):
     user_profile.save()
 
     # get like and comment notifications and order them by date
-    notifications = []
-
-    comment_notifications = CommentNotification.objects.filter(user=request.user)
-    like_notifications = LikeNotification.objects.filter(user=request.user)
-    accepted_friend_requests = AcceptedFriendRequests.objects.filter(from_user=request.user)
-
-    for notification in comment_notifications:
-        notifications.append(notification)
-
-    for notification in like_notifications:
-        notifications.append(notification)
-
-    for notification in accepted_friend_requests:
-        notifications.append(notification)
-   
-    notifications = sorted(notifications, key = lambda x: x.created_date, reverse=True)
+    notifications = get_all_notifications(request)
 
     # Find friend requests
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
 
     # find partner requests
-    partner_requests = PartnerRequest.objects.filter(to_user=request.user)
+    partner_requests = get_partner_requests(request)
 
     context = {
         'friend_requests': friend_requests,
@@ -306,8 +196,6 @@ def update_friends(request, operation, pk, request_id):
         old_friends_messages = Message.objects.filter(sent_to=new_friend)
         for message in old_friends_messages:
             message.delete()
-
-        
         
     return redirect('profile')
 
@@ -319,7 +207,7 @@ def settings(request):
     if request.user.is_anonymous:
         return redirect('home')
 
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile = get_users_profile(request, request.user.id)
 
     context = {
         'user_profile': user_profile,
@@ -335,7 +223,7 @@ def change_profile_image(request):
     if request.user.is_anonymous:
         return redirect('home')
 
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile = get_users_profile(request, request.user.id)
 
     profile_image = request.FILES.get('profile_image')
     user_profile.profile_image = profile_image
@@ -351,7 +239,7 @@ def change_profile_details(request):
     if request.user.is_anonymous:
         return redirect('home')
 
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile = get_users_profile(request, request.user.id)
 
     # get the data from the form       
     first_name = request.POST.get('first_name')
@@ -392,83 +280,17 @@ def view_user_profile(request, pk):
     except:
         all_friends = []
 
-    friend_requests = FriendRequests.objects.filter(to_user=find_user)
-
-    try:
-        partner_requests = PartnerRequest.objects.filter(to_user=find_user)
-    except:
-        partner_requests = []
-
     # Find user profile or create a friend list and user profile if new user.
-    try:
-        user_profile = UserProfile.objects.get(user=find_user)
-    except:
-        user_profile = UserProfile(
-            user = find_user,
-            age = 18,
-            profile_image = '',
-            bio = "Click add on your profile image to finish set up!",
-            premium = False,
-        )
-        user_profile.save()
-
-        friends_list = Friend(
-            current_user = find_user,
-        )
-        friends_list.save()
+    user_profile = get_users_profile(request, find_user.id)
 
     # find all status created by the current user
     news_feed = Status.objects.filter(user=find_user).order_by('created_date').reverse()
 
-    # item categories
-    item_categories = Category.objects.filter(user=find_user)
-
-    # Get the current users shopping partners
-    try:
-        shopping_partners = Partner.objects.get(current_user=find_user)
-        shopping_partners_list = shopping_partners.partners.all()
-    except:
-        shopping_partners = []
-        shopping_partners_list = []
-
-    # Get all the current users items
-    items = Item.objects.filter(user=find_user).order_by('item')
-
-    all_items = [item for item in items]
-
-    # Add all the users items and their shopping partners items into all_items
-
-    for shopping_partner in shopping_partners_list:
-        if not shopping_partner == find_user:
-            partners_shopping_list = Item.objects.filter(user=shopping_partner)
-            for item in partners_shopping_list:
-                all_items.append(item)
-
-    # Add the quantity of any duplicate items
-    all_items_no_duplicates = []
-
-    for loop_index, item in enumerate(all_items):
-        if loop_index == 0:
-            all_items_no_duplicates.append(item)
-        else:
-            item_is_not_a_copy = True
-            for list_item in all_items_no_duplicates:
-                if list_item.item == item.item:
-                    item_is_not_a_copy = False
-                    list_item.quantity += item.quantity
-
-            if item_is_not_a_copy:
-                all_items_no_duplicates.append(item)
-
     context = {
         'find_user': find_user,
         'friend_count': len(all_friends),
-        'friend_requests': len(friend_requests),
-        'partner_requests': len(partner_requests),
         'user_profile': user_profile,
         'news_feed': news_feed,
-        'item_categories': item_categories,
-        'items': all_items_no_duplicates,
     }
 
     return render(request, 'user/view_user_profile.html', context)
