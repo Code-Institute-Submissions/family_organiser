@@ -163,8 +163,7 @@ def update_friends(request, operation, pk, request_id):
     # If user isn't logged in return to the home page.
     if request.user.is_anonymous:
         return redirect('home')
-
-
+        
     new_friend = User.objects.get(pk=pk)
 
     try:
@@ -239,23 +238,7 @@ def change_profile_details(request):
     if request.user.is_anonymous:
         return redirect('home')
 
-    user_profile = get_users_profile(request, request.user.id)
-
-    # get the data from the form       
-    first_name = request.POST.get('first_name')
-    last_name = request.POST.get('last_name')
-    username = request.POST.get('username')
-    age = request.POST.get('age')
-    bio = request.POST.get('bio')
-    # update the users information
-    
-    user_profile.first_name = first_name
-    user_profile.last_name = last_name
-    user_profile.username = username
-    user_profile.age = age
-    user_profile.bio = bio
-
-    user_profile.save()
+    update_profile_details(request)
 
     return redirect('profile')
 
@@ -279,9 +262,6 @@ def view_user_profile(request, pk):
         all_friends = friends.users.all()
     except:
         all_friends = []
-
-    # Find user profile or create a friend list and user profile if new user.
-    user_profile = get_users_profile(request, find_user.id)
 
     # find all status created by the current user
     news_feed = Status.objects.filter(user=find_user).order_by('created_date').reverse()

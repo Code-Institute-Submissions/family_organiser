@@ -92,78 +92,11 @@ def quick_item(request, item, category):
         )
         favorite_item.save()
 
-     # Get the current users shopping partners of return an empty array
-    try:
-        shopping_partners = Partner.objects.get(current_user=request.user)
-        shopping_partners_list = shopping_partners.partners.all()
-    except:
-        shopping_partners = []
-        shopping_partners_list = []
-
-    # Get all the current users items
-    items = Item.objects.filter(user=request.user).order_by('item')
-
-    all_items = [item for item in items]
-
-    # Add all the users items and their shopping partners items into all_items
-
-    for shopping_partner in shopping_partners_list:
-        if not shopping_partner == request.user:
-            partners_shopping_list = Item.objects.filter(user=shopping_partner)
-            for item in partners_shopping_list:
-                all_items.append(item)
-
+    shopping_partners_list = get_shopping_partners(request)
+    all_items = all_shopping_items(request)
     categories = Category.objects.filter(user=request.user)
-
-    # Find the categories being used and append to categories_used
-    categories_used = []
-
-    for item_index, item in enumerate(all_items):
-        category_dict = {
-            'category': item.category.category,
-        }
-        if item_index == 0:
-            categories_used.append(category_dict)
-        else:
-            add_category = True
-
-            for list_item in categories_used:
- 
-                if list_item['category'] == item.category.category:
-                    add_category = False
-            
-            if add_category:
-                categories_used.append(category_dict)
-
-    # Add the quantity of any duplicate items
-    all_items_no_duplicates = []
-
-    for loop_index, item in enumerate(all_items):
-        item_dict = {
-            'item': item.item,
-            'quantity': item.quantity,
-            'category': {
-                'category': item.category.category
-                },
-            'id': item.id,
-            'user': {
-                'username': item.user.first_name
-                },
-        }
-
-        if loop_index == 0:
-            all_items_no_duplicates.append(item_dict)
-        else:
-            item_is_not_a_copy = True
-            for list_item in all_items_no_duplicates:
-                if list_item['item'] == item.item:
-                    item_is_not_a_copy = False
-                    list_item['quantity'] += item.quantity
-                    list_item['user']['username'] += ' / ' + item.user.first_name
-            if item_is_not_a_copy:
-                all_items_no_duplicates.append(item_dict)
-
-    # Sort items alphabetically
+    categories_used = find_categories_used_dict(request)
+    all_items_no_duplicates = add_items_quantity_not_duplicates(request)
     all_items_no_duplicates = sorted(all_items_no_duplicates, key = lambda x: x['item'], reverse=True)
 
     return JsonResponse({'items': all_items_no_duplicates, 'categories_used': categories_used, })
@@ -203,6 +136,7 @@ def insight(request, filter):
         return redirect('home')
 
     user_profile = UserProfile.objects.get(user=request.user)
+
     if user_profile.premium:
 
         if filter == 'personal':
@@ -214,22 +148,10 @@ def insight(request, filter):
             all_purchased_items = PurchasedItems.objects.filter(user=request.user).order_by('-created_date')
         if filter == 'group':
             # Get users shopping partners
-            try:
-                partners = Partner.objects.get(current_user=request.user)
-                partners = partners.partners.all()
-            except:
-                partners = []
+            partners = get_shopping_partners(request)
 
             # Append the current users and their shopping partners favorite into a list
-            favorites = []
-            current_users_favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
-            for favorite in current_users_favorites:
-                favorites.append(favorite)
-
-            for partner in partners:
-                partners_favorites = Favorite.objects.filter(user=partner).order_by('-quantity')
-                for favorite in partners_favorites:
-                    favorites.append(favorite)
+            favorites = get_favorites_from_user_and_partners(request)
 
             favorites_list = favorites
             favorites = []
@@ -638,32 +560,7 @@ def edit_item_quantity(request, operation, pk):
                 categories_used.append(category_dict)
 
     # Add the quantity of any duplicate items
-    all_items_no_duplicates = []
-
-    for loop_index, item in enumerate(all_items):
-        item_dict = {
-            'item': item.item,
-            'quantity': item.quantity,
-            'category': {
-                'category': item.category.category
-                },
-            'id': item.id,
-            'user': {
-                'username': item.user.first_name
-                },
-        }
-
-        if loop_index == 0:
-            all_items_no_duplicates.append(item_dict)
-        else:
-            item_is_not_a_copy = True
-            for list_item in all_items_no_duplicates:
-                if list_item['item'] == item.item:
-                    item_is_not_a_copy = False
-                    list_item['quantity'] += item.quantity
-                    list_item['user']['username'] += ' / ' + item.user.first_name
-            if item_is_not_a_copy:
-                all_items_no_duplicates.append(item_dict)
+    all_items_no_duplicates = add_items_quantity_not_duplicates(request)
 
     # Sort items alphabetically
     all_items_no_duplicates = sorted(all_items_no_duplicates, key = lambda x: x['item'], reverse=True)
@@ -678,23 +575,11 @@ def edit_purchased_item(request, operation, pk):
     # If user isn't logged in return to the home page.
     if request.user.is_anonymous:
         return redirect('home')
-        
 
     if operation == 'remove':
-        remove_item = PurchasedItems.objects.get(pk=pk)
+        remove_purchased_item(request, pk)
 
-        remove_item_favs = Favorite.objects.get(user=request.user, item=remove_item.item)
-
-        if remove_item_favs.quantity == remove_item.quantity:
-            remove_item_favs.delete()
-            remove_item.delete()
-        else:
-            remove_item_favs.quantity -= remove_item.quantity
-            remove_item_favs.save()
-            remove_item.delete()
-
-
-    return redirect('insight')
+    return redirect('insight', 'personal')
 
 def shopping_intro(request):
 

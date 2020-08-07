@@ -203,7 +203,7 @@
                     <th class="text-right collapse edit-item">Remove</th>
                 </tr>
                 {% for item in items %}
-                {% if item.category.category == category.category %}
+                {% if item.category == category.category %}
                 <tr>
                     <td>{{ item.item }}</td>
                     <td class="d-flex justify-content-between p-2">
@@ -335,7 +335,7 @@
                                         </td>
                                     </tr>
                                 `
-                                        var itemCategory = data.items[j]['category']['category']
+                                        var itemCategory = data.items[j]['category']
                                         var tableCategory = data.categories_used[i]['category']
                                         console.log('condition')
                                         console.log(itemCategory, tableCategory)

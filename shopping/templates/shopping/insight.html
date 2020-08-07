@@ -96,7 +96,7 @@
                                 <td class="text-right text-small"><small>{{ item.created_date | truncatechars:11 }}</small></td>
                                 <td class="text-right edit-item collapse">
                                     <div class="container-fluid d-flex justify-content-end p-0">
-                                        <form method="POST" action="edit_purchased_item/remove/{{item.id}}">
+                                        <form method="POST" action="/shopping/edit_purchased_item/remove/{{item.id}}">
                                             {% csrf_token %}
                                             <button class="icon-button">
                                                 <img src="{{MEDIA_URL}}icons/delete_icon.png">

@@ -1,4 +1,4 @@
-from shopping.models import Partner, Item
+from shopping.models import Partner, Item, PurchasedItems, Favorite
 
 def all_shopping_items(request):
     """
@@ -42,7 +42,7 @@ def add_items_quantity_not_duplicates(request):
         item_dict = {
             'item': item.item,
             'quantity': item.quantity,
-            'category': item.category,
+            'category': item.category.category,
             'id': item.id,
             'user': {
                 'username': item.user.first_name
@@ -83,3 +83,57 @@ def find_categories_used(request):
                 categories_used.append(item.category)
 
     return categories_used
+
+def find_categories_used_dict(request):
+    """
+    Search all items and find the categories that have been used and sort them in an array of dictionaries.
+    """
+    categories_used = []
+
+    for item_index, item in enumerate(all_shopping_items(request)):
+        category_dict = {
+            'category': item.category.category,
+        }
+        if item_index == 0:
+            categories_used.append(category_dict)
+        else:
+            add_category = True
+
+            for list_item in categories_used:
+ 
+                if list_item['category'] == item.category.category:
+                    add_category = False
+            
+            if add_category:
+                categories_used.append(category_dict)
+
+    return categories_used
+
+def remove_purchased_item(request, pk):
+    remove_item = PurchasedItems.objects.get(pk=pk)
+    remove_item_favs = Favorite.objects.get(user=request.user, item=remove_item.item)
+
+    if remove_item_favs.quantity == remove_item.quantity:
+        remove_item_favs.delete()
+        remove_item.delete()
+    else:
+        remove_item_favs.quantity -= remove_item.quantity
+        remove_item_favs.save()
+        remove_item.delete()
+
+    return None
+
+
+def get_favorites_from_user_and_partners(request):
+    favorites = []
+
+    current_users_favorites = Favorite.objects.filter(user=request.user).order_by('-quantity')
+    for favorite in current_users_favorites:
+        favorites.append(favorite)
+
+    for partner in get_shopping_partners(request):
+        partners_favorites = Favorite.objects.filter(user=partner).order_by('-quantity')
+        for favorite in partners_favorites:
+            favorites.append(favorite)
+
+    return favorites

@@ -152,3 +152,24 @@ def search_users(request):
         searched_users = []
 
     return searched_users
+
+
+def update_profile_details(request):
+    user_profile = get_users_profile(request, request.user.id)
+
+    # get the data from the form       
+    first_name = request.POST.get('first_name')
+    last_name = request.POST.get('last_name')
+    username = request.POST.get('username')
+    age = request.POST.get('age')
+    bio = request.POST.get('bio')
+    # update the users information
+    user_profile.first_name = first_name
+    user_profile.last_name = last_name
+    user_profile.username = username
+    user_profile.age = age
+    user_profile.bio = bio
+
+    user_profile.save()
+
+    return None
