@@ -36,13 +36,28 @@ class Favorite(models.Model):
     quantity = models.IntegerField(default=1)
     category = models.ForeignKey(Category, related_name="favorite_item_category", on_delete=models.CASCADE)
 
+    @classmethod
+    def add_or_update_favourite(cls, item_name, category, request):
+        try:
+            favorite = Favorite.objects.get(item=item_name, user=request.user)
+            favorite.quantity += 1
+            favorite.save()
+        except:
+            favorite_item = Favorite(
+                user = request.user,
+                item = item_name,
+                quantity = 1,
+                category = category, 
+            )
+            favorite_item.save()
+
     def __str__(self):
         return self.item
 
 class PartnerRequest(models.Model):
     from_user = models.ForeignKey(User, related_name="partner_fromuser", null=True, on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-
+ 
     def __str__(self):
         return self.from_user.username
 

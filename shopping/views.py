@@ -444,18 +444,7 @@ def edit_item_quantity(request, operation, pk):
             )
         purchase_item.save()
 
-        try:
-            favorite = Favorite.objects.get(item=edit_item, user=request.user)
-            favorite.quantity += 1
-            favorite.save()
-        except:
-            favorite_item = Favorite(
-                user = request.user,
-                item = edit_item,
-                quantity = 1,
-                category = category, 
-            )
-            favorite_item.save()
+        Favorite.add_or_update_favourite(edit_item, edit_item.category, request)
 
     if operation == 'add':
 
@@ -492,19 +481,8 @@ def edit_item_quantity(request, operation, pk):
                 category = category, 
             )
             purchase_item.save()
-            
-            try:
-                favorite = Favorite.objects.get(item=item_name, user=request.user)
-                favorite.quantity += quantity
-                favorite.save()
-            except:
-                favorite_item = Favorite(
-                    user = request.user,
-                    item = item_name,
-                    quantity = quantity,
-                    category = category, 
-                )
-                favorite_item.save()
+
+            Favorite.add_or_update_favourite(item_name, category, request)
 
             items = Item.objects.filter(user=request.user).order_by('item')
 
@@ -582,5 +560,7 @@ def edit_purchased_item(request, operation, pk):
     return redirect('insight', 'personal')
 
 def shopping_intro(request):
-
+    """
+    Display shopping intro page for users to create their first category.
+    """
     return render(request, 'shopping/shopping_intro.html')
