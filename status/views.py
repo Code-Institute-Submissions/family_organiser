@@ -38,11 +38,10 @@ def update_status(request, operation, pk):
     # Add the status to the database, else remove the status from the database
     if operation == 'add':
         form = StatusForm(request.POST, request.FILES)
-        print('##########the form]##############')
-        form.user = request.user
-        print(form)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
 
     elif operation == 'remove':
         status = Status.objects.get(pk=pk)
