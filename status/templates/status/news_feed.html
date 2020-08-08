@@ -24,14 +24,10 @@
 
 <form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="p-3 pt-4 collapse" id="status-form">
     {% csrf_token %}
-        <label>Title</label>
-        <input type="text" name="title" class="form-control" id="form-title">
-        <label>Post</label>
-        <input type="text" name="content" class="form-control" id="form-content">
-        <label class="d-block">Image</label>
-        <input type="file" name="image" id="form-file">
-        <button class="btn btn-success float-right">Send</button>
-        <div id="error-container" class="mt-1"></div>
+        {{ status_form }}
+        <button class="btn btn-success float-right">Post</button>
+        <div id="error-container" class="mt-1 pb-3"></div> 
+        
     </form>
 
 <hr class="status-divider">

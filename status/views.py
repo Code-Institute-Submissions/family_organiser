@@ -4,6 +4,7 @@ from user.models import Friend, UserProfile
 from django.utils import timezone
 from .functions.functions import *
 from user.functions.functions import get_users_profile
+from .forms import StatusForm
 
 # Create your views here.
 def news_feed(request):
@@ -21,6 +22,7 @@ def news_feed(request):
     context = {
         'news_feed': news_feed,
         'user_profile': user_profile,
+        'status_form': StatusForm,
     }
 
     return render(request, 'status/news_feed.html', context)
@@ -35,15 +37,12 @@ def update_status(request, operation, pk):
 
     # Add the status to the database, else remove the status from the database
     if operation == 'add':
-        status = Status(
-            user = request.user,
-            user_profile = UserProfile.objects.get(user=request.user),
-            title = request.POST.get('title'),
-            content = request.POST.get('content'),
-            likes = 0,
-            image = request.FILES.get('image'),
-        )
-        status.save()
+        form = StatusForm(request.POST, request.FILES)
+        print('##########the form]##############')
+        form.user = request.user
+        print(form)
+        if form.is_valid():
+            form.save()
 
     elif operation == 'remove':
         status = Status.objects.get(pk=pk)
