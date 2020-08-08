@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div id="error-container" class="mt-1"></div>
-                <button class="btn btn-success container-fluid mt-3 mb-2">Add To List</button>
+                <button class="btn btn-success container-fluid mt-3 mb-2" id="send-button">Add To List</button>
             </form>
             <hr>
         </div>
@@ -256,6 +256,7 @@
 
 {% block extra_js %}
 <script src="{% static 'js/shopping_page.js' %}"></script>
+<script src="{% static 'js/forms.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
     $(document).ready(function () {

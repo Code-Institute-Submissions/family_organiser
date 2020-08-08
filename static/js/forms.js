@@ -2,7 +2,7 @@
 $(document).on('click', '.add-form', function() {
     if ($('#add-data-form-container').hasClass('closed')) {
         // show the form
-        tl.to('.profile-page-container', 0.5, {transform: 'translate(0, 525px)'})
+        tl.to('.profile-page-container', 0.5, {transform: 'translate(0, 540px)'})
     } 
     $('#add-data-form-container').removeClass('closed')
 });
@@ -17,7 +17,6 @@ $(document).on('click', '#send-button', function() {
         } else if ($('#form-content').val().length == 0) {
             $('#error-container').html('<p class="m-0 text-danger">Please add content to your post</p>')
         } else {
-            console.log('status submit')
             $('#status-form').submit()
         }
         // if not try and submit the item form 
@@ -29,7 +28,6 @@ $(document).on('click', '#send-button', function() {
         } else if ($('#form-category').val().length == 0) {
             $('#error-container').html('<p class="m-0 text-danger">Please select a category for you item</p>')
         } else {
-            console.log('item submit')
             $('#item-form').submit()
         }
     }

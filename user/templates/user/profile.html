@@ -327,12 +327,9 @@
     // Add item form 
     $(document).on('click', '#add-item-form', function () {
         $('#add-data-form-container').html(`
-            <form action="/shopping/update_item/add" method="POST" class="p-3 pt-4" id="item-form">
+            <form action="/shopping/edit_item_quantity/add/0" method="POST" class="p-3 pt-4" id="item-form">
             {% csrf_token %}
-                <label>Item</label>
-                <input type="text" name="item" class="form-control" id="form-item">
-                <label>Quantity</label>
-                <input type="number" name="quantity" class="form-control" id="form-quantity">
+                {{ item_form }}
                 <label>Category</label>
                 <div class="row m-0 p-0">
                     <div class="col-8 m-0 p-0 pr-3">

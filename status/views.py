@@ -60,7 +60,6 @@ def like_status(request, pk):
     if request.user.is_anonymous:
         return redirect('home')
 
-
     if request.is_ajax():
         add_like_and_notification(request, pk)
 

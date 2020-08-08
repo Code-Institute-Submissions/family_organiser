@@ -10,11 +10,13 @@ class ItemForm(forms.ModelForm):
             'item' : forms.TextInput(
                 attrs = {
                     'class' : 'container-fluid form-control',
+                    'id': 'form-item'
                      }
             ),
             'quantity' : forms.NumberInput(
                 attrs = {
                     'class' : 'container-fluid form-control',
+                    'id': 'form-quantity'
                      }
             )
         }
