@@ -8,6 +8,7 @@ from user.models import UserProfile, Friend
 from random import randint
 import datetime
 from .functions.functions import *
+from .forms import ItemForm
 
 # Create your views here.
 def shopping_page(request):
@@ -34,6 +35,7 @@ def shopping_page(request):
         'categories': categories,
         'categories_used': categories_used,
         'favorites': favorites,
+        'item_form' : ItemForm,
     }
 
     return render(request, 'shopping/shopping_page.html', context)
@@ -466,13 +468,12 @@ def edit_item_quantity(request, operation, pk):
             
             # Add item if new
             if new_item:
-                new_item = Item(
-                    user = request.user,
-                    item = item_name,
-                    quantity = quantity,
-                    category = category, 
-                )
-                new_item.save()
+                form = ItemForm(request.POST)
+                if form.is_valid():
+                    item_form = form.save(commit=False)
+                    item_form.category = category
+                    item_form.user = request.user
+                    item_form.save()
 
             purchase_item = PurchasedItems(
                 user = request.user,

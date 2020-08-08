@@ -54,10 +54,7 @@
         <div id="item-form-container" class="collapse">
             <form action="/shopping/edit_item_quantity/add/0" method="POST" class="px-3 pt-0 pb-1" id="item-form">
                 {% csrf_token %}
-                <label>Item</label>
-                <input type="text" name="item" class="form-control" id="form-item" required>
-                <label>Quantity</label>
-                <input type="number" name="quantity" class="form-control" id="form-quantity" value="1" required>
+                {{ item_form }}
                 <label>Category</label>
                 <div class="row m-0 p-0">
                     <div class="col-12 m-0 p-0">
