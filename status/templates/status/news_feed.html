@@ -11,7 +11,7 @@
 <!-- Shopping navigation -->
 <div class="row m-0 p-0 py-3 mini-navigation-container">
     <div class="col-12 m-0 p-0 d-flex justify-content-center">
-        <a href="#status-form" data-toggle="collapse">
+        <a href="#status-form-container" data-toggle="collapse">
             <button class="btn border mini-navigation-button ">
                 <img src="{{ MEDIA_URL }}icons/add_status_icon.png" class="small-icon"/>
                 <small>Create Post</small>
@@ -22,10 +22,10 @@
 
 <hr class="my-0">
 
-<form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="p-3 pt-4 collapse" id="status-form">
+<form action="/status/update_status/add/0/news_feed" method="POST" enctype="multipart/form-data" class="p-3 pt-4 collapse status-form" id="status-form-container">
     {% csrf_token %}
         {{ status_form }}
-        <button class="btn btn-success float-right">Post</button>
+        <button class="btn btn-success float-right" id="send-button">Post</button>
         <div id="error-container" class="mt-1 pb-3"></div> 
         
     </form>

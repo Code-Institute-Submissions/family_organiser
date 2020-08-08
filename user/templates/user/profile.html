@@ -182,7 +182,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                                 <h6 class="text-center">Are you sure?</h6>
-                                <a class="dropdown-item" href="/status/update_status/remove/{{news.id}}">Remove Status</a>
+                                <a class="dropdown-item" href="/status/update_status/remove/{{news.id}}/profile">Remove Status</a>
                               </div>
                         </div>
                     </h6>
@@ -315,14 +315,9 @@
     // Add status form 
     $(document).on('click', '#add-status-form', function () {
         $('#add-data-form-container').html(`
-            <form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="status-form">
+            <form action="/status/update_status/add/0/profile" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="status-form">
             {% csrf_token %}
-                <label>Title</label>
-                <input type="text" name="title" class="form-control" id="form-title">
-                <label>Post</label>
-                <input type="text" name="content" class="form-control" id="form-content">
-                <label class="d-block">Image</label>
-                <input type="file" name="image" id="form-file">
+                {{ status_form }}
                 <div id="error-container" class="mt-1"></div>
             </form>
         `);

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Status, Comment, CommentNotification, LikeNotification
 from user.models import Friend, UserProfile
 from django.utils import timezone
@@ -27,7 +27,7 @@ def news_feed(request):
 
     return render(request, 'status/news_feed.html', context)
 
-def update_status(request, operation, pk):
+def update_status(request, operation, pk, redirect_user):
     """
     Add the users status to the database
     """
@@ -44,10 +44,13 @@ def update_status(request, operation, pk):
             post.save()
 
     elif operation == 'remove':
-        status = Status.objects.get(pk=pk)
+        status = get_object_or_404(Status, pk=pk)
         status.delete()
 
-    return redirect('profile')
+    if redirect_user == 'profile':
+        return redirect('profile')
+    if redirect_user == 'news_feed':
+        return redirect('news_feed')
 
 def like_status(request, pk):
     """

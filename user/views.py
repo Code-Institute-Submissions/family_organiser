@@ -6,6 +6,7 @@ from .models import FriendRequests, Friend, UserProfile, AcceptedFriendRequests
 from message.models import MessageNotification, Message
 from django.db.models import Q
 from .functions.functions import *
+from status.forms import StatusForm
 
 def profile(request):
     """
@@ -35,7 +36,8 @@ def profile(request):
         'news_feed': news_feed,
         'item_categories': item_categories,
         'items': all_items,
-        'bio_length': len(user_profile.bio)
+        'bio_length': len(user_profile.bio),
+        'status_form': StatusForm,
     }
 
     return render(request, 'user/profile.html', context)

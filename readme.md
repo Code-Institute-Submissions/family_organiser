@@ -129,3 +129,5 @@ This web application is designed to keep users in touch with their family and al
 [If user is anonymous](https://stackoverflow.com/questions/4642596/how-do-i-check-whether-this-user-is-anonymous-or-actually-a-user-on-my-system/4642607)
 
 [Styling forms using forms.py - Django](https://www.youtube.com/watch?v=Y4ieyOCC3gU)
+
+[Using is_valid() - Django](https://www.youtube.com/watch?v=qwE9TFNub84)

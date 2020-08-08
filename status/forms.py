@@ -10,9 +10,20 @@ class StatusForm(forms.ModelForm):
         }
         widgets = {
             'title' : forms.TextInput(
-                attrs = {'class' : 'container-fluid form-control', }
+                attrs = {
+                    'class' : 'container-fluid form-control',
+                    'id' : 'form-title',
+                     }
             ),
             'content' : forms.TextInput(
-                attrs = {'class' : 'container-fluid form-control', }
+                attrs = {
+                    'class' : 'container-fluid form-control', 
+                    'id' : 'form-content',
+                    }
             ),
+            'image' : forms.FileInput(
+                attrs = {
+                    'id' : 'form-image'
+                }
+            )
         }
