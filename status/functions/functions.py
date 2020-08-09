@@ -36,6 +36,8 @@ def get_news_feed(request):
     # Sort all status by data
     news_feed = sorted(news_feed, key = lambda x: x.created_date, reverse=True)
 
+    print(news_feed)
+
     return news_feed
 
 def create_comment_and_status_notification(request, pk):

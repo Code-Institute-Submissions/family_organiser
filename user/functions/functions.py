@@ -17,12 +17,12 @@ def get_partner_requests(request):
 
     return partner_requests
 
-def find_friends(request):
+def find_friends(request, request_user):
     """
     Find all users friends accounts.
     """
     try:
-        friends = Friend.objects.get(current_user=request.user)
+        friends = Friend.objects.get(current_user=request_user)
         all_friends = friends.users.all()
     except:
         all_friends = []

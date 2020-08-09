@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from status.models import Status, CommentNotification, LikeNotification
 from shopping.models import Item, Category, PartnerRequest, Partner
@@ -17,7 +17,7 @@ def profile(request):
     if request.user.is_anonymous:
         return redirect('home')
 
-    all_friends = find_friends(request)
+    all_friends = find_friends(request, request.user)
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
     partner_requests = get_partner_requests(request)
     user_profile = get_users_profile(request, request.user.id)
@@ -107,7 +107,7 @@ def family(request):
         return redirect('home')
 
     friends = Friend.objects.get(current_user=request.user)
-    all_friends = find_friends(request)
+    all_friends = find_friends(request, request.user)
 
     all_friends_dict = []
 
@@ -258,6 +258,8 @@ def view_user_profile(request, pk):
     # Find friend or turn a empty list if none.
     find_user = User.objects.get(pk=pk)
 
+    user_profile = get_users_profile(request, pk)
+
     if find_user == request.user:
         return redirect('profile')
 
@@ -285,3 +287,37 @@ def delete_account(request):
     current_user.delete()
 
     return redirect('home')
+
+def view_user_family(request, pk):
+    """
+    View the list of a users family.
+    """
+    # If user isn't logged in return to the home page.
+    if request.user.is_anonymous:
+        return redirect('home')
+
+    users_account = get_object_or_404(User, pk=pk)
+
+    friends = Friend.objects.get(current_user=users_account)
+    all_friends = find_friends(request, users_account)
+
+    all_friends_dict = []
+
+    for friend in all_friends:
+        user_profile = UserProfile.objects.get(pk=friend.id)
+
+        friend_dict = {
+            'first_name': friend.first_name,
+            'last_name': friend.last_name,
+            'id': friend.id,
+            'profile_image': user_profile.profile_image,
+        }
+
+        all_friends_dict.append(friend_dict)
+
+    context = {
+        'friends': all_friends_dict,
+        'users_account': users_account,
+    }
+
+    return render(request, 'user/view_user_family.html', context)
