@@ -26,10 +26,10 @@ Requests | Family Organiser
                 <div class="col-3 m-0 p-0 pl-3">
                     <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
                 </div>
-                <div class="col-6 m-0 p-0">
+                <a class="col-6 m-0 p-0 text-dark" href="/user/view_user_profile/{{request.from_user.id}}">
                     <h5>{{ request.from_user.first_name }}</h5>
                     <h5>{{ request.from_user.last_name }}</h5>
-                </div>
+                </a>
                 <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                     <a class="icon-button mr-3" href="/user/update_friends/remove/{{request.from_user.id}}/{{request.id}}">
                         <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
@@ -55,10 +55,10 @@ Requests | Family Organiser
                 <div class="col-3 m-0 p-0 pl-3">
                     <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
                 </div>
-                <div class="col-6 m-0 p-0">
+                <a class="col-6 m-0 p-0 text-dark" href="/user/view_user_profile/{{request.from_user.id}}" >
                     <h5>{{ request.from_user.first_name }}</h5>
                     <h5>{{ request.from_user.last_name }}</h5>
-                </div>
+                </a>
                 <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                     <a class="icon-button mr-3" href="/shopping/update_partners/remove/{{request.from_user.id}}/{{request.id}}">
                         <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
