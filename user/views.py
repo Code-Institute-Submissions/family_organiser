@@ -98,16 +98,17 @@ def create_friend_request(request, pk):
 
     return redirect('find_users')
 
-def family(request):
+def family(request, pk):
     """
     View the list of friends that the users has
     """
     # If user isn't logged in return to the home page.
     if request.user.is_anonymous:
         return redirect('home')
+    requested_user = get_object_or_404(User, pk=pk)
 
-    friends = Friend.objects.get(current_user=request.user)
-    all_friends = find_friends(request, request.user)
+    friends = Friend.objects.get(current_user=requested_user)
+    all_friends = find_friends(request, requested_user)
 
     all_friends_dict = []
 
@@ -125,6 +126,7 @@ def family(request):
 
     context = {
         'friends': all_friends_dict,
+        'requested_user': requested_user,
     }
 
     return render(request, 'user/family.html', context)
@@ -277,6 +279,7 @@ def view_user_profile(request, pk):
         'friend_count': len(all_friends),
         'user_profile': user_profile,
         'news_feed': news_feed,
+        'bio_length': len(user_profile.bio),
     }
 
     return render(request, 'user/view_user_profile.html', context)
@@ -287,37 +290,3 @@ def delete_account(request):
     current_user.delete()
 
     return redirect('home')
-
-def view_user_family(request, pk):
-    """
-    View the list of a users family.
-    """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
-
-    users_account = get_object_or_404(User, pk=pk)
-
-    friends = Friend.objects.get(current_user=users_account)
-    all_friends = find_friends(request, users_account)
-
-    all_friends_dict = []
-
-    for friend in all_friends:
-        user_profile = UserProfile.objects.get(pk=friend.id)
-
-        friend_dict = {
-            'first_name': friend.first_name,
-            'last_name': friend.last_name,
-            'id': friend.id,
-            'profile_image': user_profile.profile_image,
-        }
-
-        all_friends_dict.append(friend_dict)
-
-    context = {
-        'friends': all_friends_dict,
-        'users_account': users_account,
-    }
-
-    return render(request, 'user/view_user_family.html', context)

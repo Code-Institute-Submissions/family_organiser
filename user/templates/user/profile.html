@@ -6,132 +6,155 @@
 {% endblock %}
 
 {% block content %}
-<div id="page-top"></div>
-<img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image d-md-none" ></img>
-<img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light d-md-none"></img>
-<img src="{{ MEDIA_URL }}svg/add_data_background_desktop.svg" class="profile-background-image d-none d-md-block" ></img>
-<img src="{{ MEDIA_URL }}svg/add_data_background_light_desktop.svg" class="profile-background-image-light d-none d-md-block"></img>
-
-<div class="profile-bio-form-container"  >
-<!-- profile and notifications section -->
-<div class="row m-0 p-0">
-    <div class="col m-0 p-0 d-flex justify-content-between">
-        <div class="notification-container h-100 d-flex justify-content-center align-items-center px-3">
-            <!-- friend request notification -->
-            {% if friend_requests > 0 %}
-            <div>
-                <a href="/user/notifications">
-                    <img src="{{ MEDIA_URL }}icons/friend_request_icon.png" class="small-icon"/>
-                    <p>{{ friend_requests }}</p>
-                </a>
+<!-- Users bio information -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ user.first_name }} {{ user.last_name }}'s Bio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            {% endif %}
-             <!-- friend request accepted notification -->
-            {% if user_profile.accepted_friend_notification > 0 %}
-            <div>
-                <a href="/user/notifications">
-                    <img src="{{ MEDIA_URL }}icons/friend_request_icon.png" class="small-icon"/>
-                    <p>{{ user_profile.accepted_friend_notification }}</p>
-                </a>
+            <div class="modal-body">
+                {{ user_profile.bio }}
             </div>
-            {% endif %}
-             <!-- shopping partner request notification -->
-            {% if partner_requests > 0 %}
-            <div>
-                <a href="/user/notifications">
-                    <img src="{{ MEDIA_URL }}icons/add_list_icon.png" class="small-icon add-list-icon-notification"/>
-                    <p>{{ partner_requests }}</p>
-                </a>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Okay</button>
             </div>
-            {% endif %}
-             <!-- status notification -->
-            {% if user_profile.status_notification > 0 %}
-            <div class="ml-2">
-                <a href="/user/notifications">
-                    <img src="{{ MEDIA_URL }}icons/status_noti_icon.png" class="small-icon" />
-                    <p>{{ user_profile.status_notification }}</p>
-                </a>
-            </div>
-            {% endif %}
-             <!-- message notification -->
-            {% if message_notification > 0 %}
-            <div class="ml-2">
-                <a href="/message/select_conversation/">
-                    <img src="{{ MEDIA_URL }}icons/message_icon.png" class="small-icon"/>
-                    <p>{{ message_notification }}</p>
-                </a>
-            </div>
-            {% endif %}
-            {% if friend_requests == 0 and user_profile.status_notification == 0 and partner_requests == 0 and user_profile.accepted_friend_notification == 0 and message_notification == 0 %}
-            <b class="m-0 text-small">No notifications</b>
-            {% endif %}
         </div>
     </div>
-    <div class="col m-0 p-2">
-        <p class="m-0 p-0 text-right">Profile</p>
-    </div>
 </div>
-<div class="row m-0 p-0 pt-3 profile-info-height">
-    <div class="col-9 m-0 p-0 pl-3 profile-details-container">
-        {% if user_profile.profile_image %}
-        <img src="{{ MEDIA_URL }}{{user_profile.profile_image}}" class="profile-image">
-        {% else %}
-        <img src="{{ MEDIA_URL }}user-image.png" class="profile-image">
-        {% endif %}
 
-        <h5>{{ user.first_name }}</h5>
-        <h5>{{ user.last_name }}</h5>
-        <p>{{ user_profile.bio | truncatechars:35 }} 
-            {% if bio_length > 35 %}
-            <span id="view-all-bio" class="float-right" data-toggle="modal" data-target="#exampleModal"><b>View All</b></span>
+<div id="page-top"></div>
+<img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image d-md-none"></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light d-md-none"></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background_desktop.svg" class="profile-background-image d-none d-md-block"></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background_light_desktop.svg"
+    class="profile-background-image-light d-none d-md-block"></img>
+
+<div class="profile-bio-form-container">
+    <!-- profile and notifications section -->
+    <div class="row m-0 p-0">
+        <div class="col m-0 p-0 d-flex justify-content-between">
+            <div class="notification-container h-100 d-flex justify-content-center align-items-center px-3">
+                <!-- friend request notification -->
+                {% if friend_requests > 0 %}
+                <div>
+                    <a href="/user/notifications">
+                        <img src="{{ MEDIA_URL }}icons/friend_request_icon.png" class="small-icon" />
+                        <p>{{ friend_requests }}</p>
+                    </a>
+                </div>
+                {% endif %}
+                <!-- friend request accepted notification -->
+                {% if user_profile.accepted_friend_notification > 0 %}
+                <div>
+                    <a href="/user/notifications">
+                        <img src="{{ MEDIA_URL }}icons/friend_request_icon.png" class="small-icon" />
+                        <p>{{ user_profile.accepted_friend_notification }}</p>
+                    </a>
+                </div>
+                {% endif %}
+                <!-- shopping partner request notification -->
+                {% if partner_requests > 0 %}
+                <div>
+                    <a href="/user/notifications">
+                        <img src="{{ MEDIA_URL }}icons/add_list_icon.png"
+                            class="small-icon add-list-icon-notification" />
+                        <p>{{ partner_requests }}</p>
+                    </a>
+                </div>
+                {% endif %}
+                <!-- status notification -->
+                {% if user_profile.status_notification > 0 %}
+                <div class="ml-2">
+                    <a href="/user/notifications">
+                        <img src="{{ MEDIA_URL }}icons/status_noti_icon.png" class="small-icon" />
+                        <p>{{ user_profile.status_notification }}</p>
+                    </a>
+                </div>
+                {% endif %}
+                <!-- message notification -->
+                {% if message_notification > 0 %}
+                <div class="ml-2">
+                    <a href="/message/select_conversation/">
+                        <img src="{{ MEDIA_URL }}icons/message_icon.png" class="small-icon" />
+                        <p>{{ message_notification }}</p>
+                    </a>
+                </div>
+                {% endif %}
+                {% if friend_requests == 0 and user_profile.status_notification == 0 and partner_requests == 0 and user_profile.accepted_friend_notification == 0 and message_notification == 0 %}
+                <b class="m-0 text-small">No notifications</b>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col m-0 p-2">
+            <p class="m-0 p-0 text-right">Profile</p>
+        </div>
+    </div>
+    <div class="row m-0 p-0 pt-3 profile-info-height">
+        <div class="col-9 m-0 p-0 pl-3 profile-details-container">
+            {% if user_profile.profile_image %}
+            <img src="{{ MEDIA_URL }}{{user_profile.profile_image}}" class="profile-image">
+            {% else %}
+            <img src="{{ MEDIA_URL }}user-image.png" class="profile-image">
             {% endif %}
-        </p>
-      
-        <a href="/user/settings">+</a>
-    </div>
-    <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center justify-content-md-end align-items-end">
-        <a href="/user/family/" class="m-0 mr-md-5">
-            <h3 class="text-center text-white">{{ friend_count }}</h3>
-            <h6 class="text-white">Family</h6>
-        </a>
-    </div>
-</div>
 
-<!-- Add data icons -->
-<div class="container-fluid d-flex justify-content-center p-0">
-    <div class="add-data-container">
-        <a href="/user/find_users">
-            <img src="{{ MEDIA_URL }}icons/family_icon.png" />
-            <label>Users</label>
-        </a>
-        <a id="add-status-form" class="add-form">
-            <img src="{{ MEDIA_URL }}icons/status_icon.png" />
-            <label>Status</label>
-        </a>
-        <a id="add-item-form" class="add-form">
-            <img src="{{ MEDIA_URL }}icons/item_icon.png" />
-            <label>Item</label>
-        </a>
-        <a href="#">
-            <img src="{{ MEDIA_URL }}icons/schedule_icon.png" />
-            <label>Event</label>
-        </a>
-        <a href="#">
-            <img src="{{ MEDIA_URL }}icons/to_do_icon.png" />
-            <label>To Do</label>
-            <p class="coming-soon">Coming Soon</p>
-        </a>
-        <a href="#">
-            <img src="{{ MEDIA_URL }}icons/photo_icon.png" />
-            <label>Photo</label>
-            <p class="coming-soon">Coming Soon</p>
-        </a>
+            <h5>{{ user.first_name }}</h5>
+            <h5>{{ user.last_name }}</h5>
+            <p>{{ user_profile.bio | truncatechars:35 }}
+                {% if bio_length > 35 %}
+                <span id="view-all-bio" class="float-right" data-toggle="modal" data-target="#exampleModal"><b>View
+                        All</b></span>
+                {% endif %}
+            </p>
+
+            <a href="/user/settings">+</a>
+        </div>
+        <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center justify-content-md-end align-items-end">
+            <a href="/user/family/{{ user.id }}" class="m-0 mr-md-5">
+                <h3 class="text-center text-white">{{ friend_count }}</h3>
+                <h6 class="text-white">Family</h6>
+            </a>
+        </div>
     </div>
-</div>
+
+    <!-- Add data icons -->
+    <div class="container-fluid d-flex justify-content-center p-0">
+        <div class="add-data-container">
+            <a href="/user/find_users">
+                <img src="{{ MEDIA_URL }}icons/family_icon.png" />
+                <label>Users</label>
+            </a>
+            <a id="add-status-form" class="add-form">
+                <img src="{{ MEDIA_URL }}icons/status_icon.png" />
+                <label>Status</label>
+            </a>
+            <a id="add-item-form" class="add-form">
+                <img src="{{ MEDIA_URL }}icons/item_icon.png" />
+                <label>Item</label>
+            </a>
+            <a href="#">
+                <img src="{{ MEDIA_URL }}icons/schedule_icon.png" />
+                <label>Event</label>
+            </a>
+            <a href="#">
+                <img src="{{ MEDIA_URL }}icons/to_do_icon.png" />
+                <label>To Do</label>
+                <p class="coming-soon">Coming Soon</p>
+            </a>
+            <a href="#">
+                <img src="{{ MEDIA_URL }}icons/photo_icon.png" />
+                <label>Photo</label>
+                <p class="coming-soon">Coming Soon</p>
+            </a>
+        </div>
+    </div>
 
 
-<!-- Add data forms container -->
-<div id="add-data-form-container" class="closed"></div>
+    <!-- Add data forms container -->
+    <div id="add-data-form-container" class="closed"></div>
 
 </div>
 
@@ -140,13 +163,14 @@
 <div class="profile-page-container">
     <div class="row m-0 p-0">
         <div class="col-12 col-md-6 m-0">
-            <h5 class="m-0 d-flex align-items-center justify-content-between">Shopping List <a href="/shopping/shopping_page" class="text-small">More</a></h5>
+            <h5 class="m-0 d-flex align-items-center justify-content-between">Shopping List <a
+                    href="/shopping/shopping_page" class="text-small">More</a></h5>
         </div>
     </div>
     <hr>
     <div class="shopping-item-container">
         {% if not items %}
-            <p class="m-0">Your shoppping list is empty. <a href="/shopping/shopping_page">Add Items</a></p>
+        <p class="m-0">Your shoppping list is empty. <a href="/shopping/shopping_page">Add Items</a></p>
         {% endif %}
         {% for item in items %}
         <a class="shopping-item" href="/shopping/shopping_page">
@@ -174,16 +198,18 @@
                     {% else %}
                     <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
                     {% endif %}
-                    <h6>{{ news.user.first_name }} {{ news.user.last_name }} 
+                    <h6>{{ news.user.first_name }} {{ news.user.last_name }}
                         <div class="dropdown">
                             <a class="icon-button float-right mr-4 dropdown-toggle" type="button"
-                            id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                                id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" data-offset="10,20">
                                 <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                                 <h6 class="text-center">Are you sure?</h6>
-                                <a class="dropdown-item" href="/status/update_status/remove/{{news.id}}/profile">Remove Status</a>
-                              </div>
+                                <a class="dropdown-item" href="/status/update_status/remove/{{news.id}}/profile">Remove
+                                    Status</a>
+                            </div>
                         </div>
                     </h6>
                     <h6 class="text-secondary">{{ news.title }}</h6>
@@ -238,11 +264,13 @@
                         <div class="comment-container">
                             <a href="/user/view_user_profile/{{comment.author.id}}">
                                 {% if comment.author_profile.profile_image %}
-                                <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}" class="float-left mr-2">
+                                <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}"
+                                    class="float-left mr-2">
                                 {% else %}
                                 <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
                                 {% endif %}
-                                <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
+                                <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }}
+                                    {{ comment.author.last_name }}</h6>
                             </a>
                             <p class="m-0">{{ comment.comment }}</p>
                             <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
@@ -274,33 +302,13 @@
 
 
 
-<button id="add-button" class="closed" >
+<button id="add-button" class="closed">
     <img src="{{ MEDIA_URL }}icons/plus_icon.png" href="#page-top">
 </button>
 
 <button id="send-button" class="closed send-button">
     <img src="{{ MEDIA_URL }}icons/send_icon.png" />
 </button>
-  <!-- Users bio information -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ user.first_name }} {{ user.last_name }}'s Bio</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-            {{ user_profile.bio }}
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal">Okay</button>
-        </div>
-    </div>
-    </div>
-</div>
-
 
 {% endblock %}
 
@@ -432,7 +440,7 @@
                     method: httpMethod,
                     data: formData,
                     success: function (data) {
-                        
+
                     }
                 })
                 setTimeout(function () {

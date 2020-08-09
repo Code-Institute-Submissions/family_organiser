@@ -6,6 +6,28 @@
 {% endblock %}
 
 {% block content %}
+
+<!-- Users bio information -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ user.first_name }} {{ user.last_name }}'s Bio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ user_profile.bio }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="page-top"></div>
 <img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image" ></img>
 <img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light"></img>
@@ -27,11 +49,15 @@
         {% endif %}
         <h5>{{ find_user.first_name }}</h5>
         <h5>{{ find_user.last_name }}</h5>
-        <p>{{ user_profile.bio }}</p>
+        <p>{{ user_profile.bio | truncatechars:35 }} 
+            {% if bio_length > 35 %}
+            <span id="view-all-bio" class="float-right" data-toggle="modal" data-target="#exampleModal"><b>View All</b></span>
+            {% endif %}
+        </p>
         <a href="/user/settings">+</a>
     </div>
     <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center align-items-end">
-        <a href="/user/view_user_family/{{ find_user.id }}">
+        <a href="/user/family/{{ find_user.id }}">
             <h3 class="text-center text-white">{{ friend_count }}</h3>
             <h6 class="text-white">Family</h6>
         </a>
@@ -102,20 +128,27 @@
                 </div>
                 <div class="row m-0 p-0" id="comment-container-{{ news.id }}">
                     {% for comment in news.comment.all %}
+                    {% if forloop.counter <= 2 %}
                     <div class="col-12 px-2 py-1">
                         <div class="comment-container">
                             <a href="/user/view_user_profile/{{comment.author.id}}">
-                            {% if comment.author_profile.profile_image %}
-                            <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}" class="float-left mr-2">
-                            {% else %}
-                            <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
-                            {% endif %}
-                            <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
-                        </a>
+                                {% if comment.author_profile.profile_image %}
+                                <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}" class="float-left mr-2">
+                                {% else %}
+                                <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
+                                {% endif %}
+                                <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
+                            </a>
                             <p class="m-0">{{ comment.comment }}</p>
                             <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
                         </div>
                     </div>
+                    {% endif %}
+                    {% if forloop.counter > 2 and forloop.last %}
+                    <div class="col-12 d-flex justify-content-end mt-2">
+                        <a href="/status/view_status/{{news.id}}" class="text-theme">View More</a>
+                    </div>
+                    {% endif  %}
                     {% endfor %}
                 </div>
                 <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">

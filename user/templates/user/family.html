@@ -8,7 +8,7 @@ Family | Family Organiser
 
 <div class="row m-0 p-2">
     <div class="col-12 m-0 p-0">
-        <p class="m-0 p-0 text-right">Family</p>
+        <p class="m-0 p-0 text-right">{{ requested_user.first_name }} {{ requested_user.last_name }}'s - Family</p>
     </div>
 </div>
 <hr>
@@ -31,6 +31,7 @@ Family | Family Organiser
                     <h5>{{ member.last_name }}</h5>
                 </a>
                 </div>
+                {% if requested_user == user %}
                 <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                     <div class="dropdown">
                         <a class="icon-button float-right dropdown-toggle" type="button"
@@ -43,6 +44,7 @@ Family | Family Organiser
                           </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
             <hr>
         </div>
