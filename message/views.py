@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from user.models import Friend
 from .models import Message, MessageNotification
 from django.contrib.auth.models import User
@@ -7,6 +8,7 @@ from django.db.models import Q
 from .functions.functions import *
 
 # Create your views here.
+@login_required
 def new_conversation(request):
     """
     Search the database for users and start new conversations.
@@ -23,13 +25,11 @@ def new_conversation(request):
 
     return render(request, 'message/new_conversation.html', context)
 
+@login_required
 def select_conversation(request):
     """
     Continue a coversation that has already been started.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     current_conversation_dicts = get_current_conversation_dict(request)
     new_message_conversation = MessageNotification.objects.filter(user=request.user)
@@ -41,14 +41,12 @@ def select_conversation(request):
 
     return render(request, 'message/select_conversation.html', context)
 
+@login_required
 def conversation(request, pk):
     """
     Display conversation page where users will see all their message between themself and the recipient,
     and be able to send new messages.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     message_user = User.objects.get(pk=pk)
 

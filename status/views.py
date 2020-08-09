@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Status, Comment, CommentNotification, LikeNotification
 from user.models import Friend, UserProfile
 from django.utils import timezone
@@ -7,13 +8,11 @@ from user.functions.functions import get_users_profile
 from .forms import StatusForm
 
 # Create your views here.
+@login_required
 def news_feed(request):
     """
     Will show users all their friends posts
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     all_friends = get_all_friends(request)
     news_feed = get_news_feed(request)
@@ -27,13 +26,11 @@ def news_feed(request):
 
     return render(request, 'status/news_feed.html', context)
 
+@login_required
 def update_status(request, operation, pk, redirect_user):
     """
     Add the users status to the database
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     # Add the status to the database, else remove the status from the database
     if operation == 'add':
@@ -52,26 +49,22 @@ def update_status(request, operation, pk, redirect_user):
     if redirect_user == 'news_feed':
         return redirect('news_feed')
 
+@login_required
 def like_status(request, pk):
     """
     Add a like to the users status
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     if request.is_ajax():
         add_like_and_notification(request, pk)
 
     return redirect('news_feed')
 
+@login_required
 def add_comment(request, pk, redirect_user):
     """
     Add a comment to the select status and send a notification to the user.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     if request.is_ajax():
         create_comment_and_status_notification(request, pk)
@@ -81,13 +74,11 @@ def add_comment(request, pk, redirect_user):
     if redirect_user == 'news_feed':
         return redirect('news_feed')
 
+@login_required
 def view_status(request, pk):
     """
     Take the user to a page that shows one status from their notificats or from the news feed.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     status = Status.objects.get(pk=pk)
 

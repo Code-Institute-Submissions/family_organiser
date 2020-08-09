@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 import json
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -11,13 +12,11 @@ from .functions.functions import *
 from .forms import ItemForm
 
 # Create your views here.
+@login_required
 def shopping_page(request):
     """
     Display the shopping list and the forms to add/remove items.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     categories = Category.objects.filter(user=request.user)
 
@@ -40,13 +39,11 @@ def shopping_page(request):
 
     return render(request, 'shopping/shopping_page.html', context)
 
+@login_required
 def quick_item(request, item, category):
     """
     Add or remove an item from the database returning json
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     item_name = item.capitalize()
     quantity = 1
@@ -103,13 +100,11 @@ def quick_item(request, item, category):
 
     return JsonResponse({'items': all_items_no_duplicates, 'categories_used': categories_used, })
 
+@login_required
 def update_category(request, operation, pk):
     """
     Add or remove category from the database.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     if request.method == 'POST':
         if operation == 'add':
@@ -129,13 +124,11 @@ def update_category(request, operation, pk):
 
     return redirect('shopping_page')
 
+@login_required
 def insight(request, filter):   
     """
     Display instight page with graphs and table of the users favorite items and shopping habbits.
     """ 
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     user_profile = UserProfile.objects.get(user=request.user)
 
@@ -305,13 +298,11 @@ def insight(request, filter):
     else:
         return redirect('premium_info')
 
+@login_required
 def add_partner(request):
     """
     Search and add shopping partners to the users shopping list.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     user_profile = UserProfile.objects.get(user=request.user)
     # if the user has a premium account return the shopping partners page or return premium information.
@@ -363,13 +354,11 @@ def add_partner(request):
     else: 
         return redirect('premium_info')
 
+@login_required
 def create_request(request, pk):
     """
     Create or remove a request to a user to join their shopping list.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     requested_user = User.objects.get(pk=pk)
     
@@ -381,6 +370,7 @@ def create_request(request, pk):
 
     return redirect('add_partner')
 
+@login_required
 def update_partners(request, operation, pk, request_id):
     """
     Add or remove the chosen user from or too their partner list
@@ -411,13 +401,11 @@ def update_partners(request, operation, pk, request_id):
     else: 
         return redirect('premium_info')
 
+@login_required
 def edit_item_quantity(request, operation, pk):
     """
     Add, remove, increment or decrement an item from the database, also save a copy to the purchased items and favorites.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     if operation == 'decrement':
         try:
@@ -546,20 +534,19 @@ def edit_item_quantity(request, operation, pk):
 
     return JsonResponse({'items': all_items_no_duplicates, 'categories_used': categories_used, })
 
+@login_required
 def edit_purchased_item(request, operation, pk):
     """
     Allows the user to remove items from their purchased items list and also remove the copy
     from their favorites
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     if operation == 'remove':
         remove_purchased_item(request, pk)
 
     return redirect('insight', 'personal')
 
+@login_required
 def shopping_intro(request):
     """
     Display shopping intro page for users to create their first category.

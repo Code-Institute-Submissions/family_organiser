@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from status.models import Status, CommentNotification, LikeNotification
 from shopping.models import Item, Category, PartnerRequest, Partner
@@ -9,6 +10,7 @@ from .functions.functions import *
 from status.forms import StatusForm
 from shopping.forms import ItemForm
 
+@login_required
 def profile(request):
     """
     Display the users profile, status, shopping items and notifications.
@@ -44,14 +46,11 @@ def profile(request):
 
     return render(request, 'user/profile.html', context)
 
-
+@login_required
 def find_users(request):
     """
     Search for other users and send a friend request
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     if request.method == 'GET':
         searched_users = search_users(request)
@@ -81,13 +80,11 @@ def find_users(request):
 
     return render(request, 'user/find_users.html', context)
 
+@login_required
 def create_friend_request(request, pk):
     """
     Takes the request from the user and saves the request to the database
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     requested_user = User.objects.get(pk=pk)
     
@@ -98,13 +95,11 @@ def create_friend_request(request, pk):
 
     return redirect('find_users')
 
+@login_required
 def family(request, pk):
     """
     View the list of friends that the users has
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
     requested_user = get_object_or_404(User, pk=pk)
 
     friends = Friend.objects.get(current_user=requested_user)
@@ -131,13 +126,11 @@ def family(request, pk):
 
     return render(request, 'user/family.html', context)
 
+@login_required
 def notifications(request):
     """
     Shows the users sent friend requests for shopping and todo list
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     # Reset the users notifications to zero
     user_profile = UserProfile.objects.get(user=request.user)
@@ -161,14 +154,11 @@ def notifications(request):
     }
     return render(request, 'user/notifications.html', context)
 
-
+@login_required
 def update_friends(request, operation, pk, request_id):
     """
     Add or remove the chosen user from or too their friends list
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
         
     new_friend = User.objects.get(pk=pk)
 
@@ -204,13 +194,11 @@ def update_friends(request, operation, pk, request_id):
         
     return redirect('profile')
 
+@login_required
 def settings(request):
     """
     Edit account details
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     user_profile = get_users_profile(request, request.user.id)
 
@@ -220,13 +208,11 @@ def settings(request):
 
     return render(request, 'user/settings.html', context)
 
+@login_required
 def change_profile_image(request):
     """
     Change and save the users new profile image
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     user_profile = get_users_profile(request, request.user.id)
 
@@ -236,26 +222,22 @@ def change_profile_image(request):
 
     return redirect('profile')
 
+@login_required
 def change_profile_details(request):
     """
     Change the profile details if changed by the user
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     update_profile_details(request)
 
     return redirect('profile')
 
+@login_required
 def view_user_profile(request, pk):
     """
     Find the a users profile and display their basic 
     information or if current user redirect them to their profile page.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
         
     # Find friend or turn a empty list if none.
     find_user = User.objects.get(pk=pk)
@@ -284,6 +266,7 @@ def view_user_profile(request, pk):
 
     return render(request, 'user/view_user_profile.html', context)
 
+@login_required
 def delete_account(request):
 
     current_user = User.objects.get(username=request.user.username)

@@ -173,3 +173,18 @@ def update_profile_details(request):
     user_profile.save()
 
     return None
+
+def create_test_user():
+    """
+    Create a test user for the test files.
+    """
+    user = User.objects.create(
+        username = 'testUsername',
+        first_name = 'testFirstname',
+        last_name = 'testLastname',
+        email = 'test@test.com',
+        password = 'Password777'
+    )
+    user.save()
+
+    return user

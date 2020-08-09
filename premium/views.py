@@ -1,27 +1,24 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from user.models import UserProfile
 
 import stripe
 
 # Create your views here.
+@login_required
 def premium_info(request):
     """
     View the benefits of purchasing a premium account.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     return render(request, 'premium/premium_info.html')
 
+@login_required
 def make_payment(request):
     """
     The form for processing the payment and sending the form to stripe.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     user_profile = UserProfile.objects.get(user=request.user)
 
@@ -54,9 +51,9 @@ def make_payment(request):
 
     return render(request, 'premium/make_payment.html' ,context)
 
+@login_required
 def payment_successful(request):
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
-
+    """
+    Display payment successful page.
+    """
     return render(request, 'premium/payment_successful.html')
