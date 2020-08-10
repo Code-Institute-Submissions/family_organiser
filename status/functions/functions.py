@@ -1,5 +1,6 @@
 from user.models import Friend, UserProfile
 from status.models import Status, Comment, CommentNotification, LikeNotification
+from user.functions.functions import create_test_user, get_users_profile
 
 def get_all_friends(request):
     """
@@ -107,3 +108,16 @@ def add_like_and_notification(request, pk):
         print('unlike post')
 
     return None
+
+def create_test_status():
+    user = create_test_user()
+    user_profile = get_users_profile(user.id)
+    status = Status(
+            user = user,
+            user_profile = user_profile,
+            title = 'Test Status',
+            content = 'Testing test!',
+        )
+    status.save()
+
+    return status

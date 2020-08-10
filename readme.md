@@ -133,3 +133,5 @@ This web application is designed to keep users in touch with their family and al
 [Using is_valid() - Django](https://www.youtube.com/watch?v=qwE9TFNub84)
 
 [login required - Django](https://docs.djangoproject.com/en/3.0/topics/auth/default/)
+
+[Client login test - Django](https://stackoverflow.com/questions/2705235/django-test-failing-on-a-view-with-login-required)

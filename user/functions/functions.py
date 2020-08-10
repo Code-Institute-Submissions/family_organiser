@@ -29,7 +29,7 @@ def find_friends(request, request_user):
 
     return all_friends
 
-def get_users_profile(request, pk):
+def get_users_profile(pk):
     """
     Find user profile or create a friend list and user profile if new user.
     """

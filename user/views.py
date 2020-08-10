@@ -22,7 +22,7 @@ def profile(request):
     all_friends = find_friends(request, request.user)
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
     partner_requests = get_partner_requests(request)
-    user_profile = get_users_profile(request, request.user.id)
+    user_profile = get_users_profile(request.user.id)
     news_feed = Status.objects.filter(user=request.user).order_by('created_date').reverse()
     item_categories = Category.objects.filter(user=request.user)
     all_items = get_all_shopping_items(request)
@@ -102,7 +102,7 @@ def family(request, pk):
     """
     requested_user = get_object_or_404(User, pk=pk)
 
-    friends = Friend.objects.get(current_user=requested_user)
+    friends = find_friends(request, requested_user)
     all_friends = find_friends(request, requested_user)
 
     all_friends_dict = []
@@ -133,7 +133,7 @@ def notifications(request):
     """
 
     # Reset the users notifications to zero
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile = get_users_profile(request.user.id)
     user_profile.status_notification = 0
     user_profile.accepted_friend_notification = 0
     user_profile.save()
@@ -200,7 +200,7 @@ def settings(request):
     Edit account details
     """
 
-    user_profile = get_users_profile(request, request.user.id)
+    user_profile = get_users_profile(request.user.id)
 
     context = {
         'user_profile': user_profile,
@@ -214,7 +214,7 @@ def change_profile_image(request):
     Change and save the users new profile image
     """
 
-    user_profile = get_users_profile(request, request.user.id)
+    user_profile = get_users_profile(request.user.id)
 
     profile_image = request.FILES.get('profile_image')
     user_profile.profile_image = profile_image
@@ -242,7 +242,7 @@ def view_user_profile(request, pk):
     # Find friend or turn a empty list if none.
     find_user = User.objects.get(pk=pk)
 
-    user_profile = get_users_profile(request, pk)
+    user_profile = get_users_profile(pk)
 
     if find_user == request.user:
         return redirect('profile')

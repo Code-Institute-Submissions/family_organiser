@@ -16,7 +16,7 @@ def news_feed(request):
 
     all_friends = get_all_friends(request)
     news_feed = get_news_feed(request)
-    user_profile = get_users_profile(request, request.user.id)
+    user_profile = get_users_profile(request.user.id)
 
     context = {
         'news_feed': news_feed,
