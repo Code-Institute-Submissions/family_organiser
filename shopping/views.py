@@ -8,6 +8,7 @@ from .models import Category, Item, PurchasedItems, Favorite, Partner, PartnerRe
 from user.models import UserProfile, Friend
 from random import randint
 import datetime
+from user.functions.functions import get_users_profile
 from .functions.functions import *
 from .forms import ItemForm
 
@@ -130,7 +131,7 @@ def insight(request, filter):
     Display instight page with graphs and table of the users favorite items and shopping habbits.
     """ 
 
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile = get_users_profile(request.user.id)
 
     if user_profile.premium:
 
@@ -304,7 +305,7 @@ def add_partner(request):
     Search and add shopping partners to the users shopping list.
     """
 
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile = get_users_profile(request.user.id)
     # if the user has a premium account return the shopping partners page or return premium information.
     if user_profile.premium:
         if request.method == 'GET':
@@ -375,7 +376,7 @@ def update_partners(request, operation, pk, request_id):
     """
     Add or remove the chosen user from or too their partner list
     """
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile = get_users_profile(request.user.id)
 
     if user_profile.premium:
 

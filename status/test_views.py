@@ -29,4 +29,4 @@ class TestViews(TestCase):
         user_profile = get_users_profile(self.user.id)
         status = create_test_status()
         response = self.client.get(f'/status/view_status/{status.id}')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200) 
