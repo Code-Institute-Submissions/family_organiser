@@ -15,9 +15,6 @@ def profile(request):
     """
     Display the users profile, status, shopping items and notifications.
     """
-    # If user isn't logged in return to the home page.
-    if request.user.is_anonymous:
-        return redirect('home')
 
     all_friends = find_friends(request, request.user)
     friend_requests = FriendRequests.objects.filter(to_user=request.user)
