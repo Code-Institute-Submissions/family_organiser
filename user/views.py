@@ -7,6 +7,7 @@ from .models import FriendRequests, Friend, UserProfile, AcceptedFriendRequests
 from message.models import MessageNotification, Message
 from django.db.models import Q
 from .functions.functions import *
+from shopping.functions.functions import get_partner_requests
 from status.forms import StatusForm
 from shopping.forms import ItemForm
 

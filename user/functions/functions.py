@@ -6,17 +6,6 @@ from message.models import MessageNotification, Message
 from shopping.models import Item
 from django.db.models import Q
 
-def get_partner_requests(request):
-    """
-    Get the users partner notification requests.
-    """
-    try:
-        partner_requests = PartnerRequest.objects.filter(to_user=request.user)
-    except:
-        partner_requests = []
-
-    return partner_requests
-
 def find_friends(request, request_user):
     """
     Find all users friends accounts.

@@ -1,4 +1,15 @@
-from shopping.models import Partner, Item, PurchasedItems, Favorite
+from shopping.models import Partner, PartnerRequest, Item, PurchasedItems, Favorite
+
+def get_partner_requests(request):
+    """
+    Get the users partner notification requests.
+    """
+    try:
+        partner_requests = PartnerRequest.objects.filter(to_user=request.user)
+    except:
+        partner_requests = []
+
+    return partner_requests
 
 def all_shopping_items(request):
     """
