@@ -110,7 +110,7 @@ def add_like_and_notification(request, pk):
     return None
 
 def create_test_status():
-    user = create_test_user()
+    user = create_test_user('1')
     user_profile = get_users_profile(user.id)
     status = Status(
             user = user,

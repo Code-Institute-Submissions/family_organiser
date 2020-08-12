@@ -7,7 +7,7 @@ class TestViews(TestCase):
 
     # insight page
     def test_get_insight_page_user_not_authenticated(self):
-        user = create_test_user()
+        user = create_test_user('1')
         response = self.client.get('/shopping/insight/personal')
         self.assertEqual(response.status_code, 302)
 
@@ -30,7 +30,7 @@ class TestViews(TestCase):
 
     # shopping intro page
     def test_get_shopping_intro_page_user_not_authenticated(self):
-        user = create_test_user()
+        user = create_test_user('1')
         response = self.client.get('/shopping/shopping_intro')
         self.assertEqual(response.status_code, 302)
 
@@ -46,7 +46,7 @@ class TestViews(TestCase):
 
     # Shopping page
     def test_get_shopping_page_user_not_authenticated(self):
-        user = create_test_user()
+        user = create_test_user('1')
         response = self.client.get('/shopping/shopping_page')
         self.assertEqual(response.status_code, 302)
 
@@ -71,7 +71,7 @@ class TestViews(TestCase):
 
     # Shopping partner page
     def test_get_shopping_partner_page_user_not_authenticated(self):
-        user = create_test_user()
+        user = create_test_user('1')
         response = self.client.get('/shopping/add_partner')
         self.assertEqual(response.status_code, 302)
 

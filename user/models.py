@@ -14,6 +14,8 @@ class FriendRequests(models.Model):
     from_user = models.ForeignKey(User, related_name="fromuser", null=True, on_delete=models.CASCADE)
     to_user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.to_user.username
 
 class Friend(models.Model):
     users = models.ManyToManyField(User)

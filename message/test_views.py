@@ -7,7 +7,7 @@ class TestViews(TestCase):
 
     # Conversation page
     def test_get_conversation_user_not_authenticated(self):
-        user = create_test_user()
+        user = create_test_user('1')
         message_user = User.objects.create_user('test', 'test@test.com', 'Password777')
         response = self.client.get(f'/message/conversation/{message_user.id}')
         self.assertEqual(response.status_code, 302)
