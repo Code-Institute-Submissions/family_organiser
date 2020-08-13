@@ -1,4 +1,6 @@
-# Family Organiser
+[![Build Status](https://travis-ci.com/Fordalex/family_organiser.svg?branch=master)](https://travis-ci.com/Fordalex/family_organiser)
+
+# Family Organiser 
 
 This web application is designed to keep users in touch with their family and allow them to book events, share shopping lists, work together getting chores done, as well as write status and message one another.
 
