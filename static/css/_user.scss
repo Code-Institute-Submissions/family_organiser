@@ -91,6 +91,7 @@
 // add data section
 .add-data-container {
     padding-top: 10px;
+    padding-bottom: 20px;
     padding-right: 30px;
     overflow: auto;
     white-space: nowrap;
@@ -137,6 +138,7 @@
 // data form container
 #add-data-form-container {
     height: 370px;
+    background-color: white;
 }
 
 // shopping list
@@ -201,9 +203,10 @@
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 5px 30px 3px rgba(0,0,0,0.34);
     border-radius: 23px 23px 0px 0px;
-    border-top: 15px solid white;
+
     padding: 0px;
     min-height: 70vh;
+    border-top: solid grey 1px;
 }
 
 .profile-view-page-container {

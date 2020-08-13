@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1183.123" height="395.861" viewBox="0 0 1183.123 395.861">
-  <defs>
-    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#39e86d"/>
-      <stop offset="1" stop-color="#6cf273"/>
-    </linearGradient>
-  </defs>
-  <path id="Path_27" data-name="Path 27" d="M5540-2382s-84.71,37.332-140.971,90.06-64.309,110.22-163.676,116.414-211.979-16.237-322.058-10.88-161.929,34.817-265.481,40.257-217-34.734-266.569-15.232S4367-2077.6,4405.182-2060.195s201.014,22.933,291.593,18.5,190.971-19,303.562-5.44,256.169,63.106,371.02,60.93S5540-2068.9,5540-2068.9Z" transform="translate(-4356.877 2382)" fill="url(#linear-gradient)"/>
-</svg>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1183.12 395.86"><defs><style>.cls-1{fill:url(#linear-gradient);}</style><linearGradient id="linear-gradient" x1="542.04" y1="248.37" x2="542.04" y2="247.37" gradientTransform="matrix(1183.12, 0, 0, -395.86, -640710.16, 98322.4)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39e86d"/><stop offset="1" stop-color="#6cf273"/></linearGradient></defs><title>add_data_background_desktop</title><path id="Path_27" data-name="Path 27" class="cls-1" d="M1183.12,0s-84.71,37.33-141,90.06S977.84,200.28,878.48,206.47s-212-16.23-322.06-10.88-161.93,34.82-265.48,40.26S0,219.79,0,219.79V395.86H1183.12Z"/></svg>
