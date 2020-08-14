@@ -136,6 +136,15 @@ nav {
 }
 
 .page-container {
+  min-height: 100vh;
+  max-width: 1500px;
+  height: 100%;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  border-right: none;
+  border-left: none;
   background-color: white;
 }
 

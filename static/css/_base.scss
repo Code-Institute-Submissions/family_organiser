@@ -1,4 +1,13 @@
 .page-container {
+    min-height: 100vh;
+    max-width: 1500px;
+    height: 100%;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    border-right: none;
+    border-left: none;
     background-color: white;
 }
 
@@ -9,6 +18,6 @@
 @media (min-width: 900px) {
     .page-container {
         border-right: solid 1px rgb(194, 194, 194);
-    border-left: solid 1px rgb(194, 194, 194);
+        border-left: solid 1px rgb(194, 194, 194);
     }
 }
