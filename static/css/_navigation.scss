@@ -113,6 +113,57 @@ nav {
     }
 }
 
+.desktop-navigation-links {
+    position: relative;
+    overflow: hidden;
+    border-right: solid grey 1px;
+    background-color: #fafafa;
+    z-index:555;
+    height: 100vh;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    h6 {
+        margin-left: 15px;
+        margin-bottom: 13px;
+    }
+    .logout-item {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0);
+        a {
+            color: white;
+        }
+        .logout-background-image {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+        }
+    }
+    li {
+        display: block;
+        padding: 0;
+        margin:0;
+        background-color: #fafafa;
+        a {
+            text-align: start;
+            padding: 10px 10px;
+            display: block;
+            width: 100%;
+            color: black;
+            &:focus,&:hover {
+                text-decoration: none;
+            }
+            img {
+                height: 32px;
+            }
+        }
+    }
+}
+
 // Mini navigation
 
 .mini-navigation-container {

@@ -120,6 +120,65 @@ nav {
   height: 32px;
 }
 
+.desktop-navigation-links {
+  position: relative;
+  overflow: hidden;
+  border-right: solid grey 1px;
+  background-color: #fafafa;
+  z-index: 555;
+  height: 100vh;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.desktop-navigation-links h6 {
+  margin-left: 15px;
+  margin-bottom: 13px;
+}
+
+.desktop-navigation-links .logout-item {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.desktop-navigation-links .logout-item a {
+  color: white;
+}
+
+.desktop-navigation-links .logout-item .logout-background-image {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.desktop-navigation-links li {
+  display: block;
+  padding: 0;
+  margin: 0;
+  background-color: #fafafa;
+}
+
+.desktop-navigation-links li a {
+  text-align: start;
+  padding: 10px 10px;
+  display: block;
+  width: 100%;
+  color: black;
+}
+
+.desktop-navigation-links li a:focus, .desktop-navigation-links li a:hover {
+  text-decoration: none;
+}
+
+.desktop-navigation-links li a img {
+  height: 32px;
+}
+
 .mini-navigation-container {
   border-top: solid rgba(0, 0, 0, 0.1) 1px;
   background-color: #f8f9fa;
@@ -186,7 +245,7 @@ nav {
 }
 
 .desktop-navigation {
-  width: 500px;
+  width: 450px;
   background-color: white;
 }
 
@@ -200,6 +259,7 @@ nav {
 .page-update {
   width: 350px;
   background-color: white;
+  border-left: solid grey 1px;
 }
 
 .nav-margin-space {
@@ -652,10 +712,10 @@ nav {
 
 @media (min-width: 1200px) {
   .profile-background-image {
-    top: 30px;
+    top: 20px;
   }
   .profile-background-image-light {
-    top: 60px;
+    top: 50px;
   }
 }
 
