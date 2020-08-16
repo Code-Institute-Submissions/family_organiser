@@ -45,208 +45,221 @@
 <hr class="mt-0">
 
 <div class="row m-0 p-0">
-    <div class="col-12 col-md-6 col-lg-4 m-0 p-0">
-        <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Add New Item<i
-                class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
-                href="#item-form-container"></i>
-        </h6>
-        <hr>
-        <div id="item-form-container" class="collapse">
-            <form action="/shopping/edit_item_quantity/add/0" method="POST" class="px-3 pt-0 pb-1" id="item-form">
+    <div class="col-12 col-lg-8 p-0 order-2 order-lg-1">
+        <!-- list section -->
+        <!-- quick add -->
+        <div class="shopping-item-container">
+            {% if not favorites %}
+            <p class="px-2">You haven't added any items yet.</p>
+            {% endif %}
+            {% for item in favorites %}
+            <form action="/shopping/quick_item/{{item.item}}/{{item.category}}" method="POST" class="add-item-ajax">
                 {% csrf_token %}
-                {{ item_form }}
-                <label>Category</label>
-                <div class="row m-0 p-0">
-                    <div class="col-12 m-0 p-0">
-                        <select name="category" class="form-control" id="form-category" required>
-                            {% for category in categories %}
-                            <option value="{{ category.category }}">{{ category.category }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div id="error-container" class="mt-1"></div>
-                <button class="btn btn-success container-fluid mt-3 mb-2" id="send-button">Add To List</button>
+                <button class="btn btn-success ">
+                    <p class="m-0 text-light">{{ item.item }}</p>
+                </button>
             </form>
-            <hr>
+            {% endfor %}
         </div>
-    </div>
-    <!-- adding a category -->
-
-    <div class="col-12 col-md-6 col-lg-4 m-0 p-0">
-        <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Add New Category<i
-                class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
-                href="#category-form-container"></i></h6>
+        <hr class="mt-2">
+        {% if not categories_used %}
+        <div class=" shopping-list-empty">
+            <p class="px-2">Your shoppping list is empty.</p>
+        </div>
+        {% else %}
+        <div class="d-flex justify-content-between">
+            <h5 class="ml-3 mb-0">List</h5>
+            <i class="fas fa-edit mr-3" data-toggle="collapse" href=".edit-item"></i>
+        </div>
+        {% endif %}
         <hr>
-        <div id="category-form-container" class="collapse">
-            <form action="update_category/add/0" method="POST">
+        <div class="shopping-table-container">
+            <div class="row m-0 p-0 justify-content-center">
+                {% for category in categories_used %}
                 {% csrf_token %}
-                <div class="row m-0 p-0">
-                    <div class="col-12">
-                        <label>Category</label>
-                        <input type="text" name="category" class="form-control" id="form-quantity">
-                        <button class="btn btn-success container-fluid mt-3 mb-2">Add Category</button>
-                    </div>
+
+                <div class="col-12 m-0 p-0 px-2">
+                    <h6 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}</h6>
+                    <hr>
+                    <table class="container-fluid shopping-table">
+                        <tr>
+                            <th>Item</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-right">Add By</th>
+                            <th class="text-right collapse edit-item">Remove</th>
+                        </tr>
+                        {% for item in items %}
+                        {% if item.category == category.category %}
+                        <tr>
+                            <td>{{ item.item }}</td>
+                            <td class="d-flex justify-content-between p-2">
+                                <form method="POST" action="edit_item_quantity/decrement/{{item.id}}"
+                                    class="add-item-ajax">
+                                    {% csrf_token %}
+                                    <button class="text-dark button-no-style">
+                                        <i class="far fa-caret-square-down"></i>
+                                    </button>
+                                </form>
+
+                                <span class="mx-2">{{ item.quantity }}</span>
+
+                                <form method="POST" action="edit_item_quantity/increment/{{item.id}}"
+                                    class="add-item-ajax">
+                                    {% csrf_token %}
+                                    <button class="text-dark button-no-style">
+                                        <i class="far fa-caret-square-up"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="text-right text-small">{{ item.user.username }}</td>
+                            <td class="collapse edit-item">
+                                <div class="container-fluid d-flex justify-content-end p-0">
+                                    <form method="POST" action="edit_item_quantity/remove/{{item.id}}"
+                                        class="add-item-ajax">
+                                        <button class="icon-button">
+                                            <img src="{{MEDIA_URL}}icons/delete_icon.png">
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </table>
+                    <hr>
                 </div>
-            </form>
-            <p class="text-right mr-3 mt-2" type="button" data-toggle="modal" data-target="#staticBackdrop">Category Examples</p>
-            <hr class="mt-3">
-        </div>
-    </div>
-    <!-- Example categories modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Category Examples</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <ul>
-                <li>Fruit</li>
-                <li>Vegetable</li>
-                <li>Cupboard</li>
-                <li>Fridge</li>
-                <li>Cleaning</li>
-                <li>Bathroom</li>
-                <li>Junk Food</li>
-                <li>Alcoholic</li>
-            </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Okay</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <!-- editing categories -->
-
-    <div class="col-12 col-md-6 col-lg-4 m-0 p-0">
-        <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Edit Categories<i
-                class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
-                href="#category-edit-container"></i>
-        </h6>
 
 
-        <hr class="mb-2">
-        <div id="category-edit-container" class="collapse">
-            <div class="row m-0 p-0">
-                {% for category in categories %}
-                <div class="col-12 d-flex justify-content-between mt-3">
-                    <p class="m-0">{{category.category}}</p>
-                    <form method="POST" action="update_category/remove/{{ category.id }}">
-                        {% csrf_token %}
-                        <div class="dropdown">
-                            <a class="icon-button float-right mr-2 dropdown-toggle" type="button"
-                            id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="-120,10">
-                                <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                                <h6 class="text-center">Are you sure?</h6>
-                                <button class="dropdown-item font-weight-light">Remove Category</button>
-                              </div>
-                        </div>
-                    </form>
-                </div>
                 {% endfor %}
             </div>
-            <hr>
+            <div class="row m-0 p-0 my-3 mb-4 collapse edit-item">
+                <div class="col-12 m-0 p-0 px-2">
+                    <button class="btn btn-danger container-fluid">Delete All</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<!-- list section -->
-<!-- quick add -->
-<div class="shopping-item-container">
-    {% if not favorites %}
-    <p class="px-2">You haven't added any items yet.</p>
-    {% endif %}
-    {% for item in favorites %}
-    <form action="/shopping/quick_item/{{item.item}}/{{item.category}}" method="POST" class="add-item-ajax">
-        {% csrf_token %}
-        <button class="btn btn-success ">
-            <p class="m-0 text-light">{{ item.item }}</p>
-        </button>
-    </form>
-    {% endfor %}
-</div>
-<hr class="mt-2">
-{% if not categories_used %}
-<div class=" shopping-list-empty">
-    <p class="px-2">Your shoppping list is empty.</p>
-</div>
-{% else %}
-<div class="d-flex justify-content-between">
-    <h5 class="ml-3 mb-0">List</h5>
-    <i class="fas fa-edit mr-3" data-toggle="collapse" href=".edit-item"></i>
-</div>
-{% endif %}
-<hr>
-<div class="shopping-table-container">
-    <div class="row m-0 p-0 justify-content-center">
-        {% for category in categories_used %}
-        {% csrf_token %}
 
-        <div class="col-12 col-md-6 col-lg-4 m-0 p-0 px-2">
-            <h6 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}</h6>
-            <hr>
-            <table class="container-fluid shopping-table">
-                <tr>
-                    <th>Item</th>
-                    <th class="text-center">Quantity</th>
-                    <th class="text-right">Add By</th>
-                    <th class="text-right collapse edit-item">Remove</th>
-                </tr>
-                {% for item in items %}
-                {% if item.category == category.category %}
-                <tr>
-                    <td>{{ item.item }}</td>
-                    <td class="d-flex justify-content-between p-2">
-                        <form method="POST" action="edit_item_quantity/decrement/{{item.id}}" class="add-item-ajax">
-                            {% csrf_token %}
-                            <button class="text-dark button-no-style">
-                                <i class="far fa-caret-square-down"></i>
-                            </button>
-                        </form>
+    <div class="col-12 col-lg-4 m-0 p-0 order-1 order-lg-2">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0">
+                <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Add New Item<i
+                        class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
+                        href="#item-form-container"></i>
+                </h6>
+                <hr>
+                <div id="item-form-container" class="collapse">
+                    <form action="/shopping/edit_item_quantity/add/0" method="POST" class="px-3 pt-0 pb-1"
+                        id="item-form">
+                        {% csrf_token %}
+                        {{ item_form }}
+                        <label>Category</label>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <select name="category" class="form-control" id="form-category" required>
+                                    {% for category in categories %}
+                                    <option value="{{ category.category }}">{{ category.category }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div id="error-container" class="mt-1"></div>
+                        <button class="btn btn-success container-fluid mt-3 mb-2" id="send-button">Add To List</button>
+                    </form>
+                    <hr>
+                </div>
+            </div>
+            <!-- adding a category -->
 
-                        <span class="mx-2">{{ item.quantity }}</span>
+            <div class="col-12 m-0 p-0">
+                <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Add New Category<i
+                        class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
+                        href="#category-form-container"></i></h6>
+                <hr>
+                <div id="category-form-container" class="collapse">
+                    <form action="update_category/add/0" method="POST">
+                        {% csrf_token %}
+                        <div class="row m-0 p-0">
+                            <div class="col-12">
+                                <label>Category</label>
+                                <input type="text" name="category" class="form-control" id="form-quantity">
+                                <button class="btn btn-success container-fluid mt-3 mb-2">Add Category</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="text-right mr-3 mt-2" type="button" data-toggle="modal" data-target="#staticBackdrop">
+                        Category
+                        Examples</p>
+                    <hr class="mt-3">
+                </div>
+            </div>
 
-                        <form method="POST" action="edit_item_quantity/increment/{{item.id}}" class="add-item-ajax">
-                            {% csrf_token %}
-                            <button class="text-dark button-no-style">
-                                <i class="far fa-caret-square-up"></i>
-                            </button>
-                        </form>
-                    </td>
-                    <td class="text-right text-small">{{ item.user.username }}</td>
-                    <td class="collapse edit-item">
-                        <div class="container-fluid d-flex justify-content-end p-0">
-                            <form method="POST" action="edit_item_quantity/remove/{{item.id}}" class="add-item-ajax">
-                                <button class="icon-button">
-                                    <img src="{{MEDIA_URL}}icons/delete_icon.png">
-                                </button>
+            <!-- editing categories -->
+
+            <div class="col-12 m-0 p-0">
+                <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Edit Categories<i
+                        class="far fa-plus-square float-right mr-2 plus-minus-square" data-toggle="collapse"
+                        href="#category-edit-container"></i>
+                </h6>
+                <hr class="mb-2">
+                <div id="category-edit-container" class="collapse">
+                    <div class="row m-0 p-0">
+                        {% for category in categories %}
+                        <div class="col-12 d-flex justify-content-between mt-3">
+                            <p class="m-0">{{category.category}}</p>
+                            <form method="POST" action="update_category/remove/{{ category.id }}">
+                                {% csrf_token %}
+                                <div class="dropdown">
+                                    <a class="icon-button float-right mr-2 dropdown-toggle" type="button"
+                                        id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false" data-offset="-120,10">
+                                        <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                        <h6 class="text-center">Are you sure?</h6>
+                                        <button class="dropdown-item font-weight-light">Remove Category</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </table>
-            <hr>
-        </div>
-
-
-        {% endfor %}
-    </div>
-    <div class="row m-0 p-0 my-3 mb-4 collapse edit-item">
-        <div class="col-12 m-0 p-0 px-2">
-            <button class="btn btn-danger container-fluid">Delete All</button>
+                        {% endfor %}
+                    </div>
+                    <hr>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- Example categories modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Category Examples</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>Fruit</li>
+                    <li>Vegetable</li>
+                    <li>Cupboard</li>
+                    <li>Fridge</li>
+                    <li>Cleaning</li>
+                    <li>Bathroom</li>
+                    <li>Junk Food</li>
+                    <li>Alcoholic</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 
