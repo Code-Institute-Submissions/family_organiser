@@ -7,9 +7,8 @@
 
 {% block content %}
 
-
-<!-- Users bio information -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Users bio information modal -->
+<div class="modal fade" id="exampleModal" tabindex="-10" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,6 +27,7 @@
     </div>
 </div>
 
+
 <div id="page-top"></div>
 <img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image d-md-none"></img>
 <img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light d-md-none"></img>
@@ -36,6 +36,7 @@
     class="profile-background-image-light d-none d-md-block"></img>
 
 <div class="profile-bio-form-container">
+
     <!-- profile and notifications section -->
     <div class="row m-0 p-0">
         <div class="col m-0 p-0 d-flex justify-content-between">
@@ -116,8 +117,8 @@
         </div>
         <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center justify-content-md-end align-items-end">
             <a href="/user/family/{{ user.id }}" class="m-0 mr-md-5">
-                <h3 class="text-center text-white">{{ friend_count }}</h3>
-                <h6 class="text-white">Family</h6>
+                <h3 class="text-center text-dark">{{ friend_count }}</h3>
+                <h6 class="text-dark">Family</h6>
             </a>
         </div>
     </div>

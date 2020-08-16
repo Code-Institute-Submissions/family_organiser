@@ -197,7 +197,8 @@ nav {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
+  display: none;
 }
 
 /* Track */
@@ -216,6 +217,12 @@ nav {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #b2eab5;
+}
+
+@media (min-width: 780px) {
+  ::-webkit-scrollbar {
+    display: block;
+  }
 }
 
 .page-container {
@@ -406,7 +413,7 @@ nav {
 .add-data-container a label {
   display: block;
   text-align: center;
-  color: white;
+  color: black;
 }
 
 .add-data-container a .coming-soon {

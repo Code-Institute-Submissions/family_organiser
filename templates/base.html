@@ -77,7 +77,8 @@
                     <p>Create a to do list and share with your family to get the job done faster!</p>
                     <hr class="m-0 mb-3">
                     <h6 class="mt-3">Photos</h6>
-                    <p>Create personal or public photo albums to save your holidays, days out and important memories!</p>
+                    <p>Create personal or public photo albums to save your holidays, days out and important memories!
+                    </p>
                     <hr class="m-0 mb-3">
                     <h6>Thank You</h6>
                     <p>Your a premium user! Any suggestions or problems please vist. <a href="#">Click here</a></p>
@@ -144,104 +145,103 @@
         </nav>
         {% endif %}
         <!-- Page content -->
-  
+        {% if user.is_authenticated %}
         <div class="content-container">
-            {% if user.is_authenticated %}
-                <div class="desktop-navigation d-none d-md-block">
-                    <ul class="desktop-navigation-links">
-                        <div class="d-flex justify-content-between align-items-center px-3 py-2">
-                            <a href="/">
-                                <img src="{{ MEDIA_URL }}icons/family_organiser.png" class="logo" />
-                            </a>
-                            <h6 class="m-0">{{ user.username }}</h6>
-                        </div>
-                        
-                        <hr class="m-0">
-                        <li class="navigation-item">
-                            <a href="/user/profile/">
-                                <img src="{{ MEDIA_URL }}icons/profile_icon.png" class="mr-2" />Profile
-                            </a>
-                        </li>
-                        <li class="navigation-item">
-                            <a href="/status/news_feed">
-                                <img src="{{ MEDIA_URL }}icons/news_icon.png" class="mr-2" />News Feed
-                            </a>
-                        </li>
-                        <li class="navigation-item">
-                            <a href="/message/select_conversation">
-                                <img src="{{ MEDIA_URL }}icons/message_icon.png" class="mr-2" />Messages
-                            </a>
-                        </li>
-                        <li class="navigation-item">
-                            <a href="/user/family/{{ user.id }}">
-                                <img src="{{ MEDIA_URL }}icons/family_icon.png" class="mr-2" />Family
-                            </a>
-                        </li>
-                        <li class="navigation-item">
-                            <a href="/shopping/shopping_page">
-                                <img src="{{ MEDIA_URL }}icons/shopping_icon.png" class="mr-2" />Shopping
-                            </a>
-                        </li>
-                        <li class="navigation-item">
-                            <a href="/user/notifications">
-                                <img src="{{ MEDIA_URL }}icons/bell_icon.png" class="mr-2" />Notifications
-                            </a>
-                        </li>
-                        <li class="navigation-item">
-                            <a href="/user/settings">
-                                <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2" />Settings
-                            </a>
-                        </li>
-                        <li class="logout-item">
-                            <a href="/accounts/logout">
-                                <img src="{{ MEDIA_URL }}icons/logout_icon.png" class="mr-2" />Logout
-                            </a>
-                            <img class="logout-background-image" src="{{ MEDIA_URL }}svg/logout_background.svg">
-                        </li>
-                    </ul>
-                </div>
-            {% endif %}
-            <div class="content-wrapper">
-                {% block content %}{% endblock %}
+
+            <div class="desktop-navigation d-none d-md-block">
+                <ul class="desktop-navigation-links">
+                    <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                        <a href="/">
+                            <img src="{{ MEDIA_URL }}icons/family_organiser.png" class="logo" />
+                        </a>
+                        <h6 class="m-0">{{ user.username }}</h6>
+                    </div>
+
+                    <hr class="m-0">
+                    <li class="navigation-item">
+                        <a href="/user/profile/">
+                            <img src="{{ MEDIA_URL }}icons/profile_icon.png" class="mr-2" />Profile
+                        </a>
+                    </li>
+                    <li class="navigation-item">
+                        <a href="/status/news_feed">
+                            <img src="{{ MEDIA_URL }}icons/news_icon.png" class="mr-2" />News Feed
+                        </a>
+                    </li>
+                    <li class="navigation-item">
+                        <a href="/message/select_conversation">
+                            <img src="{{ MEDIA_URL }}icons/message_icon.png" class="mr-2" />Messages
+                        </a>
+                    </li>
+                    <li class="navigation-item">
+                        <a href="/user/family/{{ user.id }}">
+                            <img src="{{ MEDIA_URL }}icons/family_icon.png" class="mr-2" />Family
+                        </a>
+                    </li>
+                    <li class="navigation-item">
+                        <a href="/shopping/shopping_page">
+                            <img src="{{ MEDIA_URL }}icons/shopping_icon.png" class="mr-2" />Shopping
+                        </a>
+                    </li>
+                    <li class="navigation-item">
+                        <a href="/user/notifications">
+                            <img src="{{ MEDIA_URL }}icons/bell_icon.png" class="mr-2" />Notifications
+                        </a>
+                    </li>
+                    <li class="navigation-item">
+                        <a href="/user/settings">
+                            <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2" />Settings
+                        </a>
+                    </li>
+                    <li class="logout-item">
+                        <a href="/accounts/logout">
+                            <img src="{{ MEDIA_URL }}icons/logout_icon.png" class="mr-2" />Logout
+                        </a>
+                        <img class="logout-background-image" src="{{ MEDIA_URL }}svg/logout_background.svg">
+                    </li>
+                </ul>
             </div>
-            {% if user.is_authenticated %}
-            <div class="page-update d-none d-md-block p-2">
-               
-                    {% if not user_profile.premium %}
-                        <h5 class="mt-2">Why Premium?</h5>
-                        <h6 class="mt-3">Shopping</h6>
-                        <p>Invite family members to help you with your shopping, also view your shopping habbits to keep
-                            control of junk food.</p>
-                        <hr class="m-0 mb-3">
-                        <h6 class="mt-2">To Do</h6>
-                        <p>Make sure them bins get put out or that bill gets paid, even invite a family member to do it for
-                            you.</p>
-                        <hr class="m-0 mb-3">
-                        <h6 class="mt-2">Events</h6>
-                        <p>Book invites with family members and save them to your google calender to make sure you don't
-                            forget.</p>
-                        <hr class="m-0 mb-3">
-                        <a href="/premium/premium_info">More</a>
-                    {% else %}
-                        <h5 class="mt-2">Coming Soon!</h5>
-                        <h6 class="mt-3">To Do</h6>
-                        <p>Create a to do list and share with your family to get the job done faster!</p>
-                        <hr class="m-0 mb-3">
-                        <h6 class="mt-3">Photos</h6>
-                        <p>Create personal or public photo albums to save your holidays, days out and important memories!</p>
-                        <hr class="m-0 mb-3">
-                        <h6>Thank You</h6>
-                        <p>Your a premium user! Any suggestions or problems please vist. <a href="#">Click here</a></p>
-                    {% endif %}
-               
+
+            <div class="content-wrapper">
+                {% endif %}
+                    {% block content %}{% endblock %}
+                {% if user.is_authenticated %}
+            </div>
+
+
+            <div class="page-update d-none d-lg-block p-2">
+
+                {% if not user_profile.premium %}
+                <h5 class="mt-2">Why Premium?</h5>
+                <h6 class="mt-3">Shopping</h6>
+                <p>Invite family members to help you with your shopping, also view your shopping habbits to keep
+                    control of junk food.</p>
+                <hr class="m-0 mb-3">
+                <h6 class="mt-2">To Do</h6>
+                <p>Make sure them bins get put out or that bill gets paid, even invite a family member to do it for
+                    you.</p>
+                <hr class="m-0 mb-3">
+                <h6 class="mt-2">Events</h6>
+                <p>Book invites with family members and save them to your google calender to make sure you don't
+                    forget.</p>
+                <hr class="m-0 mb-3">
+                <a href="/premium/premium_info">More</a>
+                {% else %}
+                <h5 class="mt-2">Coming Soon!</h5>
+                <h6 class="mt-3">To Do</h6>
+                <p>Create a to do list and share with your family to get the job done faster!</p>
+                <hr class="m-0 mb-3">
+                <h6 class="mt-3">Photos</h6>
+                <p>Create personal or public photo albums to save your holidays, days out and important memories!</p>
+                <hr class="m-0 mb-3">
+                <h6>Thank You</h6>
+                <p>Your a premium user! Any suggestions or problems please vist. <a href="#">Click here</a></p>
+                {% endif %}
+
             </div>
             {% endif %}
         </div>
-        
-
-        
     </div>
-
 
     {% block postloadjs %}
 
