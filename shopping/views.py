@@ -24,6 +24,7 @@ def shopping_page(request):
     if len(categories) == 0:
         return redirect('shopping_intro')
 
+    user_profile = get_users_profile(request.user.id)
     shopping_partners = get_shopping_partners(request)
     categories_used = find_categories_used(request)
     all_items_no_duplicates = add_items_quantity_not_duplicates(request)
@@ -36,6 +37,7 @@ def shopping_page(request):
         'categories_used': categories_used,
         'favorites': favorites,
         'item_form' : ItemForm,
+        'user_profile': user_profile,
     }
 
     return render(request, 'shopping/shopping_page.html', context)
@@ -52,6 +54,7 @@ def quick_item(request, item, category):
 
     # Get users items from the database.
     users_items = Item.objects.filter(user=request.user)
+    user_profile = get_users_profile(request.user.id)
 
     try:
         item_in_database = Item.objects.get(item=item_name, user=request.user)
@@ -292,6 +295,7 @@ def insight(request, filter):
             'line_chart_dataset': line_chart_dataset,
             'monthly_report_dates': monthly_report_dates,
             'monthly_report_data': monthly_report_data,
+            'user_profile': user_profile,
         }
 
         return render(request, 'shopping/insight.html', context)
@@ -348,6 +352,7 @@ def add_partner(request):
             'searched_users': searched_users,
             'friends': all_friends,
             'shopping_partners': shopping_partners,
+            'user_profile': user_profile,
         }
 
         return render(request, 'shopping/shopping_partner.html', context)
@@ -552,4 +557,11 @@ def shopping_intro(request):
     """
     Display shopping intro page for users to create their first category.
     """
-    return render(request, 'shopping/shopping_intro.html')
+
+    user_profile = get_users_profile(request.user.id)
+
+    context = {
+        'user_profile': user_profile,
+    }
+
+    return render(request, 'shopping/shopping_intro.html', context)

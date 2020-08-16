@@ -53,6 +53,8 @@ def find_users(request):
     if request.method == 'GET':
         searched_users = search_users(request)
 
+    user_profile = get_users_profile(request.user.id)
+
     try:
         friends = Friend.objects.get(current_user=request.user)
         all_friends_query_set = friends.users.all()
@@ -74,6 +76,7 @@ def find_users(request):
         'searched_users': searched_users,
         'friends': all_friends,
         'friend_request_sent': friend_request_sent,
+        'user_profile': user_profile,
     }
 
     return render(request, 'user/find_users.html', context)
@@ -99,6 +102,7 @@ def family(request, pk):
     View the list of friends that the users has
     """
     requested_user = get_object_or_404(User, pk=pk)
+    user_profile = get_users_profile(request.user.id)
 
     friends = find_friends(request, requested_user)
     all_friends = find_friends(request, requested_user)
@@ -120,6 +124,7 @@ def family(request, pk):
     context = {
         'friends': all_friends_dict,
         'requested_user': requested_user,
+        'user_profile': user_profile,
     }
 
     return render(request, 'user/family.html', context)
@@ -149,6 +154,7 @@ def notifications(request):
         'friend_requests': friend_requests,
         'partner_requests': partner_requests,
         'notifications': notifications,
+        'user_profile': user_profile,
     }
     return render(request, 'user/notifications.html', context)
 

@@ -137,14 +137,38 @@ nav {
 
 .page-container {
   min-height: 100vh;
-  max-width: 1500px;
   height: 100%;
-  position: relative;
   margin-right: auto;
   margin-left: auto;
   display: block;
   border-right: none;
   border-left: none;
+  background-color: white;
+}
+
+.content-container {
+  width: 100vw;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.desktop-navigation {
+  width: 500px;
+  background-color: white;
+}
+
+.content-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.page-update {
+  width: 350px;
   background-color: white;
 }
 

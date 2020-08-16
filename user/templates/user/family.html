@@ -8,7 +8,11 @@ Family | Family Organiser
 
 <div class="row m-0 p-2">
     <div class="col-12 m-0 p-0">
+        {% if requested_user.username == user.username %}
+        <p class="m-0 p-0 text-right">Your Family</p>
+        {% else %}
         <p class="m-0 p-0 text-right">{{ requested_user.first_name }} {{ requested_user.last_name }}'s - Family</p>
+        {% endif %}
     </div>
 </div>
 <hr>

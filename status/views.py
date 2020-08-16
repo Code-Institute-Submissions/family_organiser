@@ -81,9 +81,11 @@ def view_status(request, pk):
     """
 
     status = Status.objects.get(pk=pk)
+    user_profile = get_users_profile(request.user.id)
 
     context = {
         'news': status,
+        'user_profile': user_profile,
     }
 
     return render(request, 'status/view_status.html', context)
