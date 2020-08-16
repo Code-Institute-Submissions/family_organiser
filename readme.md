@@ -137,3 +137,5 @@ This web application is designed to keep users in touch with their family and al
 [login required - Django](https://docs.djangoproject.com/en/3.0/topics/auth/default/)
 
 [Client login test - Django](https://stackoverflow.com/questions/2705235/django-test-failing-on-a-view-with-login-required)
+
+[Creating A Custom Scroll Bar - CSS](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar2)

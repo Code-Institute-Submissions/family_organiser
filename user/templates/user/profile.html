@@ -164,7 +164,7 @@
 <!-- users shopping list and status -->
 <div class="profile-page-container">
     <div class="row m-0 p-0">
-        <div class="col-12 col-md-6 m-0 pt-3">
+        <div class="col-12 m-0 pt-3">
             <h5 class="m-0 d-flex align-items-center justify-content-between">Shopping List <a
                     href="/shopping/shopping_page" class="text-small">More</a></h5>
         </div>
@@ -259,32 +259,34 @@
                 <div class="col-12">
                     <hr class="mb-1">
                 </div>
-                <div class="row m-0 p-0" id="comment-container-{{ news.id }}">
-                    {% for comment in news.comment.all %}
-                    {% if forloop.counter <= 2 %}
-                    <div class="col-12 px-2 py-1">
-                        <div class="comment-container">
-                            <a href="/user/view_user_profile/{{comment.author.id}}">
-                                {% if comment.author_profile.profile_image %}
-                                <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}"
-                                    class="float-left mr-2">
-                                {% else %}
-                                <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
-                                {% endif %}
-                                <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }}
-                                    {{ comment.author.last_name }}</h6>
-                            </a>
-                            <p class="m-0">{{ comment.comment }}</p>
-                            <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
+                <div class="col-12 m-0 p-0">
+                    <div class="row m-0 p-0" id="comment-container-{{ news.id }}">
+                        {% for comment in news.comment.all %}
+                        {% if forloop.counter <= 2 %}
+                        <div class="col-12 px-2 py-1">
+                            <div class="comment-container">
+                                <a href="/user/view_user_profile/{{comment.author.id}}">
+                                    {% if comment.author_profile.profile_image %}
+                                    <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}"
+                                        class="float-left mr-2">
+                                    {% else %}
+                                    <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
+                                    {% endif %}
+                                    <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }}
+                                        {{ comment.author.last_name }}</h6>
+                                </a>
+                                <p class="m-0">{{ comment.comment }}</p>
+                                <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
+                            </div>
                         </div>
+                        {% endif %}
+                        {% if forloop.counter > 2 and forloop.last %}
+                        <div class="col-12 d-flex justify-content-end mt-2">
+                            <a href="/status/view_status/{{news.id}}" class="text-theme">View More</a>
+                        </div>
+                        {% endif  %}
+                        {% endfor %}
                     </div>
-                    {% endif %}
-                    {% if forloop.counter > 2 and forloop.last %}
-                    <div class="col-12 d-flex justify-content-end mt-2">
-                        <a href="/status/view_status/{{news.id}}" class="text-theme">View More</a>
-                    </div>
-                    {% endif  %}
-                    {% endfor %}
                 </div>
                 <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
                     <form class="d-flex justify-content-between status-comment-ajax"

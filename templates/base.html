@@ -80,7 +80,7 @@
                     <p>Create personal or public photo albums to save your holidays, days out and important memories!</p>
                     <hr class="m-0 mb-3">
                     <h6>Thank You</h6>
-                    <p>Your a premium your! Any suggestions or problems please vist. <a href="#">Click here</a></p>
+                    <p>Your a premium user! Any suggestions or problems please vist. <a href="#">Click here</a></p>
                     {% endif %}
                 </div>
             </div>
@@ -196,21 +196,45 @@
                 </li>
             </ul>
         </nav>
-        <div class="nav-margin-space d-md-none"></div>
         {% endif %}
         <!-- Page content -->
         {% if user.is_authenticated %}
         <div class="content-container">
             <div class="desktop-navigation d-none d-md-block">
-
+                <p>Navigation</p>
             </div>
+            {% endif %}
             <div class="content-wrapper">
-        {% endif %}
                 {% block content %}{% endblock %}
-        {% if user.is_authenticated %}
             </div>
-            <div class="page-update d-none d-md-block">
-
+            {% if user.is_authenticated %}
+            <div class="page-update d-none d-md-block p-2 pr-4">
+                {% if not user_profile.premium %}
+                <h5 class="mt-2">Why Premium?</h5>
+                <h6 class="mt-3">Shopping</h6>
+                <p>Invite family members to help you with your shopping, also view your shopping habbits to keep
+                    control of junk food.</p>
+                <hr class="m-0 mb-3">
+                <h6 class="mt-2">To Do</h6>
+                <p>Make sure them bins get put out or that bill gets paid, even invite a family member to do it for
+                    you.</p>
+                <hr class="m-0 mb-3">
+                <h6 class="mt-2">Events</h6>
+                <p>Book invites with family members and save them to your google calender to make sure you don't
+                    forget.</p>
+                <hr class="m-0 mb-3">
+                <a href="/premium/premium_info">More</a>
+                {% else %}
+                <h5 class="mt-2">Coming Soon!</h5>
+                <h6 class="mt-3">To Do</h6>
+                <p>Create a to do list and share with your family to get the job done faster!</p>
+                <hr class="m-0 mb-3">
+                <h6 class="mt-3">Photos</h6>
+                <p>Create personal or public photo albums to save your holidays, days out and important memories!</p>
+                <hr class="m-0 mb-3">
+                <h6>Thank You</h6>
+                <p>Your a premium user! Any suggestions or problems please vist. <a href="#">Click here</a></p>
+                {% endif %}
             </div>
         </div>
         {% endif %}

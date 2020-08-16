@@ -10,10 +10,15 @@
 }
 
 .content-container {
+    max-width: 1600px;
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
 }
 
 .desktop-navigation {
@@ -22,17 +27,16 @@
 }
 
 .content-wrapper {
+    padding-top: 48px;
     width: 100%;
     position: relative;
+    overflow-y: auto;
 }
 
 .page-update {
     width: 350px;
     background-color: white;
 }
-
-
-
 
 .nav-margin-space {
     height: 48px;
@@ -42,5 +46,11 @@
     .page-container {
         border-right: solid 1px rgb(194, 194, 194);
         border-left: solid 1px rgb(194, 194, 194);
+    }
+}
+
+@media (min-width: 767px) {
+    .content-wrapper {
+        padding-top: 0px;
     }
 }
