@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from .models import Category, Item, PurchasedItems, Favorite, Partner, PartnerRequest
 from user.models import UserProfile, Friend
 from random import randint
-import datetime
+from datetime import date, timedelta
 from user.functions.functions import get_users_profile
 from .functions.functions import *
 from .forms import ItemForm
@@ -205,16 +205,38 @@ def insight(request, filter):
         line_chart_dataset = []
         monthly_report_dates = []
 
-        # Get the months that items have been added to the list and append them in an array, ready for the monthly report and chart.
-        for item in purchased_items:
-            item_year = str(item.created_date)[0:4]
-            item_month = str(item.created_date)[5:7]
-            item_day = str(item.created_date)[8:10]
-            format_date = datetime.date(int(item_year), int(item_month), int(item_day))
-            monthly_report_dates.append(format_date.strftime('%B'))
+        months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        users_start_date = str(request.user.date_joined)
+        users_start_year = users_start_date[0:4]
+        users_start_month = users_start_date[5:7]
+        users_start_day = users_start_date[8:10]
+        users_start_date = date(int(users_start_year), int(users_start_month), int(users_start_day))
+        todays_date = date.today()
+        print(users_start_date, todays_date)
+        time_between = todays_date - users_start_date
+        months_between_start_date_and_now = []
 
-        monthly_report_dates = list(dict.fromkeys(monthly_report_dates))
+        for index_day in range(time_between.days + 1):
+            day = users_start_date + timedelta(days=index_day)
+            months_between_start_date_and_now.append(str(day)[0:7])
+
+        months_between_start_date_and_now = list(dict.fromkeys(months_between_start_date_and_now))
+        months_between_start_date_and_now_as_dates = []
+
+        monthly_report_dates_number = []
+        monthly_report_dates = []
+
+        for month in months_between_start_date_and_now:
+           months_between_start_date_and_now_as_dates.append(month)
+           monthly_report_dates_number.append(str(month)[5:7])
+
+        for month in monthly_report_dates_number:
+            monthly_report_dates.append(months[int(month) - 1])
+
         print(monthly_report_dates)
+        print(months_between_start_date_and_now_as_dates)
+
+
         monthly_report_data = []
         
         # find the name of each item used and sort in in used_items
@@ -226,42 +248,28 @@ def insight(request, filter):
         
         # get the users account
         user_profile = UserProfile.objects.get(user=request.user)
-        
-        # Start the search from when the user created an account
-        search_month = str(user_profile.start_date)[0:7]
 
-        # (bug if user doesn't submit a item for a few months it won't work.)
-        # (bug jan 2020 and jan 2021 will add up the quantity for jan.) (Maybe fixed can't tell until last bug is fixed)
-        # For each items used, search all items each month between the users start date and now.
-        # Storing the amount of the same items found each month in item_quantity_in_months
-        for item in used_items:
-            item_quantity_in_months = []
-            for month in range(len(monthly_report_dates)):
-                same_items_list = []
-                for search_item in purchased_items:
-                    if search_item.item == item:
-                        search_item_month = str(search_item.created_date)[0:7]
-                        if search_item_month == search_month:
-                            if not search_item.quantity:
-                                same_items_list.append(0)
-                            else:
-                                same_items_list.append(search_item.quantity)
+        for index, item in enumerate(used_items):
 
-                item_quantity_in_months.append(sum(same_items_list))
-                month_edit = int(search_month[5:7]) + 1
-                if month_edit < 10:
-                    month_edit = '0' + str(month_edit)
+            quantity_of_item_purchased_each_month = []
 
-                search_month = search_month[0:5] + month_edit
+            for month in months_between_start_date_and_now_as_dates:
+                month_quantity = 0
 
-            # Creating an dictionary for each item with the quantity for each month
+                for purchased_item in purchased_items:
+
+                    if purchased_item.item == item and str(purchased_item.created_date)[0:7] == month:
+                        month_quantity += 1
+
+                quantity_of_item_purchased_each_month.append(month_quantity)
+
             item_dict = {
-                    'item': item,
-                    'quantity': item_quantity_in_months,
-                }
+                'item': item,
+                'quantity': quantity_of_item_purchased_each_month,
+            }
             monthly_report_data.append(item_dict)
-            # Reseting the month ready for the next item.
-            search_month = str(user_profile.start_date)[0:7]
+
+        print(monthly_report_data)
 
         # formating monthly_report_data in line_chart_dataset ready for chart.js
         line_chart_dataset = []
@@ -284,6 +292,8 @@ def insight(request, filter):
                         'fill': 'false',
                     }
             line_chart_dataset.append(data_dict)
+
+        print(line_chart_dataset)
 
         context = {
             'purchased_items': all_purchased_items,

@@ -693,10 +693,10 @@ nav {
 
 @media (min-width: 768px) {
   .profile-background-image {
-    top: 100px;
+    top: 110px;
   }
   .profile-background-image-light {
-    top: 130px;
+    top: 140px;
   }
 }
 
@@ -768,6 +768,30 @@ nav {
 
 .link-item a .link-nav {
   color: black;
+}
+
+.monthly-report-container {
+  overflow-x: auto;
+}
+
+.monthly-report-table {
+  border: solid #dadada 1px;
+}
+
+.monthly-report-table tr:nth-of-type(odd) {
+  background-color: #fafafa;
+}
+
+.monthly-report-table tr:first-child {
+  background-color: #c2efc5;
+}
+
+.monthly-report-table th {
+  padding: 5px;
+}
+
+.monthly-report-table td {
+  padding: 4px 8px;
 }
 
 .shopping-table {

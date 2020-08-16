@@ -54,10 +54,6 @@ This web application is designed to keep users in touch with their family and al
 
 - If an item is removed by the quantity being set the zero and then the item is re-added, the item will be added twice by the same user (Shopping list).
 
-- If a user created an account in may and didn't add anything to the shopping list until july, the for loop would only search one month from the users start date, not finding any of the users items. (Just for Monthly Report - Insight).
-
-- Items added in january 2020 and january 2021 might be added to the same monthly report section (I might of fixed this, can't tell until other bug is fixed...)
-
 ### Messages
 
 - On reload the page will resend the users message again.
@@ -139,3 +135,5 @@ This web application is designed to keep users in touch with their family and al
 [Client login test - Django](https://stackoverflow.com/questions/2705235/django-test-failing-on-a-view-with-login-required)
 
 [Creating A Custom Scroll Bar - CSS](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar2)
+
+[Between two dates - Python](https://stackoverflow.com/questions/7274267/print-all-day-dates-between-two-dates/7274316)
