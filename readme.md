@@ -137,3 +137,7 @@ This web application is designed to keep users in touch with their family and al
 [Creating A Custom Scroll Bar - CSS](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar2)
 
 [Between two dates - Python](https://stackoverflow.com/questions/7274267/print-all-day-dates-between-two-dates/7274316)
+
+[If request get_full_path](https://stackoverflow.com/questions/7462398/django-template-if-tag-based-on-current-url-value)
+
+[Tracate and Slice - Django Templating Language](https://stackoverflow.com/questions/5235994/django-template-tag-to-truncate-text)

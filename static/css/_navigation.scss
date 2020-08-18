@@ -162,8 +162,14 @@ nav {
                 height: 32px;
             }
         }
+        .active-link {
+            border-right: $theme-colour 5px solid;
+            background-color: rgb(236, 236, 236);
+        }
     }
 }
+
+
 
 // Mini navigation
 

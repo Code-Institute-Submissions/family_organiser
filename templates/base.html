@@ -101,9 +101,15 @@
                 <h6>{{ user.username }}</h6>
                 <hr class="m-0">
                 <li class="navigation-item">
+                    {% if request.get_full_path == '/user/profile/' %}
                     <a href="/user/profile/">
-                        <img src="{{ MEDIA_URL }}icons/profile_icon.png" class="mr-2" />Profile
+                        <img src="{{ MEDIA_URL }}icons/profile_icon.png" class="mr-2 text-success" />Profile
                     </a>
+                    {% else %}
+                    <a href="/user/profile/">
+                        <img src="{{ MEDIA_URL }}icons/profile_icon.png" class="mr-2 text-danger" />Profile
+                    </a>
+                    {% endif %}
                 </li>
                 <li class="navigation-item">
                     <a href="/status/news_feed">
@@ -159,39 +165,77 @@
 
                     <hr class="m-0">
                     <li class="navigation-item">
+                        {% if request.path == '/user/profile/' %}
+                        <a href="/user/profile/" class="active-link">
+                            <img src="{{ MEDIA_URL }}icons/profile_icon.png" class="mr-2" />Profile
+                        </a>
+                        {% else %}
                         <a href="/user/profile/">
                             <img src="{{ MEDIA_URL }}icons/profile_icon.png" class="mr-2" />Profile
                         </a>
+                        {% endif %}
                     </li>
                     <li class="navigation-item">
+                        {% if request.get_full_path == '/status/news_feed/' %}
+                        <a href="/status/news_feed" class="active-link">
+                            <img src="{{ MEDIA_URL }}icons/news_icon.png" class="mr-2" />News Feed
+                        </a>
+                        {% else %}
                         <a href="/status/news_feed">
                             <img src="{{ MEDIA_URL }}icons/news_icon.png" class="mr-2" />News Feed
                         </a>
+                        {% endif %}
                     </li>
                     <li class="navigation-item">
-                        <a href="/message/select_conversation">
+                        {% if request.get_full_path == '/message/select_conversation/' %}
+                        <a href="/message/select_conversation" class="active-link">
                             <img src="{{ MEDIA_URL }}icons/message_icon.png" class="mr-2" />Messages
                         </a>
+                        {% else %}
+                        <a href="/message/select_conversation" >
+                            <img src="{{ MEDIA_URL }}icons/message_icon.png" class="mr-2" />Messages
+                        </a>
+                        {% endif %}
                     </li>
                     <li class="navigation-item">
+                    {% define "family_url" as request.path | slice:"13" %}
+                       {{ family_url }}
+                        <a href="/user/family/{{ user.id }}" class="active-link">
+                            <img src="{{ MEDIA_URL }}icons/family_icon.png" class="mr-2" />Family
+                        </a>
+                      
                         <a href="/user/family/{{ user.id }}">
                             <img src="{{ MEDIA_URL }}icons/family_icon.png" class="mr-2" />Family
                         </a>
+                      
+
                     </li>
                     <li class="navigation-item">
+
+
                         <a href="/shopping/shopping_page">
                             <img src="{{ MEDIA_URL }}icons/shopping_icon.png" class="mr-2" />Shopping
                         </a>
+
+
                     </li>
                     <li class="navigation-item">
+
+
                         <a href="/user/notifications">
                             <img src="{{ MEDIA_URL }}icons/bell_icon.png" class="mr-2" />Notifications
                         </a>
+
+
                     </li>
                     <li class="navigation-item">
+
+
                         <a href="/user/settings">
                             <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2" />Settings
                         </a>
+
+
                     </li>
                     <li class="logout-item">
                         <a href="/accounts/logout">
@@ -202,7 +246,7 @@
                 </ul>
             </div>
 
-            <div class="content-wrapper">
+            <div class="content-wrapper  mx-0 mx-lg-5">
                 {% endif %}
                     {% block content %}{% endblock %}
                 {% if user.is_authenticated %}

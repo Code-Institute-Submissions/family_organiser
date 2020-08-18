@@ -1,6 +1,5 @@
 /* width */
 ::-webkit-scrollbar {
-  width: 8px;
   display: none;
 }
 
@@ -21,8 +20,10 @@
   background: lighten($theme-colour, 25%);
 }
 
-@media (min-width: 780px) {
+@media (min-width: 769px) {
   ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
     display: block;
   }
 }
