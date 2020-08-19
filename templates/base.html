@@ -187,7 +187,7 @@
                         {% endif %}
                     </li>
                     <li class="navigation-item">
-                        {% if request.get_full_path == '/message/select_conversation/' %}
+                        {% if 'message' in request.path %}
                         <a href="/message/select_conversation" class="active-link">
                             <img src="{{ MEDIA_URL }}icons/message_icon.png" class="mr-2" />Messages
                         </a>
@@ -197,45 +197,49 @@
                         </a>
                         {% endif %}
                     </li>
-                    <li class="navigation-item">
-                    {% define "family_url" as request.path | slice:"13" %}
-                       {{ family_url }}
+                    <li class="navigation-item"> 
+                        {% if 'family' in request.path %}
                         <a href="/user/family/{{ user.id }}" class="active-link">
                             <img src="{{ MEDIA_URL }}icons/family_icon.png" class="mr-2" />Family
                         </a>
-                      
+                        {% else %}
                         <a href="/user/family/{{ user.id }}">
                             <img src="{{ MEDIA_URL }}icons/family_icon.png" class="mr-2" />Family
                         </a>
-                      
-
+                        {% endif %}
                     </li>
                     <li class="navigation-item">
-
-
+                        {% if 'shopping' in request.path %}
+                        <a href="/shopping/shopping_page" class="active-link">
+                            <img src="{{ MEDIA_URL }}icons/shopping_icon.png" class="mr-2" />Shopping
+                        </a>
+                        {% else %}
                         <a href="/shopping/shopping_page">
                             <img src="{{ MEDIA_URL }}icons/shopping_icon.png" class="mr-2" />Shopping
                         </a>
-
-
+                        {% endif %}
                     </li>
                     <li class="navigation-item">
-
-
+                        {% if 'notifications' in request.path %}
+                        <a href="/user/notifications" class="active-link">
+                            <img src="{{ MEDIA_URL }}icons/bell_icon.png" class="mr-2" />Notifications
+                        </a>
+                        {% else %}
                         <a href="/user/notifications">
                             <img src="{{ MEDIA_URL }}icons/bell_icon.png" class="mr-2" />Notifications
                         </a>
-
-
+                        {% endif %}
                     </li>
                     <li class="navigation-item">
-
-
+                        {% if 'settings' in request.path %}
+                        <a href="/user/settings" class="active-link">
+                            <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2" />Settings
+                        </a>
+                        {% else %}
                         <a href="/user/settings">
                             <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2" />Settings
                         </a>
-
-
+                        {% endif %}
                     </li>
                     <li class="logout-item">
                         <a href="/accounts/logout">
