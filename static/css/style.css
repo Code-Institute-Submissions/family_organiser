@@ -120,6 +120,11 @@ nav {
   height: 32px;
 }
 
+.mobile-navigation-links li .active-link {
+  border-left: #4ecf55 5px solid;
+  background-color: #ececec;
+}
+
 .desktop-navigation-links {
   position: relative;
   overflow: hidden;
@@ -150,6 +155,11 @@ nav {
   color: white;
 }
 
+.desktop-navigation-links .logout-item a:focus, .desktop-navigation-links .logout-item a:hover {
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+
 .desktop-navigation-links .logout-item .logout-background-image {
   position: absolute;
   bottom: 0;
@@ -174,6 +184,7 @@ nav {
 
 .desktop-navigation-links li a:focus, .desktop-navigation-links li a:hover {
   text-decoration: none;
+  background-color: #f3f2f2;
 }
 
 .desktop-navigation-links li a img {

@@ -110,6 +110,10 @@ nav {
                 height: 32px;
             }
         }
+        .active-link {
+            border-left: $theme-colour 5px solid;
+            background-color: rgb(236, 236, 236);
+        }
     }
 }
 
@@ -136,6 +140,10 @@ nav {
         padding-bottom: 12px;
         a {
             color: white;
+            &:focus,&:hover {
+                text-decoration: none;
+                background-color: rgba(255, 255, 255, 0);
+            }
         }
         .logout-background-image {
             position: absolute;
@@ -157,6 +165,7 @@ nav {
             color: black;
             &:focus,&:hover {
                 text-decoration: none;
+                background-color: rgb(243, 242, 242);
             }
             img {
                 height: 32px;
