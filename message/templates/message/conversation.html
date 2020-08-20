@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+
+{% block title %}
+Message {{ message_user.first_name }} {{ message_user.last_name }} | Family Organiser
+{% endblock %}
+
 {% block content %}
 <div class="row m-0 p-2">
     <div class="col-12 m-0 p-0">

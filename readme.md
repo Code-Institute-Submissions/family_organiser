@@ -62,6 +62,10 @@ This web application is designed to keep users in touch with their family and al
 
 - When a user is removed their status are removed but not comments on their status. Same when removing a status the comment stay in the database.
 
+### Navigation
+
+- When you change from mobile view to desktop view the white alpha over stays on the screen untill clicked or the page is reloaded.
+
 ## Features to add
 
 ### Shopping page

@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block title %}
+{% if user.username == requested_user.username %}
 Family | Family Organiser
+{% else %}
+{{ requested_user.first_name }} {{ requested_user.last_name }}'s Family | Family Organiser
+{% endif %}
 {% endblock %}
 
 {% block content %}
