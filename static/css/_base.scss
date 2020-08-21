@@ -1,3 +1,14 @@
+#scroll-up {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 500;
+    background-color: $theme-colour;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+}
+
 .page-container {
     min-height: 100vh;
     height: 100%;

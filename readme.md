@@ -145,3 +145,5 @@ This web application is designed to keep users in touch with their family and al
 [If request get_full_path](https://stackoverflow.com/questions/7462398/django-template-if-tag-based-on-current-url-value)
 
 [Tracate and Slice - Django Templating Language](https://stackoverflow.com/questions/5235994/django-template-tag-to-truncate-text)
+
+[Animate scroll - Jquery](https://stackoverflow.com/questions/1144805/scroll-to-the-top-of-the-page-using-javascript)

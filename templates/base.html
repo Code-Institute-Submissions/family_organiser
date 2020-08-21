@@ -50,6 +50,10 @@
 </head>
 
 <body>
+
+    <!-- scroll to top button -->
+    <div class="scroll-to-top" id="scroll-up" onscroll="checkShowButton()">Top</div>
+
     <div class="page-container">
         <!-- Navigation -->
         {% if user.is_authenticated %}
@@ -189,7 +193,6 @@
         <!-- Page content -->
         {% if user.is_authenticated %}
         <div class="content-container">
-
             <div class="desktop-navigation d-none d-md-block">
                 <ul class="desktop-navigation-links">
                     <div class="d-flex justify-content-between align-items-center px-3 py-2">
