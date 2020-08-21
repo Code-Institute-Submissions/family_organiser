@@ -6,7 +6,6 @@ from django.db.models import Q
 from django.http import JsonResponse
 from .models import Category, Item, PurchasedItems, Favorite, Partner, PartnerRequest
 from user.models import UserProfile, Friend
-from random import randint
 from datetime import date, timedelta
 from user.functions.functions import get_users_profile
 from .functions.functions import *
@@ -202,7 +201,6 @@ def insight(request, filter):
             chart_data.append(favorite.quantity)
 
         # dataset for the line chart
-        line_chart_dataset = []
         monthly_report_dates = []
 
         months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -212,8 +210,8 @@ def insight(request, filter):
         users_start_day = users_start_date[8:10]
         users_start_date = date(int(users_start_year), int(users_start_month), int(users_start_day))
         todays_date = date.today()
-        print(users_start_date, todays_date)
         time_between = todays_date - users_start_date
+        
         months_between_start_date_and_now = []
 
         for index_day in range(time_between.days + 1):
@@ -232,10 +230,6 @@ def insight(request, filter):
 
         for month in monthly_report_dates_number:
             monthly_report_dates.append(months[int(month) - 1])
-
-        print(monthly_report_dates)
-        print(months_between_start_date_and_now_as_dates)
-
 
         monthly_report_data = []
         
@@ -269,31 +263,7 @@ def insight(request, filter):
             }
             monthly_report_data.append(item_dict)
 
-        print(monthly_report_data)
-
-        # formating monthly_report_data in line_chart_dataset ready for chart.js
-        line_chart_dataset = []
-
-        for data in monthly_report_data:
-            random_colour = []
-            for number in range(3):
-                random_colour.append(randint(80, 230))
-
-            data_dict = {
-                        'label': data['item'],
-                        'data': data['quantity'],
-                        'backgroundColor': [
-                            'rgba(' + str(random_colour)[1:-1] + ',0.2)',
-                        ],
-                        'borderColor': [
-                            'rgba(' + str(random_colour)[1:-1] + ', 1)',
-                        ],
-                        'borderWidth': 2,
-                        'fill': 'false',
-                    }
-            line_chart_dataset.append(data_dict)
-
-        print(line_chart_dataset)
+        line_chart_dataset = format_report_data_for_line_graph(monthly_report_data)
 
         context = {
             'purchased_items': all_purchased_items,

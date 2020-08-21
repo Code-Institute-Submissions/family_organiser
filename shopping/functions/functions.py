@@ -1,4 +1,5 @@
 from shopping.models import Partner, PartnerRequest, Item, PurchasedItems, Favorite
+from random import randint
 
 def get_partner_requests(request):
     """
@@ -148,3 +149,62 @@ def get_favorites_from_user_and_partners(request):
             favorites.append(favorite)
 
     return favorites
+
+def format_report_data_for_line_graph(monthly_report_data):
+
+    line_chart_dataset = []
+
+    for data in monthly_report_data:
+            random_colour = []
+            for number in range(3):
+                random_colour.append(randint(80, 230))
+
+            data_dict = {
+                        'label': data['item'],
+                        'data': data['quantity'],
+                        'backgroundColor': [
+                            'rgba(' + str(random_colour)[1:-1] + ',0.2)',
+                        ],
+                        'borderColor': [
+                            'rgba(' + str(random_colour)[1:-1] + ', 1)',
+                        ],
+                        'borderWidth': 2,
+                        'fill': 'false',
+                    }
+            line_chart_dataset.append(data_dict)
+        
+    return line_chart_dataset
+
+def get_dates_for_monthly_report():
+
+    monthly_report_dates = []
+
+    months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    users_start_date = str(request.user.date_joined)
+    users_start_year = users_start_date[0:4]
+    users_start_month = users_start_date[5:7]
+    users_start_day = users_start_date[8:10]
+    users_start_date = date(int(users_start_year), int(users_start_month), int(users_start_day))
+    todays_date = date.today()
+    print(users_start_date, todays_date)
+    time_between = todays_date - users_start_date
+    months_between_start_date_and_now = []
+
+    for index_day in range(time_between.days + 1):
+        day = users_start_date + timedelta(days=index_day)
+        months_between_start_date_and_now.append(str(day)[0:7])
+
+    months_between_start_date_and_now = list(dict.fromkeys(months_between_start_date_and_now))
+    months_between_start_date_and_now_as_dates = []
+
+    monthly_report_dates_number = []
+    monthly_report_dates = []
+
+    for month in months_between_start_date_and_now:
+        months_between_start_date_and_now_as_dates.append(month)
+        monthly_report_dates_number.append(str(month)[5:7])
+
+    for month in monthly_report_dates_number:
+        monthly_report_dates.append(months[int(month) - 1])
+
+    return monthly_report_dates
