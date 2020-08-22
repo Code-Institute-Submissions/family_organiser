@@ -52,7 +52,11 @@
 <body>
 
     <!-- scroll to top button -->
+    {% if not 'profile' in request.path %}
     <div class="scroll-to-top" id="scroll-up" onscroll="checkShowButton()">Top</div>
+    {% elif 'user_profile' in request.path %}
+    <div class="scroll-to-top" id="scroll-up" onscroll="checkShowButton()">Top</div>
+    {% endif %}
 
     <div class="page-container">
         <!-- Navigation -->

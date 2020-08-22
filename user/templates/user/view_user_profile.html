@@ -29,159 +29,165 @@
 
 
 <div id="page-top"></div>
-<img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image" ></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image"></img>
 <img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light"></img>
 
-<div class="profile-bio-form-container"  >
-<!-- profile and notifications section -->
-<div class="row m-0 p-0">
-
-    <div class="col-12 m-0 px-2 pt-2">
-        <p class="m-0 p-0 text-right">Profile</p>
-    </div>
-</div>
-<div class="row m-0 p-0 pt-3 profile-info-height">
-    <div class="col-9 m-0 p-0 pl-3 profile-details-container">
-        {% if user_profile.profile_image %}
-        <img src="{{ MEDIA_URL }}{{user_profile.profile_image}}" class="profile-image">
-        {% else %}
-        <img src="{{ MEDIA_URL }}user-image.png" class="profile-image">
-        {% endif %}
-        <h5>{{ find_user.first_name }}</h5>
-        <h5>{{ find_user.last_name }}</h5>
-        <p>{{ user_profile.bio | truncatechars:35 }} 
-            {% if bio_length > 35 %}
-            <span id="view-all-bio" class="float-right" data-toggle="modal" data-target="#exampleModal"><b>View All</b></span>
-            {% endif %}
-        </p>
-        <a href="/user/settings">+</a>
-    </div>
-    <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center align-items-end">
-        <a href="/user/family/{{ find_user.id }}">
-            <h3 class="text-center text-white">{{ friend_count }}</h3>
-            <h6 class="text-white">Family</h6>
-        </a>
-    </div>
-</div>
-
-<!-- users shopping list and status -->
-<div class="profile-page-container profile-view-page-container">
-    <h5 class="ml-3">Status</h5>
-    <hr class="status-divider">
+<div class="profile-bio-form-container">
+    <!-- profile and notifications section -->
     <div class="row m-0 p-0">
-        {% for news in news_feed %}
-        <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0 pl-3">
-                    {% if news.user_profile.profile_image %}
-                    <img src="{{ MEDIA_URL }}{{news.user_profile.profile_image}}"
-                        class="user-image-status float-left mr-3">
-                    {% else %}
-                    <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
-                    {% endif %}
-                    <h6>{{ news.user.first_name }} {{ news.user.last_name }}</h6>
-                    <h6 class="text-secondary">{{ news.title }}</h6>
 
-                </div>
-                <div class="col-12 mb-3 mt-2">
-                    <hr class="m-0 mb-3">
-                    <p class="m-0">{{ news.content }}</p>
-                    <hr class="m-0 mt-3">
-                </div>
-                {% if news.image %}
-                <div class="col-12 mb-3">
-                    <img src="{{ MEDIA_URL }}{{news.image}}" class="status-image">
-                </div>
+        <div class="col-12 m-0 px-2 pt-2">
+            <p class="m-0 p-0 text-right">Profile</p>
+        </div>
+    </div>
+    <div class="row m-0 p-0 pt-3 profile-info-height">
+        <div class="col-9 m-0 p-0 pl-3 profile-details-container">
+            {% if user_profile.profile_image %}
+            <img src="{{ MEDIA_URL }}{{user_profile.profile_image}}" class="profile-image">
+            {% else %}
+            <img src="{{ MEDIA_URL }}user-image.png" class="profile-image">
+            {% endif %}
+            <h5>{{ find_user.first_name }}</h5>
+            <h5>{{ find_user.last_name }}</h5>
+            <p>{{ user_profile.bio | truncatechars:35 }}
+                {% if bio_length > 35 %}
+                <span id="view-all-bio" class="float-right" data-toggle="modal" data-target="#exampleModal"><b>View
+                        All</b></span>
                 {% endif %}
-                <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
-                    <div>
-                        <p class="m-0 text-small"><span id="like-count-{{ news.id }}">{{ news.likes }}</span> Likes
-                            {{ news.comment.all | length }} Comments</p>
-                        <p class="m-0 text-small">{{ news.created_date }}</p>
+            </p>
+            <a href="/user/settings">+</a>
+        </div>
+        <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center justify-content-md-end align-items-end">
+            <a href="/user/family/{{ find_user.id }}" class="m-0 mr-md-5">
+                <h3 class="text-center text-dark">{{ friend_count }}</h3>
+                <h6 class="text-dark">Family</h6>
+            </a>
+        </div>
+    </div>
+
+    <!-- users shopping list and status -->
+    <div class="profile-page-container profile-view-page-container">
+        <h5 class="ml-3 pt-3">Status</h5>
+        <hr class="status-divider">
+        <div class="row m-0 p-0">
+            {% for news in news_feed %}
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 pl-3">
+                        {% if news.user_profile.profile_image %}
+                        <img src="{{ MEDIA_URL }}{{news.user_profile.profile_image}}"
+                            class="user-image-status float-left mr-3">
+                        {% else %}
+                        <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
+                        {% endif %}
+                        <h6>{{ news.user.first_name }} {{ news.user.last_name }}</h6>
+                        <h6 class="text-secondary">{{ news.title }}</h6>
+
                     </div>
-                </div>
-                <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-                    <a class="icon-button mr-3" href="#comment-form-container-{{news.id}}" data-toggle="collapse">
-                        <img src="{{ MEDIA_URL }}icons/comment_icon.png" />
-                    </a>
-                    <!-- like post icons -->
-                    {% if user in news.liked_by.all %}
-                    <form action="/status/like_status/{{news.id}}" method="POST" class="status-like-ajax"
-                        id="{{ news.id }}">
-                        {% csrf_token %}
-                        <button class="icon-button" type="submit">
-                            <img src="{{ MEDIA_URL }}icons/heart_pink_icon.png" id="like-img-{{ news.id }}" />
-                        </button>
-                    </form>
-                    {% else %}
-                    <form action="/status/like_status/{{news.id}}" method="POST" class="status-like-ajax"
-                        id="{{ news.id }}">
-                        {% csrf_token %}
-                        <button class="icon-button" type="submit">
-                            <img src="{{ MEDIA_URL }}icons/heart_white_icon.png" id="like-img-{{ news.id }}" />
-                        </button>
-                    </form>
+                    <div class="col-12 mb-3 mt-2">
+                        <hr class="m-0 mb-3">
+                        <p class="m-0">{{ news.content }}</p>
+                        <hr class="m-0 mt-3">
+                    </div>
+                    {% if news.image %}
+                    <div class="col-12 mb-3">
+                        <img src="{{ MEDIA_URL }}{{news.image}}" class="status-image">
+                    </div>
                     {% endif %}
-                </div>
-                <div class="col-12">
-                    <hr class="mb-1">
-                </div>
-                <div class="row m-0 p-0" id="comment-container-{{ news.id }}">
-                    {% for comment in news.comment.all %}
-                    {% if forloop.counter <= 2 %}
-                    <div class="col-12 px-2 py-1">
-                        <div class="comment-container">
-                            <a href="/user/view_user_profile/{{comment.author.id}}">
-                                {% if comment.author_profile.profile_image %}
-                                <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}" class="float-left mr-2">
-                                {% else %}
-                                <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
-                                {% endif %}
-                                <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
-                            </a>
-                            <p class="m-0">{{ comment.comment }}</p>
-                            <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
+                    <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
+                        <div>
+                            <p class="m-0 text-small"><span id="like-count-{{ news.id }}">{{ news.likes }}</span> Likes
+                                {{ news.comment.all | length }} Comments</p>
+                            <p class="m-0 text-small">{{ news.created_date }}</p>
                         </div>
                     </div>
-                    {% endif %}
-                    {% if forloop.counter > 2 and forloop.last %}
-                    <div class="col-12 d-flex justify-content-end mt-2">
-                        <a href="/status/view_status/{{news.id}}" class="text-theme">View More</a>
+                    <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+                        <a class="icon-button mr-3" href="#comment-form-container-{{news.id}}" data-toggle="collapse">
+                            <img src="{{ MEDIA_URL }}icons/comment_icon.png" />
+                        </a>
+                        <!-- like post icons -->
+                        {% if user in news.liked_by.all %}
+                        <form action="/status/like_status/{{news.id}}" method="POST" class="status-like-ajax"
+                            id="{{ news.id }}">
+                            {% csrf_token %}
+                            <button class="icon-button" type="submit">
+                                <img src="{{ MEDIA_URL }}icons/heart_pink_icon.png" id="like-img-{{ news.id }}" />
+                            </button>
+                        </form>
+                        {% else %}
+                        <form action="/status/like_status/{{news.id}}" method="POST" class="status-like-ajax"
+                            id="{{ news.id }}">
+                            {% csrf_token %}
+                            <button class="icon-button" type="submit">
+                                <img src="{{ MEDIA_URL }}icons/heart_white_icon.png" id="like-img-{{ news.id }}" />
+                            </button>
+                        </form>
+                        {% endif %}
                     </div>
-                    {% endif  %}
-                    {% endfor %}
+                    <div class="col-12">
+                        <hr class="mb-1">
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0" id="comment-container-{{ news.id }}">
+                            {% for comment in news.comment.all %}
+                            {% if forloop.counter <= 2 %}
+                            <div class="col-12 px-2 py-1">
+                                <div class="comment-container">
+                                    <a href="/user/view_user_profile/{{comment.author.id}}">
+                                        {% if comment.author_profile.profile_image %}
+                                        <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}"
+                                            class="float-left mr-2">
+                                        {% else %}
+                                        <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
+                                        {% endif %}
+                                        <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }}
+                                            {{ comment.author.last_name }}</h6>
+                                    </a>
+                                    <p class="m-0">{{ comment.comment }}</p>
+                                    <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if forloop.counter > 2 and forloop.last %}
+                            <div class="col-12 d-flex justify-content-end mt-2">
+                                <a href="/status/view_status/{{news.id}}" class="text-theme">View More</a>
+                            </div>
+                            {% endif  %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
+                        <form class="d-flex justify-content-between status-comment-ajax"
+                            action="/status/add_comment/{{news.id}}/profile" id="{{ news.id }}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" class="form-control" name="comment" id="input-{{ news.id }}" required>
+                            <button class="btn btn-success ml-3">Comment</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
-                    <form class="d-flex justify-content-between status-comment-ajax"
-                        action="/status/add_comment/{{news.id}}/profile" id="{{ news.id }}" method="POST">
-                        {% csrf_token %}
-                        <input type="text" class="form-control" name="comment" id="input-{{ news.id }}" required>
-                        <button class="btn btn-success ml-3">Comment</button>
-                    </form>
-                </div>
+                <hr class="status-divider">
             </div>
-            <hr class="status-divider">
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
 
+    </div>
 </div>
 
 
 
-{% endblock %}
+    {% endblock %}
 
-{% block extra_css %}
-<script src="https://kit.fontawesome.com/d4ed0579d0.js" crossorigin="anonymous"></script>
-{% endblock %}
+    {% block extra_css %}
+    <script src="https://kit.fontawesome.com/d4ed0579d0.js" crossorigin="anonymous"></script>
+    {% endblock %}
 
-{% block extra_js %}
-<script src="{% static 'js/profile.js' %}"></script>
-<script src="{% static 'js/forms.js' %}"></script>
-<script>
-    // Add status form 
-    $(document).on('click', '#add-status-form', function () {
-        $('#add-data-form-container').html(`
+    {% block extra_js %}
+    <script src="{% static 'js/profile.js' %}"></script>
+    <script src="{% static 'js/forms.js' %}"></script>
+    <script>
+        // Add status form 
+        $(document).on('click', '#add-status-form', function () {
+            $('#add-data-form-container').html(`
             <form action="/status/update_status/add/0" method="POST" enctype="multipart/form-data" class="p-3 pt-4" id="status-form">
             {% csrf_token %}
                 <label>Title</label>
@@ -193,12 +199,12 @@
                 <div id="error-container" class="mt-1"></div>
             </form>
         `);
-        gsap.to('#send-button', 0.6, { transform: 'translate(0, 0)' })
-    });
+            gsap.to('#send-button', 0.6, { transform: 'translate(0, 0)' })
+        });
 
-    // Add item form 
-    $(document).on('click', '#add-item-form', function () {
-        $('#add-data-form-container').html(`
+        // Add item form 
+        $(document).on('click', '#add-item-form', function () {
+            $('#add-data-form-container').html(`
             <form action="/shopping/update_item/add" method="POST" class="p-3 pt-4" id="item-form">
             {% csrf_token %}
                 <label>Item</label>
@@ -223,71 +229,71 @@
                 <div id="error-container" class="mt-1"></div>
             </form>
         `);
-        gsap.to('#send-button', 0.6, { transform: 'translate(0, 0)' })
-    });
+            gsap.to('#send-button', 0.6, { transform: 'translate(0, 0)' })
+        });
 
-    // like post
-    $(document).ready(function (event) {
-        var tl = gsap.timeline()
-        var theForm = $('.status-like-ajax');
-        var addLike = true;
+        // like post
+        $(document).ready(function (event) {
+            var tl = gsap.timeline()
+            var theForm = $('.status-like-ajax');
+            var addLike = true;
 
-        theForm.submit(function (event) {
-            event.preventDefault();
-            if (addLike) {
-                addLike = false
-                var formId = this.id
-                var thisForm = $(this)
-                var actionEndpoint = thisForm.attr("action");
-                var httpMethod = thisForm.attr("method");
-                var formData = thisForm.serialize();
-                var imgId = '#like-img-' + formId;
-                var likeCounterId = '#like-count-' + formId;
+            theForm.submit(function (event) {
+                event.preventDefault();
+                if (addLike) {
+                    addLike = false
+                    var formId = this.id
+                    var thisForm = $(this)
+                    var actionEndpoint = thisForm.attr("action");
+                    var httpMethod = thisForm.attr("method");
+                    var formData = thisForm.serialize();
+                    var imgId = '#like-img-' + formId;
+                    var likeCounterId = '#like-count-' + formId;
 
-                tl.to(imgId, 0.2, { transform: 'rotateY(180deg)', ease: 'none' })
-                tl.to(imgId, 0.2, { transform: 'rotateY(0deg)', ease: 'none' })
+                    tl.to(imgId, 0.2, { transform: 'rotateY(180deg)', ease: 'none' })
+                    tl.to(imgId, 0.2, { transform: 'rotateY(0deg)', ease: 'none' })
 
-                if ($(imgId).attr('src') == "{{ MEDIA_URL }}icons/heart_pink_icon.png") {
-                    $(imgId).attr('src', '{{ MEDIA_URL }}icons/heart_white_icon.png')
-                    $(likeCounterId).html(parseInt($(likeCounterId).html()) - 1)
-                } else {
-                    $(imgId).attr('src', "{{ MEDIA_URL }}icons/heart_pink_icon.png")
-                    $(likeCounterId).html(parseInt($(likeCounterId).html()) + 1)
-                }
-
-                $.ajax({
-                    url: actionEndpoint,
-                    method: httpMethod,
-                    data: formData,
-                    success: function (data) {
-
+                    if ($(imgId).attr('src') == "{{ MEDIA_URL }}icons/heart_pink_icon.png") {
+                        $(imgId).attr('src', '{{ MEDIA_URL }}icons/heart_white_icon.png')
+                        $(likeCounterId).html(parseInt($(likeCounterId).html()) - 1)
+                    } else {
+                        $(imgId).attr('src', "{{ MEDIA_URL }}icons/heart_pink_icon.png")
+                        $(likeCounterId).html(parseInt($(likeCounterId).html()) + 1)
                     }
-                })
-                setTimeout(function () {
-                    addLike = true;
-                }, 2500)
-            }
-        })
 
-        // add comment
-        var theForm = $('.status-comment-ajax');
-        var addComment = true;
+                    $.ajax({
+                        url: actionEndpoint,
+                        method: httpMethod,
+                        data: formData,
+                        success: function (data) {
 
-        theForm.submit(function (event) {
-            event.preventDefault();
-            if (addComment) {
-                addComment = false;
+                        }
+                    })
+                    setTimeout(function () {
+                        addLike = true;
+                    }, 2500)
+                }
+            })
 
-                var formId = this.id
-                var thisForm = $(this)
-                var actionEndpoint = thisForm.attr("action");
-                var httpMethod = thisForm.attr("method");
-                var formData = thisForm.serialize();
-                var commentContainerId = '#comment-container-'.concat(formId)
-                var inputId = '#input-'.concat(formId)
+            // add comment
+            var theForm = $('.status-comment-ajax');
+            var addComment = true;
 
-                var comment = $(inputId).val()
-                $(commentContainerId).append(`
+            theForm.submit(function (event) {
+                event.preventDefault();
+                if (addComment) {
+                    addComment = false;
+
+                    var formId = this.id
+                    var thisForm = $(this)
+                    var actionEndpoint = thisForm.attr("action");
+                    var httpMethod = thisForm.attr("method");
+                    var formData = thisForm.serialize();
+                    var commentContainerId = '#comment-container-'.concat(formId)
+                    var inputId = '#input-'.concat(formId)
+
+                    var comment = $(inputId).val()
+                    $(commentContainerId).append(`
                         <div class="col-12 px-2 py-1">
                             <div class="comment-container">
                                 {% if user_profile.profile_image %}
@@ -301,21 +307,21 @@
                             </div>
                         </div>
                         `)
-                $(inputId).val('')
-                $.ajax({
-                    url: actionEndpoint,
-                    method: httpMethod,
-                    data: formData,
-                    success: function (data) {
-                        
-                    }
-                })
-                setTimeout(function () {
-                    addComment = true
-                }, 2500)
-            }
-        })
-    });
-</script>
+                    $(inputId).val('')
+                    $.ajax({
+                        url: actionEndpoint,
+                        method: httpMethod,
+                        data: formData,
+                        success: function (data) {
 
-{% endblock %}
+                        }
+                    })
+                    setTimeout(function () {
+                        addComment = true
+                    }, 2500)
+                }
+            })
+        });
+    </script>
+
+    {% endblock %}
