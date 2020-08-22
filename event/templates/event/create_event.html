@@ -16,7 +16,7 @@ Event Menu | Family Organiser
     <div class="col-6 m-0 p-0 d-flex justify-content-center">
         <a href="/message/new_conversation">
             <button class="btn border mini-navigation-button">
-                <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="small-icon"/>
+                <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="small-icon" />
                 <small>Events</small>
             </button>
         </a>
@@ -24,7 +24,7 @@ Event Menu | Family Organiser
     <div class="col-6 m-0 p-0 d-flex justify-content-center">
         <a href="/message/select_conversation">
             <button class="btn border mini-navigation-button mini-navigation-active">
-                <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="small-icon"/>
+                <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="small-icon" />
                 <small>Create Event</small>
             </button>
         </a>
@@ -44,7 +44,6 @@ Event Menu | Family Organiser
 <hr>
 <div class="row m-0 p-0">
     {% for aUser in searched_users %}
-
     <div class="col-12 m-0 p-0">
         <div class="row m-0 p-0">
             <div class="col-3 m-0 p-0 pl-3">
@@ -65,24 +64,20 @@ Event Menu | Family Organiser
             </div>
             <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                 {% if not aUser.username == user.username %}
-                   
-                    <div>
-                        <a class="icon-button d-block mx-auto" href="/message/conversation/{{aUser.id}}">
-                            <img src="{{ MEDIA_URL }}icons/add_chat_icon.png" >
-                        </a>
-                        <small>Start Conversation</small>
-                    </div>
-                      
+                <div>
+                    <a class="icon-button d-block mx-auto" href="/message/conversation/{{aUser.id}}">
+                        <img src="{{ MEDIA_URL }}icons/add_chat_icon.png">
+                    </a>
+                    <small>Start Conversation</small>
+                </div>
                 {% endif %}
             </div>
         </div>
         <hr>
     </div>
-
     {% endfor %}
 </div>
+
 <p class="m-0 mt-2 text-right mr-3">Search Result: {{ searched_users | length }}</p>
-
-
 
 {% endblock %}

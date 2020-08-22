@@ -164,6 +164,17 @@
                     {% endif %}
                 </li>
                 <li class="navigation-item">
+                    {% if 'event' in request.path %}
+                    <a href="/event/menu" class="active-link">
+                        <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="mr-2" />Event
+                    </a>
+                    {% else %}
+                    <a href="/event/menu">
+                        <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="mr-2" />Event
+                    </a>
+                    {% endif %}
+                </li>
+                <li class="navigation-item">
                     {% if 'notifications' in request.path %}
                     <a href="/user/notifications" class="active-link">
                         <img src="{{ MEDIA_URL }}icons/bell_icon.png" class="mr-2" />Notifications
