@@ -5,7 +5,7 @@ from .models import Item
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['item', 'quantity']
+        fields = ('item', 'quantity')
         widgets = {
             'item' : forms.TextInput(
                 attrs = {

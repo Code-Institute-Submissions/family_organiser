@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from message.functions.functions import get_searched_users
+from .forms import EventForm
 
 # Create your views here.
 def create_event(request):
@@ -11,6 +12,7 @@ def create_event(request):
 
     context = {
         'searched_users': searched_users,
+        'create_event_form': EventForm,
     }
 
     return render(request, 'event/create_event.html', context)
