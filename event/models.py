@@ -7,7 +7,7 @@ class Event(models.Model):
     title = models.CharField(max_length=150)
     information = models.CharField(max_length=350)
     header_image = models.ImageField(null=True, blank=True)
-    participants = models.ManyToManyField(User, related_name="event_participants")
+    participants = models.ManyToManyField(User, related_name="event_participants", blank=True)
 
     @classmethod
     def participant_accepted(cls, participant):
