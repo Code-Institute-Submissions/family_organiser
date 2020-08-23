@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Event Menu | Family Organiser
+{% endblock %}
+
+{% block content %}
+<div class="row m-0 p-2">
+    <div class="col-12 m-0 p-0">
+        <p class="m-0 p-0 text-right">Event - Invite</p>
+    </div>
+</div>
+
+<!-- Messaging navigation -->
+<div class="row m-0 p-0 py-3 mini-navigation-container">
+    <div class="col-6 m-0 p-0 d-flex justify-content-center">
+        <a href="/message/new_conversation">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="small-icon" />
+                <small>Events</small>
+            </button>
+        </a>
+    </div>
+    <div class="col-6 m-0 p-0 d-flex justify-content-center">
+        <a href="/message/select_conversation">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="small-icon" />
+                <small>Create Event</small>
+            </button>
+        </a>
+    </div>
+</div>
+
+<hr class="mt-0">
+<h5 class="m-0 d-flex align-items-center justify-content-between px-3">{{ event.title }}</h5>
+<hr class="mt-3">
+
+
+<form action="/event/invite/{{ event.id }}" method="GET">
+    {% csrf_token %}
+    <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Invite Participants</h6>
+    <hr class="mt-3">
+    <div class="container-fluid d-flex justify-content-between m-0 p-0 px-3">
+        <input type="text" name="q" class="form-control d-inline" placeholder="Name / Username">
+        <button class="btn btn-success ml-3">Find</button>
+    </div>
+</form>
+<hr>
+<div class="row m-0 p-0">
+    {% for aUser in searched_users %}
+    <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-3 m-0 p-0 pl-3">
+                <a href="/user/view_user_profile/{{aUser.id}}">
+                    {% if aUser.user_profile.profile_image %}
+                    <img src="{{ MEDIA_URL }}{{aUser.user_profile.profile_image}}" class="user-image">
+                    {% else %}
+                    <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col-5 m-0 p-0">
+                <a href="/user/view_user_profile/{{aUser.id}}">
+                    <h5 class="text-dark">{{ aUser.first_name }}{% if aUser.username == user.username %} <span
+                            class="text-secondary">(You!)</span>{% endif %}</h5>
+                    <h5 class="text-dark">{{ aUser.last_name }}</h5>
+                </a>
+            </div>
+            <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+                {% if not aUser.username == user.username %}
+                <div>
+                    <a class="icon-button d-block mx-auto" href="">
+                        <img src="{{ MEDIA_URL }}icons/schedule_icon.png">
+                    </a>
+                    <small>Invite</small>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+    </div>
+    {% endfor %}
+</div>
+
+<p class="m-0 mt-2 text-right mr-3">Search Result: {{ searched_users | length }}</p>
+
+<hr class="mt-3">
+
+<h6 class="m-0 d-flex align-items-center justify-content-between px-3">Invited</h6>
+
+<hr class="mt-3">
+
+{% if not invited_participant %}
+<p class="px-3">You haven't invited anybody yet!</p>
+{% endif %}
+
+{% for participant in invited_participant %}
+
+    {{ participant }}
+
+{% endfor %}
+
+
+
+
+{% endblock %}
