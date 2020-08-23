@@ -6,6 +6,14 @@ from .forms import EventForm
 from .models import Event, EventInvite
 from .functions.functions import *
 
+@login_required
+def menu(request):
+
+    context = {
+        
+    }
+
+    return render(request, 'event/menu.html', context)
 
 @login_required
 def create_event(request):
