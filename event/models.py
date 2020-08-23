@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 class Event(models.Model):
@@ -9,6 +10,7 @@ class Event(models.Model):
     information = models.CharField(max_length=350)
     header_image = models.ImageField(null=True, blank=True)
     participants = models.ManyToManyField(User, related_name="event_participants", blank=True)
+    event_date = models.DateTimeField(default=timezone.now)
 
     @classmethod
     def participant_accepted(cls, participant):

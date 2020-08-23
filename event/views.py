@@ -17,12 +17,12 @@ def menu(request):
     for event in all_events:
         if request.user in event.participants.all():
             invited_events.append(event)
-            print(event)
 
-    print(invited_events, 'invited_evnets')
+    invited_events = add_count_down_to_events(invited_events)
 
     # Get all events the user created.
     created_events = Event.objects.filter(event_creator=request.user)
+    created_events = add_count_down_to_events(created_events)
 
     context = {
         'invited_events': invited_events,
@@ -80,3 +80,29 @@ def invite(request, event_pk, user_pk):
 
     return render(request, 'event/invite.html', context)
 
+
+@login_required
+def event(request, pk):
+    """
+    View the selected event and create messages on the page for only attendees to see.
+    """
+
+    event = Event.objects.get(pk=pk)
+
+    context = {
+        'event': event,
+    }
+
+    return render(request, 'event/event.html', context)
+
+
+@login_required
+def remove_event(request, pk):
+    """
+    Remove an event from the database.
+    """
+
+    event = get_object_or_404(Event, pk=pk)
+    event.delete()
+
+    return redirect('menu')

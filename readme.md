@@ -149,3 +149,5 @@ This web application is designed to keep users in touch with their family and al
 [Animate scroll - Jquery](https://stackoverflow.com/questions/1144805/scroll-to-the-top-of-the-page-using-javascript)
 
 [ManyToMany count - Django](https://stackoverflow.com/questions/27149984/django-how-to-get-count-for-manytomany-field)
+
+[Format date - Django](https://stackoverflow.com/questions/7737146/how-can-i-change-the-default-django-date-template-format)

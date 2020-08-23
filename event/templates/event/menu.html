@@ -33,43 +33,6 @@ Event Menu | Family Organiser
 
 <hr class="mt-0">
 
-{% if new_message_conversation %}
-<h6 class="ml-3">Unread Messages</h6>
-<hr>
-{% endif %}
-
-{% for aUser in new_message_conversation %}
-<div class="col-12 m-0 p-0">
-    <div class="row m-0 p-0">
-        <div class="col-3 m-0 p-0 pl-3">
-            <a href="/user/view_user_profile/{{aUser.sent_from.id}}">
-                {% if aUser.sent_from.user_profile.profile_image %}
-                <img src="{{ MEDIA_URL }}{{aUser.sent_from.user_profile.profile_image}}" class="user-image">
-                {% else %}
-                <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
-                {% endif %}
-            </a>
-        </div>
-        <div class="col-5 m-0 p-0">
-            <a href="/user/view_user_profile/{{aUser.sent_from.id}}">
-                <h5 class="text-dark">{{ aUser.sent_from.first_name }}{% if aUser.username == user.username %} <span
-                        class="text-secondary">(You!)</span>{% endif %}</h5>
-                <h5 class="text-dark">{{ aUser.sent_from.last_name }}</h5>
-            </a>
-        </div>
-        <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-            <div>
-                <a class="icon-button d-block mx-auto" href="/message/conversation/{{aUser.sent_from.id}}">
-                    <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon" />
-                </a>
-                <small>Message</small>
-            </div>
-        </div>
-    </div>
-    <hr>
-</div>
-{% endfor %}
-
 <h6 class="ml-3">Created Events</h6>
 <hr class="mb-0">
 
@@ -83,7 +46,7 @@ Event Menu | Family Organiser
 <div class="col-12 m-0 p-0 pt-3">
     <div class="row m-0 p-0">
         <div class="col-3 m-0 p-0 pl-3">
-            <a href="/user/view_user_profile/{{aUser.id}}">
+            <a href="/event/event/{{event.id}}">
                 {% if aUser.profile_image %}
                 <img src="{{ MEDIA_URL }}{{aUser.profile_image}}" class="user-image">
                 {% else %}
@@ -92,29 +55,29 @@ Event Menu | Family Organiser
             </a>
         </div>
         <div class="col-5 m-0 p-0">
-            <a href="/user/view_user_profile/{{aUser.id}}">
-                <h5 class="text-dark">{{ event.title }}{% if aUser.username == user.username %} <span
-                        class="text-secondary">(You!)</span>{% endif %}</h5>
-                <h5 class="text-dark">{{ aUser.last_name }}</h5>
+            <a href="/event/event/{{event.id}}">
+                <h5 class="text-dark">{{ event.title }}</h5>
             </a>
         </div>
         <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
             <div>
-                <a class="icon-button d-block mx-auto" href="/message/conversation/{{aUser.id}}">
-                    <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon" />
+                <a class="icon-button d-block mx-auto" href="/event/event/{{event.id}}">
+                    <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon"/>
                 </a>
                 <small>Event</small>
             </div>
         </div>
         <div class="col-4 m-0 p-0 pt-3">
-            <p class="m-0 text-center">Attending</p>
+            <p class="m-0 text-center"><u>Attending</u></p>
             <p class="m-0 text-center">{{ event.participants.count }}</p>
         </div>
         <div class="col-4 m-0 p-0 pt-3">
-            <p class="m-0 text-center">Waiting Left</p>
+            <p class="m-0 text-center"><u>Count Down</u></p>
+            <p class="m-0 text-center">{{ event.count_down }}</p>
         </div>
         <div class="col-4 m-0 p-0 pt-3">
-            <p class="m-0 text-center">Event Date</p>
+            <p class="m-0 text-center"><u>Event Date</u></p>
+            <p class="m-0 text-center">{{ event.event_date |date:" M d, Y "}}</p>
         </div>
     </div>
     <hr class="mb-0">
@@ -134,7 +97,7 @@ Event Menu | Family Organiser
 <div class="col-12 m-0 p-0 pt-3">
     <div class="row m-0 p-0">
         <div class="col-3 m-0 p-0 pl-3">
-            <a href="/user/view_user_profile/{{aUser.id}}">
+            <a href="/event/event/{{event.id}}">
                 {% if aUser.profile_image %}
                 <img src="{{ MEDIA_URL }}{{aUser.profile_image}}" class="user-image">
                 {% else %}
@@ -143,29 +106,31 @@ Event Menu | Family Organiser
             </a>
         </div>
         <div class="col-5 m-0 p-0">
-            <a href="/user/view_user_profile/{{aUser.id}}">
-                <h5 class="text-dark">{{ event.title }}{% if aUser.username == user.username %} <span
-                        class="text-secondary">(You!)</span>{% endif %}</h5>
-                <h5 class="text-dark">{{ aUser.last_name }}</h5>
+            <a href="/event/event/{{event.id}}">
+                <h5 class="text-dark">{{ event.title }}</h5>
             </a>
         </div>
         <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
             <div>
-                <a class="icon-button d-block mx-auto" href="/message/conversation/{{aUser.id}}">
+                <a class="icon-button d-block mx-auto" href="/event/event/{{event.id}}">
                     <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon" />
                 </a>
                 <small>Event</small>
             </div>
         </div>
         <div class="col-4 m-0 p-0 pt-3">
-            <p class="m-0 text-center">Attending</p>
+            <p class="m-0 text-center"><u>Attending</u></p>
             <p class="m-0 text-center">{{ event.participants.count }}</p>
         </div>
         <div class="col-4 m-0 p-0 pt-3">
-            <p class="m-0 text-center">Waiting Left</p>
+            <p class="m-0 text-center"><u>Count Down</u></p>
+            <p class="m-0 text-center">{{ event.count_down }}</p>
         </div>
         <div class="col-4 m-0 p-0 pt-3">
-            <p class="m-0 text-center">Event Date</p>
+            <p class="m-0 text-center"><u>Event Date</u></p>
+        </div>
+        <div class="col-12 m-0 p-0 pt-2 pl-3">
+            <small class="m-0">Created by: {{event.event_creator}}</small>
         </div>
     </div>
     <hr class="mb-0">

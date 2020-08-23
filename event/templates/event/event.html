@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ event.title }} | Family Organiser
+{% endblock %}
+
+{% block content %}
+<div class="row m-0 p-2">
+    <div class="col-12 m-0 p-0">
+        <p class="m-0 p-0 text-right">Event - {{ event.title }}</p>
+    </div>
+</div>
+
+<!-- Event navigation -->
+<div class="row m-0 p-0 py-3 mini-navigation-container">
+    <div class="col-6 m-0 p-0 d-flex justify-content-center">
+        <a href="/event/menu">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="small-icon" />
+                <small>Events</small>
+            </button>
+        </a>
+    </div>
+    <div class="col-6 m-0 p-0 d-flex justify-content-center">
+        <a href="/event/create_event">
+            <button class="btn border mini-navigation-button">
+                <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="small-icon" />
+                <small>Create Event</small>
+            </button>
+        </a>
+    </div>
+</div>
+
+<hr class="mt-0">
+
+
+<h5 class="ml-3 d-flex justify-content-between">{{ event.title }}
+    {% if event.event_creator == user %}
+    <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2 small-icon" data-toggle="collapse" href="#event-settings" />
+    {% endif %}
+</h5>
+<hr class="mb-0">
+
+<div class="collapse" id="event-settings">
+    <div class="d-flex justify-content-between p-3">
+        <a class="btn btn-success" href="/event/invite/{{ event.id }}/0">Invite</a>
+        <div class="dropdown">
+            <a class="icon-button float-right mr-2 dropdown-toggle" type="button"
+                id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" data-offset="10,20">
+                <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                <h6 class="text-center">Are you sure?</h6>
+                <a class="dropdown-item" href="/event/remove_event/{{ event.id }}">Remove
+                    Event</a>
+            </div>
+        </div>
+    </div>
+    <hr class="mt-0">
+</div>
+
+<p class="p-3 m-0">{{ event.information }}</p>
+
+<hr class="m-0">
+
+
+{% endblock %}
