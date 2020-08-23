@@ -60,7 +60,7 @@ Event Menu | Family Organiser
         <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
             <div>
                 <a class="icon-button d-block mx-auto" href="/message/conversation/{{aUser.sent_from.id}}">
-                    <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon"/>
+                    <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon" />
                 </a>
                 <small>Message</small>
             </div>
@@ -70,12 +70,17 @@ Event Menu | Family Organiser
 </div>
 {% endfor %}
 
-<h6 class="ml-3">Events</h6>
-<hr>
+<h6 class="ml-3">Created Events</h6>
+<hr class="mb-0">
 
-{% for aUser in conversations %}
+{% if not created_events %}
+<p class="px-3 pt-3">You haven't created any events yet!</p>
+<hr class="mb-0">
+{% endif %}
 
-<div class="col-12 m-0 p-0">
+{% for event in created_events %}
+
+<div class="col-12 m-0 p-0 pt-3">
     <div class="row m-0 p-0">
         <div class="col-3 m-0 p-0 pl-3">
             <a href="/user/view_user_profile/{{aUser.id}}">
@@ -88,7 +93,7 @@ Event Menu | Family Organiser
         </div>
         <div class="col-5 m-0 p-0">
             <a href="/user/view_user_profile/{{aUser.id}}">
-                <h5 class="text-dark">{{ aUser.first_name }}{% if aUser.username == user.username %} <span
+                <h5 class="text-dark">{{ event.title }}{% if aUser.username == user.username %} <span
                         class="text-secondary">(You!)</span>{% endif %}</h5>
                 <h5 class="text-dark">{{ aUser.last_name }}</h5>
             </a>
@@ -96,13 +101,74 @@ Event Menu | Family Organiser
         <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
             <div>
                 <a class="icon-button d-block mx-auto" href="/message/conversation/{{aUser.id}}">
-                    <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon"/>
+                    <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon" />
                 </a>
-                <small>Message</small>
+                <small>Event</small>
             </div>
         </div>
+        <div class="col-4 m-0 p-0 pt-3">
+            <p class="m-0 text-center">Attending</p>
+            <p class="m-0 text-center">{{ event.participants.count }}</p>
+        </div>
+        <div class="col-4 m-0 p-0 pt-3">
+            <p class="m-0 text-center">Waiting Left</p>
+        </div>
+        <div class="col-4 m-0 p-0 pt-3">
+            <p class="m-0 text-center">Event Date</p>
+        </div>
     </div>
-    <hr>
+    <hr class="mb-0">
+</div>
+
+{% endfor %}
+
+<h6 class="ml-3 mt-3">Invited Events</h6>
+<hr class="mb-0">
+
+{% if not invited_events %}
+<p class="px-3 pt-3">You haven't been invited to any events yet!</p>
+{% endif %}
+
+{% for event in invited_events %}
+
+<div class="col-12 m-0 p-0 pt-3">
+    <div class="row m-0 p-0">
+        <div class="col-3 m-0 p-0 pl-3">
+            <a href="/user/view_user_profile/{{aUser.id}}">
+                {% if aUser.profile_image %}
+                <img src="{{ MEDIA_URL }}{{aUser.profile_image}}" class="user-image">
+                {% else %}
+                <img src="{{ MEDIA_URL }}user-image.png" class="user-image">
+                {% endif %}
+            </a>
+        </div>
+        <div class="col-5 m-0 p-0">
+            <a href="/user/view_user_profile/{{aUser.id}}">
+                <h5 class="text-dark">{{ event.title }}{% if aUser.username == user.username %} <span
+                        class="text-secondary">(You!)</span>{% endif %}</h5>
+                <h5 class="text-dark">{{ aUser.last_name }}</h5>
+            </a>
+        </div>
+        <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
+            <div>
+                <a class="icon-button d-block mx-auto" href="/message/conversation/{{aUser.id}}">
+                    <img src="{{ MEDIA_URL }}icons/right_arrow_icon.png" class="right_arrow_icon" />
+                </a>
+                <small>Event</small>
+            </div>
+        </div>
+        <div class="col-4 m-0 p-0 pt-3">
+            <p class="m-0 text-center">Attending</p>
+            <p class="m-0 text-center">{{ event.participants.count }}</p>
+        </div>
+        <div class="col-4 m-0 p-0 pt-3">
+            <p class="m-0 text-center">Waiting Left</p>
+        </div>
+        <div class="col-4 m-0 p-0 pt-3">
+            <p class="m-0 text-center">Event Date</p>
+        </div>
+    </div>
+    <hr class="mb-0">
 </div>
 
 {% endfor %}

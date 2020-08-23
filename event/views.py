@@ -8,9 +8,25 @@ from .functions.functions import *
 
 @login_required
 def menu(request):
+    """
+    View all the users events, created or invited.
+    """
+    # Get all events the users has been invited to.
+    all_events = Event.objects.all()
+    invited_events = []
+    for event in all_events:
+        if request.user in event.participants.all():
+            invited_events.append(event)
+            print(event)
+
+    print(invited_events, 'invited_evnets')
+
+    # Get all events the user created.
+    created_events = Event.objects.filter(event_creator=request.user)
 
     context = {
-        
+        'invited_events': invited_events,
+        'created_events': created_events,
     }
 
     return render(request, 'event/menu.html', context)
