@@ -36,7 +36,7 @@ Event Menu | Family Organiser
 <hr class="mt-3">
 
 
-<form action="/event/invite/{{ event.id }}" method="GET">
+<form action="/event/invite/{{ event.id }}/0" method="GET">
     {% csrf_token %}
     <h6 class="m-0 d-flex align-items-center justify-content-between px-3">Invite Participants</h6>
     <hr class="mt-3">
@@ -69,9 +69,12 @@ Event Menu | Family Organiser
             <div class="col-4 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                 {% if not aUser.username == user.username %}
                 <div>
-                    <a class="icon-button d-block mx-auto" href="">
-                        <img src="{{ MEDIA_URL }}icons/schedule_icon.png">
-                    </a>
+                    <form action="/event/invite/{{ event.id }}/{{ aUser.id }}/" method="POST" class="icon-button">
+                        {% csrf_token %}
+                        <button type="submit">
+                            <img src="{{ MEDIA_URL }}icons/schedule_icon.png">
+                        </button>
+                    </form>
                     <small>Invite</small>
                 </div>
                 {% endif %}
@@ -90,11 +93,11 @@ Event Menu | Family Organiser
 
 <hr class="mt-3">
 
-{% if not invited_participant %}
+{% if event.participants.count == 0 %}
 <p class="px-3">You haven't invited anybody yet!</p>
 {% endif %}
 
-{% for participant in invited_participant %}
+{% for participant in event.participants.all %}
 
     {{ participant }}
 

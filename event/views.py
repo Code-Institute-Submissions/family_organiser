@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import User
 from message.functions.functions import get_searched_users
 from django.contrib.auth.decorators import login_required
 from .forms import EventForm
-from .models import Event
+from .models import Event, EventInvite
 
 
 @login_required
@@ -20,7 +21,7 @@ def create_event(request):
             event_form.event_creator = request.user
             event_form.save()
 
-            return redirect('invite', event_form.pk)
+            return redirect('invite', event_form.pk, 0)
 
     context = {
         'create_event_form': EventForm,
@@ -30,7 +31,7 @@ def create_event(request):
 
 
 @login_required
-def invite(request, pk):
+def invite(request, event_pk, user_pk):
     """
     Invite friends to an event passed into the view.
     """
@@ -40,8 +41,12 @@ def invite(request, pk):
     else:
         searched_users = []
 
-    # Find the chosen event
-    event = get_object_or_404(Event, pk=pk)
+    # Find chosen event
+    event = get_object_or_404(Event, pk=event_pk)
+
+    # Send invite to user.
+    if request.method == 'POST':
+        EventInvite.send_invitation(get_object_or_404(User, pk=user_pk), event)
 
     context = {
         'event': event,

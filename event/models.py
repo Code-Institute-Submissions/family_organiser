@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -19,6 +20,14 @@ class Event(models.Model):
 class EventInvite(models.Model):
     event = models.ForeignKey(Event, related_name="event_invite_event", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="event_invite_user", on_delete=models.CASCADE)
+
+    @classmethod
+    def send_invitation(cls, user, event):
+        invitation = cls(
+            event = event,
+            user = user,
+        )
+        invitation.save()
 
     def __str__(self):
         return self.user.username
