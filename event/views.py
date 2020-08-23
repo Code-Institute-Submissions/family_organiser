@@ -4,6 +4,7 @@ from message.functions.functions import get_searched_users
 from django.contrib.auth.decorators import login_required
 from .forms import EventForm
 from .models import Event, EventInvite
+from .functions.functions import *
 
 
 @login_required
@@ -11,7 +12,6 @@ def create_event(request):
     """
     Create a new event and invite friends to the created event.
     """
-
     # Create the event.
     if request.method == 'POST':
         form = EventForm(request.POST, request.FILES)
@@ -41,16 +41,17 @@ def invite(request, event_pk, user_pk):
     else:
         searched_users = []
 
-    # Find chosen event
     event = get_object_or_404(Event, pk=event_pk)
+    invited_users = EventInvite.objects.filter(event=event)
 
     # Send invite to user.
     if request.method == 'POST':
-        EventInvite.send_invitation(get_object_or_404(User, pk=user_pk), event)
+        EventInvite.create_invitation(get_object_or_404(User, pk=user_pk), event)
 
     context = {
         'event': event,
         'searched_users': searched_users,
+        'invited_users': invited_users,
     }
 
     return render(request, 'event/invite.html', context)
