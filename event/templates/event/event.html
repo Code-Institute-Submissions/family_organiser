@@ -41,6 +41,7 @@
 </h5>
 <hr class="mb-0">
 
+<!-- event settings -->
 <div class="collapse" id="event-settings">
     <div class="d-flex justify-content-between p-3">
         <a class="btn btn-success" href="/event/invite/{{ event.id }}/0">Invite</a>
@@ -57,8 +58,14 @@
             </div>
         </div>
     </div>
-    <hr class="mt-0">
+    <hr class="m-0">
 </div>
+{% if event.header_image %}
+<img src="{{ MEDIA_URL }}{{event.header_image}}" class="event-header-image">
+{% endif %}
+
+
+<hr class="m-0">
 
 <p class="p-3 m-0">{{ event.information }}</p>
 
