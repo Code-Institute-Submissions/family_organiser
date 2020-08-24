@@ -27,7 +27,6 @@ def profile(request):
     all_items = get_all_shopping_items(request)
     accepted_friend_requests = AcceptedFriendRequests.objects.filter(from_user=request.user)
     message_notification = get_message_notifications(request)
-    event_notification = EventInvite.objects.filter(user=request.user)
 
     context = {
         'friend_count': len(all_friends),
@@ -35,7 +34,6 @@ def profile(request):
         'accepted_friend_requests': len(accepted_friend_requests),
         'partner_requests': len(partner_requests),
         'message_notification': message_notification,
-        'event_notification': len(event_notification),
         'user_profile': user_profile,
         'news_feed': news_feed,
         'item_categories': item_categories,
@@ -151,8 +149,9 @@ def notifications(request):
     user_profile = get_users_profile(request.user.id)
     user_profile.status_notification = 0
     user_profile.accepted_friend_notification = 0
+    user_profile.event_notification = 0
     user_profile.save()
-    EventInvite.objects.filter(user=request.user).delete()
+    
 
     context = {
         'friend_requests': friend_requests,

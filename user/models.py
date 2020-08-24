@@ -46,6 +46,7 @@ class UserProfile(models.Model):
     premium = models.BooleanField(default=False)
     status_notification = models.IntegerField(default=0)
     accepted_friend_notification = models.IntegerField(default=0)
+    event_notification = models.IntegerField(default=0)
     start_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
 
     def __str__(self):

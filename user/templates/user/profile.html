@@ -88,15 +88,15 @@
                 </div>
                 {% endif %}
                  <!-- event notification -->
-                 {% if event_notification > 0 %}
+                 {% if user_profile.event_notification > 0 %}
                  <div class="ml-2">
                      <a href="/user/notifications">
                          <img src="{{ MEDIA_URL }}icons/schedule_icon.png" class="small-icon" />
-                         <p>{{ event_notification }}</p>
+                         <p>{{ user_profile.event_notification }}</p>
                      </a>
                  </div>
                  {% endif %}
-                {% if friend_requests == 0 and user_profile.status_notification == 0 and partner_requests == 0 and user_profile.accepted_friend_notification == 0 and message_notification == 0 and event_notification == 0 %}
+                {% if friend_requests == 0 and user_profile.status_notification == 0 and partner_requests == 0 and user_profile.accepted_friend_notification == 0 and message_notification == 0 and user_profile.event_notification == 0 %}
                 <b class="m-0 text-small">No notifications</b>
                 {% endif %}
             </div>

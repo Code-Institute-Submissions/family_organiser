@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.db import models
 from django.contrib.auth.models import User
+from user.models import UserProfile
 from django.utils import timezone
 
 # Create your models here.
@@ -27,6 +28,11 @@ class EventInvite(models.Model):
 
     @classmethod
     def create_invitation(cls, user, event):
+
+        user_profile = get_object_or_404(UserProfile, user=user)
+        user_profile.event_notification += 1
+        user_profile.save()
+
         try:
             cls.objects.get(user=user, event=event)
         except:
