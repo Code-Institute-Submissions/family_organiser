@@ -101,6 +101,20 @@ Notifications | Family Organiser
                 </a>
                 <hr>
             </div>
+        {% elif notification.event %}
+            <!-- style the event notification -->
+            <div class="col-12 m-0 p-0">
+                <a class="row m-0 p-0 text-dark" href="/event/view_invite/{{notification.event.id}}">
+                    <div class="col-12">
+                        <p class="m-0"><b>{{ notification.event.event_creator.first_name }} {{ notification.event.event_creator.last_name }}</b> has invited you to an event called: <b>"{{ notification.event.title }}"</b></p>
+                    </div>
+                    <div class="col-12 d-flex justify-content-between">
+                        <p class="m-0 text-small">{{ notification.created_date }}</p>
+                        <p class="m-0">View</p>
+                    </div>
+                </a>
+                <hr>
+            </div>
         {% else %}
             <!-- style the accepted friend request notification -->
             <div class="col-12 m-0 p-0">

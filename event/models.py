@@ -11,6 +11,7 @@ class Event(models.Model):
     header_image = models.ImageField(null=True, blank=True)
     participants = models.ManyToManyField(User, related_name="event_participants", blank=True)
     event_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
 
     @classmethod
     def participant_accepted(cls, participant):
@@ -22,6 +23,7 @@ class Event(models.Model):
 class EventInvite(models.Model):
     event = models.ForeignKey(Event, related_name="event_invite_event", on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name="event_invite_user", on_delete=models.CASCADE)
+    created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
 
     @classmethod
     def create_invitation(cls, user, event):

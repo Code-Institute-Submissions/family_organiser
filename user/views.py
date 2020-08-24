@@ -5,6 +5,7 @@ from status.models import Status, CommentNotification, LikeNotification
 from shopping.models import Item, Category, PartnerRequest, Partner
 from .models import FriendRequests, Friend, UserProfile, AcceptedFriendRequests
 from message.models import MessageNotification, Message
+from event.models import EventInvite
 from django.db.models import Q
 from .functions.functions import *
 from shopping.functions.functions import get_partner_requests
@@ -26,6 +27,7 @@ def profile(request):
     all_items = get_all_shopping_items(request)
     accepted_friend_requests = AcceptedFriendRequests.objects.filter(from_user=request.user)
     message_notification = get_message_notifications(request)
+    event_notification = EventInvite.objects.filter(user=request.user)
 
     context = {
         'friend_count': len(all_friends),
@@ -33,6 +35,7 @@ def profile(request):
         'accepted_friend_requests': len(accepted_friend_requests),
         'partner_requests': len(partner_requests),
         'message_notification': message_notification,
+        'event_notification': len(event_notification),
         'user_profile': user_profile,
         'news_feed': news_feed,
         'item_categories': item_categories,
@@ -135,12 +138,6 @@ def notifications(request):
     Shows the users sent friend requests for shopping and todo list
     """
 
-    # Reset the users notifications to zero
-    user_profile = get_users_profile(request.user.id)
-    user_profile.status_notification = 0
-    user_profile.accepted_friend_notification = 0
-    user_profile.save()
-
     # get like and comment notifications and order them by date
     notifications = get_all_notifications(request)
 
@@ -149,6 +146,13 @@ def notifications(request):
 
     # find partner requests
     partner_requests = get_partner_requests(request)
+
+    # Reset the users notifications to zero
+    user_profile = get_users_profile(request.user.id)
+    user_profile.status_notification = 0
+    user_profile.accepted_friend_notification = 0
+    user_profile.save()
+    EventInvite.objects.filter(user=request.user).delete()
 
     context = {
         'friend_requests': friend_requests,

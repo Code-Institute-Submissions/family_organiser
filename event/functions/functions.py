@@ -3,8 +3,6 @@ from datetime import date
 def add_count_down_to_events(events):
 
     todays_date = date.today()
-    
-
     events_with_count_down = []
 
     for event in events:
@@ -25,7 +23,5 @@ def add_count_down_to_events(events):
 
         events_with_count_down.append(event_dict)
 
-        
-
-
     return events_with_count_down
+    

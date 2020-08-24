@@ -4,6 +4,7 @@ from user.models import FriendRequests, Friend, UserProfile, AcceptedFriendReque
 from shopping.models import PartnerRequest, Partner
 from message.models import MessageNotification, Message
 from shopping.models import Item
+from event.models import EventInvite
 from django.db.models import Q
 
 def find_friends(request, request_user):
@@ -104,6 +105,7 @@ def get_all_notifications(request):
     comment_notifications = CommentNotification.objects.filter(user=request.user)
     like_notifications = LikeNotification.objects.filter(user=request.user)
     accepted_friend_requests = AcceptedFriendRequests.objects.filter(from_user=request.user)
+    event_invites = EventInvite.objects.filter(user=request.user)
 
     for notification in comment_notifications:
         notifications.append(notification)
@@ -112,6 +114,9 @@ def get_all_notifications(request):
         notifications.append(notification)
 
     for notification in accepted_friend_requests:
+        notifications.append(notification)
+
+    for notification in event_invites:
         notifications.append(notification)
    
     notifications = sorted(notifications, key = lambda x: x.created_date, reverse=True)
