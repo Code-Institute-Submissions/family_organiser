@@ -204,11 +204,7 @@ def insight(request, filter):
         monthly_report_dates = []
 
         months = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-        users_start_date = str(request.user.date_joined)
-        users_start_year = users_start_date[0:4]
-        users_start_month = users_start_date[5:7]
-        users_start_day = users_start_date[8:10]
-        users_start_date = date(int(users_start_year), int(users_start_month), int(users_start_day))
+        users_start_date = date(request.user.date_joined.year, request.user.date_joined.month, request.user.date_joined.day)
         todays_date = date.today()
         time_between = todays_date - users_start_date
         

@@ -13,20 +13,15 @@ def menu(request):
     """
     # Get all events the users has been invited to.
     all_events = Event.objects.all()
-    invited_events = []
+    events = []
     for event in all_events:
         if request.user in event.participants.all():
-            invited_events.append(event)
+            events.append(event)
 
-    invited_events = add_count_down_to_events(invited_events)
-
-    # Get all events the user created.
-    created_events = Event.objects.filter(event_creator=request.user)
-    created_events = add_count_down_to_events(created_events)
+    events = add_count_down_to_events(events)
 
     context = {
-        'invited_events': invited_events,
-        'created_events': created_events,
+        'events': events,
     }
 
     return render(request, 'event/menu.html', context)
@@ -44,6 +39,7 @@ def create_event(request):
             event_form = form.save(commit=False)
             event_form.event_creator = request.user
             event_form.save()
+            event_form.participants.add(request.user)
 
             return redirect('invite', event_form.pk, 0)
 
