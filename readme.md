@@ -31,7 +31,7 @@ This web application is designed to keep users in touch with their family and al
     - [GSAP](https://greensock.com/)
     - [Chart.js](https://www.chartjs.org/)
     - [Jquery](https://jquery.com/)
-
+    - [Confetti](https://github.com/GeekLaunch/confetti)
 
 #### Backend
 
@@ -151,3 +151,5 @@ This web application is designed to keep users in touch with their family and al
 [ManyToMany count - Django](https://stackoverflow.com/questions/27149984/django-how-to-get-count-for-manytomany-field)
 
 [Format date - Django](https://stackoverflow.com/questions/7737146/how-can-i-change-the-default-django-date-template-format)
+
+[Confetti.js](https://github.com/GeekLaunch/confetti)

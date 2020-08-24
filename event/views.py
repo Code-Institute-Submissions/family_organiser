@@ -102,3 +102,15 @@ def remove_event(request, pk):
     event.delete()
 
     return redirect('menu')
+
+@login_required
+def view_invite(request, pk):
+    """
+    View the invite page where the user can accept or decline the request.
+    """
+
+    context = {
+        'event': get_object_or_404(Event, pk=pk)
+    }
+
+    return render(request, 'event/view_invite.html', context)
