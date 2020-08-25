@@ -4,7 +4,7 @@ def add_count_down_to_events(events):
 
     todays_date = date.today()
     events_with_count_down = []
-
+    
     for event in events:
         event_date = date(event.event_date.year, event.event_date.month, event.event_date.day)
         time_between = event_date - todays_date

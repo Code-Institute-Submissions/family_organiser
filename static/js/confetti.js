@@ -34,7 +34,7 @@ $(document).ready(function() {
             p.rotation += p.rotationSpeed * dt;
         }
     
-        if (confettiCount < 75) {
+        if (confettiCount < 45) {
             if (pieces.length < numberOfPieces) {
                 pieces.push(new Piece(Math.random() * canvas.width, -20));
                 confettiCount += 1;
@@ -75,7 +75,7 @@ $(document).ready(function() {
             this.size = (Math.random() * 0.1 + 0.75) * 01;
         }
         
-        this.gravity = (Math.random() * 0.5 + 0.75) * 0.1;
+        this.gravity = (Math.random() * 0.5 + 0.75) * 0.08;
         this.rotation = (Math.PI * 2) * Math.random();
         this.rotationSpeed = (Math.PI * 2) * (Math.random() - 0.5) * 0.005;
         this.color = randomColor();

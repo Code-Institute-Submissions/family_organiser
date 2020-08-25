@@ -51,6 +51,10 @@ p,a,b,label {
     }
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 
 // icons
 .far {
@@ -120,4 +124,18 @@ p,a,b,label {
     width: 65px;
     border-radius: 10px;
     object-fit: contain;
+    border: solid rgb(235, 235, 235) 1px;
+}
+
+// overide Bootstrap
+.modal-backdrop.show {
+    display: none;
+}
+
+.modal {
+    top: 50px;
+}
+
+.modal.show .modal-dialog {
+    box-shadow: 0px 10px 20px 20px rgba(0,0,0,0.02);
 }

@@ -307,6 +307,7 @@ nav {
   overflow-y: auto;
   border-left: solid grey 1px;
   border-right: solid grey 1px;
+  overflow-x: hidden;
 }
 
 .page-update {
@@ -1066,6 +1067,10 @@ p, a, b, label {
           box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .far {
   font-size: 14px;
 }
@@ -1144,5 +1149,19 @@ p, a, b, label {
   border-radius: 10px;
   -o-object-fit: contain;
      object-fit: contain;
+  border: solid #ebebeb 1px;
+}
+
+.modal-backdrop.show {
+  display: none;
+}
+
+.modal {
+  top: 50px;
+}
+
+.modal.show .modal-dialog {
+  -webkit-box-shadow: 0px 10px 20px 20px rgba(0, 0, 0, 0.02);
+          box-shadow: 0px 10px 20px 20px rgba(0, 0, 0, 0.02);
 }
 /*# sourceMappingURL=style.css.map */

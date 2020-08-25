@@ -11,12 +11,14 @@ class Event(models.Model):
     information = models.CharField(max_length=350)
     header_image = models.ImageField(null=True, blank=True)
     participants = models.ManyToManyField(User, related_name="event_participants", blank=True)
+    declined = models.ManyToManyField(User, related_name="event_declined", blank=True)
     event_date = models.DateTimeField(default=timezone.now)
     created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
 
     @classmethod
-    def participant_accepted(cls, participant):
-        cls.participants.add(participant)
+    def participant_accepted(cls, pk, participant):
+        event = get_object_or_404(Event, pk=pk)
+        event.participants.add(participant)
 
     def __str__(self):
         return self.title

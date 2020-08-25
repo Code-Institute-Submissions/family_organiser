@@ -117,7 +117,7 @@
             <h5>{{ user.last_name }}</h5>
             <p>{{ user_profile.bio | truncatechars:35 }}
                 {% if bio_length > 35 %}
-                <span id="view-all-bio" class="float-right" data-toggle="modal" data-target="#exampleModal"><b>View
+                <span id="view-all-bio" class="float-right" data-toggle="modal" data-target="#exampleModal"><b class="clickable">View
                         All</b></span>
                 {% endif %}
             </p>

@@ -84,9 +84,10 @@ def event(request, pk):
     """
 
     event = Event.objects.get(pk=pk)
+    event = add_count_down_to_events([event])
 
     context = {
-        'event': event,
+        'event': event[0],
     }
 
     return render(request, 'event/event.html', context)
@@ -114,3 +115,16 @@ def view_invite(request, pk):
     }
 
     return render(request, 'event/view_invite.html', context)
+
+@login_required
+def edit_invite(request, pk, operation):
+    """
+    Accepting or declining the event invitation.
+    """
+
+    if operation == 'accept':
+        Event.participant_accepted(pk, request.user)
+        return redirect('event', pk)
+
+    if operation == 'decline':
+        return redirect('profile')

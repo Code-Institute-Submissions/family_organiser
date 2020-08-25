@@ -5,6 +5,33 @@
 {% endblock %}
 
 {% block content %}
+
+  
+  <!-- Participant Modal -->
+  <div class="modal fade" id="participants" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Participants</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% for participant in event.participants.all %}
+            <p>{{participant}}</p>
+          {% endfor %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Okay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 <div class="row m-0 p-2">
     <div class="col-12 m-0 p-0">
         <p class="m-0 p-0 text-right">Event - {{ event.title }}</p>
@@ -65,11 +92,26 @@
 {% endif %}
 
 
-<hr class="m-0">
-
 <p class="p-3 m-0">{{ event.information }}</p>
 
 <hr class="m-0">
+
+<div class="row m-0 p-0">
+    <div class="col-4 m-0 p-0 pt-3">
+        <a data-toggle="modal" data-target="#participants" href="#" class="text-dark">
+            <p class="m-0 text-center" ><u>Attending</u></p>
+        <p class="m-0 text-center">{{ event.participants.count }}</p>
+    </a>
+    </div>
+    <div class="col-4 m-0 p-0 pt-3">
+        <p class="m-0 text-center"><u>Count Down</u></p>
+        <p class="m-0 text-center">{{ event.count_down }}</p>
+    </div>
+    <div class="col-4 m-0 p-0 pt-3">
+        <p class="m-0 text-center"><u>Event Date</u></p>
+        <p class="m-0 text-center">{{ event.event_date |date:" M d, Y "}}</p>
+    </div>
+</div>
 
 
 {% endblock %}
