@@ -9,4 +9,6 @@ urlpatterns = [
     path('edit_invite/<pk>/<operation>', views.edit_invite, name='edit_invite'),
     path('event/<pk>/', views.event, name='event'),
     path('remove_event/<pk>/', views.remove_event, name='remove_event'),
+    path('authorise/<event>', views.authorise, name='authorise'),
+    path('oauth_2_call_back/', views.oauth_2_call_back, name='oauth_2_call_back'),
 ]

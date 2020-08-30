@@ -97,6 +97,11 @@
 
 <hr class="mt-0">
 
+<div class="d-flex justify-content-center">
+    <a class="btn btn-success" href='/event/authorise/{"title":"{{ event.title }}", "description": "{{ event.information }}" }'>Add To Google Calendar</a>
+</div>
+
+<hr>
 
 <h5 class="ml-3 d-flex justify-content-between">{{ event.title }}
     {% if event.event_creator == user %}

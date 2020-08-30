@@ -153,3 +153,13 @@ This web application is designed to keep users in touch with their family and al
 [Format date - Django](https://stackoverflow.com/questions/7737146/how-can-i-change-the-default-django-date-template-format)
 
 [Confetti.js](https://github.com/GeekLaunch/confetti)
+
+[Google calendar](https://developers.google.com/calendar/quickstart/python)
+
+[Working on a server - Google calendar](https://github.com/googleapis/google-api-python-client/issues/755)
+
+[Adding server-side oauth - Google calendar](https://developers.google.com/identity/protocols/oauth2/web-server#python_1)
+
+[Authorisation changed - Google Calendar](https://stackoverflow.com/questions/51499034/google-oauthlib-scope-has-changed)
+
+[INSECURE_TRANSPORT - Google Calendar](https://requests-oauthlib.readthedocs.io/en/latest/examples/real_world_example.html)
