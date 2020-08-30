@@ -14,6 +14,8 @@ class Event(models.Model):
     declined = models.ManyToManyField(User, related_name="event_declined", blank=True)
     event_date = models.DateTimeField(default=timezone.now)
     created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
+    start_time = models.TimeField(default='00:00:00')
+    end_time = models.TimeField(default='00:00:00')
 
     @classmethod
     def participant_accepted(cls, pk, participant):

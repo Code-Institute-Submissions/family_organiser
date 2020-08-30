@@ -154,12 +154,7 @@ def authorise(request, event):
 
     event = json.loads(event)
 
-    print(event)
-    print(event['title'])
-    print(event['description'])
-
-    request.session['event_description'] = event['description']
-    request.session['event_title'] = event['title']
+    request.session['event'] = event
 
     SCOPES = ['https://www.googleapis.com/auth/calendar']
     
@@ -221,16 +216,16 @@ def oauth_2_call_back(request):
 
     # Call the Calendar API
     event = {
-        'summary': request.session['event_title'],
+        'summary': request.session['event']['title'],
         'location': '800 Howard St., San Francisco, CA 94103',
-        'description': request.session['event_description'],
+        'description': request.session['event']['description'],
         'start': {
-            'dateTime': '2020-08-28T09:00:00-05:00',
-            'timeZone': 'America/Los_Angeles',
+            'dateTime': '2020-08-28T09:00:00-05:00:00',
+            'timeZone': "Europe/London",
         },
         'end': {
-            'dateTime': '2020-08-28T17:00:00-07:00',
-            'timeZone': 'America/Los_Angeles',
+            'dateTime': '2020-08-28T17:00:00-07:00:00',
+            'timeZone': "Europe/London",
         },
         'recurrence': [
             'RRULE:FREQ=DAILY;COUNT=2'

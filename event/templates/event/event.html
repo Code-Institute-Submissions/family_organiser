@@ -98,7 +98,7 @@
 <hr class="mt-0">
 
 <div class="d-flex justify-content-center">
-    <a class="btn btn-success" href='/event/authorise/{"title":"{{ event.title }}", "description": "{{ event.information }}" }'>Add To Google Calendar</a>
+    <a class="google-button text-dark" style="width: 205px" href='/event/authorise/{"title":"{{ event.title }}", "description": "{{ event.information }}", "start_time": "{{ event.title }}" }'><img src="{{ MEDIA_URL }}icons/google_calendar_icon.png" class="small-icon"> Add To Google Calendar</a>
 </div>
 
 <hr>
@@ -157,6 +157,15 @@
     </div>
 </div>
 
+<hr>
+<div class="row m-0 p-0">
+    <div class="col-6">
+        {{event.start_time}}
+    </div>
+    <div class="col-6">
+        {{event.end_time}}
+    </div>
+</div>
 <hr>
 
 {% endblock %}

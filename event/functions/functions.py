@@ -27,6 +27,8 @@ def add_count_down_to_events(events):
             'participants': event.participants,
             'event_date': event.event_date,
             'count_down': count_down,
+            'start_time': event.start_time,
+            'end_time': event.end_time,
         }
 
         events_with_count_down.append(event_dict)
