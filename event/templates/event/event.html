@@ -98,14 +98,14 @@
 <hr class="mt-0">
 
 <div class="d-flex justify-content-center">
-    <a class="google-button text-dark" style="width: 205px" href='/event/authorise/{"title":"{{ event.title }}", "description": "{{ event.information }}", "start_time": "{{ event.title }}" }'><img src="{{ MEDIA_URL }}icons/google_calendar_icon.png" class="small-icon"> Add To Google Calendar</a>
+    <a class="google-button text-dark" style="width: 205px" href='/event/authorise/{"title":"{{ event.title }}", "description": "{{ event.information }}", "date": "{{ event.event_date |date:"yy-m-d"}}", "start_time": "{{ event.start_time |date:"H:i"}}", "end_time": "{{ event.end_time |date:"H:i"}}" }'><img src="{{ MEDIA_URL }}icons/google_calendar_icon.png" class="small-icon"> Add To Google Calendar</a>
 </div>
 
 <hr>
 
 <h5 class="ml-3 d-flex justify-content-between">{{ event.title }}
     {% if event.event_creator == user %}
-    <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2 small-icon" data-toggle="collapse"
+    <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2 small-icon clickable" data-toggle="collapse"
         href="#event-settings" />
     {% endif %}
 </h5>

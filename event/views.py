@@ -214,22 +214,23 @@ def oauth_2_call_back(request):
 
     service = build('calendar', 'v3', credentials=credentials)
 
+    event_date = request.session['event']['date']
+    event_start_time = request.session['event']['start_time']
+    event_end_time = request.session['event']['end_time']
+
     # Call the Calendar API
     event = {
         'summary': request.session['event']['title'],
         'location': '800 Howard St., San Francisco, CA 94103',
         'description': request.session['event']['description'],
         'start': {
-            'dateTime': '2020-08-28T09:00:00-05:00:00',
+            'dateTime': '{}T00:00:00-{}'.format(event_date, event_start_time),
             'timeZone': "Europe/London",
         },
         'end': {
-            'dateTime': '2020-08-28T17:00:00-07:00:00',
+            'dateTime': '{}T00:00:00-{}'.format(event_date, event_end_time),
             'timeZone': "Europe/London",
         },
-        'recurrence': [
-            'RRULE:FREQ=DAILY;COUNT=2'
-        ],
         'attendees': [
             {'email': 'lpage@example.com'},
             {'email': 'sbrin@example.com'},
