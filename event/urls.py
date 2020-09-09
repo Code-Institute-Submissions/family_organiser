@@ -10,5 +10,6 @@ urlpatterns = [
     path('event/<pk>/', views.event, name='event'),
     path('remove_event/<pk>/', views.remove_event, name='remove_event'),
     path('authorise/<event>', views.authorise, name='authorise'),
+    path('calendar_confirmed/', views.calendar_confirmed, name="calendar_confirmed"),
     path('oauth_2_call_back/', views.oauth_2_call_back, name='oauth_2_call_back'),
 ]

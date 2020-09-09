@@ -246,9 +246,14 @@ def oauth_2_call_back(request):
 
     event = service.events().insert(calendarId='primary', body=event).execute()
     # The url the the event on google calendar
-    print('Event created: %s' % (event.get('htmlLink')))
 
-    return redirect('menu')
+    calendar_link = event.get('htmlLink') 
+    
 
-    
-    
+    return redirect('calendar_confirmed')
+
+
+def calendar_confirmed(request):
+
+
+    return render(request, 'event/calendar_confirmed.html')

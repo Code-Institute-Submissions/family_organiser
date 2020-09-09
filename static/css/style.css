@@ -1063,6 +1063,11 @@ p, a, b, label {
   border: none;
 }
 
+.btn-info {
+  background: -webkit-gradient(linear, left top, left bottom, from(#17a2b8), to(#198595));
+  background: linear-gradient(#17a2b8, #198595);
+}
+
 .btn:focus, .form-control:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);
           box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);

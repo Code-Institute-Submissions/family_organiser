@@ -5,16 +5,18 @@ from .models import Event
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ('title', 'information', 'header_image', 'event_date', 'start_time', 'end_time')
+        fields = ('title', 'information', 'header_image', 'event_date', 'start_time', 'end_time', 'location')
         widgets = {
             'title' : forms.TextInput(
                 attrs = {
-                    'class' : 'container-fluid form-control'
+                    'class' : 'container-fluid form-control',
+                    'placeholder': 'Family Dinner',
                     }
             ),
             'information' : forms.TextInput(
                 attrs = {
-                    'class' : 'container-fluid form-control'
+                    'class' : 'container-fluid form-control',
+                    'placeholder': 'Family dinner at the "Dinner Palace"...',
                     }
             ),
              'header_image' : forms.FileInput(
@@ -38,6 +40,13 @@ class EventForm(forms.ModelForm):
                 attrs = {
                     'class' : 'container-fluid form-control',
                     'type' : 'time'
+                    }
+            ),
+            'location' : forms.TextInput(
+                attrs = {
+                    'class' : 'container-fluid form-control',
+                    'type' : 'text',
+                    'placeholder': '3 Walk Street, Dinner Palace',
                     }
             )
         }

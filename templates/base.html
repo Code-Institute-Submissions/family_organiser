@@ -51,13 +51,6 @@
 
 <body>
 
-    <!-- scroll to top button -->
-    {% if not 'profile' in request.path %}
-    <div class="scroll-to-top" id="scroll-up" onscroll="checkShowButton()">Top</div>
-    {% elif 'user_profile' in request.path %}
-    <div class="scroll-to-top" id="scroll-up" onscroll="checkShowButton()">Top</div>
-    {% endif %}
-
     <div class="page-container">
         <!-- Navigation -->
         {% if user.is_authenticated %}
@@ -207,7 +200,7 @@
         {% endif %}
         <!-- Page content -->
         {% if user.is_authenticated %}
-        <div class="content-container">
+        <div class="content-container" onclick="on_scroll()">
             <div class="desktop-navigation d-none d-md-block">
                 <ul class="desktop-navigation-links">
                     <div class="d-flex justify-content-between align-items-center px-3 py-2">

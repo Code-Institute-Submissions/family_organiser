@@ -26,9 +26,8 @@ $(document).on('click','.toggle-menu', function() {
     $('.burger-container').toggleClass('closed')
 })
 
-$(document).on('click', '.scroll-to-top', function() {
-    $('.content-wrapper').animate({ scrollTop: 0 }, "fast");
-})
+
+
 
 
 

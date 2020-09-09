@@ -45,6 +45,10 @@ p,a,b,label {
     border: none;
 }
 
+.btn-info {
+    background: linear-gradient(#17a2b8, #198595);
+}
+
 .btn, .form-control {
     &:focus {
         box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);

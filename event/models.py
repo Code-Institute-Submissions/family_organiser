@@ -16,6 +16,7 @@ class Event(models.Model):
     created_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
     start_time = models.TimeField(default='00:00:00')
     end_time = models.TimeField(default='00:00:00')
+    location = models.CharField(max_length=300, default="")
 
     @classmethod
     def participant_accepted(cls, pk, participant):

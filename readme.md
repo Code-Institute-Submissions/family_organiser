@@ -48,6 +48,44 @@ This web application is designed to keep users in touch with their family and al
     - [Stripe]()
     - pillow
 
+## Features
+
+### Profile
+
+- A Family list of all the user's friends/family can be found, from this page, users can click a profile and be take to a view of a users profile, on a users profile their family list can also be viewed.
+
+- Search for a family member is easy to locate from the add button or family page, the users will be able to send requests to their chosen member.
+
+- When a user's likes, comments, send a friend request or an event, all this information can be found on their notifications page, also the user can click these notifications and be taken to the relevant page.
+
+- Users can view/edit their personal information and remove their account on the settings page.
+
+- A Status can be created from the profile page and seen on both their profile page and the news feed.
+
+### status
+
+- All users status from their family list will be displayed on this page, also the user can create their status from here.
+
+- If there are more than two comments on a post, user's can click 'more' and be taken to a personal page to view that status.
+
+### shopping
+
+- A custom shopping list can be created with categories and items that are added to their list will be saved to a quick add vertical scroll just above the list. The list is ordered by the users most added items first, items quantity can be incremented and decremented without the page having to be refreshed.
+
+- Users can invite people from their friend's list to help them with their shopping, adding, removing and editing items in the same shopping list!
+
+- An Insights page has been created so that users can view their purchased items and see some useful data from their day to day habits. 
+
+### messages
+
+### events
+
+
+
+
+
+
+
 ## Bugs
 
 ### Shopping page
@@ -71,6 +109,24 @@ This web application is designed to keep users in touch with their family and al
 ### Shopping page
 
 - Allow the user to add an item to their purchased items list.
+
+- Preset shopping lists for users to create custom lists to save their time and help them stay organised and buy the right foods.
+
+### Messages
+
+- Delete a coversation and the messages.
+
+- React to a users message e.g. like, sad, happy
+
+### Events
+
+- Allow users attending the event to create messages on the event page.
+
+### Merch Shop
+
+I would like to add a merch shop for users to purchase back to school equitment and other family related items.
+
+- Also allow users to create custom pages to sell their own items.
 
 ## How to run locally:
 
