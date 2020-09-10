@@ -22,6 +22,7 @@ def add_count_down_to_events(events):
             'id': event.id,
             'event_creator': event.event_creator,
             'title': event.title,
+            'location': event.location,
             'information': event.information,
             'header_image': event.header_image,
             'participants': event.participants,

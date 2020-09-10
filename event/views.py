@@ -221,7 +221,7 @@ def oauth_2_call_back(request):
     # Call the Calendar API
     event = {
         'summary': request.session['event']['title'],
-        'location': '800 Howard St., San Francisco, CA 94103',
+        'location': request.session['event']['location'],
         'description': request.session['event']['description'],
         'start': {
             'dateTime': '{}T00:00:00-{}'.format(event_date, event_start_time),

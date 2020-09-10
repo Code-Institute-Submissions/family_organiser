@@ -23,7 +23,8 @@ class StatusForm(forms.ModelForm):
             ),
             'image' : forms.FileInput(
                 attrs = {
-                    'id' : 'form-image'
+                    'id' : 'form-image',
+                    'class': 'mt-3',
                 }
             )
         }
