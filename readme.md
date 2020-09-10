@@ -4,6 +4,12 @@
 
 This web application is designed to keep users in touch with their family and allow them to book events, share shopping lists, work together getting chores done, as well as write status and message one another.
 
+## Project plan
+
+[Wireframe]()
+[User Stories]()
+[Database Schema]()
+
 ## Technologies Used
 
 #### Programs
@@ -97,6 +103,8 @@ This web application is designed to keep users in touch with their family and al
 
 - A notification will be sent to each user that has been invited, a invitation page be shown after the notification has been selected. On this page the user can remove the invite or accept, adding them to the event.
 
+- Also the user can save this event to their Google Calendar with just one click at the top of the page. This has been added to make sure the user dosen't forget any events coming in the future.
+
 ## Bugs
 
 ### Shopping page
@@ -144,7 +152,66 @@ I would like to add a merch shop for users to purchase back to school equitment 
 
 - Also allow users to create custom pages to sell their own items.
 
-## How to run locally:
+## Deployment
+
+I've hosted this project on heroku and also used travis to make sure the build will pass. Also with this project that static files such as the css, js and images have been hosted using Amazon AWS. The project was hosted by doing the following:
+
+#### Heroku
+
+1. Creating a Procfile with information for heroku on what type of project this is.
+2. Creating a requirements.txt file for the python dependencies to be installed to run the application. 
+3. Then creating a new project one heroku
+4. Finally adding the environment variables and deploying the branch.
+
+#### Amazon AWS
+
+1. After loggin into my Amazon account, I search for s3 and create a new bucket and set the access to public.
+2. Change the properties to static website hosting.
+3. Then under the premissions tab I've added the CORS configuration.
+4. Move to the bucket policy I generated a policy type of S3 and the action of 'GetObject'
+5. Last configuration setting is under the 'access control list', and I've set the list objects permission to everyone.
+6. After thats done I've moved over to IAM and create a new group.
+7. Then I create a new policy and import a manage policy called 'AmazonS3FullAccess'.
+8. Next I've added the bucket ARN to the key 'Resource'.
+9. Now I'll add the new policy to the group I created eariler.
+10. Then creating a user to be added to the group and giving the programmatic access.
+11. I then download the csv file after the user is created.
+
+#### Connecting Django to the S3 bucket
+
+Back to the project, two new packages need to be installed for this to work.
+
+1. boto3
+2. django-storages
+
+Then I've added the access key and the scret access key to the settings.py file and saving these values as environment variables. These variable were also saved in heroku under 'Confg Vars'.
+
+#### Running This Project Locally
+
+- Frontend Method (Download)
+    1. Go to [Family Organiser Project](https://github.com/Fordalex/power-in-numbers)
+    2. Click on
+    3. Click download zip
+    4. Extract zip file
+    5. Import into preferred IDE
+
+- backend Method (Git)
+    1. Open your terminal in your preferred IDE.
+    2. Type "git clone https://github.com/Fordalex/power-in-numbers".
+    3. You will need to add a file call 'env.py' file will need to be added with the following values:
+        - DATABASE_URL
+        - SECRET_KEY
+        - STRIPE_PUBLIC_KEY
+        - STRIPE_SECRET_KEY
+        - EMAIL_HOST_USER
+        - OAUTHLIB_INSECURE_TRANSPORT
+        - OAUTHLIB_RELAX_TOKEN_SCOPE
+        - CRED (Used for the Google Calendar API)
+    4. A Virutal environment will need to be created, if your using linux the following command is 'python3 -m venv .venv'.
+    5. Then 'source .venv/bin/activate' to activate the environment.
+    6. The following command will install the dependencies for this project 'pip install -r requirements.txt'.
+    7. Finally again in the terminal write 'pyton app.py' to run the application.
+
 
 #### Download:
 
