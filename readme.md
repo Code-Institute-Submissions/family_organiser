@@ -2,59 +2,17 @@
 
 # Family Organiser 
 
-This web application is designed to keep users in touch with their family and allow them to book events, share shopping lists, work together getting chores done, as well as write status and message one another.
+This web application is designed to keep users in touch with their family and allow them to book events, share shopping lists, work together getting chores done, as well as write status and message one another. This idea came to me as in my house remembering to put the bins out and always running out of milk was getting a bit of a problem. I wanted to find a solution but one that I wasn't just in control of, as 'Teamwork makes the dream work', Adding API's and google authentication to speed up the user's interaction with the site was important as we're all short on time.
 
 ## Project plan
 
-[Wireframe]()
-[User Stories]()
-[Database Schema]()
+[Wireframe](https://github.com/Fordalex/family_organiser/blob/master/project_plan/wireframe/mobile.PNG),
+[User Stories](https://github.com/Fordalex/family_organiser/blob/master/project_plan/user_stories/user_stoires.JPG),
+[Database Schema](https://github.com/Fordalex/family_organiser/blob/master/project_plan/database_schema/Web%201920%20%E2%80%93%201.png)
 
-## Technologies Used
+# Features
 
-#### Programs
-
-- [Adobe XD](https://www.adobe.com/products/xd.html)
-
-- [Photoshop](https://jquery.com)
-
-- [Adobe Illustrator](https://www.adobe.com/uk/products/illustrator.html)
-
-#### Frontend
-
-- Languages
-    - HTML
-    - CSS
-    - JavaScript
-
-- Framework
-    - [Bootstrap4](https://getbootstrap.com/)
-
-- Preprocessor
-    - [SCSS](https://sass-lang.com/)
-
-- Js Libaries
-    - [GSAP](https://greensock.com/)
-    - [Chart.js](https://www.chartjs.org/)
-    - [Jquery](https://jquery.com/)
-    - [Confetti](https://github.com/GeekLaunch/confetti)
-
-#### Backend
-
-- Languages
-    - Python
-
-- Framework
-    - Django
-
-- Python modules
-    - Gunicorn
-    - dj_database_url
-    - psycopg2-binary
-    - [Stripe]()
-    - pillow
-
-## Features
+## Existing Features
 
 ### User
 
@@ -105,30 +63,7 @@ This web application is designed to keep users in touch with their family and al
 
 - Also the user can save this event to their Google Calendar with just one click at the top of the page. This has been added to make sure the user dosen't forget any events coming in the future.
 
-## Bugs
-
-### Shopping page
-
-- If an item is removed by the quantity being set the zero and then the item is re-added, the item will be added twice by the same user (Shopping list).
-
-### Messages
-
-- On reload the page will resend the users message again.
-
-### Status
-
-- When a user is removed their status are removed but not comments on their status. Same when removing a status the comment stay in the database.
-
-### Navigation
-
-- When you change from mobile view to desktop view the white alpha over stays on the screen untill clicked or the page is reloaded.
-
-### Event
-
-- The time when saving an event to google calendar the time slot is one hour off...
-
-
-## Features to add
+## Features Left To Implement
 
 ### Shopping page
 
@@ -152,15 +87,92 @@ I would like to add a merch shop for users to purchase back to school equitment 
 
 - Also allow users to create custom pages to sell their own items.
 
+## Bugs
+
+### Shopping page
+
+- If an item is removed by the quantity being set the zero and then the item is re-added, the item will be added twice by the same user (Shopping list).
+
+### Messages
+
+- On reload the page will resend the users message again.
+
+### Status
+
+- When a user is removed their status are removed but not comments on their status. Same when removing a status the comment stay in the database.
+
+### Navigation
+
+- When you change from mobile view to desktop view the white alpha over stays on the screen untill clicked or the page is reloaded.
+
+### Event
+
+- The time when saving an event to google calendar the time slot is one hour off...
+
+
+
+## Technologies Used
+
+#### Programs
+
+- [Adobe XD](https://www.adobe.com/products/xd.html)
+
+- [Photoshop](https://jquery.com)
+
+- [Adobe Illustrator](https://www.adobe.com/uk/products/illustrator.html)
+
+#### Frontend
+
+- Languages
+    - HTML
+    - CSS
+    - JavaScript
+
+- Framework
+    - [Bootstrap4](https://getbootstrap.com/)
+
+- Preprocessor
+    - [SCSS](https://sass-lang.com/)
+
+- Js Libaries
+    - [GSAP](https://greensock.com/)
+    - [Chart.js](https://www.chartjs.org/)
+    - [Jquery](https://jquery.com/)
+    - [Confetti](https://github.com/GeekLaunch/confetti)
+
+#### Backend
+
+- Languages
+    - Python
+
+- Framework
+    - Django
+
+- Python modules
+    - Gunicorn
+    - dj_database_url
+    - psycopg2-binary
+    - [Stripe]()
+    - pillow
+
+## Testing 
+
+I have tried to automate most of the important tests.
+
+The views on each app either return the desired page or redirect the user when needed.
+
+
+
+
 ## Deployment
 
-I've hosted this project on heroku and also used travis to make sure the build will pass. Also with this project that static files such as the css, js and images have been hosted using Amazon AWS. The project was hosted by doing the following:
+I've hosted this project on heroku and also used Travis to make sure the build will pass. Also with this project the static files such as the css, js and images have been hosted using Amazon AWS. The project was hosted by doing the following:
 
 #### Heroku
 
 1. Creating a Procfile with information for heroku on what type of project this is.
-2. Creating a requirements.txt file for the python dependencies to be installed to run the application. 
-3. Then creating a new project one heroku
+2. Creating a requirements.txt file for the python dependencies to be installed to run the application by typing the following command into the terminal 'pip freeze --local > requirements.txt'. 
+3. Then creating a new project on heroku.
 4. Finally adding the environment variables and deploying the branch.
 
 #### Amazon AWS
@@ -170,12 +182,12 @@ I've hosted this project on heroku and also used travis to make sure the build w
 3. Then under the premissions tab I've added the CORS configuration.
 4. Move to the bucket policy I generated a policy type of S3 and the action of 'GetObject'
 5. Last configuration setting is under the 'access control list', and I've set the list objects permission to everyone.
-6. After thats done I've moved over to IAM and create a new group.
-7. Then I create a new policy and import a manage policy called 'AmazonS3FullAccess'.
+6. After thats done I've moved over to IAM and created a new group.
+7. Then I created a new policy and imported a manage policy called 'AmazonS3FullAccess'.
 8. Next I've added the bucket ARN to the key 'Resource'.
 9. Now I'll add the new policy to the group I created eariler.
-10. Then creating a user to be added to the group and giving the programmatic access.
-11. I then download the csv file after the user is created.
+10. Then creating a user to be added to the group and giving them programmatic access.
+11. I then downloaded the csv file after the user was created.
 
 #### Connecting Django to the S3 bucket
 
@@ -184,7 +196,7 @@ Back to the project, two new packages need to be installed for this to work.
 1. boto3
 2. django-storages
 
-Then I've added the access key and the scret access key to the settings.py file and saving these values as environment variables. These variable were also saved in heroku under 'Confg Vars'.
+Then I've added the access key and the secret access key to the settings.py file and saving these values as environment variables. These variable were also saved in heroku under 'Confg Vars' for security reasons.
 
 #### Running This Project Locally
 
@@ -212,16 +224,7 @@ Then I've added the access key and the scret access key to the settings.py file 
     6. The following command will install the dependencies for this project 'pip install -r requirements.txt'.
     7. Finally again in the terminal write 'pyton app.py' to run the application.
 
-
-#### Download:
-
-#### Using Git:
-
-## Deployment
-
 ## Credits
-
-### Content
 
 ### Media
 

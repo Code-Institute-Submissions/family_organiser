@@ -38,6 +38,7 @@ class EventInvite(models.Model):
         user_profile.event_notification += 1
         user_profile.save()
 
+        # If invited doesn't exist create one.
         try:
             cls.objects.get(user=user, event=event)
         except:
