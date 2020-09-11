@@ -4,6 +4,46 @@
 
 This web application is designed to keep users in touch with their family and allow them to book events, share shopping lists, work together getting chores done, as well as write status and message one another. This idea came to me as in my house remembering to put the bins out and always running out of milk was getting a bit of a problem. I wanted to find a solution but one that I wasn't just in control of, as 'Teamwork makes the dream work', Adding API's and google authentication to speed up the user's interaction with the site was important as we're all short on time.
 
+# UX
+
+The overall app theme is green and white with hand drawn icons, I have tried to animate most of the intractions with the application but not to affect loading times. I feel this helps navigate the user to the desiered location and elicit a positive emotional response, making sure the user finds it easy to find their desired impormation and enjoy the process was quite important.
+
+### User
+
+On the profile page I have added a easiy visable '+' Add button so that if the user would like to add data to their profile this can easiy be achiveve. After this button has been pressed the page will open up revealing
+a list of actions for the user to choose from, when one of these options has been selected they will ethier be navigated to their desired location or the page will dropdown further displaying a form for the user to fill out.
+
+### Shopping
+
+The first time the user loads this page or if they have no categories the page will be redirected to make sure the user has at least created one category. This is important because when saving an item, a category will have to be selected, this is to help break up their shopping list into different sections, helpful if their shopping and all their items for the 'frozen' foods are together. After an item has been created, it will be saved to a quick add section and the category already saved to that item for convenience.
+I have used Ajax to update the page when the user is adding via the quick add option but also when incrementing and decrementing items on their shopping list, reloading the page just didn't give the UX I was going for.
+
+The navigation for this application has been added to the top of the page with three links 'List','Partners','Insight' for the user to easily navigate themself to the location they desire. Also, a shopping partner has been added to help users interact and take the load of big shopping duties.
+
+Under the shopping app, I have added an insights section with a different section that I discuss under the features section. This has been added to make sure the user can see some visual representation for their data. Making sure the user can make the right decision on what foods to be consuming and help keep costs down where needed.
+
+### Status
+
+User's can create and interacte with each others status, liking and commenting to make sure that staying intouch with each other is very important with this appliation.
+
+
+### Messages
+
+Also a messages app has been created so that users can communicate with one another, I would like to add a email API to this to make sure the user gets notified or somehow get the appliation to notify the user's device.
+
+### Event
+
+Finally this app has been created so that events for holidays, birthdays, days out, any event the user desired can be created with ease. After a event has been created the creator of the event can then invite users from ther family/friends list. I have added some confetti to the invitation to again try and give the user a positive responce when opening their event notification.
+
+### Premium 
+
+Some features to this app are for premium users only, this is the that the cost of hosting the application can pay for itself. The payment is a one off payment only can be easily achieved by the be navigated to the premium app and giving their bank details.
+
+### Notifiations
+
+I have added notifications on the profile page for liked posts, commented posts, accepted friend requests and partner requests. Also, events can be add to the users Google Calendar to make sure they don't miss any events!
+
+
 ## Project plan
 
 [Wireframe](https://github.com/Fordalex/family_organiser/blob/master/project_plan/wireframe/mobile.PNG),
@@ -86,6 +126,10 @@ This web application is designed to keep users in touch with their family and al
 I would like to add a merch shop for users to purchase back to school equitment and other family related items.
 
 - Also allow users to create custom pages to sell their own items.
+
+### Premium
+
+Also I am going to add a order number when the user makes a purchase so that their order can be tracked if there are problems with their payment. Meanwhile this will be tracked using stripe.
 
 ## Bugs
 
