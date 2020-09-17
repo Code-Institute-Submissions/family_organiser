@@ -52,6 +52,10 @@
     }
 }
 
+.sign-up-form-wrapper {
+    position: relative;
+}
+
 @media (min-width: 750px) {
     .login-form-wrapper {
         border-radius: 0px;
@@ -60,5 +64,8 @@
     }
     .login-container {
         background-color: rgb(246, 246, 246);
+    }
+    .sign-up-form-wrapper {
+        position: absolute;
     }
 }

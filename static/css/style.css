@@ -780,6 +780,8 @@ nav {
   border-radius: 10px;
   -webkit-box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .status-image {
@@ -1019,6 +1021,10 @@ footer {
   width: 39px;
 }
 
+.sign-up-form-wrapper {
+  position: relative;
+}
+
 @media (min-width: 750px) {
   .login-form-wrapper {
     border-radius: 0px;
@@ -1027,6 +1033,9 @@ footer {
   }
   .login-container {
     background-color: #f6f6f6;
+  }
+  .sign-up-form-wrapper {
+    position: absolute;
   }
 }
 

@@ -103,6 +103,8 @@ I have added notifications on the profile page for liked posts, commented posts,
 
 - Also the user can save this event to their Google Calendar with just one click at the top of the page. This has been added to make sure the user dosen't forget any events coming in the future.
 
+[Top 10 Features](https://github.com/Fordalex/family_organiser/blob/master/readme/features.md)
+
 ## Features Left To Implement
 
 ### Shopping page
@@ -261,14 +263,14 @@ Then I've added the access key and the secret access key to the settings.py file
     6. Finally again in the terminal write 'pyton app.py' to run the application.
 
 If running this project locally you will need to add a file call 'env.py', with the following values:
-        - DATABASE_URL
-        - SECRET_KEY
-        - STRIPE_PUBLIC_KEY
-        - STRIPE_SECRET_KEY
-        - EMAIL_HOST_USER
-        - CRED (Used for the Google Calendar API)
-        - OAUTHLIB_INSECURE_TRANSPORT
-        - OAUTHLIB_RELAX_TOKEN_SCOPE
+- DATABASE_URL
+- SECRET_KEY
+- STRIPE_PUBLIC_KEY
+- STRIPE_SECRET_KEY
+- EMAIL_HOST_USER
+- CRED (Used for the Google Calendar API)
+- OAUTHLIB_INSECURE_TRANSPORT
+- OAUTHLIB_RELAX_TOKEN_SCOPE
 
 ## Credits
 
