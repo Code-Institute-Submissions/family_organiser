@@ -6,38 +6,48 @@
 
 {% block content %}
 
-<div class="p-2">
-  <h1 class="text-center">Family Organiser</h1>
+<div class="login-page-container">
 
-  <b>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</b>
-  
-  <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-    {% csrf_token %}
+  <div class="p-2">
+    <h1 class="text-center">Family Organiser</h1>
 
-    <label for="{{ form.username.id_for_label }}">Username</label>
-    <input type="text" name="{{ form.username.name }}" maxlength="150" autofocus required id="{{ form.username.id_for_label }}" class="container-fluid form-control">
-   
-    <label for="{{ form.first_name.id_for_label }}">First Name</label>
-    <input type="text" name="{{ form.first_name.name }}" maxlength="150" autofocus required id="{{ form.first_name.id_for_label }}" class="container-fluid form-control">
-    
-    <label for="{{ form.last_name.id_for_label }}">Last Name</label>
-    <input type="text" name="{{ form.last_name.name }}" maxlength="150" autofocus required id="{{ form.last_name.id_for_label }}" class="container-fluid form-control">
-   
-    <label for="{{ form.email.id_for_label }}">Email</label>
-    <input type="email" name="{{ form.email.name }}" maxlength="150" autofocus required id="{{ form.email.id_for_label }}" class="container-fluid form-control">
-   
-    <label for="{{ form.password1.id_for_label }}">Password</label>
-    <input type="password" name="{{ form.password1.name }}" maxlength="150" autofocus required id="{{ form.password1.id_for_label }}" autocomplete="new-password" class="container-fluid form-control">
-   
-    <label for="{{ form.password2.id_for_label }}">Password Confirmation</label>
-    <input type="password" name="{{ form.password2.name }}" maxlength="150" autofocus required id="{{ form.password2.id_for_label }}" autocomplete="new-password" class="container-fluid form-control mb-3">
+    <b>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign
+        in</a>.{% endblocktrans %}</b>
 
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-    {% endif %}
-    <button type="submit" class="btn btn-success container-fluid">{% trans "Sign Up" %} &raquo;</button>
-  </form>
-  
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+
+      <label for="{{ form.username.id_for_label }}">Username</label>
+      <input type="text" name="{{ form.username.name }}" maxlength="150" autofocus required
+        id="{{ form.username.id_for_label }}" class="container-fluid form-control">
+
+      <label for="{{ form.first_name.id_for_label }}">First Name</label>
+      <input type="text" name="{{ form.first_name.name }}" maxlength="150" autofocus required
+        id="{{ form.first_name.id_for_label }}" class="container-fluid form-control">
+
+      <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+      <input type="text" name="{{ form.last_name.name }}" maxlength="150" autofocus required
+        id="{{ form.last_name.id_for_label }}" class="container-fluid form-control">
+
+      <label for="{{ form.email.id_for_label }}">Email</label>
+      <input type="email" name="{{ form.email.name }}" maxlength="150" autofocus required
+        id="{{ form.email.id_for_label }}" class="container-fluid form-control">
+
+      <label for="{{ form.password1.id_for_label }}">Password</label>
+      <input type="password" name="{{ form.password1.name }}" maxlength="150" autofocus required
+        id="{{ form.password1.id_for_label }}" autocomplete="new-password" class="container-fluid form-control">
+
+      <label for="{{ form.password2.id_for_label }}">Password Confirmation</label>
+      <input type="password" name="{{ form.password2.name }}" maxlength="150" autofocus required
+        id="{{ form.password2.id_for_label }}" autocomplete="new-password" class="container-fluid form-control mb-3">
+
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <button type="submit" class="btn btn-success container-fluid">{% trans "Sign Up" %} &raquo;</button>
+    </form>
+
+  </div>
 </div>
 
 {% endblock %}

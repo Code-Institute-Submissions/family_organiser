@@ -58,5 +58,7 @@ Family | Family Organiser
         </div>
     {% endfor %}
 </div>
-<a class="btn btn-success text-light float-right mr-3" href="/user/find_users">Find Users</a>
+{% if requested_user == user %}
+    <a class="btn btn-success text-light float-right mr-3" href="/user/find_users">Find Users</a>
+{% endif %}
 {% endblock %}
