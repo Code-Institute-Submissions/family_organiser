@@ -9,10 +9,10 @@ def add_count_down_to_events(events):
         # find the days betweent now and the event.
         event_date = date(event.event_date.year, event.event_date.month, event.event_date.day)
         time_between = event_date - todays_date
-        days_between = time_between.days
+        days_between = time_between.days + 1
 
         # format count down
-        count_down = '{} Days'.format(str(days_between))
+        count_down = '{} Day(s)'.format(str(days_between))
         if days_between == 0:
             count_down = '{} is today!'.format(event.title)
         elif days_between < 0:
