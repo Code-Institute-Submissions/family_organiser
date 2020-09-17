@@ -111,6 +111,8 @@ I have added notifications on the profile page for liked posts, commented posts,
 
 - Preset shopping lists for users to create custom lists to save their time and help them stay organised and buy the right foods.
 
+- Removing a shopping partner
+
 ### Messages
 
 - Delete a coversation and the messages.
@@ -201,12 +203,11 @@ Also I am going to add a order number when the user makes a purchase so that the
 
 ## Testing 
 
-I have tried to automate most of the important tests.
+I have tried to automate most of the important tests. Also, I have created a functions.py file to make sure the code is easier to read and to make sure that functions that work, can be resued to reduce the amount of bugs.
 
-The views on each app either return the desired page or redirect the user when needed.
+The views on each app either return the desired page or redirect the user when needed, this has been tested on the test_view.py and I've used coverage to make sure adequate testing has been done.
 
-
-
+I have tested some of the larger functions under the test_functions.py.
 
 ## Deployment
 
@@ -254,19 +255,20 @@ Then I've added the access key and the secret access key to the settings.py file
 - backend Method (Git)
     1. Open your terminal in your preferred IDE.
     2. Type "git clone https://github.com/Fordalex/power-in-numbers".
-    3. You will need to add a file call 'env.py' file will need to be added with the following values:
+    3. A Virutal environment will need to be created, if your using linux the following command is 'python3 -m venv .venv'.
+    4. Then 'source .venv/bin/activate' to activate the environment.
+    5. The following command will install the dependencies for this project 'pip install -r requirements.txt'.
+    6. Finally again in the terminal write 'pyton app.py' to run the application.
+
+If running this project locally you will need to add a file call 'env.py', with the following values:
         - DATABASE_URL
         - SECRET_KEY
         - STRIPE_PUBLIC_KEY
         - STRIPE_SECRET_KEY
         - EMAIL_HOST_USER
+        - CRED (Used for the Google Calendar API)
         - OAUTHLIB_INSECURE_TRANSPORT
         - OAUTHLIB_RELAX_TOKEN_SCOPE
-        - CRED (Used for the Google Calendar API)
-    4. A Virutal environment will need to be created, if your using linux the following command is 'python3 -m venv .venv'.
-    5. Then 'source .venv/bin/activate' to activate the environment.
-    6. The following command will install the dependencies for this project 'pip install -r requirements.txt'.
-    7. Finally again in the terminal write 'pyton app.py' to run the application.
 
 ## Credits
 
