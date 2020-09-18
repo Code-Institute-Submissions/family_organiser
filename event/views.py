@@ -160,24 +160,13 @@ def authorise(request, event):
     
     config = json.loads(os.environ['CRED'])
 
-    # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow steps.
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
     config, SCOPES)
 
-    # Indicate where the API server will redirect the user after the user completes
-    # the authorization flow. The redirect URI is required. The value must exactly
-    # match one of the authorized redirect URIs for the OAuth 2.0 client, which you
-    # configured in the API Console. If this value doesn't match an authorized URI,
-    # you will get a 'redirect_uri_mismatch' error.
-    flow.redirect_uri = 'http://127.0.0.1:8001/event/oauth_2_call_back/'
+    flow.redirect_uri = 'https://family-organiser.herokuapp.com/event/oauth_2_call_back/'
 
-    # Generate URL for request to Google's OAuth 2.0 server.
-    # Use kwargs to set optional request parameters.
     authorization_url, state = flow.authorization_url(
-        # Enable offline access so that you can refresh an access token without
-        # re-prompting the user for permission. Recommended for web server apps.
         access_type='offline',
-        # Enable incremental authorization. Recommended as a best practice.
         include_granted_scopes='true')
 
     request.session['state'] = state
@@ -189,28 +178,20 @@ def oauth_2_call_back(request):
 
     SCOPES = ['https://www.googleapis.com/auth/calendar']
 
-    # Specify the state when creating the flow in the callback so that it can
-    # verified in the authorization server response.
     state = request.session['state']
 
     config = json.loads(os.environ['CRED'])
 
-    # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow steps.
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
     config, SCOPES, state=state)
 
-    flow.redirect_uri = 'http://127.0.0.1:8001/event/oauth_2_call_back/'
+    flow.redirect_uri = 'https://family-organiser.herokuapp.com/event/oauth_2_call_back/'
 
-    # Use the authorization server's response to fetch the OAuth 2.0 tokens.
     authorization_response = request.get_full_path()
 
     flow.fetch_token(authorization_response=authorization_response)
 
-    # Store credentials in the session.
-    # ACTION ITEM: In a production app, you likely want to save these
-    #              credentials in a persistent database instead.
     credentials = flow.credentials
-
 
     service = build('calendar', 'v3', credentials=credentials)
 
@@ -218,7 +199,6 @@ def oauth_2_call_back(request):
     event_start_time = request.session['event']['start_time']
     event_end_time = request.session['event']['end_time']
 
-    # Call the Calendar API
     event = {
         'summary': request.session['event']['title'],
         'location': request.session['event']['location'],
@@ -245,7 +225,6 @@ def oauth_2_call_back(request):
         }
 
     event = service.events().insert(calendarId='primary', body=event).execute()
-    # The url the the event on google calendar
 
     calendar_link = event.get('htmlLink') 
     
