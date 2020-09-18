@@ -105,13 +105,12 @@ def family(request, pk):
     requested_user = get_object_or_404(User, pk=pk)
     user_profile = get_users_profile(request.user.id)
 
-    friends = find_friends(request, requested_user)
     all_friends = find_friends(request, requested_user)
 
     all_friends_dict = []
 
     for friend in all_friends:
-        user_profile = UserProfile.objects.get(pk=friend.id)
+        user_profile = get_users_profile(pk=friend.id)
 
         friend_dict = {
             'first_name': friend.first_name,

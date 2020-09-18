@@ -13,6 +13,9 @@ Notifications | Family Organiser
 </div>
 
 <hr>
+{% if not friend_requests and not partner_requests and not notifications %}
+<p class="px-3">You don't have any notifications yet!</p>
+{% endif %}
 <div class="row m-0 p-0">
     {% for request in friend_requests %}
         <div class="col-12 m-0 p-0">

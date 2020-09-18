@@ -58,7 +58,7 @@ A user can create a shopping list under the shopping page. I've added a few feat
 
 (Appendix 7)
 
-![notifications](https://github.com/Fordalex/family_organiser/blob/master/readme/images/messaging.JPG "notifications")
+![notifications](https://github.com/Fordalex/family_organiser/blob/master/readme/images/notifications.jpg "notifications")
 
 8. Users can create an event and invite their friends and family to join them. Only the creator of the event sent invitations.
 
@@ -82,4 +82,4 @@ A user can create a shopping list under the shopping page. I've added a few feat
 
 (Appendix 10)
 
-![Google Calendar API](https://github.com/Fordalex/family_organiser/blob/master/readme/images/event_google_calendar_api.JPG "Google Calendar API")
+![Google Calendar API](https://github.com/Fordalex/family_organiser/blob/master/readme/images/event_google_calendar_api.jpg "Google Calendar API")

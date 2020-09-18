@@ -211,6 +211,8 @@ The views on each app either return the desired page or redirect the user when n
 
 I have tested some of the larger functions under the test_functions.py.
 
+[Manual Testing](https://github.com/Fordalex/family_organiser/blob/master/readme/testing.md)
+
 ## Deployment
 
 I've hosted this project on heroku and also used Travis to make sure the build will pass. Also with this project the static files such as the css, js and images have been hosted using Amazon AWS. The project was hosted by doing the following:

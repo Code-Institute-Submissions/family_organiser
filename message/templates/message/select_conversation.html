@@ -73,6 +73,10 @@ Conversations | Family Organiser
 <h6 class="ml-3">Conversations</h6>
 <hr>
 
+{% if not conversations %}
+<p class="px-3">No conversations have been started yet, try starting a conversation by pressing the 'new' button above!</p>
+{% endif %}
+
 {% for aUser in conversations %}
 
 <div class="col-12 m-0 p-0">

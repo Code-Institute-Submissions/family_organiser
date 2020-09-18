@@ -20,6 +20,9 @@ Family | Family Organiser
     </div>
 </div>
 <hr>
+{% if not friends %}
+<p class="px-3">You don't have any friends yet, find users by pressing the button below!</p>
+{% endif %}
 <div class="row m-0 p-0">
     {% for member in friends %}
         <div class="col-12 m-0 p-0" >
