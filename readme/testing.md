@@ -1,5 +1,6 @@
 # Manual Testing
 
+
 ## Creating an account
 
 #### Form
@@ -22,6 +23,7 @@
 2. Press 'Delete Account' and then 'Delete Account'.
 3. Try and sign in with old login details.
 
+
 ## Premium user
 
 #### Try accessing premium features as a non premium user
@@ -42,6 +44,32 @@
 6. Add the following card details '4242424242424242 04/24 242 42424'.
 7. Then press 'Make Payment'.
 8. The 'Payment Successful' Page will be displayed.
+
+## Adding friends
+
+#### Sending a friend request
+
+1. From the profile page press the '+' button in the bottom left and then press 'user'.
+2. Search a user by their name or username.
+3. Then press 'Add User'
+
+#### Accepting a friend request
+
+1. After the friend request has been sent, log in to the profile the friend request was sent to.
+2. On the profile page at the top, an icon of two people and the number of friend requests should be shown.
+3. Click on the icon.
+4. Press 'Add Friend'.
+5. Check notification has gone.
+6. Check family count and press on the family count to view 'Family'.
+7. Make sure the user has been added to the users frineds list.
+
+#### Declining a friend request
+
+1. After the friend request has been sent, log in to the profile the friend request was sent to.
+2. On the profile page at the top, an icon of two people and the number of friend requests should be shown.
+3. Click on the icon.
+4. Press 'Remove Request'.
+5. Make sure the notification has gone.
 
 ## Shopping 
 

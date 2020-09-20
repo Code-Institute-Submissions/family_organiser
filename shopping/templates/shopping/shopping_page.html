@@ -84,7 +84,7 @@ Shopping List | Family Organiser
                 {% csrf_token %}
 
                 <div class="col-12 m-0 p-0 px-2">
-                    <h6 class="m-0 d-flex justify-content-between align-items-center">{{category.category}}</h6>
+                    <h6 class="m-0 pl-2 d-flex justify-content-between align-items-center">{{category.category}}</h6>
                     <hr>
                     <table class="container-fluid shopping-table">
                         <tr>
@@ -310,7 +310,6 @@ Shopping List | Family Organiser
                         contentType: 'application/json; charset=utf-8',
                         data: formData,
                         success: function (data) {
-                            console.log(data)
                             $('.shopping-table-container').html('')
                             $('.shopping-list-empty').html('')
                             if (data.categories_used.length == 0) {
@@ -319,7 +318,6 @@ Shopping List | Family Organiser
                             for (let i = 0; i < data.categories_used.length; i++) {
                                 function crateTableRows() {
                                     var tableRows = ''
-
                                     for (let j = 0; j < data.items.length; j++) {
                                         var newRow = `
                                     <tr>
@@ -353,11 +351,8 @@ Shopping List | Family Organiser
                                 `
                                         var itemCategory = data.items[j]['category']
                                         var tableCategory = data.categories_used[i]['category']
-                                        console.log('condition')
-                                        console.log(itemCategory, tableCategory)
                                         if (itemCategory == tableCategory) {
                                             tableRows = tableRows.concat(newRow)
-                                            console.log('This is the new row', newRow)
                                         }
                                     }
                                     return tableRows
@@ -368,7 +363,7 @@ Shopping List | Family Organiser
                                 $('.shopping-table-container').append(`
                             <div class="row m-0 p-0">
                                 <div class="col-12 m-0">
-                                    <h5 class="m-0 d-flex justify-content-between align-items-center">${data.categories_used[i]['category']}</h5>
+                                    <h6 class="m-0 d-flex justify-content-between align-items-center">${data.categories_used[i]['category']}</h6>
                                 </div>
                             </div>
                             <hr>
