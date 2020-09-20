@@ -98,9 +98,12 @@ Shopping Partners | Family Organiser
                     </div>
                     <div class="col-3 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
                         {% if not aUser.username == user.username %}
-                        <a class="icon-button" href="/shopping/create_request/{{aUser.id}}">
-                            <img src="{{ MEDIA_URL }}icons/add_list_icon.png" class="add-list-icon"/>
-                        </a>
+                        <div>
+                            <a class="icon-button mx-auto" href="/shopping/create_request/{{aUser.id}}">
+                                <img src="{{ MEDIA_URL }}icons/add_list_icon.png" class="add-list-icon"/>
+                            </a>
+                            <small>Add Partner</small>
+                        </div>
                         {% endif %}
                     </div>
                 </div>

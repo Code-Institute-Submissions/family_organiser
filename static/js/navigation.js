@@ -11,7 +11,6 @@ $(document).on('click','.toggle-menu', function() {
         gsap.to('.burger-top', 0.5, {transform: 'translate(6px, 9px) rotateZ(45deg)'})
         gsap.to('.burger-mid', 0.5, {opacity: 0})
         gsap.to('.burger-bottom', 0.5, {transform: 'translate(6px, -9px) rotateZ(-45deg)'})
-       
     } else {
         // close the navigaiton bar
         tl.to('#navigation-alpha-over', 0.4, {transform: 'translate(100vw, 0)'})
@@ -21,7 +20,6 @@ $(document).on('click','.toggle-menu', function() {
         gsap.to('.burger-top', 0.5, {transform: 'rotateZ(0deg)'})
         gsap.to('.burger-mid', 0.5, {opacity: 1})
         gsap.to('.burger-bottom', 0.5, {transform: 'rotateZ(0deg)'})
-        
     }
     $('.burger-container').toggleClass('closed')
 })

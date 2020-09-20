@@ -7,7 +7,6 @@ $(document).on( 'click','#add-button', function() {
        tl.to('.profile-page-container', 0.5, {transform: 'translate(0, 278px)'});
        tl.to('#add-button', 0.5, {transform: 'rotateZ(45deg)', background: 'linear-gradient(120deg, #f88480, #e83939)'},'-=0.5')
        $(this).toggleClass('closed')
-
     } else if ($('#add-data-form-container').hasClass('closed')) {
         // hide the links
         tl.to('.profile-page-container', 0.5, {transform: 'translate(0, 188px)'})
@@ -25,5 +24,3 @@ $(document).on( 'click','#add-button', function() {
         $('#add-data-form-container').toggleClass('closed')
     }
 });
-
-    

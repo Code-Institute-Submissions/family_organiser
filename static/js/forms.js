@@ -2,7 +2,7 @@
 $(document).on('click', '.add-form', function() {
     if ($('#add-data-form-container').hasClass('closed')) {
         // show the form
-        tl.to('.profile-page-container', 0.5, {transform: 'translate(0, 540px)'})
+        tl.to('.profile-page-container', 0.5, {transform: 'translate(0, 555px)'})
     } 
     $('#add-data-form-container').removeClass('closed')
 });

@@ -45,6 +45,7 @@
 7. Then press 'Make Payment'.
 8. The 'Payment Successful' Page will be displayed.
 
+
 ## Adding friends
 
 #### Sending a friend request
@@ -62,6 +63,7 @@
 5. Check notification has gone.
 6. Check family count and press on the family count to view 'Family'.
 7. Make sure the user has been added to the users frineds list.
+8. Go back to the account that sent the friend request and make sure a notification has been add for their friend request has been accepted.
 
 #### Declining a friend request
 
@@ -93,6 +95,16 @@
 4. Make sure item has been added to the shopping list.
 5. Make sure a button has been added above the shopping list for this item.
 
+#### Adding a new item from the profile page
+
+1. Go to the profile page.
+2. Press the '+' button.
+3. Press 'Item'.
+4. Try and submit the form empty.
+5. Add the 'Item' Try and submit the form.
+6. Continue making sure the form dosen't submit until the form is complete.
+7. After your redirected to the shopping page make sure that the new item has been added to the list.
+
 #### Quick adding the item
 
 1. Press the button above the shopping list of the new items created.
@@ -105,5 +117,53 @@
 
 #### Adding a shopping partner
 
-#### 
+1. Go to the shopping page.
+2. Press 'Partners'.
+3. Search a user in your family list.
+4. Press 'Add Partner'.
+5. Logout
+6. Login to account that the partner request was sent to.
+7. Make sure a notification is showing on the profile page then press the notification.
+8. Press 'Accept Partner'.
+9. Go to the shopping page.
+10. Press '+' next to 'Shopping Partners' and make sure the user is in this list.
+
+## Shopping Insights
+
+#### Purchased Items
+
+1. Add a new item
+2. Go to 'Insight'.
+3. Look at the purchased items table and check item has been added with the correct quantity and date.
+4. Go to 'Graphs' Make sure the graph displays the correct items and quantity.
+
+#### Most Purchased
+
+1. Add a few items.
+2. Go to 'Insight'.
+3. Press the 'Favorites' tab.
+4. Check that the items have been added with the correct quantity and most purchased items to the top of the table.
+5. Go to 'Graphs' tab and check the bar chart shows this data.
+
+#### Monthly Report
+
+1. Add a few items.
+2. Go to the database and changed the month the item was added.
+3. Make sure the correct quantity was added to the list and the correct month.
+4. Check the line graph reflects this information.
+
+## Status
+
+#### Adding a status form the profile page
+
+#### Adding a status from the status page
+
+#### Commenting on a status
+
+#### Liking a status
+
+## Messages
+
+## Events
+
 
