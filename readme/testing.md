@@ -73,6 +73,7 @@
 4. Press 'Remove Request'.
 5. Make sure the notification has gone.
 
+
 ## Shopping 
 
 #### Creating a category
@@ -128,6 +129,7 @@
 9. Go to the shopping page.
 10. Press '+' next to 'Shopping Partners' and make sure the user is in this list.
 
+
 ## Shopping Insights
 
 #### Purchased Items
@@ -152,18 +154,58 @@
 3. Make sure the correct quantity was added to the list and the correct month.
 4. Check the line graph reflects this information.
 
+
 ## Status
 
 #### Adding a status form the profile page
 
+1. Go to the profile page.
+2. Click 'Status'.
+3. Try and submit an empty form.
+4. Fill out the form one field at a time submiting the form after each field is complete.
+5. When the form is complete press the aeroplane icon at the bottom of the page.
+6. Make sure the new status is show on the profile page.
+7. Go to 'News Feed' and look for the newly created status.
+
 #### Adding a status from the status page
+
+1. Go to 'News Feed'.
+2. Press 'Create Post'.
+3. Try and submit and empty form.
+4. Fill out the form one field at a time submiting the form after each field is complete.
+5. When the form is complete press the aeroplane icon at the bottom of the page.
+6. Make sure the new status is show on the profile page.
+7. Go to 'News Feed' and look for the newly created status.
 
 #### Commenting on a status
 
+1. Go to a status either on the 'Profile' page or the 'News Feed' page.
+2. Click on the comment button at the bottom of the staus.
+3. Try and 'Comment' a empty form.
+4. Fill the field out and press 'Comment'.
+5. Make sure the comment is added to the status.
+6. Reload the page making sure the comment is still on that status.
+
 #### Liking a status
+
+1. Go to a status either on the 'Profile' page or the 'News Feed' page.
+2. Click the like button (The heart) at the bottom of a status.
+3. Make sure the page dosen't reload.
+4. Reload the page and make sure the like has still been added.
 
 ## Messages
 
+#### Starting a new conversation
+
+#### Sending a message
+
+
 ## Events
+
+#### Creating a new event
+
+#### Accepting a event requets
+
+#### Adding event to google calendar
 
 

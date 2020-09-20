@@ -27,16 +27,13 @@
     </div>
 </div>
 
-
 <div id="page-top"></div>
 <img src="{{ MEDIA_URL }}svg/add_data_background.svg" class="profile-background-image d-md-none"></img>
 <img src="{{ MEDIA_URL }}svg/add_data_background_light.svg" class="profile-background-image-light d-md-none"></img>
 <img src="{{ MEDIA_URL }}svg/add_data_background_desktop.svg" class="profile-background-image d-none d-md-block"></img>
-<img src="{{ MEDIA_URL }}svg/add_data_background_light_desktop.svg"
-    class="profile-background-image-light d-none d-md-block"></img>
+<img src="{{ MEDIA_URL }}svg/add_data_background_light_desktop.svg" class="profile-background-image-light d-none d-md-block"></img>
 
 <div class="profile-bio-form-container">
-
     <!-- profile and notifications section -->
     <div class="row m-0 p-0">
         <div class="col m-0 p-0 d-flex justify-content-between">
@@ -121,7 +118,6 @@
                         All</b></span>
                 {% endif %}
             </p>
-
             <a href="/user/settings">+</a>
         </div>
         <div class="col-3 m-0 p-0 pb-2 d-flex justify-content-center justify-content-md-end align-items-end">
@@ -163,11 +159,8 @@
             </a>
         </div>
     </div>
-
-
     <!-- Add data forms container -->
     <div id="add-data-form-container" class="closed"></div>
-
 </div>
 
 
@@ -196,125 +189,8 @@
     <hr>
     <h5 class="ml-3">Status</h5>
     <hr class="status-divider">
-    <div class="row m-0 p-0">
-        {% if not news_feed %}
-        <p class="ml-3">You haven't created any status yet</p>
-        {% endif %}
-        {% for news in news_feed %}
-        <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0 pl-3">
-                    {% if news.user_profile.profile_image %}
-                    <img src="{{ MEDIA_URL }}{{news.user_profile.profile_image}}"
-                        class="user-image-status float-left mr-3">
-                    {% else %}
-                    <img src="{{ MEDIA_URL }}user-image.png" class="user-image-status float-left mr-3">
-                    {% endif %}
-                    <h6>{{ news.user.first_name }} {{ news.user.last_name }}
-                        <div class="dropdown">
-                            <a class="icon-button float-right mr-4 dropdown-toggle" type="button"
-                                id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" data-offset="10,20">
-                                <img src="{{ MEDIA_URL }}icons/delete_icon.png" />
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                                <h6 class="text-center">Are you sure?</h6>
-                                <a class="dropdown-item" href="/status/update_status/remove/{{news.id}}/profile">Remove
-                                    Status</a>
-                            </div>
-                        </div>
-                    </h6>
-                    <h6 class="text-secondary">{{ news.title }}</h6>
-                </div>
-                <div class="col-12 mb-3 mt-2">
-                    <hr class="m-0 mb-3">
-                    <p class="m-0">{{ news.content }}</p>
-                    <hr class="m-0 mt-3">
-                </div>
-                {% if news.image %}
-                <div class="col-12 mb-3">
-                    <img src="{{ MEDIA_URL }}{{news.image}}" class="status-image">
-                </div>
-                {% endif %}
-                <div class="col-6 m-0 p-0 pl-3 d-flex align-items-end">
-                    <div>
-                        <p class="m-0 text-small"><span id="like-count-{{ news.id }}">{{ news.likes }}</span> Likes
-                            {{ news.comment.all | length }} Comments</p>
-                        <p class="m-0 text-small">{{ news.created_date }}</p>
-                    </div>
-                </div>
-                <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-end pr-4">
-                    <a class="icon-button mr-3" href="#comment-form-container-{{news.id}}" data-toggle="collapse">
-                        <img src="{{ MEDIA_URL }}icons/comment_icon.png" />
-                    </a>
-                    <!-- like post icons -->
-                    {% if user in news.liked_by.all %}
-                    <form action="/status/like_status/{{news.id}}" method="POST" class="status-like-ajax"
-                        id="{{ news.id }}">
-                        {% csrf_token %}
-                        <button class="icon-button" type="submit">
-                            <img src="{{ MEDIA_URL }}icons/heart_pink_icon.png" id="like-img-{{ news.id }}" />
-                        </button>
-                    </form>
-                    {% else %}
-                    <form action="/status/like_status/{{news.id}}" method="POST" class="status-like-ajax"
-                        id="{{ news.id }}">
-                        {% csrf_token %}
-                        <button class="icon-button" type="submit">
-                            <img src="{{ MEDIA_URL }}icons/heart_white_icon.png" id="like-img-{{ news.id }}" />
-                        </button>
-                    </form>
-                    {% endif %}
-                </div>
-                <div class="col-12">
-                    <hr class="mb-1">
-                </div>
-                <div class="col-12 m-0 p-0">
-                    <div class="row m-0 p-0" id="comment-container-{{ news.id }}">
-                        {% for comment in news.comment.all %}
-                        {% if forloop.counter <= 2 %}
-                        <div class="col-12 px-2 py-1">
-                            <div class="comment-container">
-                                <a href="/user/view_user_profile/{{comment.author.id}}">
-                                    {% if comment.author_profile.profile_image %}
-                                    <img src="{{ MEDIA_URL }}{{comment.author_profile.profile_image}}"
-                                        class="float-left mr-2">
-                                    {% else %}
-                                    <img src="{{ MEDIA_URL }}user-image.png" class="float-left mr-2">
-                                    {% endif %}
-                                    <h6 class="m-0 mb-1 text-dark">{{ comment.author.first_name }}
-                                        {{ comment.author.last_name }}</h6>
-                                </a>
-                                <p class="m-0">{{ comment.comment }}</p>
-                                <p class="m-0 text-small text-right">{{ comment.created_date }}</p>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% if forloop.counter > 2 and forloop.last %}
-                        <div class="col-12 d-flex justify-content-end mt-2">
-                            <a href="/status/view_status/{{news.id}}" class="text-theme">View More</a>
-                        </div>
-                        {% endif  %}
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="col-12 p-2 mt-1 collapse" id="comment-form-container-{{news.id}}">
-                    <form class="d-flex justify-content-between status-comment-ajax"
-                        action="/status/add_comment/{{news.id}}/profile" id="{{ news.id }}" method="POST">
-                        {% csrf_token %}
-                        <input type="text" class="form-control" name="comment" id="input-{{ news.id }}" required>
-                        <button class="btn btn-success ml-3">Comment</button>
-                    </form>
-                </div>
-            </div>
-            <hr class="status-divider">
-        </div>
-        {% endfor %}
-    </div>
-
+    {% include "includes/status.html" %}
 </div>
-
-
 
 <button id="add-button" class="closed scroll-to-top">
     <img src="{{ MEDIA_URL }}icons/plus_icon.png" href="#page-top">
