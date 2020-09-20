@@ -28,7 +28,7 @@
     <p>{{ event.event_creator.first_name }} {{ event.event_creator.last_name }} has invited you to this event!</p>
     <div class="d-flex justify-content-between m-0 p-0">
         <a class="btn btn-success" href="/event/edit_invite/{{ event.pk }}/accept">Accept</a>
-        <a class="btn btn-danger text-light">Decline</a>
+        <a class="btn btn-danger text-light" href="{% url 'profile' %}">Decline</a>
     </div>
 </div>
 

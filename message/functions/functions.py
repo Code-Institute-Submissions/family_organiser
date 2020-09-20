@@ -1,7 +1,7 @@
 from django.db.models import Q
-from user.models import Friend
-from user.models import UserProfile
+from user.models import Friend, UserProfile
 from message.models import Message
+from user.functions.functions import get_users_profile
 
 def get_searched_users(request):
     """
@@ -89,7 +89,7 @@ def get_current_conversation_dict(request):
     current_conversation_dicts = []
 
     for conversation in current_conversations:
-        user_profile = UserProfile.objects.get(pk=conversation.id)
+        user_profile = get_users_profile(conversation.id)
         conversation_dict = {
             'first_name': conversation.first_name,
             'last_name': conversation.last_name,

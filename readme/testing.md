@@ -193,19 +193,66 @@
 3. Make sure the page dosen't reload.
 4. Reload the page and make sure the like has still been added.
 
+
 ## Messages
 
-#### Starting a new conversation
+#### Starting a new conversation and sending a message
 
-#### Sending a message
+1. Go to 'Messages'
+2. Press the 'New' tab.
+3. Search for a user in my family list or just press 'Find' To show all the users.
+4. Press 'Start Conversation' on a user.
+5. Try and send a message with no content.
+6. Add a message to the field and press 'Send'
+7. New message should be displayed on the screen.
+8. Logout of account.
+9. Login as the messaged user and check a notification has been added to the profile page.
 
+#### Continuing a conversation 
+
+1. Go to 'Message' page.
+2. Find a conversation and press 'Message'.
+3. Make sure old messages are displayed.
 
 ## Events
 
 #### Creating a new event
 
-#### Accepting a event requets
+1. Go to 'Events'
+2. Press 'Create Event'
+3. Fill out the form one field at a time submiting the form after each field is complete.
+4. After the form is complete press 'Create Event'
+5. Search for a user and press 'Invite'
+
+#### Declining a event requets
+
+1. Login with an account that a event request has been sent to.
+2. Check on the profile page at the top for a notification.
+3. Press the event notification.
+4. Press 'Decline'.
+5. Make sure there are no notifications showing on the profile page.
+6. Check the notification page to make sure the notification has stayed there if the user changes their mind later.
 
 #### Adding event to google calendar
 
+1. Go to 'Events'.
+2. Find an event and press the 'Event' arrow.
+3. Press 'Add to Google Calendar'.
+4. 
 
+
+## Notifications page
+
+After all these test have been done, notifcations should be added for each feature on the account.
+
+#### Liked Status 
+
+1. Go to 'Notifications'.
+2. Find a notification with "'user' has liked your post 'Post name'" click the notification.
+3. Make sure the correct status is shown.
+
+#### Comment Status
+
+#### Friends Request
+
+#### Partner Request

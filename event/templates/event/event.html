@@ -66,9 +66,6 @@
     </div>
 </div>
 
-
-
-
 <div class="row m-0 p-2">
     <div class="col-12 m-0 p-0">
         <p class="m-0 p-0 text-right">Event - {{ event.title }}</p>
@@ -102,7 +99,6 @@
 </div>
 
 <hr>
-
 <h5 class="ml-3 d-flex justify-content-between">{{ event.title }}
     {% if event.event_creator == user %}
     <img src="{{ MEDIA_URL }}icons/settings_icon.png" class="mr-2 small-icon clickable" data-toggle="collapse"
@@ -139,7 +135,6 @@
 <p class="p-3 m-0">{{ event.information }}</p>
 
 <hr class="m-0">
-
 <div class="row m-0 p-0">
     <div class="col-4 m-0 p-0 pt-3">
         <a data-toggle="modal" data-target="#participants" href="#" class="text-dark">
@@ -168,11 +163,8 @@
         {{event.start_time |date:"H:i" }}
      -
         {{event.end_time |date:"H:i" }}
-    </div>
-  
+    </div>  
 </div>
 
-
 <hr>
-
 {% endblock %}

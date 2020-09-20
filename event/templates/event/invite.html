@@ -73,7 +73,7 @@ Event Menu | Family Organiser
                 <div>
                     <form action="/event/invite/{{ event.id }}/{{ aUser.id }}/" method="POST" class="icon-button">
                         {% csrf_token %}
-                        <button type="submit">
+                        <button type="submit" class="icon-button">
                             <img src="{{ MEDIA_URL }}icons/schedule_icon.png">
                         </button>
                     </form>

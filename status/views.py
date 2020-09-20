@@ -84,7 +84,7 @@ def view_status(request, pk):
     user_profile = get_users_profile(request.user.id)
 
     context = {
-        'news': status,
+        'news_feed': [status],
         'user_profile': user_profile,
     }
 
