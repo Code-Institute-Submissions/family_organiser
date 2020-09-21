@@ -193,6 +193,12 @@
 3. Make sure the page dosen't reload.
 4. Reload the page and make sure the like has still been added.
 
+#### Removing a status
+
+1. Go to 'Profile'
+2. Press the bin icon next to the status.
+3. Press 'Remove Status'.
+4. Make sure the status is removed.
 
 ## Messages
 
@@ -240,6 +246,14 @@
 3. Press 'Add to Google Calendar'.
 4. Press 'View Calendar' and make sure the title, description and time are correct.
 (BUG: The time on the google calendar is 1 hour off... Still to fix.)
+
+#### Removing an event
+
+1. Go to 'Event'
+2. Click the 'event' arrow on an event.
+3. Press the settings icon to the right of the page.
+4. Press the bin icon.
+5. Click 'Remove Event'.
 
 ## Notifications page
 
