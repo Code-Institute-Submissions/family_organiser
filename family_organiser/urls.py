@@ -18,6 +18,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+handler404 = 'family_organiser.views.error_404'
+handler500 = 'family_organiser.views.error_500'
+handler403 = 'family_organiser.views.error_403'
+handler400 = 'family_organiser.views.error_400'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +35,3 @@ urlpatterns = [
     path('event/', include('event.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   
 
-handler404 = 'family_organiser.views.error_404'
-handler500 = 'family_organiser.views.error_500'
-handler403 = 'family_organiser.views.error_403'
-handler400 = 'family_organiser.views.error_400'

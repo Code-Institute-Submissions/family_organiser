@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'premium',
     'message',
     'event',
-
+    'family_organiser',
     'storages',
 ]
 

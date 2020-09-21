@@ -6,7 +6,7 @@ def error_404(request, exception):
         }
         return render(request,'family_organiser/error.html', context)
 
-def error_500(request,  exception):
+def error_500(request):
         context = {
             'error': 'Error 500'
         }
