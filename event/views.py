@@ -39,6 +39,7 @@ def menu(request):
 
         context = {
             'events': events,
+            'user_profile': user_profile,
         }
 
         return render(request, 'event/menu.html', context)
@@ -67,6 +68,7 @@ def create_event(request):
 
         context = {
             'create_event_form': EventForm,
+            'user_profile': user_profile,
         }
 
         return render(request, 'event/create_event.html', context)
@@ -100,6 +102,7 @@ def invite(request, event_pk, user_pk):
             'event': event,
             'searched_users': searched_users,
             'invited_users': invited_users,
+            'user_profile': user_profile,
         }
 
         return render(request, 'event/invite.html', context)
@@ -119,6 +122,7 @@ def event(request, pk):
 
         context = {
             'event': event[0],
+            'user_profile': user_profile,
         }
 
         return render(request, 'event/event.html', context)
@@ -150,7 +154,8 @@ def view_invite(request, pk):
 
     if user_profile.premium:
         context = {
-            'event': get_object_or_404(Event, pk=pk)
+            'event': get_object_or_404(Event, pk=pk),
+            'user_profile': user_profile,
         }
 
         return render(request, 'event/view_invite.html', context)

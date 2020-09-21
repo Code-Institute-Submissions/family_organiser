@@ -238,7 +238,8 @@
 1. Go to 'Events'.
 2. Find an event and press the 'Event' arrow.
 3. Press 'Add to Google Calendar'.
-4. 
+4. Press 'View Calendar' and make sure the title, description and time are correct.
+(BUG: The time on the google calendar is 1 hour off... Still to fix.)
 
 ## Notifications page
 
