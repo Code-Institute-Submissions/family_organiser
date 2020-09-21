@@ -38,7 +38,9 @@ def update_status(request, operation, pk, redirect_user):
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
+            post.user_profile = get_users_profile(request.user.id)
             post.save()
+            return redirect('news_feed')
 
     elif operation == 'remove':
         status = get_object_or_404(Status, pk=pk)

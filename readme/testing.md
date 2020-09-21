@@ -240,10 +240,7 @@
 3. Press 'Add to Google Calendar'.
 4. 
 
-
 ## Notifications page
-
-After all these test have been done, notifcations should be added for each feature on the account.
 
 #### Liked Status 
 
@@ -256,15 +253,3 @@ After all these test have been done, notifcations should be added for each featu
 1. Go to 'Notifications'.
 2. Find a notification with "'user' has commented your post 'Post name'" click the notification.
 3. Make sure the correct status is being shown.
-
-#### Friends Request
-
-1. Go to 'Notifications'.
-
-#### Partner Request
-
-1. Go to 'Notifications'.
-
-#### Accepted Friend Request
-
-1. Go to 'Notifications'.
