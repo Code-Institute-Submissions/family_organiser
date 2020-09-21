@@ -1,34 +1,35 @@
 .user-image-status {
-    height: 55px;
-    width: 55px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 12px 1px rgba(0,0,0,0.1);
-    object-fit: contain;
+  height: 55px;
+  width: 55px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
 }
 
 .status-image {
-    height: 300px;
-    width: 100%;
-    object-fit: contain;
-    border-radius: 4px;
-    box-shadow: 2px 2px 12px 1px rgba(0,0,0,0.1);
+  height: 300px;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 2px 2px 12px 1px rgba(0, 0, 0, 0.1);
 }
 
 .comment-container {
-    display: inline-block;
-    border-radius: 18px;
-    background-color: rgba(0,0,0,0.05);
-    box-shadow: inset 0px 0px 17px 1px rgba(0, 0, 0, 0.1);
-    padding: 13px;
-    min-width: 160px;
-    img {
-        width: 20px;
-        height: 20px;
-        border-radius: 6px;
-    }
+  display: inline-block;
+  border-radius: 18px;
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0px 0px 17px 1px rgba(0, 0, 0, 0.1);
+  padding: 13px;
+  min-width: 160px;
+
+  img {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+  }
 }
 
 .status-divider {
-    height: 8px;
-    background-color: lighten($theme-colour, 20%);
+  height: 8px;
+  background-color: lighten($theme-colour, 20%);
 }

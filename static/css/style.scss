@@ -12,138 +12,152 @@
 @import 'allauth';
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    width: 100vw;
-    overflow-x: hidden;
-    background-color: lighten($theme-colour, 35%);
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: lighten($theme-colour, 35%);
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'Merriweather', serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Merriweather', serif;
 }
 
-p,a,b,label {
-    font-family: 'Roboto', sans-serif; 
-    font-size: 0.9em;
+p,
+a,
+b,
+label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9em;
 }
 
 
 .text-small {
-    font-size: 0.7em;    
+  font-size: 0.7em;
 }
 
 .text-theme {
-    color: darken($theme-colour, 25%);
+  color: darken($theme-colour, 25%);
 }
 
 // buttons
 .btn-success {
-    background: linear-gradient(darken($theme-colour, 8%), darken($theme-colour, 20%));
-    border: none;
+  background: linear-gradient(darken($theme-colour, 8%), darken($theme-colour, 20%));
+  border: none;
 }
 
 .btn-info {
-    background: linear-gradient(#17a2b8, #198595);
+  background: linear-gradient(#17a2b8, #198595);
 }
 
-.btn, .form-control {
-    &:focus {
-        box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);
-    }
+.btn,
+.form-control {
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);
+  }
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 
 // icons
 .far {
-    font-size: 14px;
-    &:hover {
-        cursor: pointer;
-    }
+  font-size: 14px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .fas {
-    font-size: 18px;
-    &:hover {
-        cursor: pointer;
-    }
+  font-size: 18px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .icon-button {
-    border-radius: 11px;
-    background-color: white;
-    box-shadow: 0px 3px 6px 1px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border: none;
-    img {
-        width: 29px;
-    }
-    &:focus {
-        outline: none;
-    }
-    .right_arrow_icon {
-        position: relative;
-        left: 3px;
-        top: 1px;
-    }
+  border-radius: 11px;
+  background-color: white;
+  box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+
+  img {
+    width: 29px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .right_arrow_icon {
+    position: relative;
+    left: 3px;
+    top: 1px;
+  }
 }
 
 .small-icon {
-    width: 27px;
+  width: 27px;
 }
 
 .add-list-icon-notification {
-    position: relative;
-    top: 3px !important;
-    left: 6px;
-    width: 21px;
-} 
+  position: relative;
+  top: 3px !important;
+  left: 6px;
+  width: 21px;
+}
 
 .icon-warning {
-    background-color: #ffeb88;
+  background-color: #ffeb88;
 }
 
 .icon-success {
-    background-color: #bbff61;
+  background-color: #bbff61;
 }
 
 .icon-danger {
-    background-color: #f52525;
+  background-color: #f52525;
 }
 
 // images
 
 .user-image {
-    height: 65px;
-    width: 65px;
-    border-radius: 10px;
-    object-fit: contain;
-    border: solid rgb(235, 235, 235) 1px;
+  height: 65px;
+  width: 65px;
+  border-radius: 10px;
+  object-fit: contain;
+  border: solid rgb(235, 235, 235) 1px;
 }
 
 // overide Bootstrap
 .modal-backdrop.show {
-    display: none;
+  display: none;
 }
 
 .modal {
-    top: 50px;
+  top: 50px;
 }
 
 .modal.show .modal-dialog {
-    box-shadow: 0px 10px 20px 20px rgba(0,0,0,0.02);
+  box-shadow: 0px 10px 20px 20px rgba(0, 0, 0, 0.02);
 }
 
 .card {
-    max-width: 50em;
+  max-width: 50em;
 }

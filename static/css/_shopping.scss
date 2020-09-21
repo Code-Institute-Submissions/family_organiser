@@ -1,60 +1,69 @@
 .link-item {
-    a {
-        .link-nav {
-            color: black;
-        }
+  a {
+    .link-nav {
+      color: black;
     }
+  }
 }
 
 .monthly-report-container {
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 .monthly-report-table {
-    border: solid rgb(218, 218, 218) 1px;
-    tr:nth-of-type(odd) {
-        background-color: rgb(250, 250, 250);
-    }
-    tr:first-child {
-        background-color: lighten($theme-colour, 29%);
-    }
-    th {
-        padding: 5px;
-    }
-    td {
-        padding: 4px 8px;
-    }
+  border: solid rgb(218, 218, 218) 1px;
+
+  tr:nth-of-type(odd) {
+    background-color: rgb(250, 250, 250);
+  }
+
+  tr:first-child {
+    background-color: lighten($theme-colour, 29%);
+  }
+
+  th {
+    padding: 5px;
+  }
+
+  td {
+    padding: 4px 8px;
+  }
 }
 
 .shopping-table {
-    border: solid rgb(218, 218, 218) 1px;
-    tr:nth-of-type(odd) {
-        background-color: rgb(250, 250, 250);
-    }
-    tr:first-child {
-        background-color: lighten($theme-colour, 29%);
-    }
-    th {
-        padding: 5px;
-        width: 25%;
-    }
-    td {
-        padding: 4px 8px;
-    }
-    img {
-        width: 25px;
-    }
+  border: solid rgb(218, 218, 218) 1px;
+
+  tr:nth-of-type(odd) {
+    background-color: rgb(250, 250, 250);
+  }
+
+  tr:first-child {
+    background-color: lighten($theme-colour, 29%);
+  }
+
+  th {
+    padding: 5px;
+    width: 25%;
+  }
+
+  td {
+    padding: 4px 8px;
+  }
+
+  img {
+    width: 25px;
+  }
 }
 
 .icon-button {
-    .add-list-icon {
-        width: 21px;
-    }
+  .add-list-icon {
+    width: 21px;
+  }
 }
 
 .button-no-style {
-    border: none;
-    background-color: rgba(0,0,0,0);
-    color: none;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  color: none;
 
 }

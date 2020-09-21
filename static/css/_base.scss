@@ -1,72 +1,72 @@
 #scroll-up {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 500;
-    background-color: $theme-colour;
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 500;
+  background-color: $theme-colour;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
 }
 
 .page-container {
-    min-height: 100vh;
-    height: 100%;
-    margin-right: auto;
-    margin-left: auto;
-    display: block;
-    border-right: none;
-    border-left: none;
-    background-color: white;
+  min-height: 100vh;
+  height: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  border-right: none;
+  border-left: none;
+  background-color: white;
 }
 
 .content-container {
-    max-width: 1600px;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
+  max-width: 1600px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
 }
 
 .desktop-navigation {
-    width: 450px;
-    background-color: white;
+  width: 450px;
+  background-color: white;
 }
 
 .content-wrapper {
-    padding-top: 48px;
-    width: 100%;
-    position: relative;
-    overflow-y: auto;
-    border-left: solid grey 1px;
-    border-right: solid grey 1px;
-    overflow-x: hidden;
+  padding-top: 48px;
+  width: 100%;
+  position: relative;
+  overflow-y: auto;
+  border-left: solid grey 1px;
+  border-right: solid grey 1px;
+  overflow-x: hidden;
 }
 
 .page-update {
-    width: 350px;
-    background-color: white;
-    border-left: solid grey 1px;
+  width: 350px;
+  background-color: white;
+  border-left: solid grey 1px;
 }
 
 .nav-margin-space {
-    height: 48px;
+  height: 48px;
 }
 
 @media (min-width: 900px) {
-    .page-container {
-        border-right: solid 1px rgb(194, 194, 194);
-        border-left: solid 1px rgb(194, 194, 194);
-    }
+  .page-container {
+    border-right: solid 1px rgb(194, 194, 194);
+    border-left: solid 1px rgb(194, 194, 194);
+  }
 }
 
 @media (min-width: 767px) {
-    .content-wrapper {
-        padding-top: 0px;
-    }
+  .content-wrapper {
+    padding-top: 0px;
+  }
 }
