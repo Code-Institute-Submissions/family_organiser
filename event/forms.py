@@ -33,13 +33,15 @@ class EventForm(forms.ModelForm):
             'start_time' : forms.DateTimeInput(
                 attrs = {
                     'class' : 'container-fluid form-control',
-                    'type' : 'time'
+                    'type' : 'time',
+                    'id' : 'start-time',
                     }
             ),
             'end_time' : forms.DateTimeInput(
                 attrs = {
                     'class' : 'container-fluid form-control',
-                    'type' : 'time'
+                    'type' : 'time',
+                    'id' : 'end-time',
                     }
             ),
             'location' : forms.TextInput(

@@ -38,14 +38,29 @@ Event Menu | Family Organiser
 <hr class="mt-3">
 
 <div class="px-3">
-    <form action="/event/create_event/" method="POST" enctype="multipart/form-data">
+    <div id="error-container"></div>
+    <form action="/event/create_event/" method="POST" enctype="multipart/form-data" id="event-form">
         {% csrf_token %}
         {{ create_event_form }}
         <button class="btn btn-success container-fluid mt-3 mb-4" type="submit">Create Event</button>
     </form>
-    
 </div>
 
-
-
+{% endblock %}
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $('#event-form').submit(function(e) {   
+            var startTime = $('#start-time').val()
+            var endTime = $('#end-time').val()
+            if (endTime > startTime) {
+                e.submit()
+            } else {
+                e.preventDefault()
+                $('#error-container').html('<p class="text-danger">The end time has to be later than the start time!</p>')
+            }
+        });
+    });
+   
+</script>
 {% endblock %}
