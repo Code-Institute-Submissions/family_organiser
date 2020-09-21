@@ -1,6 +1,5 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from .models import Status
 from user.functions.functions import get_users_profile
 from .functions.functions import create_test_status
 

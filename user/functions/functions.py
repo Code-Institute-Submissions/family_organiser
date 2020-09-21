@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from status.models import CommentNotification, LikeNotification
-from user.models import FriendRequests, Friend, UserProfile, AcceptedFriendRequests
-from shopping.models import PartnerRequest, Partner
-from message.models import MessageNotification, Message
+from user.models import Friend, UserProfile, AcceptedFriendRequests
+from shopping.models import Partner
+from message.models import MessageNotification
 from shopping.models import Item
 from event.models import EventInvite
 from django.db.models import Q
@@ -92,7 +92,6 @@ def get_all_shopping_items(request):
                 if list_item.item == item.item:
                     item_is_not_a_copy = False
                     list_item.quantity += item.quantity
-
             if item_is_not_a_copy:
                 all_items_no_duplicates.append(item)
                 
@@ -149,8 +148,11 @@ def search_users(request):
 
 
 def update_profile_details(request):
-    user_profile = get_users_profile(request, request.user.id)
-
+    """
+    Update information on the users profile.
+    """
+    current_user_id = request.user.id
+    user_profile = get_users_profile(request, current_user_id)
     # get the data from the form       
     first_name = request.POST.get('first_name')
     last_name = request.POST.get('last_name')

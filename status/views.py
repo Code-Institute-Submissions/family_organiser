@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Status, Comment, CommentNotification, LikeNotification
-from user.models import Friend, UserProfile
-from django.utils import timezone
+from .models import Status, CommentNotification, LikeNotification
+from user.models import UserProfile
 from .functions.functions import *
 from user.functions.functions import get_users_profile
 from .forms import StatusForm
@@ -41,11 +40,9 @@ def update_status(request, operation, pk, redirect_user):
             post.user_profile = get_users_profile(request.user.id)
             post.save()
             return redirect('news_feed')
-
     elif operation == 'remove':
         status = get_object_or_404(Status, pk=pk)
         status.delete()
-
     if redirect_user == 'profile':
         return redirect('profile')
     if redirect_user == 'news_feed':
@@ -70,7 +67,6 @@ def add_comment(request, pk, redirect_user):
 
     if request.is_ajax():
         create_comment_and_status_notification(request, pk)
-   
     if redirect_user == 'profile':
         return redirect('profile')
     if redirect_user == 'news_feed':

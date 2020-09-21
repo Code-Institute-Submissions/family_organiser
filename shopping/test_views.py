@@ -7,7 +7,6 @@ class TestViews(TestCase):
 
     # insight page
     def test_get_insight_page_user_not_authenticated(self):
-        user = create_test_user('1')
         response = self.client.get('/shopping/insight/personal')
         self.assertEqual(response.status_code, 302)
 

@@ -6,7 +6,7 @@
         width: 30px;
         height: 30px;
     }
-   
+
     img {
         position: absolute;
         top: 0px;
@@ -18,7 +18,7 @@
         width: 14px;
         height: 14px;
         font-weight: 700;
-        margin:0;
+        margin: 0;
         padding: 0;
         font-size: 10px;
         position: absolute;
@@ -44,7 +44,9 @@
         font-size: 1.2em;
         line-height: 25px;
         font-weight: 500;
-        &:focus,&:active,&:hover {
+        &:focus,
+        &:active,
+        &:hover {
             text-decoration: none;
             color: white;
         }
@@ -74,7 +76,7 @@
 }
 
 .profile-info-height {
-    height: 150px
+    height: 150px;
 }
 
 .profile-image {
@@ -83,10 +85,9 @@
     border-radius: 10px;
     float: left;
     margin-right: 15px;
-    box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.13);
+    box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.13);
     object-fit: contain;
 }
-
 
 // add data section
 .add-data-container {
@@ -102,7 +103,8 @@
         color: black;
         width: 45px;
         margin-left: 25px;
-        &:active,&:focus {
+        &:active,
+        &:focus {
             text-decoration: none;
         }
         img {
@@ -112,7 +114,7 @@
             padding: 5px;
             padding-bottom: 0;
             height: 45px;
-            background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(209,209,209,0) 80%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(209, 209, 209, 0) 80%);
         }
         label {
             display: block;
@@ -124,7 +126,7 @@
             font-weight: 700;
             color: rgb(153, 24, 24);
             border: solid 2px rgb(153, 24, 24);
-            background-color: rgba(255,255,255,0.8);
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 5px;
             transform: rotate(-45deg) translate(-28px, 0);
             padding: 0px 5px;
@@ -156,10 +158,10 @@
         text-decoration: none;
         padding: 8px 30px;
         border-radius: 7px;
-        background: linear-gradient(#a0f088,#56da82);
+        background: linear-gradient(#a0f088, #56da82);
         position: relative;
         margin-right: 9px;
-        box-shadow: 3px 3px 8px 1px rgba(0,0,0,0.08);
+        box-shadow: 3px 3px 8px 1px rgba(0, 0, 0, 0.08);
         p {
             color: black;
             font-size: 1.1em;
@@ -174,7 +176,7 @@
             position: absolute;
             right: -5px;
             bottom: -5px;
-            box-shadow: 1px 1px 8px 1px rgba(0,0,0,0.05);
+            box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.05);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -195,13 +197,12 @@
     }
 }
 
-
 // user shopping list and status
 .profile-page-container {
     transform: translate(0, 188px);
     z-index: 20;
     background-color: rgb(255, 255, 255);
-    box-shadow: 0px 5px 30px 3px rgba(0,0,0,0.34);
+    box-shadow: 0px 5px 30px 3px rgba(0, 0, 0, 0.34);
     border-radius: 23px 23px 0px 0px;
 
     padding: 0px;
@@ -212,8 +213,6 @@
 .profile-view-page-container {
     transform: translate(0, 8px);
 }
-
-
 
 #add-button {
     cursor: pointer;
@@ -226,11 +225,11 @@
     width: 65px;
     border: none;
     background: $theme-colour-gradient;
-    box-shadow: 2px 5px 6px 1px rgba(0,0,0,0.12);
+    box-shadow: 2px 5px 6px 1px rgba(0, 0, 0, 0.12);
     color: white;
     padding: 0;
     &:focus {
-        outline:none;
+        outline: none;
     }
     img {
         width: 85px;
@@ -252,7 +251,7 @@
     background: $theme-colour-gradient;
     transform: translate(0px, 100px);
     &:focus {
-        outline:none;
+        outline: none;
     }
     img {
         width: 81px;
@@ -276,7 +275,7 @@
     tr {
         border: solid grey 1px;
         &:nth-child(even) {
-            background-color: rgba(0,0,0,0.025);
+            background-color: rgba(0, 0, 0, 0.025);
         }
     }
     th {
@@ -287,8 +286,6 @@
         padding: 6px;
     }
 }
-
-
 
 // media quires
 
@@ -416,5 +413,4 @@
     .profile-background-image-light {
         top: 50px;
     }
-
 }
