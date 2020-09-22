@@ -281,7 +281,6 @@ nav {
 }
 
 .content-container {
-  max-width: 1600px;
   width: 100vw;
   height: 100vh;
   display: -webkit-box;
@@ -808,6 +807,8 @@ nav {
   width: 20px;
   height: 20px;
   border-radius: 6px;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .status-divider {
@@ -1049,11 +1050,19 @@ body {
   background-color: #daf5dc;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Merriweather', serif;
 }
 
-p, a, b, label {
+p,
+a,
+b,
+label {
   font-family: 'Roboto', sans-serif;
   font-size: 0.9em;
 }
@@ -1077,7 +1086,8 @@ p, a, b, label {
   background: linear-gradient(#17a2b8, #198595);
 }
 
-.btn:focus, .form-control:focus {
+.btn:focus,
+.form-control:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);
           box-shadow: 0 0 0 0.2rem rgba(121, 255, 128, 0.25);
 }
